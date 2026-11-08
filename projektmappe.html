@@ -20,7 +20,7 @@
   <meta name="twitter:title" content="Projektmappe">
   <meta name="twitter:description" content="Alle gemerkten Eingaben der Rechner als Projekt sammeln: Bauvorhaben benennen, Projekte speichern und wechseln, als Datei sichern oder weitergeben, Übersicht mit Links drucken.">
   <meta name="twitter:image" content="https://tools.pr1m3.de/assets/symbol-512.png">
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://tools.pr1m3.de/projektmappe.html#seite","name":"Projektmappe","url":"https://tools.pr1m3.de/projektmappe.html","inLanguage":"de","description":"Alle gemerkten Eingaben der Rechner als Projekt sammeln: Bauvorhaben benennen, Projekte speichern und wechseln, als Datei sichern oder weitergeben, Übersicht mit Links drucken.","isPartOf":{"@type":"WebSite","@id":"https://tools.pr1m3.de/#website","name":"Formeln & Rechner","url":"https://tools.pr1m3.de/"},"breadcrumb":{"@id":"https://tools.pr1m3.de/projektmappe.html#pfad"},"dateModified":"2026-11-05"},{"@type":"BreadcrumbList","@id":"https://tools.pr1m3.de/projektmappe.html#pfad","itemListElement":[{"@type":"ListItem","position":1,"name":"Formeln & Rechner","item":"https://tools.pr1m3.de/"},{"@type":"ListItem","position":2,"name":"Projektmappe","item":"https://tools.pr1m3.de/projektmappe.html"}]}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://tools.pr1m3.de/projektmappe.html#seite","name":"Projektmappe","url":"https://tools.pr1m3.de/projektmappe.html","inLanguage":"de","description":"Alle gemerkten Eingaben der Rechner als Projekt sammeln: Bauvorhaben benennen, Projekte speichern und wechseln, als Datei sichern oder weitergeben, Übersicht mit Links drucken.","isPartOf":{"@type":"WebSite","@id":"https://tools.pr1m3.de/#website","name":"Formeln & Rechner","url":"https://tools.pr1m3.de/"},"breadcrumb":{"@id":"https://tools.pr1m3.de/projektmappe.html#pfad"},"dateModified":"2026-11-06"},{"@type":"BreadcrumbList","@id":"https://tools.pr1m3.de/projektmappe.html#pfad","itemListElement":[{"@type":"ListItem","position":1,"name":"Formeln & Rechner","item":"https://tools.pr1m3.de/"},{"@type":"ListItem","position":2,"name":"Projektmappe","item":"https://tools.pr1m3.de/projektmappe.html"}]}]}</script>
   <!-- /seo -->
   <meta name="theme-color" content="#F1F3F2" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#111214" media="(prefers-color-scheme: dark)">
@@ -122,7 +122,8 @@
       ['dach/gaubenwange.html', 'Gaubenwange bekleiden', '#A0785A', 'gaubenwange-1'], ['dach/dachrinne.html', 'Dachrinne und Fallrohr', '#A0785A'],
       ['dach/kehle-grat.html', 'Kehle und Grat', '#A0785A'], ['dach/schornsteinverwahrung.html', 'Schornsteinverwahrung', '#A0785A'],
       ['dach/schneefang.html', 'Schneefang', '#A0785A'], ['dach/sparren-lattung.html', 'Sparren und Lattung', '#A0785A'],
-      ['protokolle/elektro.html', 'Elektro-Prüfprotokoll', '#6B7785'], ['protokolle/it-sicherheit.html', 'IT-Sicherheitsprotokoll', '#6B7785'], ['protokolle/gefaehrdungsbeurteilung.html', 'Gefährdungsbeurteilung', '#6B7785', 'gefaehrdungsbeurteilung-1']
+      ['protokolle/elektro.html', 'Elektro-Prüfprotokoll', '#6B7785'], ['protokolle/it-sicherheit.html', 'IT-Sicherheitsprotokoll', '#6B7785'], ['protokolle/gefaehrdungsbeurteilung.html', 'Gefährdungsbeurteilung', '#6B7785', 'gefaehrdungsbeurteilung-1'],
+      ['it/homelab.html', 'Homelab-Planer', '#3B5BDB', 'homelab-1']
     ];
     const PROJEKTE = 'projektmappe-1', ANGABEN = 'pdf-angaben', NOTIZ = 'projektmappe-notiz';
     const basis = location.pathname.replace(/[^\/]*$/, '');           // Ordner dieser Seite = Wurzel der Sammlung
@@ -172,7 +173,7 @@
         const kn = document.createElement('span'); kn.className = 'knoepfe';
         const a = document.createElement('a'); a.className = 'knopf'; a.textContent = 'Öffnen';
         // Link nach dem gemeinsamen Muster (#werte=… bzw. #plan=…), geht nicht an den Server
-        const LINKNAME = { 'pv-dachplaner-2': 'dach', 'pv-verschaltung-1': 'plan', 'gasleitung-1': 'anlage', 'brandmeldeanlage-1': 'anlage', 'gefaehrdungsbeurteilung-1': 'plan' };
+        const LINKNAME = { 'pv-dachplaner-2': 'dach', 'pv-verschaltung-1': 'plan', 'gasleitung-1': 'anlage', 'brandmeldeanlage-1': 'anlage', 'gefaehrdungsbeurteilung-1': 'plan', 'homelab-1': 'plan' };
         a.href = v ? Teilen.urlSofort(s[0], 'werte', v) : eigen && LINKNAME[s[3]] ? Teilen.urlSofort(s[0], LINKNAME[s[3]], eigen) : s[0];
         const weg = document.createElement('button'); weg.type = 'button'; weg.className = 'knopf-leise'; weg.textContent = 'zurücksetzen';
         weg.addEventListener('click', function () { schreiben(schluessel(s[0]), null); if (s[3]) schreiben(s[3], null); seitenZeigen(); melden('meldung1', s[1] + ' zurückgesetzt.'); });

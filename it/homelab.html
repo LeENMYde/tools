@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Homelab-Planer: Verkabelung, Rack, VLANs, PoE und USV – Formeln &amp; Rechner</title>
+  <meta name="description" content="Homelab und Heimnetz planen: Geräte mit Ports, jedes Kabel über Patchfeld und Dose, Rack, VLANs und IP-Plan, PoE-Budget, Strom und USV – mit Prüfung, Topologie, Patchliste und Einkaufsliste.">
+  <!-- seo -->
+  <link rel="canonical" href="https://tools.pr1m3.de/it/homelab.html">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Formeln &amp; Rechner">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:title" content="Homelab-Planer: Verkabelung, Rack, VLANs, PoE und USV">
+  <meta property="og:description" content="Homelab und Heimnetz planen: Geräte mit Ports, jedes Kabel über Patchfeld und Dose, Rack, VLANs und IP-Plan, PoE-Budget, Strom und USV – mit Prüfung, Topologie, Patchliste und Einkaufsliste.">
+  <meta property="og:url" content="https://tools.pr1m3.de/it/homelab.html">
+  <meta property="og:image" content="https://tools.pr1m3.de/assets/symbol-512.png">
+  <meta property="og:image:alt" content="Formeln &amp; Rechner">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Homelab-Planer: Verkabelung, Rack, VLANs, PoE und USV">
+  <meta name="twitter:description" content="Homelab und Heimnetz planen: Geräte mit Ports, jedes Kabel über Patchfeld und Dose, Rack, VLANs und IP-Plan, PoE-Budget, Strom und USV – mit Prüfung, Topologie, Patchliste und Einkaufsliste.">
+  <meta name="twitter:image" content="https://tools.pr1m3.de/assets/symbol-512.png">
+  <meta name="keywords" content="Homelab Planer, Heimnetz planen, Netzwerk Verkabelung planen, Patchliste, Rack planen, VLAN Plan, PoE Budget, USV berechnen, Switch Konfiguration, Netzwerkdose Patchfeld">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://tools.pr1m3.de/it/homelab.html#seite","name":"Homelab-Planer: Verkabelung, Rack, VLANs, PoE und USV","url":"https://tools.pr1m3.de/it/homelab.html","inLanguage":"de","description":"Homelab und Heimnetz planen: Geräte mit Ports, jedes Kabel über Patchfeld und Dose, Rack, VLANs und IP-Plan, PoE-Budget, Strom und USV – mit Prüfung, Topologie, Patchliste und Einkaufsliste.","isPartOf":{"@type":"WebSite","@id":"https://tools.pr1m3.de/#website","name":"Formeln & Rechner","url":"https://tools.pr1m3.de/"},"breadcrumb":{"@id":"https://tools.pr1m3.de/it/homelab.html#pfad"},"dateModified":"2026-11-08"},{"@type":"BreadcrumbList","@id":"https://tools.pr1m3.de/it/homelab.html#pfad","itemListElement":[{"@type":"ListItem","position":1,"name":"Formeln & Rechner","item":"https://tools.pr1m3.de/"},{"@type":"ListItem","position":2,"name":"Homelab-Planer: Verkabelung, Rack, VLANs, PoE und USV","item":"https://tools.pr1m3.de/it/homelab.html"}]},{"@type":"WebApplication","@id":"https://tools.pr1m3.de/it/homelab.html#anwendung","name":"Homelab-Planer: Verkabelung, Rack, VLANs, PoE und USV","url":"https://tools.pr1m3.de/it/homelab.html","description":"Homelab und Heimnetz planen: Geräte mit Ports, jedes Kabel über Patchfeld und Dose, Rack, VLANs und IP-Plan, PoE-Budget, Strom und USV – mit Prüfung, Topologie, Patchliste und Einkaufsliste.","inLanguage":"de","applicationCategory":"DesignApplication","operatingSystem":"Alle mit aktuellem Webbrowser","browserRequirements":"JavaScript","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"publisher":{"@id":"https://tools.pr1m3.de/#herausgeber"},"mainEntityOfPage":{"@id":"https://tools.pr1m3.de/it/homelab.html#seite"},"featureList":["Geräte mit Ports, PoE und Leistung","Kabel von Port zu Port über Patchfeld und Netzwerkdose","Prüfung von Länge, Geschwindigkeit, Steckern, PoE, Schleifen und Adressen","Topologie, Rack-Ansicht und Strombilanz","VLAN-Port-Konfiguration und IP-Plan","Patchliste als CSV und Einkaufsliste"],"keywords":"Homelab Planer, Heimnetz planen, Netzwerk Verkabelung planen, Patchliste, Rack planen, VLAN Plan, PoE Budget, USV berechnen, Switch Konfiguration, Netzwerkdose Patchfeld","image":"https://tools.pr1m3.de/assets/symbol-512.png"},{"@type":"Organization","@id":"https://tools.pr1m3.de/#herausgeber","name":"Formeln & Rechner","url":"https://tools.pr1m3.de/","logo":"https://tools.pr1m3.de/assets/symbol-512.png"},{"@type":"FAQPage","@id":"https://tools.pr1m3.de/it/homelab.html#fragen","mainEntity":[{"@type":"Question","name":"Wie lang darf ein Netzwerkkabel sein?","acceptedAnswer":{"@type":"Answer","text":"Ein Kupfer-Kanal von Gerät zu Gerät darf nach DIN EN 50173 höchstens 100 m lang sein, davon höchstens 90 m fest verlegtes Kabel und zusammen 10 m Patchkabel an beiden Enden. 10 Gbit/s schafft Cat 6 nur bis etwa 55 m, Cat 6A und besser die vollen 100 m."}},{"@type":"Question","name":"Welches Kabel für 2,5 und 10 Gbit/s?","acceptedAnswer":{"@type":"Answer","text":"2,5 und 5 Gbit/s (NBASE-T) laufen über Cat 5e und Cat 6 bis 100 m. Für 10 Gbit/s Kupfer ist Cat 6A die sichere Wahl; im Rack sind Direktanschlusskabel (DAC) oder Glasfaser mit SFP+-Modulen sparsamer und kühler."}},{"@type":"Question","name":"Wie viel PoE braucht ein Access Point?","acceptedAnswer":{"@type":"Answer","text":"Kleine Access Points kommen mit PoE nach 802.3af (bis 12,95 W am Gerät) aus, schnelle Wi-Fi-6/7-Modelle brauchen meist 802.3at (25,5 W) oder mehr. Der Switch hat ein Gesamtbudget – die Summe aller PoE-Geräte darf es nicht überschreiten."}},{"@type":"Question","name":"Wozu VLANs im Heimnetz?","acceptedAnswer":{"@type":"Answer","text":"VLANs trennen Netze auf denselben Kabeln: zum Beispiel Server, Heimgeräte, Gäste und das IoT getrennt, damit eine unsichere Kamera nicht auf den NAS kommt. Der Router regelt mit Firewall-Regeln, wer wohin darf. Switches müssen VLAN-fähig (managed) sein."}},{"@type":"Question","name":"Wie groß muss die USV sein?","acceptedAnswer":{"@type":"Answer","text":"Die Wirkleistung aller angeschlossenen Geräte muss unter der Watt-Angabe und die Scheinleistung unter der VA-Angabe der USV liegen, am besten mit 20 bis 30 % Reserve. Die Laufzeit hängt von der Akkuenergie und der Last ab: halbe Last ergibt meist mehr als die doppelte Laufzeit."}}],"isPartOf":{"@id":"https://tools.pr1m3.de/it/homelab.html#seite"}}]}</script>
+  <!-- /seo -->
+  <meta name="theme-color" content="#F1F3F2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111214" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="icon" href="../favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="../assets/symbol-apple.png">
+  <link rel="stylesheet" href="../assets/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/stil.css">
+  <link rel="stylesheet" href="../assets/rechner.css">
+  <script src="../assets/basis.js"></script>
+  <style>
+    .reiter-leiste { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 4px; }
+    .reiter-leiste button { border: 1.5px solid var(--linie); border-radius: 999px; background: var(--flaeche); color: var(--text); padding: 7px 14px; font: inherit; font-size: .92rem; cursor: pointer; }
+    .reiter-leiste button[aria-pressed="true"] { background: var(--text); color: var(--grund); border-color: var(--text); }
+    .raster { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px 12px; margin: 8px 0 4px; }
+    .raster label { display: flex; flex-direction: column; gap: 2px; font-size: .8rem; color: var(--leise); min-width: 0; }
+    .raster label.breit { grid-column: 1 / -1; }
+    .raster input, .raster select { padding: 7px 9px; border: 1.5px solid var(--linie); border-radius: var(--rund-klein); background: var(--flaeche); color: var(--text); font: inherit; font-size: .98rem; min-width: 0; width: 100%; }
+    .raster input.mono, .mono { font-family: ui-monospace, Menlo, Consolas, monospace; }
+    .raster input.falsch { border-color: var(--fehler); background: var(--fehler-flaeche); }
+    .raster input[type="range"] { padding: 0; border: none; accent-color: #3B5BDB; }
+    .bild { display: block; width: 100%; border-radius: var(--rund); background: var(--flaeche2); }
+    .schritte { list-style: none; margin: 10px 0 0; padding: 0; counter-reset: s; }
+    .schritte li { counter-increment: s; position: relative; padding: 9px 10px 9px 42px; border-radius: var(--rund); margin: 4px 0; cursor: pointer; border: 1px solid transparent; }
+    .schritte li::before { content: counter(s); position: absolute; left: 10px; top: 9px; width: 22px; height: 22px; border-radius: 50%; background: var(--linie); color: var(--text); font-size: .8rem; font-weight: 700; display: grid; place-items: center; }
+    .schritte li.aktiv { background: var(--flaeche2); border-color: var(--linie); }
+    .schritte li.aktiv::before { background: #3B5BDB; color: #FFFFFF; }
+    .schritte li.fertig::before { content: '✓'; background: #2E8B57; color: #FFFFFF; }
+    .schritte b { display: block; font-family: var(--technik); }
+    .schritte span { font-size: .9rem; color: var(--leise); }
+    .stepper { display: flex; gap: 8px; align-items: center; margin: 10px 0; flex-wrap: wrap; }
+    .stepper .status { color: var(--leise); font-size: .9rem; }
+    .bereich { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 18px; margin-top: 14px; align-items: start; }
+    @media (max-width: 960px) { .bereich { grid-template-columns: minmax(0, 1fr); } .bereich > .bild-tafel { order: -1; } }
+    @media print { .reiter-leiste, .stepper { display: none !important; } .bereich { display: block; } .bild { max-height: 100mm; width: auto; max-width: 100%; } }
+    .planer { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 18px; margin-top: 18px; align-items: start; }
+    @media (max-width: 1000px) { .planer { grid-template-columns: minmax(0, 1fr); } .planer > .bild-tafel { order: -1; } }
+    .bild-tafel { position: sticky; top: 12px; }
+    @media (max-width: 1000px) { .bild-tafel { position: static; } }
+    .raster.eng { grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); }
+    .geraet, .kabel-zeile, .vlan-zeile { border: 1px solid var(--linie); border-radius: var(--rund); background: var(--flaeche2); margin: 8px 0; }
+    .geraet > summary { cursor: pointer; padding: 8px 10px; display: flex; gap: 8px; align-items: center; list-style: none; }
+    .geraet > summary::-webkit-details-marker { display: none; }
+    .geraet > summary .punkt { width: 12px; height: 12px; border-radius: 3px; flex: none; }
+    .geraet > summary .titel { font-family: var(--technik); font-weight: 600; flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .geraet > summary .klein { font-size: .78rem; color: var(--leise); white-space: nowrap; }
+    .geraet > summary .warn { color: var(--fehler); font-weight: 700; }
+    .geraet[open] > summary { border-bottom: 1px solid var(--linie); }
+    .geraet.gewaehlt { border-color: #3B5BDB; box-shadow: 0 0 0 2px rgba(59, 91, 219, .25); }
+    .geraet-innen { padding: 4px 10px 10px; }
+    .ports { width: 100%; border-collapse: collapse; font-size: .85rem; margin: 6px 0; }
+    .ports th { text-align: left; font-weight: 500; color: var(--leise); font-size: .75rem; padding: 2px 4px; }
+    .ports td { padding: 2px 4px; }
+    .ports select, .ports input { width: 100%; padding: 5px 6px; border: 1.5px solid var(--linie); border-radius: var(--rund-klein); background: var(--flaeche); color: var(--text); font: inherit; font-size: .85rem; min-width: 0; }
+    .weg-k { border: 1px solid var(--linie); background: var(--flaeche); color: var(--fehler); border-radius: 999px; width: 28px; height: 28px; cursor: pointer; flex: none; }
+    .kabel-zeile { padding: 8px 10px; }
+    .kabel-kopf { display: flex; gap: 8px; align-items: center; justify-content: space-between; font-family: var(--technik); font-weight: 600; font-size: .92rem; }
+    .kabel-kopf .info { font-family: inherit; font-weight: 500; font-size: .8rem; color: var(--leise); flex: 1 1 auto; min-width: 0; }
+    .kabel-kopf .farbe { width: 22px; height: 8px; border-radius: 4px; flex: none; }
+    .kabel-zeile .raster { grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); margin: 6px 0 0; }
+    .kabel-zeile.fehler { border-color: var(--fehler); }
+    .vlan-zeile { padding: 8px 10px; }
+    .vlan-zeile .raster { margin: 0; }
+    .werkzeug-leiste { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 10px 0; }
+    .werkzeug-leiste.trenner { border-top: 1px solid var(--linie); padding-top: 12px; margin-top: 14px; }
+    .werkzeug-leiste select { padding: 6px 10px; border-radius: 999px; border: 1.5px solid var(--linie); background: var(--flaeche); color: var(--text); font: inherit; font-size: .9rem; max-width: 100%; }
+    .datei-knopf { position: relative; overflow: hidden; display: inline-flex; align-items: center; cursor: pointer; }
+    .datei-knopf input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+    .datei-knopf:focus-within { outline: 2px solid var(--text); outline-offset: 2px; }
+    .status { font-size: .9rem; color: var(--leise); min-height: 1.4em; margin: 0; }
+    .teilen-meldung { font-size: .85rem; color: var(--leise); }
+    #bild { cursor: pointer; touch-action: manipulation; }
+    .meldungen .hinweis { margin: 6px 0; }
+    .hinweis.ok { border-color: var(--ergebnis); }
+    .port-switch { margin: 14px 0 6px; font-size: 1rem; font-family: var(--technik); }
+    .tabelle td.ok { color: var(--ergebnis); font-weight: 600; }
+    .tabelle td.nok { color: var(--fehler); font-weight: 600; }
+    .tabelle tr.zeile-fehler td { color: var(--fehler); }
+    .vlan-chip { display: inline-block; padding: 0 6px; border-radius: 999px; font-size: .78rem; color: #FFFFFF; margin: 1px 2px 1px 0; }
+    .kein-umbruch { white-space: nowrap; }
+    .unterkopf { margin: 10px 0 2px; font-size: .85rem; font-weight: 600; font-family: var(--technik); }
+    .raum-zeile { display: flex; justify-content: space-between; gap: 8px; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--linie); font-size: .9rem; }
+    [hidden] { display: none !important; }
+    @media print {
+      .planer { display: block; }
+      .einstellungen, .werkzeug-leiste, .status, #ansichten, #bildHilfe, .kein-druck { display: none !important; }
+      .bild-tafel { position: static; }
+      #bild { max-height: 120mm; width: auto; max-width: 100%; }
+    }
+    .raeume-wahl { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: .85rem; margin: 4px 0; }
+    .raeume-wahl label { display: inline-flex; gap: 5px; align-items: center; color: var(--text); }
+    .tabelle tr.zeile-kopf td { font-weight: 700; background: var(--flaeche2); }
+    .tabelle tr.zeile-summe td { font-weight: 700; border-top: 2px solid var(--linie); }
+  </style>
+</head>
+
+<body>
+  <div id="seitenkopf" data-wurzel="../"></div>
+
+  <main class="seite">
+    <section class="held">
+      <h1><span class="unterstrichen">Homelab-Planer</span></h1>
+      <p>Das ganze Heimnetz an einem Ort planen: Geräte mit ihren Ports, jedes Kabel von Port zu Port über Patchfeld und Netzwerkdose, Rack-Belegung, VLANs und IP-Adressen, PoE-Budget, Stromverbrauch und USV. Der Planer prüft Kabellängen, Geschwindigkeiten, Steckverbindungen und PoE, zeichnet Topologie und Rack und erzeugt Patchliste, Switch-Konfiguration und Einkaufsliste.</p>
+    </section>
+
+    <div class="planer">
+      <section class="tafel einstellungen" aria-labelledby="h-ein">
+        <h2 id="h-ein">Planung</h2>
+        <p class="hilfe">Alles wird in diesem Browser gespeichert. Längen in Metern, Leistungen in Watt.</p>
+        <div class="reiter-leiste" role="tablist" aria-label="Bereiche der Planung" id="reiter">
+          <button type="button" role="tab" data-r="geraete" aria-pressed="true">Geräte</button>
+          <button type="button" role="tab" data-r="kabel" aria-pressed="false">Kabel</button>
+          <button type="button" role="tab" data-r="raeume" aria-pressed="false">Räume und Dosen</button>
+          <button type="button" role="tab" data-r="netz" aria-pressed="false">VLANs</button>
+          <button type="button" role="tab" data-r="allgemein" aria-pressed="false">Rack und Strom</button>
+        </div>
+        <div class="feld-reiter" data-r="geraete">
+          <div class="werkzeug-leiste"><select id="neuTyp" aria-label="Art des neuen Geräts"></select><button type="button" class="knopf" id="neuGeraet">+ Gerät</button></div>
+          <div id="geraete"></div>
+        </div>
+        <div class="feld-reiter" data-r="kabel" hidden>
+          <p class="hilfe">Jedes Kabel verbindet zwei Ports. Patchfeld und Dose leiten durch: vorne Patchkabel, hinten Verlegekabel. Belegte Ports sind in der Auswahl markiert.</p>
+          <div class="werkzeug-leiste"><button type="button" class="knopf" id="neuKabel">+ Kabel</button><button type="button" class="knopf-leise" id="autoAnschluss">Offene Geräte automatisch anschließen</button></div>
+          <div id="kabel"></div>
+        </div>
+        <div class="feld-reiter" data-r="raeume" hidden>
+          <p class="hilfe">Legt für einen Raum eine Netzwerkdose an und verbindet jeden Anschluss mit einem freien Port eines Patchfelds (Verlegekabel). Danach ist alles wie jedes andere Gerät und Kabel änderbar.</p>
+          <div class="raster" id="raumNeu"></div>
+          <div class="werkzeug-leiste"><button type="button" class="knopf" id="raumAnlegen">+ Raum mit Dose verkabeln</button></div>
+          <div id="raumListe"></div>
+        </div>
+        <div class="feld-reiter" data-r="netz" hidden>
+          <p class="hilfe">Jedes Gerät steht in einem VLAN (Netz). Router bekommen in jedem VLAN die erste Adresse, Netzwerkgeräte ab .2, Server ab .10, feste Endgeräte ab .50, DHCP ab .100.</p>
+          <div id="vlans"></div>
+          <div class="werkzeug-leiste"><button type="button" class="knopf" id="neuVlan">+ VLAN</button></div>
+        </div>
+        <div class="feld-reiter" data-r="allgemein" hidden>
+          <div class="raster" id="allgemein"></div>
+        </div>
+        <div class="werkzeug-leiste trenner">
+          <button type="button" class="knopf-leise" id="beispiel">Beispiel laden</button>
+          <button type="button" class="knopf-leise" id="leer">Neu beginnen</button>
+          <button type="button" class="knopf-leise" id="teilen">Link kopieren</button>
+          <button type="button" class="knopf-leise" id="dateiSpeichern">Als Datei speichern</button>
+          <label class="knopf-leise datei-knopf">Datei laden<input type="file" id="dateiLaden" accept=".json,application/json"></label>
+          <span class="teilen-meldung" id="teilenMeldung" aria-live="polite"></span>
+        </div>
+        <p class="status" id="status" aria-live="polite"></p>
+      </section>
+
+      <section class="tafel bild-tafel" aria-labelledby="h-bild">
+        <div class="kopf-zeile"><h2 id="h-bild">Ansicht</h2><span class="urteil" id="urteil"></span></div>
+        <div class="reiter-leiste" id="ansichten" role="tablist" aria-label="Ansicht">
+          <button type="button" data-a="topo" aria-pressed="true">Topologie</button>
+          <button type="button" data-a="rack" aria-pressed="false">Rack</button>
+          <button type="button" data-a="strom" aria-pressed="false">Strom</button>
+        </div>
+        <canvas id="bild" class="bild" role="img" aria-label="Zeichnung des Heimnetzes"></canvas>
+        <p class="hilfe" id="bildHilfe">Ein Gerät antippen, um es zu bearbeiten. Linienstärke und Beschriftung zeigen die erreichbare Geschwindigkeit, ⚡ markiert PoE.</p>
+        <div class="kacheln" id="kacheln"></div>
+      </section>
+    </div>
+
+    <section class="tafel abstand" aria-labelledby="h-pruef">
+      <div class="kopf-zeile"><h2 id="h-pruef">Prüfung</h2><span class="urteil" id="urteil2"></span></div>
+      <div class="meldungen" id="meldungen"></div>
+    </section>
+
+    <section class="tafel abstand" aria-labelledby="h-patch">
+      <div class="kopf-zeile"><h2 id="h-patch">Patchliste</h2><button type="button" class="knopf-leise kein-druck" id="csv">Als CSV speichern</button></div>
+      <p class="hilfe">Jede Strecke von Gerät zu Gerät mit allen Kabeln dazwischen. Die Kabelnummer gehört als Etikett an beide Enden.</p>
+      <div class="rahmen"><div id="patchliste"></div></div>
+    </section>
+
+    <section class="tafel abstand" aria-labelledby="h-ports">
+      <h2 id="h-ports">Port-Konfiguration der Switches und Router</h2>
+      <p class="hilfe">Aus den VLANs der angeschlossenen Geräte berechnet: Endgeräte bekommen ihr VLAN ungetaggt (Access-Port), Verbindungen zu Switches, Routern und Access Points führen alle dahinter benötigten VLANs getaggt (Trunk).</p>
+      <div id="portKonfig"></div>
+    </section>
+
+    <section class="tafel abstand" aria-labelledby="h-ip">
+      <h2 id="h-ip">IP-Plan</h2>
+      <div class="rahmen"><div id="ipPlan"></div></div>
+    </section>
+
+    <section class="tafel abstand" aria-labelledby="h-strom">
+      <h2 id="h-strom">Strom, PoE und USV</h2>
+      <div class="rahmen"><div id="stromTabelle"></div></div>
+      <ol class="weg" id="weg"></ol>
+    </section>
+
+    <section class="tafel abstand" aria-labelledby="h-liste">
+      <h2 id="h-liste">Einkaufsliste</h2>
+      <p class="hilfe">Verlegekabel mit Reserve, Patchkabel auf handelsübliche Längen aufgerundet, Module und Kleinteile. Ohne Geräte, die du schon in der Liste geplant hast.</p>
+      <div class="rahmen"><div id="stueckliste"></div></div>
+    </section>
+
+    <section class="tafel abstand formelsammlung" aria-labelledby="h-formeln">
+      <h2 id="h-formeln">Formelsammlung und Grundlagen</h2>
+      <div id="sammlung"></div>
+      <p class="quellen">DIN EN 50173-1 / ISO/IEC 11801-1 (anwendungsneutrale Verkabelung: Kanal höchstens 100 m, davon höchstens 90 m fest verlegt), DIN EN 50174-2 (Installation, Abstände zu Stromleitungen), IEEE 802.3 (Ethernet: 2.5GBASE-T und 5GBASE-T nach 802.3bz, 10GBASE-T nach 802.3an, PoE nach 802.3af, 802.3at und 802.3bt), IEEE 802.1Q (VLAN), RFC 1918 (private Adressbereiche), DIN EN IEC 62040-3 (USV). Reichweiten für Glasfaser nach IEEE 802.3ae und 802.3by. Laufzeit der USV als Näherung; die Herstellerkurve des Geräts ist genauer. Zum Nachrechnen einzelner Teile: <a href="subnetz.html">Subnetzrechner</a>, <a href="netzwerkkabel-poe.html">Netzwerkkabel und PoE</a>, <a href="usv.html">USV</a>, <a href="serverraum-klima.html">Serverraum-Klima</a>.</p>
+    </section>
+
+    <section class="tafel abstand seo-info" aria-labelledby="h-faq">
+      <h2 id="h-faq">Häufige Fragen</h2>
+      <div class="faq">
+        <details><summary>Wie lang darf ein Netzwerkkabel sein?</summary><p>Ein Kupfer-Kanal von Gerät zu Gerät darf nach DIN EN 50173 höchstens 100 m lang sein, davon höchstens 90 m fest verlegtes Kabel und zusammen 10 m Patchkabel an beiden Enden. 10 Gbit/s schafft Cat 6 nur bis etwa 55 m, Cat 6A und besser die vollen 100 m.</p></details>
+        <details><summary>Welches Kabel für 2,5 und 10 Gbit/s?</summary><p>2,5 und 5 Gbit/s (NBASE-T) laufen über Cat 5e und Cat 6 bis 100 m. Für 10 Gbit/s Kupfer ist Cat 6A die sichere Wahl; im Rack sind Direktanschlusskabel (DAC) oder Glasfaser mit SFP+-Modulen sparsamer und kühler.</p></details>
+        <details><summary>Wie viel PoE braucht ein Access Point?</summary><p>Kleine Access Points kommen mit PoE nach 802.3af (bis 12,95 W am Gerät) aus, schnelle Wi-Fi-6/7-Modelle brauchen meist 802.3at (25,5 W) oder mehr. Der Switch hat ein Gesamtbudget – die Summe aller PoE-Geräte darf es nicht überschreiten.</p></details>
+        <details><summary>Wozu VLANs im Heimnetz?</summary><p>VLANs trennen Netze auf denselben Kabeln: zum Beispiel Server, Heimgeräte, Gäste und das IoT getrennt, damit eine unsichere Kamera nicht auf den NAS kommt. Der Router regelt mit Firewall-Regeln, wer wohin darf. Switches müssen VLAN-fähig (managed) sein.</p></details>
+        <details><summary>Wie groß muss die USV sein?</summary><p>Die Wirkleistung aller angeschlossenen Geräte muss unter der Watt-Angabe und die Scheinleistung unter der VA-Angabe der USV liegen, am besten mit 20 bis 30 % Reserve. Die Laufzeit hängt von der Akkuenergie und der Last ab: halbe Last ergibt meist mehr als die doppelte Laufzeit.</p></details>
+      </div>
+    </section>
+  </main>
+
+  <div id="seitenfuss" data-wurzel="../"></div>
+
+  <script src="../assets/katex/katex.min.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    const bewegungAus = false;
+    const $ = function (id) { return document.getElementById(id); };
+    function zahl(w, n) { if (typeof w !== 'number' || !isFinite(w)) return '–'; const p = Math.pow(10, n || 0); const t = (Math.round(w * p) / p).toFixed(n || 0).replace('.', ',').split(','); t[0] = t[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' '); return t.join(','); }
+    function tz(w, n) { return Formel.zahl(zahl(w, n)); }
+    function E(t) { return '\\htmlClass{ergebnis}{' + t + '}'; }
+    function f(n) { return Thema.farbe(n); }
+    function knoten(tag, klasse, text) { const k = document.createElement(tag); if (klasse) k.className = klasse; if (text !== undefined) k.textContent = text; return k; }
+    function leinwand(c, hoehe) {
+      const d = window.devicePixelRatio || 1, w = Math.max(240, c.parentNode.clientWidth), h = Math.round(hoehe(w));
+      if (c.width !== Math.round(w * d) || c.height !== Math.round(h * d)) { c.width = Math.round(w * d); c.height = Math.round(h * d); c.style.height = h + 'px'; }
+      const cx = c.getContext('2d'); cx.setTransform(d, 0, 0, d, 0, 0); return { cx: cx, w: w, h: h };
+    }
+    function txt(cx, t, x, y, o) { o = o || {}; cx.fillStyle = o.f || f('--text'); cx.font = (o.b ? '700 ' : '500 ') + Math.round(o.g || 12) + 'px ' + (o.mono ? 'ui-monospace, Menlo, Consolas, monospace' : (f('--technik') || 'sans-serif')); cx.textAlign = o.a || 'center'; cx.textBaseline = 'middle'; cx.fillText(t, x, y); }
+    function rund(cx, x, y, w, h, r) { r = Math.max(0, Math.min(r, w / 2, h / 2)); cx.beginPath(); cx.moveTo(x + r, y); cx.arcTo(x + w, y, x + w, y + h, r); cx.arcTo(x + w, y + h, x, y + h, r); cx.arcTo(x, y + h, x, y, r); cx.arcTo(x, y, x + w, y, r); cx.closePath(); }
+    function kasten(cx, x, y, w, h, r, fuell, rand, lw) { rund(cx, x, y, w, h, r); if (fuell) { cx.fillStyle = fuell; cx.fill(); } if (rand) { cx.strokeStyle = rand; cx.lineWidth = lw || 1.2; cx.stroke(); } }
+    function strich(cx, pts, farbe, w, dash) { cx.strokeStyle = farbe; cx.lineWidth = w; cx.lineJoin = 'round'; cx.lineCap = 'round'; cx.setLineDash(dash || []); cx.beginPath(); pts.forEach(function (q, i) { if (i) cx.lineTo(q[0], q[1]); else cx.moveTo(q[0], q[1]); }); cx.stroke(); cx.setLineDash([]); }
+    function kreis(cx, x, y, r, fuell, rand, lw) { cx.beginPath(); cx.arc(x, y, Math.max(0.1, r), 0, 2 * Math.PI); if (fuell) { cx.fillStyle = fuell; cx.fill(); } if (rand) { cx.strokeStyle = rand; cx.lineWidth = lw || 1.5; cx.stroke(); } }
+    function pfeil(cx, a, b, farbe, w) { strich(cx, [a, b], farbe, w || 2); const an = Math.atan2(b[1] - a[1], b[0] - a[0]), k = 8; cx.fillStyle = farbe; cx.beginPath(); cx.moveTo(b[0], b[1]); cx.lineTo(b[0] - k * Math.cos(an - 0.4), b[1] - k * Math.sin(an - 0.4)); cx.lineTo(b[0] - k * Math.cos(an + 0.4), b[1] - k * Math.sin(an + 0.4)); cx.closePath(); cx.fill(); }
+    // Ergebnis-Bausteine
+    function meldungen(ziel, liste) { ziel.innerHTML = ''; liste.forEach(function (m) { ziel.append(knoten('div', 'hinweis' + (m[1] ? ' fehler' : ''), m[0])); }); }
+    function kacheln(ziel, liste) { ziel.innerHTML = ''; liste.forEach(function (q) { if (!q) return; const d = knoten('div', 'kachel'); d.style.setProperty('--farbe', q[2] || 'var(--linie)'); d.append(knoten('div', 'wert', q[0]), knoten('small', '', q[1])); ziel.append(d); }); }
+    function wegZeigen(ziel, liste) { ziel.innerHTML = ''; liste.forEach(function (q) { if (!q) return; const li = knoten('li'), r = knoten('div', 'rechnung'); Formel.setze(r, q[1], true); li.append(knoten('div', 'titel', q[0]), r); ziel.append(li); }); }
+    function sammlung(ziel, liste) { liste.forEach(function (q) { const s = knoten('section'), fo = knoten('div', 'formelblock'); Formel.setze(fo, q[1], true); s.append(knoten('h3', '', q[0]), fo, knoten('p', '', q[2])); ziel.append(s); }); }
+    function tabelle(ziel, kopf, zeilen, opt) {
+      opt = opt || {}; ziel.innerHTML = '';
+      const t = knoten('table', 'tabelle'), tr0 = knoten('tr');
+      kopf.forEach(function (k, i) { tr0.append(knoten('th', (opt.zahl || []).indexOf(i) >= 0 ? 'zahl' : '', k)); }); t.append(tr0);
+      zeilen.forEach(function (z, j) { const tr = knoten('tr', opt.klasse ? opt.klasse(j) || '' : ''); z.forEach(function (w, i) { tr.append(knoten('td', ((opt.zahl || []).indexOf(i) >= 0 ? 'zahl' : '') + (opt.mono && opt.mono.indexOf(i) >= 0 ? ' mono' : ''), w)); }); t.append(tr); });
+      ziel.append(t);
+    }
+    // ===================== Homelab-Planer =====================
+    const SPEICHER = 'homelab-1';
+    // ---------- Stammdaten ----------
+    const SPEEDS = [100, 1000, 2500, 5000, 10000, 25000, 40000];
+    function sp(s) { return s >= 1000 ? zahl(s / 1000, s % 1000 ? 1 : 0) + 'G' : s ? s + 'M' : '–'; }
+    function spLang(s) { return s >= 1000 ? zahl(s / 1000, s % 1000 ? 1 : 0) + ' Gbit/s' : s + ' Mbit/s'; }
+    const POE = {
+      nein: { name: 'kein PoE', stufe: 0, pse: 0, pd: 0 },
+      af: { name: 'PoE (802.3af)', stufe: 1, pse: 15.4, pd: 12.95 },
+      at: { name: 'PoE+ (802.3at)', stufe: 2, pse: 30, pd: 25.5 },
+      bt: { name: 'PoE++ (802.3bt)', stufe: 3, pse: 90, pd: 71.3 }
+    };
+    // Reichweite: [Geschwindigkeit in Mbit/s, größte Länge in m]
+    const KABEL = {
+      cat5e: { name: 'Cat 5e', medium: 'cu', reich: [[100, 100], [1000, 100], [2500, 100], [5000, 100]] },
+      cat6: { name: 'Cat 6', medium: 'cu', reich: [[100, 100], [1000, 100], [2500, 100], [5000, 100], [10000, 55]] },
+      cat6a: { name: 'Cat 6A', medium: 'cu', reich: [[100, 100], [1000, 100], [2500, 100], [5000, 100], [10000, 100]] },
+      cat7: { name: 'Cat 7', medium: 'cu', reich: [[100, 100], [1000, 100], [2500, 100], [5000, 100], [10000, 100]] },
+      cat8: { name: 'Cat 8.1', medium: 'cu', reich: [[100, 100], [1000, 100], [2500, 100], [5000, 100], [10000, 100], [25000, 30], [40000, 30]] },
+      om3: { name: 'Glasfaser OM3', medium: 'lwl', reich: [[1000, 550], [10000, 300], [25000, 70]] },
+      om4: { name: 'Glasfaser OM4', medium: 'lwl', reich: [[1000, 550], [10000, 400], [25000, 100]] },
+      os2: { name: 'Glasfaser OS2', medium: 'lwl', reich: [[1000, 10000], [10000, 10000], [25000, 10000]] },
+      dac: { name: 'DAC (Direktkabel)', medium: 'dac', reich: [[1000, 7], [10000, 7], [25000, 5]] }
+    };
+    const KFARBEN = { grau: ['grau', '#9AA3AB'], blau: ['blau', '#3B5BDB'], gelb: ['gelb', '#F2C94C'], gruen: ['grün', '#2F9E44'], rot: ['rot', '#E03131'], orange: ['orange', '#F08C00'], schwarz: ['schwarz', '#343A40'], weiss: ['weiß', '#E9ECEF'], lila: ['lila', '#7048E8'], tuerkis: ['türkis', '#15AABF'] };
+    const VFARBEN = ['#6B7785', '#3B5BDB', '#2F9E44', '#F08C00', '#E03131', '#7048E8', '#15AABF', '#C2255C', '#5C940D', '#1971C2', '#E8590C', '#495057'];
+    // Gerätearten: Ports [Art, Mbit/s, Anzahl, PoE], Leistung [typisch, max], Rolle für IP und Topologie
+    const TYP = {
+      modem: { name: 'Modem / Glasfaser-ONT', farbe: '#6B7785', rolle: 'wan', pg: [['rj45', 1000, 1, 'nein']], w: [8, 12], he: 0, ip: 'ohne' },
+      router: { name: 'Router / Firewall', farbe: '#E8590C', rolle: 'router', pg: [['rj45', 2500, 4, 'nein']], w: [12, 25], he: 1, ip: 'auto' },
+      switch: { name: 'Switch', farbe: '#3B5BDB', rolle: 'switch', pg: [['rj45', 1000, 8, 'nein']], w: [4, 8], he: 0, ip: 'auto' },
+      poeswitch: { name: 'PoE-Switch', farbe: '#1971C2', rolle: 'switch', pg: [['rj45', 2500, 16, 'at'], ['sfp', 10000, 2, 'nein']], w: [18, 35], he: 1, ip: 'auto', budget: 180 },
+      server: { name: 'Server', farbe: '#2F9E44', rolle: 'server', pg: [['rj45', 1000, 2, 'nein'], ['sfp', 10000, 2, 'nein']], w: [70, 180], he: 2, ip: 'auto' },
+      nas: { name: 'NAS', farbe: '#5C940D', rolle: 'server', pg: [['rj45', 2500, 2, 'nein']], w: [25, 45], he: 0, ip: 'auto' },
+      minipc: { name: 'Mini-PC', farbe: '#37B24D', rolle: 'server', pg: [['rj45', 2500, 1, 'nein']], w: [8, 35], he: 0, ip: 'auto' },
+      sbc: { name: 'Einplatinenrechner', farbe: '#74B816', rolle: 'server', pg: [['rj45', 1000, 1, 'nein']], w: [3, 7], he: 0, ip: 'auto' },
+      ap: { name: 'Access Point (WLAN)', farbe: '#15AABF', rolle: 'ap', pg: [['rj45', 2500, 1, 'nein']], w: [12, 18], he: 0, ip: 'auto', pd: 'at' },
+      kamera: { name: 'Kamera', farbe: '#C2255C', rolle: 'iot', pg: [['rj45', 100, 1, 'nein']], w: [4, 7], he: 0, ip: 'dhcp', pd: 'af' },
+      pc: { h: 8, name: 'PC / Workstation', farbe: '#7048E8', rolle: 'client', pg: [['rj45', 2500, 1, 'nein']], w: [60, 250], he: 0, ip: 'dhcp' },
+      tv: { h: 5, name: 'Fernseher / Konsole', farbe: '#9775FA', rolle: 'client', pg: [['rj45', 1000, 1, 'nein']], w: [70, 160], he: 0, ip: 'dhcp' },
+      iot: { name: 'Smart-Home-Zentrale', farbe: '#E64980', rolle: 'iot', pg: [['rj45', 100, 1, 'nein']], w: [3, 5], he: 0, ip: 'dhcp' },
+      drucker: { h: 24, name: 'Drucker', farbe: '#868E96', rolle: 'client', pg: [['rj45', 100, 1, 'nein']], w: [4, 30], he: 0, ip: 'dhcp' },
+      usv: { name: 'USV', farbe: '#F59F00', rolle: 'usv', pg: [['rj45', 100, 1, 'nein']], w: [12, 20], he: 2, ip: 'auto', usv: [1500, 900, 260] },
+      patchpanel: { name: 'Patchfeld', farbe: '#495057', rolle: 'passiv', pg: [['rj45', 10000, 24, 'nein']], w: [0, 0], he: 1, ip: 'ohne' },
+      dose: { name: 'Netzwerkdose', farbe: '#ADB5BD', rolle: 'passiv', pg: [['rj45', 10000, 2, 'nein']], w: [0, 0], he: 0, ip: 'ohne' },
+      fachboden: { name: 'Fachboden', farbe: '#CED4DA', rolle: 'zubehoer', pg: [], w: [0, 0], he: 1, ip: 'ohne' },
+      kabelfuehrung: { name: 'Kabelführung', farbe: '#CED4DA', rolle: 'zubehoer', pg: [], w: [0, 0], he: 1, ip: 'ohne' }
+    };
+    const INFRA = ['router', 'switch', 'ap'];
+    function passiv(g) { return TYP[g.typ].rolle === 'passiv'; }
+    function aktiv(g) { const r = TYP[g.typ].rolle; return r !== 'passiv' && r !== 'zubehoer'; }
+
+    // ---------- Beispiel ----------
+    let zaehler = 0;
+    function neueId(v) { zaehler++; return v + Date.now().toString(36).slice(-4) + zaehler.toString(36); }
+    function geraet(typ, name, o) {
+      const t = TYP[typ], g = { id: o && o.id || neueId('g'), typ: typ, name: name || t.name, h: t.h || 24, ort: t.he ? 'rack' : 'raum', he: 0, hoehe: t.he || 1, raum: '', vlan: '', weitere: [], ipArt: t.ip, ip: '', w: t.w[0], wMax: t.w[1], pd: t.pd || 'nein', budget: t.budget || 0, usv: '', pg: t.pg.map(function (q) { return q.slice(); }) };
+      if (t.usv) { g.usvVA = t.usv[0]; g.usvW = t.usv[1]; g.usvWh = t.usv[2]; }
+      if (o) Object.keys(o).forEach(function (k) { g[k] = o[k]; });
+      return g;
+    }
+    function beispiel() {
+      const vl = [
+        { id: 'v1', vid: 1, name: 'Verwaltung', netz: '10.0.1.0/24', farbe: VFARBEN[0] },
+        { id: 'v10', vid: 10, name: 'Server', netz: '10.0.10.0/24', farbe: VFARBEN[2] },
+        { id: 'v20', vid: 20, name: 'Heimnetz', netz: '10.0.20.0/24', farbe: VFARBEN[1] },
+        { id: 'v30', vid: 30, name: 'IoT', netz: '10.0.30.0/24', farbe: VFARBEN[3] },
+        { id: 'v40', vid: 40, name: 'Gäste', netz: '10.0.40.0/24', farbe: VFARBEN[4] }
+      ];
+      const G = [
+        geraet('modem', 'Glasfaser-ONT', { id: 'g01', raum: 'Technikraum' }),
+        geraet('router', 'Firewall', { id: 'g02', he: 21, vlan: 'v1', weitere: ['v10', 'v20', 'v30', 'v40'], usv: 'g09' }),
+        geraet('patchpanel', 'Patchfeld 1', { id: 'g03', he: 23 }),
+        geraet('kabelfuehrung', 'Kabelführung', { id: 'g04', he: 22 }),
+        geraet('poeswitch', 'Core-Switch', { id: 'g05', he: 20, vlan: 'v1', usv: 'g09' }),
+        geraet('server', 'Virtualisierung', { id: 'g06', he: 16, hoehe: 2, vlan: 'v10', weitere: ['v20'], usv: 'g09' }),
+        geraet('nas', 'NAS', { id: 'g07', ort: 'rack', he: 13, hoehe: 2, vlan: 'v10', usv: 'g09' }),
+        geraet('fachboden', 'Fachboden', { id: 'g08', he: 11 }),
+        geraet('usv', 'USV', { id: 'g09', he: 1, hoehe: 2, vlan: 'v1' }),
+        geraet('minipc', 'Mini-PC Heimautomation', { id: 'g10', ort: 'rack', he: 10, hoehe: 1, vlan: 'v30', usv: 'g09', pg: [['rj45', 2500, 1, 'nein']] }),
+        geraet('ap', 'WLAN Flur', { id: 'g11', raum: 'Flur', vlan: 'v1', weitere: ['v20', 'v30', 'v40'] }),
+        geraet('ap', 'WLAN Wohnzimmer', { id: 'g12', raum: 'Wohnzimmer', vlan: 'v1', weitere: ['v20', 'v30', 'v40'] }),
+        geraet('dose', 'Dose Flur', { id: 'g13', raum: 'Flur', pg: [['rj45', 10000, 1, 'nein']] }),
+        geraet('dose', 'Dose Wohnzimmer', { id: 'g14', raum: 'Wohnzimmer', pg: [['rj45', 10000, 2, 'nein']] }),
+        geraet('dose', 'Dose Büro', { id: 'g15', raum: 'Büro' }),
+        geraet('pc', 'Arbeitsplatz', { id: 'g16', raum: 'Büro', vlan: 'v20', ipArt: 'statisch', ip: '10.0.20.50' }),
+        geraet('tv', 'Fernseher', { id: 'g17', raum: 'Wohnzimmer', vlan: 'v30' }),
+        geraet('kamera', 'Kamera Einfahrt', { id: 'g18', raum: 'Außen', vlan: 'v30' }),
+        geraet('dose', 'Dose Außen', { id: 'g19', raum: 'Außen', pg: [['rj45', 10000, 1, 'nein']] }),
+        geraet('switch', 'Switch Büro', { id: 'g20', raum: 'Büro', vlan: 'v1', pg: [['rj45', 2500, 5, 'nein']] })
+      ];
+      G[1].pg = [['rj45', 2500, 4, 'nein'], ['sfp', 10000, 2, 'nein']];
+      G[8].w = 12; G[8].wMax = 18;
+      let nr = 0;
+      function k(a, b, art, len, farbe, verlegt) { nr++; return { id: 'k' + nr, nr: nr, a: a, b: b, art: art, len: len, farbe: farbe, verlegt: !!verlegt }; }
+      const K = [
+        k(['g01', 0], ['g02', 0], 'cat6a', 1, 'rot'),
+        k(['g02', 4], ['g05', 16], 'dac', 0.5, 'schwarz'),
+        k(['g05', 17], ['g06', 2], 'dac', 1, 'schwarz'),
+        k(['g05', 0], ['g07', 0], 'cat6a', 1, 'gruen'),
+        k(['g05', 1], ['g10', 0], 'cat6a', 1, 'gruen'),
+        k(['g05', 2], ['g09', 0], 'cat6a', 1.5, 'grau'),
+        k(['g05', 3], ['g06', 0], 'cat6a', 1, 'grau'),
+        // Verlegekabel Patchfeld → Dosen
+        k(['g03', 0], ['g13', 0], 'cat6a', 14, 'weiss', true),
+        k(['g03', 1], ['g14', 0], 'cat6a', 22, 'weiss', true),
+        k(['g03', 2], ['g14', 1], 'cat6a', 22, 'weiss', true),
+        k(['g03', 3], ['g15', 0], 'cat6a', 18, 'weiss', true),
+        k(['g03', 4], ['g15', 1], 'cat6a', 18, 'weiss', true),
+        k(['g03', 5], ['g19', 0], 'cat6a', 31, 'weiss', true),
+        // Patchkabel Switch → Patchfeld
+        k(['g05', 8], ['g03', 0], 'cat6a', 0.5, 'blau'),
+        k(['g05', 9], ['g03', 1], 'cat6a', 0.5, 'blau'),
+        k(['g05', 10], ['g03', 2], 'cat6a', 0.5, 'blau'),
+        k(['g05', 11], ['g03', 3], 'cat6a', 0.5, 'gelb'),
+        k(['g05', 12], ['g03', 5], 'cat6a', 0.5, 'orange'),
+        // Endgeräte an den Dosen
+        k(['g13', 0], ['g11', 0], 'cat6a', 1, 'weiss'),
+        k(['g14', 0], ['g12', 0], 'cat6a', 2, 'weiss'),
+        k(['g14', 1], ['g17', 0], 'cat6a', 3, 'grau'),
+        k(['g15', 0], ['g20', 0], 'cat6a', 2, 'gelb'),
+        k(['g20', 1], ['g16', 0], 'cat6a', 2, 'grau'),
+        k(['g19', 0], ['g18', 0], 'cat6', 5, 'schwarz')
+      ];
+      return { v: 1, name: 'Mein Homelab', rack: { he: 24, name: 'Rack 19″' }, preis: 0.32, reserve: 10, vlans: vl, geraete: G, kabel: K };
+    }
+    function leerPlan() { return { v: 1, name: 'Mein Homelab', rack: { he: 12, name: 'Rack 19″' }, preis: 0.32, reserve: 10, vlans: [{ id: 'v1', vid: 1, name: 'Heimnetz', netz: '192.168.1.0/24', farbe: VFARBEN[1] }], geraete: [geraet('router', 'Router', { id: 'g1', vlan: 'v1', he: 12 })], kabel: [] }; }
+
+    // ---------- Prüfen (Speicher, Link, Datei) ----------
+    function nz(v, d, min, max) { const x = Number(v); return v !== null && v !== '' && typeof v !== 'boolean' && isFinite(x) ? Math.max(min, Math.min(max, x)) : d; }
+    function eins(v, liste, d) { return liste.indexOf(v) >= 0 ? v : d; }
+    function tx(v, d, n) { return typeof v === 'string' ? v.replace(/[<>"'`]/g, '').slice(0, n || 40) : d; }
+    function idw(v) { return typeof v === 'string' && /^[A-Za-z0-9_-]{1,24}$/.test(v) ? v : null; }
+    function farbeOk(v, d) { return typeof v === 'string' && /^#[0-9A-Fa-f]{6}$/.test(v) ? v : d; }
+    function pruefen(p) {
+      if (!p || typeof p !== 'object' || !Array.isArray(p.geraete)) return false;
+      p = Teilen.entschaerfen(p);
+      const ids = [];
+      function eindeutig(x) { return x && idw(x.id) && ids.indexOf(x.id) < 0 && ids.push(x.id); }
+      const vl = (Array.isArray(p.vlans) ? p.vlans : []).slice(0, 32).filter(eindeutig).map(function (v, i) {
+        return { id: v.id, vid: Math.round(nz(v.vid, 1, 1, 4094)), name: tx(v.name, 'VLAN'), netz: netzOk(v.netz) ? v.netz : '192.168.' + (i + 1) + '.0/24', farbe: farbeOk(v.farbe, VFARBEN[i % VFARBEN.length]) };
+      });
+      const vid = vl.map(function (v) { return v.id; });
+      const G = p.geraete.slice(0, 150).filter(function (g) { return g && typeof g.typ === 'string' && Object.prototype.hasOwnProperty.call(TYP, g.typ); }).filter(eindeutig).map(function (g) {
+        const t = TYP[g.typ];
+        const pg = (Array.isArray(g.pg) ? g.pg : t.pg).slice(0, 6).filter(Array.isArray).map(function (q) {
+          return [eins(q[0], ['rj45', 'sfp'], 'rj45'), eins(Number(q[1]), SPEEDS, 1000), Math.round(nz(q[2], 1, 1, 64)), eins(q[3], Object.keys(POE), 'nein')];
+        });
+        const o = { id: g.id, typ: g.typ, name: tx(g.name, t.name), ort: eins(g.ort, ['rack', 'raum'], 'raum'), he: Math.round(nz(g.he, 0, 0, 52)), hoehe: Math.round(nz(g.hoehe, t.he || 1, 1, 10)), raum: tx(g.raum, '', 30),
+          vlan: vid.indexOf(g.vlan) >= 0 ? g.vlan : '', weitere: (Array.isArray(g.weitere) ? g.weitere : []).filter(function (x, i, a) { return vid.indexOf(x) >= 0 && a.indexOf(x) === i; }),
+          ipArt: eins(g.ipArt, ['auto', 'statisch', 'dhcp', 'ohne'], t.ip), ip: typeof g.ip === 'string' && /^[0-9.]{0,15}$/.test(g.ip) ? g.ip : '',
+          h: nz(g.h, t.h || 24, 0, 24), w: nz(g.w, t.w[0], 0, 5000), wMax: nz(g.wMax, t.w[1], 0, 5000), pd: eins(g.pd, Object.keys(POE), 'nein'), budget: nz(g.budget, 0, 0, 2000), usv: typeof g.usv === 'string' ? g.usv : '', pg: pg };
+        if (o.wMax < o.w) o.wMax = o.w;
+        if (g.typ === 'usv') { o.usvVA = nz(g.usvVA, 1500, 100, 20000); o.usvW = nz(g.usvW, 900, 50, 20000); o.usvWh = nz(g.usvWh, 260, 10, 50000); }
+        return o;
+      });
+      const gid = {}; G.forEach(function (g) { gid[g.id] = g; });
+      G.forEach(function (g) { if (!gid[g.usv] || gid[g.usv].typ !== 'usv' || g.usv === g.id) g.usv = ''; });
+      const K = (Array.isArray(p.kabel) ? p.kabel : []).slice(0, 800).filter(eindeutig).filter(function (k) {
+        return Array.isArray(k.a) && Array.isArray(k.b) && gid[k.a[0]] && gid[k.b[0]] && k.a[0] !== k.b[0];
+      }).map(function (k, i) {
+        const pa = Math.round(nz(k.a[1], 0, 0, 999)), pb = Math.round(nz(k.b[1], 0, 0, 999));
+        return { id: k.id, nr: Math.round(nz(k.nr, i + 1, 1, 9999)), a: [k.a[0], pa], b: [k.b[0], pb], art: eins(k.art, Object.keys(KABEL), 'cat6a'), len: nz(k.len, 1, 0.1, 20000), farbe: eins(k.farbe, Object.keys(KFARBEN), 'grau'), verlegt: k.verlegt === true };
+      }).filter(function (k) { return k.a[1] < portListe(gid[k.a[0]]).length && k.b[1] < portListe(gid[k.b[0]]).length; });
+      const r = p.rack || {};
+      return { v: 1, name: tx(p.name, 'Mein Homelab', 60), rack: { he: Math.round(nz(r.he, 24, 0, 52)), name: tx(r.name, 'Rack 19″') }, preis: nz(p.preis, 0.32, 0, 5), reserve: nz(p.reserve, 10, 0, 100), vlans: vl, geraete: G, kabel: K };
+    }
+
+    // ---------- IP-Rechnen ----------
+    function ipZahl(s) { const m = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/.exec(s || ''); if (!m) return null; const a = [m[1], m[2], m[3], m[4]].map(Number); if (a.some(function (x) { return x > 255; })) return null; return ((a[0] * 256 + a[1]) * 256 + a[2]) * 256 + a[3]; }
+    function ipText(n) { return [Math.floor(n / 16777216) % 256, Math.floor(n / 65536) % 256, Math.floor(n / 256) % 256, n % 256].join('.'); }
+    function netzOk(s) { if (typeof s !== 'string') return false; const t = s.split('/'); if (t.length !== 2) return false; const n = Number(t[1]); return ipZahl(t[0]) !== null && Number.isInteger(n) && n >= 8 && n <= 30; }
+    function netz(s) { const t = s.split('/'), n = Number(t[1]), groesse = Math.pow(2, 32 - n), a = Math.floor(ipZahl(t[0]) / groesse) * groesse; return { basis: a, groesse: groesse, praefix: n, hosts: groesse - 2, text: ipText(a) + '/' + n }; }
+
+    // ---------- Laden ----------
+    let P = laden() || pruefen(beispiel());
+    function laden() { let roh = null; try { roh = localStorage.getItem(SPEICHER); } catch (e) { roh = null; } if (!roh) return null; try { return pruefen(JSON.parse(roh)) || null; } catch (e) { return null; } }
+    let uhr = 0;
+    function speichernJetzt() { try { localStorage.setItem(SPEICHER, JSON.stringify(P)); } catch (e) { /* ohne Speicher */ } }
+    function speichern() { clearTimeout(uhr); uhr = setTimeout(speichernJetzt, 300); }
+    window.addEventListener('pagehide', function () { clearTimeout(uhr); speichernJetzt(); });
+
+    // ---------- Auswertung ----------
+    function portListe(g) {
+      const l = []; let nRj = 0, nS = 0;
+      g.pg.forEach(function (q, gi) { for (let i = 0; i < q[2]; i++) l.push({ art: q[0], speed: q[1], poe: q[3], gruppe: gi, label: q[0] === 'sfp' ? 'S' + (++nS) : String(++nRj) }); });
+      return l;
+    }
+    function gNach(id) { for (let i = 0; i < P.geraete.length; i++) if (P.geraete[i].id === id) return P.geraete[i]; return null; }
+    function vNach(id) { for (let i = 0; i < P.vlans.length; i++) if (P.vlans[i].id === id) return P.vlans[i]; return null; }
+    function kNr(k) { return 'K' + (k.nr < 10 ? '00' : k.nr < 100 ? '0' : '') + k.nr; }
+    function seite(g, k) { return passiv(g) ? (k.verlegt ? 'h' : 'v') : 'v'; }
+    function reichweite(art, len) { let s = 0; KABEL[art].reich.forEach(function (q) { if (len <= q[1] + 1e-9 && q[0] > s) s = q[0]; }); return s; }
+    let A = null;
+    function auswerten() {
+      const R = { fehler: [], warn: [], info: [], gFehler: {}, kFehler: {}, belegt: {}, ports: {}, kanaele: [], kanalVonPort: {} };
+      function melde(stufe, text, gids, kids) { R[stufe].push(text); (gids || []).forEach(function (g) { if (stufe !== 'info') R.gFehler[g] = (R.gFehler[g] || 0) + 1; }); (kids || []).forEach(function (k) { if (stufe === 'fehler') R.kFehler[k] = true; }); }
+      P.geraete.forEach(function (g) { R.ports[g.id] = portListe(g); });
+      // Belegung je Port und Seite
+      P.kabel.forEach(function (k) {
+        [k.a, k.b].forEach(function (e) {
+          const g = gNach(e[0]), key = e[0] + ':' + e[1] + ':' + seite(g, k);
+          if (R.belegt[key]) melde('fehler', 'Port doppelt belegt: ' + g.name + ' Port ' + R.ports[g.id][e[1]].label + (passiv(g) ? (k.verlegt ? ' hinten' : ' vorne') : '') + ' (' + kNr(R.belegt[key]) + ' und ' + kNr(k) + ').', [g.id], [k.id]);
+          else R.belegt[key] = k;
+        });
+      });
+      // Strecken von aktivem Port zu aktivem Port verfolgen
+      const gesehen = {};
+      function verfolgen(gid, p, k0) {
+        const weg = [], start = { g: gid, p: p }; let k = k0, von = [gid, p], letztes = start, schutz = 0;
+        while (k && schutz++ < 20) {
+          weg.push(k);
+          const nach = k.a[0] === von[0] && k.a[1] === von[1] ? k.b : k.a, g2 = gNach(nach[0]);
+          if (!passiv(g2)) return { kabel: weg, a: start, b: { g: g2.id, p: nach[1] } };
+          // durch Patchfeld oder Dose auf die andere Seite desselben Ports
+          const s2 = seite(g2, k) === 'h' ? 'v' : 'h', k2 = R.belegt[g2.id + ':' + nach[1] + ':' + s2];
+          letztes = { g: g2.id, p: nach[1] };
+          von = nach; k = k2 && k2 !== k ? k2 : null;
+        }
+        return { kabel: weg, a: start, b: null, offen: letztes };
+      }
+      P.kabel.forEach(function (k) {
+        [k.a, k.b].forEach(function (e) {
+          const g = gNach(e[0]); if (passiv(g) || gesehen[k.id + ':' + e[0]]) return;
+          const t = verfolgen(e[0], e[1], k);
+          t.kabel.forEach(function (x) { gesehen[x.id + ':' + e[0]] = true; });
+          if (t.b) { const sch = [t.a.g + ':' + t.a.p, t.b.g + ':' + t.b.p].sort().join('|'); if (R.kanaele.some(function (c) { return c.schluessel === sch; })) return; t.schluessel = sch; }
+          R.kanaele.push(t);
+        });
+      });
+      // Strecken bewerten
+      R.kanaele.forEach(function (c, i) {
+        c.nr = i + 1;
+        const ga = gNach(c.a.g), pa = R.ports[ga.id][c.a.p];
+        c.laenge = c.kabel.reduce(function (s, k) { return s + k.len; }, 0);
+        const medien = {}; c.kabel.forEach(function (k) { medien[KABEL[k.art].medium] = true; });
+        const kid = c.kabel.map(function (k) { return k.id; });
+        c.kNamen = c.kabel.map(kNr).join(', ');
+        c.medium = medien.lwl ? 'lwl' : medien.dac ? 'dac' : 'cu';
+        R.kanalVonPort[c.a.g + ':' + c.a.p] = c;
+        if (!c.b) { const go = gNach(c.offen.g); c.speed = 0; c.status = 'offen'; if (c.kabel.length) melde('info', 'Strecke ab ' + ga.name + ' Port ' + pa.label + ' endet offen bei ' + go.name + ' Port ' + R.ports[go.id][c.offen.p].label + ' (' + c.kNamen + ').'); return; }
+        R.kanalVonPort[c.b.g + ':' + c.b.p] = c;
+        const gb = gNach(c.b.g), pb = R.ports[gb.id][c.b.p], name = ga.name + ' ' + pa.label + ' ⇄ ' + gb.name + ' ' + pb.label;
+        c.status = 'ok'; c.hinweise = [];
+        if (Object.keys(medien).length > 1) { melde('fehler', name + ': Kupfer, Glasfaser und DAC lassen sich nicht in einer Strecke mischen.', [ga.id, gb.id], kid); c.status = 'fehler'; }
+        if (c.medium !== 'cu' && c.kabel.length > 1) { melde('fehler', name + ': Glasfaser und DAC laufen nur direkt von Port zu Port, nicht über RJ45-Patchfeld oder Dose.', [ga.id, gb.id], kid); c.status = 'fehler'; }
+        // Steckverbindung
+        c.module = 0;
+        [[pa, ga], [pb, gb]].forEach(function (q) {
+          if (c.medium === 'cu' && q[0].art === 'sfp') { c.module++; c.hinweise.push('RJ45-SFP-Modul in ' + q[1].name + ' ' + q[0].label); }
+          if (c.medium !== 'cu' && q[0].art === 'rj45') { melde('fehler', name + ': ' + KABEL[c.kabel[0].art].name + ' braucht einen SFP-Port, ' + q[1].name + ' ' + q[0].label + ' ist RJ45.', [q[1].id], kid); c.status = 'fehler'; }
+        });
+        // Geschwindigkeit
+        const portMax = Math.min(pa.speed, pb.speed);
+        let kab = Infinity;
+        c.kabel.forEach(function (k) { kab = Math.min(kab, reichweite(k.art, c.medium === 'cu' ? c.laenge : k.len)); });
+        if (c.module && portMax >= 10000) kab = Math.min(kab, c.laenge <= 30 ? 10000 : 5000);
+        c.speed = c.status === 'fehler' ? 0 : Math.min(portMax, kab);
+        if (c.status !== 'fehler' && c.speed === 0) { melde('fehler', name + ': ' + zahl(c.laenge, 1) + ' m sind für ' + c.kabel.map(function (k) { return KABEL[k.art].name; }).filter(function (x, j, a) { return a.indexOf(x) === j; }).join(' + ') + ' zu lang – kein Link.', [ga.id, gb.id], kid); c.status = 'fehler'; }
+        else if (c.speed < portMax && c.status !== 'fehler') { melde('warn', name + ': nur ' + spLang(c.speed) + ' statt ' + spLang(portMax) + ' – Kabel oder Länge (' + zahl(c.laenge, 1) + ' m) begrenzen.', [ga.id, gb.id]); c.status = 'warn'; }
+        if (c.medium === 'cu') {
+          const verlegt = c.kabel.filter(function (k) { return k.verlegt; }), patch = c.kabel.filter(function (k) { return !k.verlegt; });
+          if (c.laenge > 100) { /* oben schon als kein Link */ }
+          verlegt.forEach(function (k) { if (k.len > 90) { melde('warn', kNr(k) + ': Verlegekabel ' + zahl(k.len, 1) + ' m – fest verlegt höchstens 90 m (DIN EN 50173).', [ga.id, gb.id]); } });
+          const sp2 = patch.reduce(function (s, k) { return s + k.len; }, 0);
+          if (verlegt.length && sp2 > 10) melde('warn', name + ': Patchkabel zusammen ' + zahl(sp2, 1) + ' m – mehr als 10 m verkürzen die erlaubte Strecke.', [ga.id, gb.id]);
+        }
+        // PoE
+        c.poe = null;
+        [[ga, pa, gb], [gb, pb, ga]].forEach(function (q) {
+          const pd = q[2], quelle = q[0], port = q[1];
+          if (pd.pd === 'nein') return;
+          if (port.poe !== 'nein' && c.medium === 'cu') {
+            if (POE[port.poe].stufe >= POE[pd.pd].stufe) c.poe = { quelle: quelle.id, pd: pd.id, port: port };
+            else melde('fehler', pd.name + ' braucht ' + POE[pd.pd].name + ', ' + quelle.name + ' ' + port.label + ' liefert nur ' + POE[port.poe].name + '.', [pd.id, quelle.id]);
+          }
+        });
+        [[ga, gb, pb], [gb, ga, pa]].forEach(function (q) {
+          if (q[0].pd !== 'nein' && !(c.poe && c.poe.pd === q[0].id) && q[2].poe === 'nein') melde('fehler', q[0].name + ' braucht ' + POE[q[0].pd].name + ', ist aber an einem Port ohne PoE (' + q[1].name + ' ' + q[2].label + '). PoE-Port, Injektor oder eigenes Netzteil vorsehen.', [q[0].id]);
+        });
+      });
+      // Ports eines aktiven Geräts mit mehreren Strecken je Port sind oben als doppelt erfasst. Geräte ohne Verbindung:
+      P.geraete.forEach(function (g) {
+        if (!aktiv(g) || g.typ === 'usv') return;
+        const n = R.ports[g.id].length, frei = R.ports[g.id].filter(function (q, i) { return !R.belegt[g.id + ':' + i + ':v']; }).length;
+        if (n && frei === n) melde('warn', g.name + ' ist nirgends angeschlossen.', [g.id]);
+      });
+      // PoE-Budget
+      R.poe = {};
+      R.kanaele.forEach(function (c) { if (c.poe) { const q = R.poe[c.poe.quelle] || (R.poe[c.poe.quelle] = { summe: 0, geraete: [] }); const pd = gNach(c.poe.pd); q.summe += pd.wMax * 1.1; q.geraete.push(pd); } });
+      Object.keys(R.poe).forEach(function (id) { const g = gNach(id), q = R.poe[id]; q.budget = g.budget; if (q.summe > g.budget + 1e-9) melde('fehler', g.name + ': PoE-Bedarf ' + zahl(q.summe, 1) + ' W über dem Budget von ' + zahl(g.budget, 0) + ' W.', [g.id]); });
+      // Graph der aktiven Geräte, Schleifen, Baum
+      const nach = {}; P.geraete.forEach(function (g) { if (aktiv(g)) nach[g.id] = []; });
+      R.kanaele.forEach(function (c) { if (c.b && c.speed > 0 && nach[c.a.g] && nach[c.b.g]) { nach[c.a.g].push({ g: c.b.g, c: c }); nach[c.b.g].push({ g: c.a.g, c: c }); } });
+      R.nach = nach;
+      const wurzel = (P.geraete.filter(function (g) { return g.typ === 'modem' && nach[g.id].length; })[0] || P.geraete.filter(function (g) { return g.typ === 'router'; })[0] || P.geraete.filter(aktiv)[0] || {}).id;
+      R.wurzel = wurzel; R.ebene = {}; R.eltern = {}; R.kinder = {};
+      const besucht = {}, kanteBaum = {};
+      Object.keys(nach).forEach(function (id) { R.kinder[id] = []; });
+      const starts = [wurzel].concat(Object.keys(nach));
+      starts.forEach(function (s) {
+        if (!s || besucht[s]) return;
+        if (s !== wurzel && nach[s].length === 0) return;
+        const q = [s]; besucht[s] = true; R.ebene[s] = s === wurzel ? 0 : 0;
+        if (s !== wurzel) R.insel = true;
+        while (q.length) { const x = q.shift(); nach[x].forEach(function (n) { if (!besucht[n.g]) { besucht[n.g] = true; R.ebene[n.g] = R.ebene[x] + 1; R.eltern[n.g] = { g: x, c: n.c }; R.kinder[x].push(n.g); kanteBaum[n.c.schluessel] = true; q.push(n.g); } }); }
+      });
+      R.extra = R.kanaele.filter(function (c) { return c.b && c.speed > 0 && !kanteBaum[c.schluessel] && nach[c.a.g] && nach[c.b.g]; });
+      const netzGeraet = function (id) { return INFRA.indexOf(TYP[gNach(id).typ].rolle) >= 0; };
+      const schleifen = R.extra.filter(function (c) { return netzGeraet(c.a.g) && netzGeraet(c.b.g); });
+      R.extra.filter(function (c) { return schleifen.indexOf(c) < 0; }).forEach(function (c) { const g = netzGeraet(c.a.g) ? gNach(c.b.g) : gNach(c.a.g); melde('info', g.name + ' hat mehrere Verbindungen ins Netz: als Bündel (LACP) oder für getrennte Netze einrichten, sonst nicht als Brücke schalten.'); });
+      if (schleifen.length) melde('warn', 'Schleife zwischen Switches oder Routern (' + schleifen.length + ' zusätzliche Verbindung' + (schleifen.length > 1 ? 'en' : '') + '): Ohne Spanning Tree (STP/RSTP) oder Link-Aggregation (LACP) entsteht ein Broadcast-Sturm.', schleifen.map(function (c) { return c.a.g; }));
+      if (R.insel) melde('warn', 'Ein Teil des Netzes hat keine Verbindung zum Router.');
+      // VLANs je Port und IP-Plan
+      vlanPorts(R, melde); ipPlan(R, melde); stromBilanz(R, melde); rackPruefen(R, melde);
+      return R;
+    }
+    function vlansVon(g) { return [g.vlan].concat(g.weitere).filter(function (x, i, a) { return x && a.indexOf(x) === i; }); }
+    function vlanPorts(R, melde) {
+      // VLANs, die hinter einem Nachbarn gebraucht werden (ohne den Weg zurück)
+      function hinter(start, von) {
+        const s = {}, q = [start], b = {}; b[von] = true; b[start] = true;
+        while (q.length) { const x = q.shift(), g = gNach(x); vlansVon(g).forEach(function (v) { s[v] = true; }); if (TYP[g.typ].rolle === 'router' && x !== start) continue; R.nach[x].forEach(function (n) { if (!b[n.g]) { b[n.g] = true; q.push(n.g); } }); }
+        return Object.keys(s);
+      }
+      R.portKonfig = [];
+      P.geraete.forEach(function (g) {
+        const rolle = TYP[g.typ].rolle; if (rolle !== 'switch' && rolle !== 'router') return;
+        const zeilen = [];
+        R.ports[g.id].forEach(function (pt, i) {
+          const c = R.kanalVonPort[g.id + ':' + i];
+          if (!c || !c.b) { zeilen.push({ port: pt, frei: true, offen: !!c }); return; }
+          const andereEnde = c.a.g === g.id && c.a.p === i ? c.b : c.a, h = gNach(andereEnde.g), hr = TYP[h.typ].rolle;
+          let unt = '', tag = [];
+          if (INFRA.indexOf(hr) >= 0 || h.weitere.length) {
+            // auf der Verbindung nur VLANs, die auf beiden Seiten gebraucht werden
+            const hier = hinter(g.id, h.id), alle = (INFRA.indexOf(hr) >= 0 ? hinter(h.id, g.id) : vlansVon(h)).filter(function (v) { return hier.indexOf(v) >= 0 || v === h.vlan; });
+            unt = h.vlan || ''; tag = alle.filter(function (v) { return v !== unt; });
+          } else unt = h.vlan || '';
+          if (!unt && !tag.length && h.ipArt !== 'ohne' && aktiv(h)) melde('warn', h.name + ' hat kein VLAN – ' + g.name + ' Port ' + pt.label + ' bleibt ohne Zuordnung.', [h.id]);
+          zeilen.push({ port: pt, geraet: h, gPort: R.ports[h.id][andereEnde.p], c: c, unt: h.typ === 'modem' ? '' : unt, tag: h.typ === 'modem' ? [] : tag, modus: h.typ === 'modem' ? 'WAN (Internet)' : tag.length ? 'Trunk' : 'Access' });
+        });
+        // Überbuchung: Summe der Geschwindigkeiten nach unten zur Uplink-Geschwindigkeit
+        const auf = R.eltern[g.id] ? R.eltern[g.id].c : null;
+        const runter = zeilen.filter(function (z) { return z.c && z.c !== auf && z.geraet.typ !== 'modem'; }).reduce(function (s2, z) { return s2 + z.c.speed; }, 0);
+        R.portKonfig.push({ g: g, zeilen: zeilen, uplink: auf ? auf.speed : 0, runter: runter });
+      });
+    }
+    function ipPlan(R, melde) {
+      R.ip = {}; R.netze = [];
+      const ROLLE_START = { router: 1, switch: 2, ap: 2, usv: 2, server: 10, client: 50, iot: 50, wan: 0 };
+      // Überschneidende Netze
+      P.vlans.forEach(function (v, i) {
+        const n = netz(v.netz); R.netze.push({ v: v, n: n });
+        P.vlans.slice(0, i).forEach(function (w) { const m = netz(w.netz); if (n.basis < m.basis + m.groesse && m.basis < n.basis + n.groesse) melde('fehler', 'Netze überschneiden sich: ' + v.name + ' (' + n.text + ') und ' + w.name + ' (' + m.text + ').'); if (v.vid === w.vid) melde('fehler', 'VLAN-ID ' + v.vid + ' doppelt: ' + v.name + ' und ' + w.name + '.'); });
+        const b = n.basis, priv = (b >= ipZahl('10.0.0.0') && b < ipZahl('11.0.0.0')) || (b >= ipZahl('172.16.0.0') && b < ipZahl('172.32.0.0')) || (b >= ipZahl('192.168.0.0') && b < ipZahl('192.169.0.0'));
+        if (!priv) melde('warn', v.name + ': ' + n.text + ' ist kein privater Adressbereich nach RFC 1918.');
+      });
+      R.netze.forEach(function (q) {
+        const v = q.v, n = q.n, belegt = {}, dhcpVon = Math.min(100, Math.max(2, Math.floor(n.hosts / 2))), dhcpBis = Math.min(n.hosts, dhcpVon + 99);
+        q.dhcp = n.hosts >= 6 ? [n.basis + dhcpVon, n.basis + dhcpBis] : null;
+        const router = P.geraete.filter(function (g) { return TYP[g.typ].rolle === 'router' && vlansVon(g).indexOf(v.id) >= 0; });
+        // Feste Adressen zuerst
+        P.geraete.forEach(function (g) {
+          if (vlansVon(g).indexOf(v.id) < 0 || g.vlan !== v.id || g.ipArt !== 'statisch') return;
+          const z = ipZahl(g.ip);
+          if (z === null) { melde('fehler', g.name + ': „' + g.ip + '“ ist keine gültige IPv4-Adresse.', [g.id]); return; }
+          if (z <= n.basis || z >= n.basis + n.groesse - 1) { melde('fehler', g.name + ': ' + g.ip + ' liegt nicht im Netz ' + n.text + ' von ' + v.name + '.', [g.id]); return; }
+          if (belegt[z]) { melde('fehler', 'IP-Adresse ' + g.ip + ' doppelt: ' + g.name + ' und ' + belegt[z].name + '.', [g.id, belegt[z].id]); return; }
+          if (q.dhcp && z >= q.dhcp[0] && z <= q.dhcp[1]) melde('warn', g.name + ': ' + g.ip + ' liegt im DHCP-Bereich von ' + v.name + '.', [g.id]);
+          belegt[z] = g; R.ip[g.id + ':' + v.id] = g.ip;
+        });
+        router.forEach(function (g, i) { const z = n.basis + 1 + i; if (!belegt[z]) { belegt[z] = g; R.ip[g.id + ':' + v.id] = ipText(z); } });
+        P.geraete.forEach(function (g) {
+          if (g.vlan !== v.id || TYP[g.typ].rolle === 'router') return;
+          if (g.ipArt === 'dhcp') { R.ip[g.id + ':' + v.id] = 'DHCP'; return; }
+          if (g.ipArt !== 'auto') return;
+          let h = ROLLE_START[TYP[g.typ].rolle] || 50;
+          while (h <= n.hosts && (belegt[n.basis + h] || (q.dhcp && n.basis + h >= q.dhcp[0] && n.basis + h <= q.dhcp[1]))) h++;
+          if (h > n.hosts) { melde('fehler', v.name + ': Netz ' + n.text + ' ist voll – ' + g.name + ' bekommt keine Adresse.', [g.id]); return; }
+          belegt[n.basis + h] = g; R.ip[g.id + ':' + v.id] = ipText(n.basis + h);
+        });
+        q.router = router;
+        if (!router.length && P.geraete.some(function (g) { return g.vlan === v.id; })) melde('warn', 'VLAN ' + v.vid + ' (' + v.name + ') hat keinen Router – die Geräte darin erreichen kein anderes Netz und das Internet nicht.');
+        q.belegt = belegt;
+      });
+      P.geraete.forEach(function (g) { if (aktiv(g) && g.ipArt !== 'ohne' && !g.vlan && g.typ !== 'modem') melde('warn', g.name + ' hat kein VLAN und damit keine Adresse.', [g.id]); });
+    }
+    function stromBilanz(R, melde) {
+      const S = { geraete: [], typ: 0, max: 0, usv: {} };
+      const perPoE = {};
+      Object.keys(R.poe).forEach(function (id) { R.poe[id].geraete.forEach(function (pd) { perPoE[pd.id] = id; }); });
+      P.geraete.forEach(function (g) {
+        if (!aktiv(g)) return;
+        const viaPoE = !!perPoE[g.id];
+        let eigen = viaPoE ? 0 : g.w, eigenMax = viaPoE ? 0 : g.wMax;
+        // PoE-Leistung kommt zusätzlich aus dem Netzteil des Switches (Wirkungsgrad etwa 90 %)
+        let zus = 0, zusMax = 0;
+        let kwh = eigen * g.h * 0.365;
+        if (R.poe[g.id]) R.poe[g.id].geraete.forEach(function (pd) { zus += pd.w * 1.1 / 0.9; zusMax += pd.wMax * 1.1 / 0.9; kwh += pd.w * 1.1 / 0.9 * pd.h * 0.365; });
+        const z = { g: g, eigen: eigen, eigenMax: eigenMax, poe: zus, poeMax: zusMax, typ: eigen + zus, max: eigenMax + zusMax, viaPoE: viaPoE ? gNach(perPoE[g.id]) : null, kwh: kwh };
+        S.kwh = (S.kwh || 0) + kwh;
+        S.geraete.push(z); S.typ += z.typ; S.max += z.max;
+        if (g.usv) { const u = S.usv[g.usv] || (S.usv[g.usv] = { typ: 0, max: 0, liste: [] }); u.typ += z.typ; u.max += z.max; u.liste.push(g); }
+      });
+      Object.keys(S.usv).forEach(function (id) {
+        const u = S.usv[id], g = gNach(id);
+        u.g = g; u.va = u.max / 0.9; u.lastW = u.max / g.usvW; u.lastVA = u.va / g.usvVA;
+        // Laufzeit: nutzbare Akkuenergie (Wechselrichter 85 %), bei hoher Last kürzer (Peukert-Näherung)
+        u.t = function (w) { return w > 0 ? g.usvWh * 0.85 / w * 60 * Math.pow(Math.min(1, g.usvW * 0.5 / w), -0.15) : Infinity; };
+        u.tTyp = u.t(u.typ); u.tMax = u.t(u.max);
+        if (u.max > g.usvW) melde('fehler', g.name + ': Spitzenlast ' + zahl(u.max, 0) + ' W über der Wirkleistung von ' + zahl(g.usvW, 0) + ' W.', [g.id]);
+        else if (u.va > g.usvVA) melde('fehler', g.name + ': Scheinleistung ' + zahl(u.va, 0) + ' VA über ' + zahl(g.usvVA, 0) + ' VA.', [g.id]);
+        else if (u.lastW > 0.8) melde('warn', g.name + ': ' + zahl(u.lastW * 100, 0) + ' % Auslastung – 20 bis 30 % Reserve sind üblich.', [g.id]);
+        if (u.tTyp < 10) melde('warn', g.name + ': nur etwa ' + zahl(u.tTyp, 0) + ' min Laufzeit bei typischer Last – zu kurz, um Server sauber herunterzufahren.', [g.id]);
+      });
+      // Geräte im Rack ohne USV, die üblicherweise daran gehören
+      const usvDa = P.geraete.some(function (g) { return g.typ === 'usv'; });
+      if (usvDa) P.geraete.forEach(function (g) { const r = TYP[g.typ].rolle; if ((r === 'server' || r === 'router' || r === 'switch') && g.ort === 'rack' && !g.usv && !(S.geraete.filter(function (z) { return z.g === g; })[0] || {}).viaPoE) melde('info', g.name + ' hängt nicht an der USV.'); });
+      S.kwh = S.kwh || 0; S.kosten = S.kwh * P.preis; S.mittel = S.kwh / 8.76;
+      R.strom = S;
+    }
+    function rackPruefen(R, melde) {
+      const belegt = {}; R.rackBelegt = 0;
+      P.geraete.forEach(function (g) {
+        if (g.ort !== 'rack') return;
+        if (!P.rack.he) { melde('warn', g.name + ' ist für das Rack vorgesehen, aber kein Rack geplant.', [g.id]); return; }
+        if (!g.he) { melde('warn', g.name + ': Position im Rack fehlt.', [g.id]); return; }
+        if (g.he + g.hoehe - 1 > P.rack.he) melde('fehler', g.name + ' ragt über das Rack hinaus (HE ' + g.he + ' bis ' + (g.he + g.hoehe - 1) + ' von ' + P.rack.he + ').', [g.id]);
+        for (let h = g.he; h < g.he + g.hoehe; h++) { if (belegt[h] && belegt[h] !== g) melde('fehler', 'Rack HE ' + h + ' doppelt belegt: ' + belegt[h].name + ' und ' + g.name + '.', [g.id, belegt[h].id]); else { belegt[h] = g; R.rackBelegt++; } }
+      });
+      R.rackHE = belegt;
+    }
+    // freie Rack-Position: von oben (Netzwerk) oder von unten (USV, schwere Geräte)
+    function freiePos(hoehe, unten, ohne) {
+      const b = {}; P.geraete.forEach(function (g) { if (g.ort === 'rack' && g.he && g !== ohne) for (let h = g.he; h < g.he + g.hoehe; h++) b[h] = true; });
+      const frei = function (s) { for (let h = s; h < s + hoehe; h++) if (b[h] || h > P.rack.he) return false; return true; };
+      if (unten) { for (let s = 1; s <= P.rack.he - hoehe + 1; s++) if (frei(s)) return s; }
+      else { for (let s = P.rack.he - hoehe + 1; s >= 1; s--) if (frei(s)) return s; }
+      return 0;
+    }
+
+    // ---------- Oberfläche: Hilfen ----------
+    const UI = { reiter: 'geraete', ansicht: 'topo', gewaehlt: '', offen: {} };
+    function status(t) { $('status').textContent = t; }
+    function zahlFeld(wert, min, max, fn, schritt) {
+      const e = knoten('input'); e.type = 'text'; e.inputMode = 'decimal'; e.autocomplete = 'off'; e.value = String(wert).replace('.', ',');
+      e.addEventListener('input', function () { const t = e.value.trim().replace(',', '.'), v = Number(t); const ok = t !== '' && isFinite(v) && v >= min && v <= max; e.classList.toggle('falsch', !ok); e.setAttribute('aria-invalid', ok ? 'false' : 'true'); e.title = ok ? '' : 'Erlaubt: ' + zahl(min, 1) + ' bis ' + zahl(max, 0); if (ok) fn(schritt ? Math.round(v / schritt) * schritt : v); });
+      e.addEventListener('blur', function () { e.classList.remove('falsch'); e.setAttribute('aria-invalid', 'false'); });
+      return e;
+    }
+    function textFeld(wert, n, fn) { const e = knoten('input'); e.type = 'text'; e.maxLength = n; e.value = wert; e.autocomplete = 'off'; e.addEventListener('input', function () { fn(tx(e.value, '', n)); }); return e; }
+    function auswahl(optionen, wert, fn) { const e = knoten('select'); optionen.forEach(function (o) { const op = knoten('option', '', o[1]); op.value = o[0]; if (o[2]) op.disabled = true; e.append(op); }); e.value = wert; e.addEventListener('change', function () { fn(e.value); }); return e; }
+    function feld(ziel, name, el, breit) { const l = knoten('label', breit ? 'breit' : ''); l.append(knoten('span', '', name), el); ziel.append(l); return l; }
+    function knopf(text, klasse, fn, aria) { const b = knoten('button', klasse, text); b.type = 'button'; if (aria) b.setAttribute('aria-label', aria); b.addEventListener('click', fn); return b; }
+    function vlanOptionen(leer) { return (leer ? [['', leer]] : []).concat(P.vlans.map(function (v) { return [v.id, v.vid + ' · ' + v.name]; })); }
+    function geraeteOptionen(nurMitPorts) { return P.geraete.filter(function (g) { return !nurMitPorts || g.pg.length; }).map(function (g) { return [g.id, g.name + (g.raum && g.ort !== 'rack' ? ' (' + g.raum + ')' : '')]; }); }
+
+    // ---------- Reiter ----------
+    function reiterSetzen(r) {
+      UI.reiter = r;
+      document.querySelectorAll('#reiter button').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-r') === r ? 'true' : 'false'); });
+      document.querySelectorAll('.feld-reiter').forEach(function (d) { d.hidden = d.getAttribute('data-r') !== r; });
+    }
+    document.querySelectorAll('#reiter button').forEach(function (b) { b.addEventListener('click', function () { reiterSetzen(b.getAttribute('data-r')); }); });
+    document.querySelectorAll('#ansichten button').forEach(function (b) { b.addEventListener('click', function () { UI.ansicht = b.getAttribute('data-a'); document.querySelectorAll('#ansichten button').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); }); $('bildHilfe').textContent = HILFE[UI.ansicht]; zeichnen(); }); });
+    const HILFE = { topo: 'Ein Gerät antippen, um es zu bearbeiten. Linienstärke und Beschriftung zeigen die erreichbare Geschwindigkeit, ⚡ markiert PoE.', rack: 'Vorderansicht des Racks mit Höheneinheiten (HE, unten 1). Die Ports zeigen die Farbe des gesteckten Kabels. Ein Gerät antippen, um es zu bearbeiten.', strom: 'Leistung je Gerät: dunkel typisch, hell Spitze. Über PoE versorgte Geräte zählen beim Switch.' };
+
+    // ---------- Geräte bearbeiten ----------
+    Object.keys(TYP).forEach(function (t) { const o = knoten('option', '', TYP[t].name); o.value = t; $('neuTyp').append(o); });
+    $('neuTyp').value = 'server';
+    $('neuGeraet').addEventListener('click', function () {
+      const t = $('neuTyp').value, g = geraet(t, TYP[t].name + ' ' + (P.geraete.filter(function (x) { return x.typ === t; }).length + 1));
+      if (g.ort === 'rack') g.he = freiePos(g.hoehe, t === 'usv');
+      if (!g.he && g.ort === 'rack') g.ort = 'raum';
+      if (g.ipArt !== 'ohne' && P.vlans.length) g.vlan = P.vlans[0].id;
+      P.geraete.push(g); UI.offen = {}; UI.offen[g.id] = true; UI.gewaehlt = g.id;
+      aufbauen(); status(g.name + ' angelegt.');
+      const el = document.querySelector('[data-g="' + g.id + '"]'); if (el) el.scrollIntoView({ block: 'nearest' });
+    });
+    function geraeteAufbauen() {
+      const z = $('geraete'); z.innerHTML = '';
+      if (!P.geraete.length) z.append(knoten('p', 'hilfe', 'Noch keine Geräte. Oben eine Art wählen und „+ Gerät“.'));
+      P.geraete.forEach(function (g) {
+        const t = TYP[g.typ], d = knoten('details', 'geraet' + (UI.gewaehlt === g.id ? ' gewaehlt' : ''));
+        d.setAttribute('data-g', g.id); d.open = !!UI.offen[g.id];
+        d.addEventListener('toggle', function () { UI.offen[g.id] = d.open; if (d.open) { UI.gewaehlt = g.id; markieren(); zeichnen(); } });
+        const s = knoten('summary'), pk = knoten('span', 'punkt'); pk.style.background = t.farbe;
+        const n = A ? A.ports[g.id].length : 0, b = A ? A.ports[g.id].filter(function (q, i) { return A.belegt[g.id + ':' + i + ':v'] || A.belegt[g.id + ':' + i + ':h']; }).length : 0;
+        s.append(pk, knoten('span', 'titel', g.name), knoten('span', 'klein', t.name + (n ? ' · ' + b + '/' + n + ' Ports' : '') + (g.ort === 'rack' && g.he ? ' · HE ' + g.he : g.raum ? ' · ' + g.raum : '')));
+        if (A && A.gFehler[g.id]) s.append(knoten('span', 'warn', '⚠ ' + A.gFehler[g.id]));
+        d.append(s);
+        const innen = knoten('div', 'geraet-innen'); d.append(innen);
+        if (d.open) geraetInnen(innen, g); else d.addEventListener('toggle', function einmal() { if (d.open && !innen.childNodes.length) geraetInnen(innen, g); }, { once: false });
+        z.append(d);
+      });
+    }
+    function geraetInnen(innen, g) {
+      innen.innerHTML = '';
+      const t = TYP[g.typ], r = knoten('div', 'raster');
+      feld(r, 'Name', textFeld(g.name, 40, function (v) { g.name = v || t.name; aendern(); }));
+      feld(r, 'Art', auswahl(Object.keys(TYP).map(function (k) { return [k, TYP[k].name]; }), g.typ, function (v) {
+        const n = geraet(v, g.name, { id: g.id, vlan: g.vlan, raum: g.raum, usv: g.usv });
+        Object.keys(n).forEach(function (k) { g[k] = n[k]; });
+        if (g.ort === 'rack') g.he = freiePos(g.hoehe, v === 'usv', g) || 0;
+        P.kabel = P.kabel.filter(function (k) { return [k.a, k.b].every(function (e) { return e[0] !== g.id || e[1] < portListe(g).length; }); });
+        aufbauen(); status(g.name + ': Ports und Leistung der neuen Art übernommen.');
+      }));
+      feld(r, 'Ort', auswahl([['rack', 'im Rack'], ['raum', 'im Raum']], g.ort, function (v) { g.ort = v; if (v === 'rack' && !g.he) g.he = freiePos(g.hoehe, g.typ === 'usv', g); aufbauen(); }));
+      if (g.ort === 'rack') {
+        feld(r, 'Position (HE von unten)', zahlFeld(g.he, 1, 52, function (v) { g.he = v; aendern(); }, 1));
+        feld(r, 'Höhe (HE)', zahlFeld(g.hoehe, 1, 10, function (v) { g.hoehe = v; aendern(); }, 1));
+      } else feld(r, 'Raum', textFeld(g.raum, 30, function (v) { g.raum = v; aendern(); }));
+      if (t.ip !== 'ohne' || g.typ === 'modem') {
+        if (g.typ !== 'modem') {
+          feld(r, 'VLAN (Netz)', auswahl(vlanOptionen('— kein VLAN'), g.vlan, function (v) { g.vlan = v; g.weitere = g.weitere.filter(function (x) { return x !== v; }); aufbauen(); }));
+          feld(r, 'IP-Adresse', auswahl([['auto', 'fest, automatisch'], ['statisch', 'fest, eigene'], ['dhcp', 'per DHCP'], ['ohne', 'keine']], g.ipArt, function (v) { g.ipArt = v; aufbauen(); }));
+          if (g.ipArt === 'statisch') { const e = textFeld(g.ip, 15, function (v) { g.ip = v.replace(/[^0-9.]/g, ''); aendern(); }); e.inputMode = 'decimal'; e.classList.add('mono'); e.placeholder = '10.0.1.20'; feld(r, 'eigene Adresse', e); }
+          else if (A && g.vlan && A.ip[g.id + ':' + g.vlan]) { const e = knoten('input'); e.value = A.ip[g.id + ':' + g.vlan]; e.readOnly = true; e.classList.add('mono'); e.tabIndex = -1; feld(r, 'Adresse', e); }
+        }
+      }
+      if (aktiv(g)) {
+        feld(r, 'Leistung typisch (W)', zahlFeld(g.w, 0, 5000, function (v) { g.w = v; if (g.wMax < v) g.wMax = v; aendern(); }));
+        feld(r, 'Leistung Spitze (W)', zahlFeld(g.wMax, 0, 5000, function (v) { g.wMax = Math.max(v, g.w); aendern(); }));
+        feld(r, 'Betrieb (Stunden am Tag)', zahlFeld(g.h, 0, 24, function (v) { g.h = v; aendern(); }));
+        feld(r, 'Versorgung über PoE', auswahl([['nein', 'nein, eigenes Netzteil'], ['af', 'ja, 802.3af'], ['at', 'ja, 802.3at (PoE+)'], ['bt', 'ja, 802.3bt (PoE++)']], g.pd, function (v) { g.pd = v; aufbauen(); }));
+        const usvs = P.geraete.filter(function (x) { return x.typ === 'usv' && x !== g; });
+        if (usvs.length && g.typ !== 'usv' && g.pd === 'nein') feld(r, 'Strom über', auswahl([['', 'Steckdose ohne USV']].concat(usvs.map(function (x) { return [x.id, x.name]; })), g.usv, function (v) { g.usv = v; aendern(); }));
+        if (g.pg.some(function (q) { return q[3] !== 'nein'; })) feld(r, 'PoE-Budget (W)', zahlFeld(g.budget, 0, 2000, function (v) { g.budget = v; aendern(); }));
+        if (g.typ === 'usv') {
+          feld(r, 'Scheinleistung (VA)', zahlFeld(g.usvVA, 100, 20000, function (v) { g.usvVA = v; aendern(); }));
+          feld(r, 'Wirkleistung (W)', zahlFeld(g.usvW, 50, 20000, function (v) { g.usvW = v; aendern(); }));
+          feld(r, 'Akkuenergie (Wh)', zahlFeld(g.usvWh, 10, 50000, function (v) { g.usvWh = v; aendern(); }));
+        }
+      }
+      innen.append(r);
+      // weitere VLANs (getaggt)
+      if (aktiv(g) && g.typ !== 'modem' && P.vlans.length > 1 && ['router', 'ap', 'server', 'switch'].indexOf(TYP[g.typ].rolle) >= 0) {
+        innen.append(knoten('div', 'unterkopf', TYP[g.typ].rolle === 'router' ? 'Router für diese VLANs' : TYP[g.typ].rolle === 'ap' ? 'weitere VLANs (je ein WLAN-Name)' : 'weitere VLANs (getaggt, z. B. für virtuelle Maschinen)'));
+        const w = knoten('div', 'raeume-wahl');
+        P.vlans.forEach(function (v) {
+          if (v.id === g.vlan) return;
+          const l = knoten('label'), c = knoten('input'); c.type = 'checkbox'; c.checked = g.weitere.indexOf(v.id) >= 0;
+          c.addEventListener('change', function () { g.weitere = g.weitere.filter(function (x) { return x !== v.id; }); if (c.checked) g.weitere.push(v.id); aendern(); });
+          l.append(c, document.createTextNode(v.vid + ' ' + v.name)); w.append(l);
+        });
+        innen.append(w);
+      }
+      // Ports
+      if (t.rolle !== 'zubehoer') {
+        innen.append(knoten('div', 'unterkopf', passiv(g) ? 'Anschlüsse' : 'Ports'));
+        const tab = knoten('table', 'ports'), kopf = knoten('tr');
+        ['Art', 'Geschwindigkeit', 'Anzahl', passiv(g) ? '' : 'PoE liefern', ''].forEach(function (h) { kopf.append(knoten('th', '', h)); });
+        tab.append(kopf);
+        g.pg.forEach(function (q, i) {
+          const tr = knoten('tr');
+          function zelle(el) { const td = knoten('td'); td.append(el); tr.append(td); }
+          zelle(auswahl([['rj45', 'RJ45 Kupfer'], ['sfp', 'SFP / SFP+']], q[0], function (v) { q[0] = v; if (v === 'sfp') q[3] = 'nein'; portsGeaendert(g); }));
+          zelle(auswahl(SPEEDS.map(function (s) { return [String(s), spLang(s)]; }), String(q[1]), function (v) { q[1] = Number(v); portsGeaendert(g); }));
+          zelle(zahlFeld(q[2], 1, 64, function (v) { q[2] = v; portsGeaendert(g, true); }, 1));
+          if (passiv(g) || q[0] === 'sfp') zelle(knoten('span', 'hilfe', ''));
+          else zelle(auswahl([['nein', 'nein'], ['af', '802.3af'], ['at', '802.3at'], ['bt', '802.3bt']], q[3], function (v) { q[3] = v; if (v !== 'nein' && !g.budget) g.budget = 120; portsGeaendert(g); }));
+          zelle(knopf('×', 'weg-k', function () { g.pg.splice(i, 1); portsGeaendert(g); geraetInnen(innen, g); }, 'Portgruppe entfernen'));
+          tab.append(tr);
+        });
+        innen.append(tab);
+        if (g.pg.length < 6) innen.append(knopf('+ Portgruppe', 'knopf-leise', function () { g.pg.push(['rj45', 1000, 1, 'nein']); portsGeaendert(g); geraetInnen(innen, g); }));
+      }
+      const leiste = knoten('div', 'werkzeug-leiste');
+      leiste.append(knopf('Duplizieren', 'knopf-leise', function () {
+        const n = JSON.parse(JSON.stringify(g)); n.id = neueId('g'); n.name = (g.name + ' 2').slice(0, 40); n.ip = ''; if (n.ort === 'rack') n.he = freiePos(n.hoehe, n.typ === 'usv'); if (n.ort === 'rack' && !n.he) n.ort = 'raum';
+        P.geraete.splice(P.geraete.indexOf(g) + 1, 0, n); UI.offen = {}; UI.offen[n.id] = true; UI.gewaehlt = n.id; aufbauen(); status(n.name + ' angelegt.');
+      }));
+      if (aktiv(g) && portListe(g).length) leiste.append(knopf('Anschließen', 'knopf-leise', function () { const n = anschliessen(g); aufbauen(); status(n ? g.name + ' angeschlossen (' + n + ' Kabel).' : 'Kein freier passender Port gefunden.'); }));
+      leiste.append(knopf('Löschen', 'knopf-leise', function () {
+        const n = P.kabel.filter(function (k) { return k.a[0] === g.id || k.b[0] === g.id; }).length;
+        if (!window.confirm(g.name + ' löschen' + (n ? ' und ' + n + ' Kabel daran entfernen' : '') + '?')) return;
+        P.kabel = P.kabel.filter(function (k) { return k.a[0] !== g.id && k.b[0] !== g.id; });
+        P.geraete.splice(P.geraete.indexOf(g), 1); P.geraete.forEach(function (x) { if (x.usv === g.id) x.usv = ''; });
+        aufbauen(); status(g.name + ' gelöscht.');
+      }));
+      innen.append(leiste);
+    }
+    function portsGeaendert(g, nurZahl) {
+      const n = portListe(g).length, vorher = P.kabel.length;
+      P.kabel = P.kabel.filter(function (k) { return [k.a, k.b].every(function (e) { return e[0] !== g.id || e[1] < n; }); });
+      if (P.kabel.length < vorher) status((vorher - P.kabel.length) + ' Kabel an entfallenen Ports entfernt.');
+      if (nurZahl) aendern(); else { aendern(); kabelAufbauen(); }
+    }
+
+    // ---------- Kabel bearbeiten ----------
+    function naechsteNr() { return P.kabel.reduce(function (m, k) { return Math.max(m, k.nr); }, 0) + 1; }
+    function freierPort(g, verlegt, filter) {
+      const l = portListe(g);
+      for (let i = 0; i < l.length; i++) { const s = passiv(g) ? (verlegt ? 'h' : 'v') : 'v'; if (!A.belegt[g.id + ':' + i + ':' + s] && (!filter || filter(l[i]))) return i; }
+      return -1;
+    }
+    $('neuKabel').addEventListener('click', function () {
+      const mit = P.geraete.filter(function (g) { return g.pg.length; });
+      if (mit.length < 2) { status('Für ein Kabel braucht es zwei Geräte mit Ports.'); return; }
+      const ga = gNach(UI.gewaehlt) && gNach(UI.gewaehlt).pg.length ? gNach(UI.gewaehlt) : mit[0], gb = mit.filter(function (g) { return g !== ga && freierPort(g, false) >= 0; })[0] || mit.filter(function (g) { return g !== ga; })[0];
+      const k = { id: neueId('k'), nr: naechsteNr(), a: [ga.id, Math.max(0, freierPort(ga, false))], b: [gb.id, Math.max(0, freierPort(gb, false))], art: 'cat6a', len: 1, farbe: 'grau', verlegt: false };
+      P.kabel.push(k); aufbauen(); reiterSetzen('kabel'); status(kNr(k) + ' angelegt – Geräte und Ports wählen.');
+      const el = document.querySelector('[data-k="' + k.id + '"]'); if (el) el.scrollIntoView({ block: 'nearest' });
+    });
+    function kabelAufbauen() {
+      const z = $('kabel'); z.innerHTML = '';
+      if (!P.kabel.length) z.append(knoten('p', 'hilfe', 'Noch keine Kabel.'));
+      P.kabel.slice().sort(function (a, b) { return a.nr - b.nr; }).forEach(function (k) {
+        const d = knoten('div', 'kabel-zeile' + (A && A.kFehler[k.id] ? ' fehler' : '')); d.setAttribute('data-k', k.id);
+        const kopf = knoten('div', 'kabel-kopf'), fa = knoten('span', 'farbe'); fa.style.background = KFARBEN[k.farbe][1];
+        const c = A ? A.kanaele.filter(function (x) { return x.kabel.indexOf(k) >= 0; })[0] : null;
+        kopf.append(fa, knoten('span', '', kNr(k)), knoten('span', 'info', (k.verlegt ? 'Verlegekabel' : 'Patchkabel') + ' · ' + KABEL[k.art].name + ' · ' + zahl(k.len, k.len < 10 ? 2 : 0) + ' m' + (c ? c.b ? ' · Strecke ' + sp(c.speed) + (c.poe ? ' ⚡' : '') : ' · offen' : '')));
+        kopf.append(knopf('×', 'weg-k', function () { P.kabel.splice(P.kabel.indexOf(k), 1); aufbauen(); status(kNr(k) + ' entfernt.'); }, kNr(k) + ' entfernen'));
+        d.append(kopf);
+        const r = knoten('div', 'raster');
+        [['a', 'Von'], ['b', 'Nach']].forEach(function (q) {
+          const e = k[q[0]], g = gNach(e[0]);
+          feld(r, q[1] + ' Gerät', auswahl(geraeteOptionen(true), e[0], function (v) { const g2 = gNach(v); e[0] = v; e[1] = Math.max(0, freierPort(g2, k.verlegt)); if (k.a[0] === k.b[0]) { status('Ein Kabel muss zwei verschiedene Geräte verbinden.'); } aufbauen(); }));
+          const opt = portListe(g).map(function (pt, i) {
+            const s = passiv(g) ? (k.verlegt ? 'h' : 'v') : 'v', b = A && A.belegt[g.id + ':' + i + ':' + s];
+            return [String(i), (pt.art === 'sfp' ? 'SFP ' : 'Port ') + pt.label + ' · ' + sp(pt.speed) + (pt.poe !== 'nein' ? ' ⚡' : '') + (b && b !== k ? ' – belegt ' + kNr(b) : '')];
+          });
+          feld(r, q[1] + ' Port' + (passiv(g) ? (k.verlegt ? ' (hinten)' : ' (vorne)') : ''), auswahl(opt, String(e[1]), function (v) { e[1] = Number(v); aufbauen(); }));
+        });
+        feld(r, 'Kabel', auswahl(Object.keys(KABEL).map(function (x) { return [x, KABEL[x].name]; }), k.art, function (v) { k.art = v; if (KABEL[v].medium === 'lwl' && k.farbe === 'grau') k.farbe = v === 'os2' ? 'gelb' : 'tuerkis'; aufbauen(); }));
+        feld(r, 'Verlegung', auswahl([['patch', 'Patchkabel'], ['verlegt', 'Verlegekabel (fest)']], k.verlegt ? 'verlegt' : 'patch', function (v) { k.verlegt = v === 'verlegt'; aufbauen(); }));
+        feld(r, 'Länge (m)', zahlFeld(k.len, 0.1, 20000, function (v) { k.len = v; aendern(); }));
+        feld(r, 'Farbe', auswahl(Object.keys(KFARBEN).map(function (x) { return [x, KFARBEN[x][0]]; }), k.farbe, function (v) { k.farbe = v; aendern(); fa.style.background = KFARBEN[v][1]; }));
+        d.append(r); z.append(d);
+      });
+    }
+    // Gerät automatisch anschließen: an eine Dose im selben Raum oder an einen Switch mit freiem Port
+    function anschliessen(g) {
+      A = auswerten();
+      const pi = freierPort(g, false); if (pi < 0) return 0;
+      const pt = portListe(g)[pi], pd = g.pd !== 'nein';
+      let n = 0;
+      function kabel(a, b, len, farbe, art) { P.kabel.push({ id: neueId('k'), nr: naechsteNr(), a: a, b: b, art: art || 'cat6a', len: len, farbe: farbe || 'grau', verlegt: false }); n++; A = auswerten(); }
+      function switchPort(will) {
+        const sw = P.geraete.filter(function (x) { return TYP[x.typ].rolle === 'switch' || (TYP[x.typ].rolle === 'router' && !P.geraete.some(function (y) { return TYP[y.typ].rolle === 'switch'; })); });
+        const wert = function (x) { const poe = x.pg.some(function (q) { return q[3] !== 'nein'; }); return poe === pd ? 0 : 1; };
+        sw.sort(function (a, b) { return wert(a) - wert(b); });
+        for (let i = 0; i < sw.length; i++) { const p = freierPort(sw[i], false, function (q) { return q.art === will && (!pd || POE[q.poe].stufe >= POE[g.pd].stufe); }); if (p >= 0) return [sw[i], p]; }
+        return null;
+      }
+      // Dose im selben Raum mit freiem Anschluss vorne, deren Rückseite zu einem Patchfeld führt
+      if (g.ort === 'raum' && g.raum && pt.art === 'rj45') {
+        const dosen = P.geraete.filter(function (x) { return x.typ === 'dose' && x.raum === g.raum; });
+        for (let i = 0; i < dosen.length; i++) {
+          const d = dosen[i], dp = freierPort(d, false); if (dp < 0) continue;
+          kabel([g.id, pi], [d.id, dp], 2, 'grau');
+          // Rückseite der Dose verfolgen bis zum Patchfeld, dort vorne mit einem Switch verbinden
+          const hinten = A.belegt[d.id + ':' + dp + ':h'];
+          if (hinten) {
+            const ende = hinten.a[0] === d.id ? hinten.b : hinten.a, pp = gNach(ende[0]);
+            if (passiv(pp) && !A.belegt[pp.id + ':' + ende[1] + ':v']) { const s = switchPort('rj45'); if (s) kabel([s[0].id, s[1]], [pp.id, ende[1]], 0.5, pd ? 'gelb' : 'blau'); }
+          }
+          return n;
+        }
+      }
+      const s = switchPort(pt.art);
+      if (s) { const imRack = g.ort === 'rack' && s[0].ort === 'rack'; kabel([s[0].id, s[1]], [g.id, pi], imRack ? 1 : 3, pt.art === 'sfp' ? 'schwarz' : 'grau', pt.art === 'sfp' ? 'dac' : 'cat6a'); }
+      return n;
+    }
+    $('autoAnschluss').addEventListener('click', function () {
+      A = auswerten(); let n = 0, g0 = 0;
+      P.geraete.forEach(function (g) { if (!aktiv(g) || g.typ === 'modem') return; const l = portListe(g); if (!l.length || l.some(function (q, i) { return A.belegt[g.id + ':' + i + ':v']; })) return; if (INFRA.indexOf(TYP[g.typ].rolle) >= 0 && TYP[g.typ].rolle !== 'ap') return; const k = anschliessen(g); if (k) { n += k; g0++; } });
+      aufbauen(); status(g0 ? g0 + ' Geräte mit ' + n + ' Kabeln angeschlossen.' : 'Keine offenen Endgeräte gefunden – oder keine freien Ports.');
+    });
+
+    // ---------- Räume und Dosen ----------
+    const RAUM = { name: 'Schlafzimmer', anzahl: 2, len: 15, art: 'cat6a', pp: '' };
+    function raumAufbauen() {
+      const z = $('raumNeu'); z.innerHTML = '';
+      feld(z, 'Raum', textFeld(RAUM.name, 30, function (v) { RAUM.name = v; }));
+      feld(z, 'Anschlüsse', zahlFeld(RAUM.anzahl, 1, 8, function (v) { RAUM.anzahl = v; }, 1));
+      feld(z, 'Leitungslänge (m)', zahlFeld(RAUM.len, 1, 200, function (v) { RAUM.len = v; }));
+      feld(z, 'Kabel', auswahl(['cat5e', 'cat6', 'cat6a', 'cat7'].map(function (x) { return [x, KABEL[x].name]; }), RAUM.art, function (v) { RAUM.art = v; }));
+      const pps = P.geraete.filter(function (g) { return g.typ === 'patchpanel'; });
+      if (!pps.some(function (g) { return g.id === RAUM.pp; })) RAUM.pp = pps.length ? pps[0].id : '';
+      feld(z, 'Patchfeld', auswahl(pps.map(function (g) { return [g.id, g.name]; }).concat([['neu', 'neues Patchfeld']]), RAUM.pp || 'neu', function (v) { RAUM.pp = v; }));
+      const l = $('raumListe'); l.innerHTML = '';
+      const raeume = {};
+      P.geraete.forEach(function (g) { if (g.ort === 'raum' && g.raum) { const r = raeume[g.raum] || (raeume[g.raum] = { dosen: 0, ans: 0, geraete: 0, len: [] }); if (g.typ === 'dose') { r.dosen++; r.ans += portListe(g).length; P.kabel.forEach(function (k) { if (k.verlegt && (k.a[0] === g.id || k.b[0] === g.id)) r.len.push(k.len); }); } else r.geraete++; } });
+      const namen = Object.keys(raeume).sort();
+      if (namen.length) l.append(knoten('div', 'unterkopf', 'Räume in der Planung'));
+      namen.forEach(function (n) { const r = raeume[n], d = knoten('div', 'raum-zeile'); d.append(knoten('span', '', n), knoten('span', 'hilfe', r.dosen + ' Dose' + (r.dosen === 1 ? '' : 'n') + ' · ' + r.ans + ' Anschlüsse · ' + r.geraete + ' Geräte' + (r.len.length ? ' · ' + zahl(Math.min.apply(null, r.len), 0) + (r.len.length > 1 && Math.max.apply(null, r.len) !== Math.min.apply(null, r.len) ? '–' + zahl(Math.max.apply(null, r.len), 0) : '') + ' m' : ''))); l.append(d); });
+    }
+    $('raumAnlegen').addEventListener('click', function () {
+      const name = tx(RAUM.name, '', 30).trim(); if (!name) { status('Bitte einen Raumnamen eintragen.'); return; }
+      let pp = gNach(RAUM.pp);
+      if (!pp || pp.typ !== 'patchpanel') { pp = geraet('patchpanel', 'Patchfeld ' + (P.geraete.filter(function (g) { return g.typ === 'patchpanel'; }).length + 1)); pp.he = freiePos(1, false); if (!pp.he) pp.ort = 'raum'; P.geraete.push(pp); RAUM.pp = pp.id; }
+      A = auswerten();
+      const frei = []; portListe(pp).forEach(function (q, i) { if (!A.belegt[pp.id + ':' + i + ':h']) frei.push(i); });
+      if (frei.length < RAUM.anzahl) { status(pp.name + ' hat nur noch ' + frei.length + ' freie Ports – Patchfeld vergrößern oder ein neues wählen.'); return; }
+      const d = geraet('dose', 'Dose ' + name, { raum: name, pg: [['rj45', 10000, RAUM.anzahl, 'nein']] });
+      P.geraete.push(d);
+      for (let i = 0; i < RAUM.anzahl; i++) P.kabel.push({ id: neueId('k'), nr: naechsteNr(), a: [pp.id, frei[i]], b: [d.id, i], art: RAUM.art, len: RAUM.len, farbe: 'weiss', verlegt: true });
+      aufbauen(); status(name + ': Dose mit ' + RAUM.anzahl + ' Anschlüssen an ' + pp.name + ' Port ' + frei.slice(0, RAUM.anzahl).map(function (i) { return portListe(pp)[i].label; }).join(', ') + ' angelegt.');
+    });
+
+    // ---------- VLANs ----------
+    function vlansAufbauen() {
+      const z = $('vlans'); z.innerHTML = '';
+      P.vlans.forEach(function (v, i) {
+        const d = knoten('div', 'vlan-zeile'), r = knoten('div', 'raster eng');
+        feld(r, 'VLAN-ID', zahlFeld(v.vid, 1, 4094, function (x) { v.vid = x; aendern(); }, 1));
+        feld(r, 'Name', textFeld(v.name, 40, function (x) { v.name = x || 'VLAN'; aendern(); }));
+        const n = textFeld(v.netz, 18, function (x) { const ok = netzOk(x); n.classList.toggle('falsch', !ok); if (ok) { v.netz = x; aendern(); } }); n.classList.add('mono'); feld(r, 'Netz (CIDR)', n);
+        feld(r, 'Farbe', auswahl(VFARBEN.map(function (c, j) { return [c, 'Farbe ' + (j + 1)]; }), v.farbe, function (x) { v.farbe = x; aendern(); sw.style.background = x; }));
+        const sw = knoten('span', 'vlan-chip', v.vid + ' ' + v.name); sw.style.background = v.farbe;
+        const kopf = knoten('div', 'kabel-kopf'); kopf.append(sw, knoten('span', 'info', A ? P.geraete.filter(function (g) { return vlansVon(g).indexOf(v.id) >= 0; }).length + ' Geräte' : ''));
+        kopf.append(knopf('×', 'weg-k', function () {
+          if (P.vlans.length < 2) { status('Mindestens ein VLAN bleibt bestehen.'); return; }
+          if (!window.confirm('VLAN ' + v.vid + ' (' + v.name + ') löschen? Geräte darin verlieren ihr VLAN.')) return;
+          P.vlans.splice(i, 1); P.geraete.forEach(function (g) { if (g.vlan === v.id) g.vlan = ''; g.weitere = g.weitere.filter(function (x) { return x !== v.id; }); }); aufbauen();
+        }, 'VLAN entfernen'));
+        d.append(kopf, r); z.append(d);
+      });
+    }
+    $('neuVlan').addEventListener('click', function () {
+      if (P.vlans.length >= 32) return;
+      let vid = 10; while (P.vlans.some(function (v) { return v.vid === vid; })) vid += 10;
+      let o = 0; while (o < 255 && P.vlans.some(function (v) { return netz(v.netz).basis === ipZahl('10.0.' + o + '.0'); })) o++;
+      P.vlans.push({ id: neueId('v'), vid: Math.min(4094, vid), name: 'VLAN ' + vid, netz: '10.0.' + (vid <= 255 ? vid : o) + '.0/24', farbe: VFARBEN[P.vlans.length % VFARBEN.length] });
+      aufbauen();
+    });
+
+    // ---------- Allgemein ----------
+    function allgemeinAufbauen() {
+      const z = $('allgemein'); z.innerHTML = '';
+      feld(z, 'Name der Planung', textFeld(P.name, 60, function (v) { P.name = v || 'Mein Homelab'; aendern(); }), true);
+      feld(z, 'Rack-Höhe (HE, 0 = kein Rack)', zahlFeld(P.rack.he, 0, 52, function (v) { P.rack.he = v; aendern(); }, 1));
+      feld(z, 'Rack-Name', textFeld(P.rack.name, 40, function (v) { P.rack.name = v || 'Rack'; aendern(); }));
+      feld(z, 'Strompreis (€/kWh)', zahlFeld(P.preis, 0, 5, function (v) { P.preis = v; aendern(); }));
+      feld(z, 'Reserve Verlegekabel (%)', zahlFeld(P.reserve, 0, 100, function (v) { P.reserve = v; aendern(); }));
+    }
+
+    // ---------- Zeichnen ----------
+    const cv = $('bild');
+    let treffer = [], pulsT = 0;
+    function zeichnen() {
+      if (!A) return;
+      if (UI.ansicht === 'rack') rackZeichnen(); else if (UI.ansicht === 'strom') stromZeichnen(); else topoZeichnen();
+    }
+    function speedFarbe(s) { return s >= 25000 ? '#7048E8' : s >= 10000 ? '#3B5BDB' : s >= 5000 ? '#2F9E44' : s >= 2500 ? '#15AABF' : s >= 1000 ? '#6B7785' : '#ADB5BD'; }
+    function kuerzen(cx, t, max) { if (cx.measureText(t).width <= max) return t; while (t.length > 1 && cx.measureText(t + '…').width > max) t = t.slice(0, -1); return t + '…'; }
+    let LAYOUT = null;
+    function topoLayout(w) {
+      const ids = Object.keys(A.nach), ebenen = [];
+      ids.forEach(function (id) { if (A.ebene[id] === undefined) return; (ebenen[A.ebene[id]] = ebenen[A.ebene[id]] || []).push(id); });
+      const lose = ids.filter(function (id) { return A.ebene[id] === undefined; });
+      // innerhalb einer Ebene nach der Lage der Eltern ordnen
+      const pos = {}, schmal = w < 520, gx = 16, bw = schmal ? Math.min(132, (w - 20 - gx) / 2) : 132, bh = schmal ? 42 : 46, gy = 56;
+      const proReihe = Math.max(1, Math.floor((w - 12 + gx) / (bw + gx)));
+      let y = 14;
+      function reihe(liste) {
+        const oben = y; let luecken = null;
+        for (let s = 0; s < liste.length; s += proReihe) {
+          const teil = liste.slice(s, s + proReihe), breite = teil.length * bw + (teil.length - 1) * gx, x0 = (w - breite) / 2;
+          // Lücken zwischen den Kästen der ersten Reihe: dort laufen die Leitungen zu tieferen Reihen
+          if (!luecken) { luecken = [x0 - gx / 2]; for (let i = 1; i <= teil.length; i++) luecken.push(x0 + i * (bw + gx) - gx / 2); }
+          teil.forEach(function (id, i) { pos[id] = { x: x0 + i * (bw + gx), y: y, w: bw, h: bh, unter: s > 0, oben: oben, luecken: luecken }; });
+          y += bh + (s + proReihe < liste.length ? 38 : gy);
+        }
+      }
+      ebenen.forEach(function (l, e) {
+        if (!l) return;
+        if (e > 0) l.sort(function (a, b) { const pa = pos[A.eltern[a].g], pb = pos[A.eltern[b].g]; return (pa ? pa.x : 0) - (pb ? pb.x : 0) || P.geraete.indexOf(gNach(a)) - P.geraete.indexOf(gNach(b)); });
+        reihe(l);
+      });
+      let loseY = 0;
+      if (lose.length) { y += 6; loseY = y; y += 18; reihe(lose); }
+      return { pos: pos, h: Math.max(220, y - gy + 24), loseY: loseY, bw: bw, bh: bh };
+    }
+    function topoZeichnen() {
+      let L0 = null;
+      const L = leinwand(cv, function (w) { L0 = topoLayout(w); return L0.h; });
+      if (!L0 || !LAYOUT || LAYOUT.w !== L.w) { L0 = topoLayout(L.w); }
+      LAYOUT = L0; LAYOUT.w = L.w;
+      const cx = L.cx, pos = LAYOUT.pos; cx.clearRect(0, 0, L.w, L.h); treffer = [];
+      if (LAYOUT.loseY) txt(cx, 'nicht angeschlossen', L.w / 2, LAYOUT.loseY + 4, { g: 11, f: f('--leise') });
+      // Verbindungen
+      const linien = [];
+      Object.keys(A.eltern).forEach(function (id) { const e = A.eltern[id]; linien.push({ a: e.g, b: id, c: e.c, baum: true }); });
+      A.extra.forEach(function (c) { linien.push({ a: c.a.g, b: c.b.g, c: c, baum: false }); });
+      A.kanaele.forEach(function (c) { if (c.b && c.speed === 0 && pos[c.a.g] && pos[c.b.g]) linien.push({ a: c.a.g, b: c.b.g, c: c, kaputt: true }); });
+      // Eltern je Ebene durchnummerieren, damit ihre Sammelleitungen nicht aufeinanderliegen
+      const elternNr = {}, proEbene = {};
+      linien.forEach(function (l) { if (!l.baum || elternNr[l.a] !== undefined) return; const e = A.ebene[l.a] || 0; elternNr[l.a] = proEbene[e] = (proEbene[e] === undefined ? 0 : proEbene[e] + 1); });
+      linien.forEach(function (l, i) {
+        const p = pos[l.a], q = pos[l.b]; if (!p || !q) return;
+        const c = l.c, farbe = l.kaputt ? f('--fehler') : speedFarbe(c.speed), breite = l.kaputt ? 2 : 1.5 + Math.log10(Math.max(100, c.speed) / 100) * 1.4;
+        let pts, labelPunkt;
+        if (l.baum) {
+          // rechtwinklig: vom Eltern-Kasten nach unten, über eine Sammelleitung, senkrecht in den Kasten
+          const px = p.x + p.w / 2, qx = q.x + q.w / 2, ver = (elternNr[l.a] % 3) * 5, bus = q.y - 26 - ver;
+          if (!q.unter) pts = [[px, p.y + p.h], [px, bus], [qx, bus], [qx, q.y]];
+          else {
+            const gx = q.luecken.reduce(function (m, x) { return Math.abs(x - px) < Math.abs(m - px) ? x : m; }, q.luecken[0]), bus0 = q.oben - 26 - ver;
+            pts = [[px, p.y + p.h], [px, bus0], [gx, bus0], [gx, bus], [qx, bus], [qx, q.y]];
+          }
+          labelPunkt = [qx, q.y - 11];
+        } else {
+          const oben = p.y <= q.y ? p : q, unten = p.y <= q.y ? q : p, a = [oben.x + oben.w * 0.75, oben.y + oben.h], b = [unten.x + unten.w * 0.75, unten.y], m = (a[1] + b[1]) / 2;
+          pts = []; for (let t = 0; t <= 1.0001; t += 0.05) { const u = 1 - t; pts.push([u * u * u * a[0] + 3 * u * u * t * a[0] + 3 * u * t * t * b[0] + t * t * t * b[0], u * u * u * a[1] + 3 * u * u * t * m + 3 * u * t * t * m + t * t * t * b[1]]); }
+          labelPunkt = pts[10];
+        }
+        const lang = []; let ges = 0; for (let k = 1; k < pts.length; k++) { ges += Math.hypot(pts[k][0] - pts[k - 1][0], pts[k][1] - pts[k - 1][1]); lang.push(ges); }
+        const pkt = function (t) { const d = t * ges; let k = 0; while (k < lang.length - 1 && lang[k] < d) k++; const d0 = k ? lang[k - 1] : 0, seg = lang[k] - d0, u = seg ? (d - d0) / seg : 0; return [pts[k][0] + (pts[k + 1][0] - pts[k][0]) * u, pts[k][1] + (pts[k + 1][1] - pts[k][1]) * u]; };
+        strich(cx, pts, farbe, breite, c.medium === 'lwl' ? [7, 4] : l.baum === false ? [3, 4] : null);
+        if (c.medium === 'dac') strich(cx, pts, 'rgba(255,255,255,0.5)', 1, [2, 3]);
+        // Datenpakete, schneller bei höherer Geschwindigkeit
+        if (c.speed > 0) { const v = (0.12 + Math.log10(c.speed / 100) * 0.12) * 120 / Math.max(60, ges); for (let k = 0; k < 2; k++) { const t = ((pulsT * v + k * 0.5 + i * 0.13) % 1); const z = pkt(t); kreis(cx, z[0], z[1], 2.6, farbe); } }
+        const mm = labelPunkt, lab = (c.speed ? sp(c.speed) : 'kein Link') + (c.poe ? ' ⚡' : '');
+        cx.font = '600 10px ' + (f('--technik') || 'sans-serif'); const tw = cx.measureText(lab).width + 8;
+        kasten(cx, mm[0] - tw / 2, mm[1] - 8, tw, 16, 8, f('--flaeche'), farbe, 1);
+        txt(cx, lab, mm[0], mm[1], { g: 10, b: true, f: l.kaputt ? f('--fehler') : f('--text') });
+      });
+      // Geräte
+      Object.keys(pos).forEach(function (id) {
+        const g = gNach(id), p = pos[id], t = TYP[g.typ], fehler = A.gFehler[id], gew = UI.gewaehlt === id;
+        kasten(cx, p.x, p.y, p.w, p.h, 8, f('--flaeche'), gew ? '#3B5BDB' : fehler ? f('--fehler') : f('--linie'), gew ? 2.5 : fehler ? 2 : 1.2);
+        kasten(cx, p.x, p.y, 6, p.h, 3, t.farbe);
+        const v = vNach(g.vlan);
+        cx.font = '700 12px ' + (f('--technik') || 'sans-serif');
+        txt(cx, kuerzen(cx, g.name, p.w - 18), p.x + 12, p.y + p.h * 0.34, { g: 12, b: true, a: 'left' });
+        cx.font = '500 10px ui-monospace, Menlo, Consolas, monospace';
+        const ip = v ? A.ip[g.id + ':' + v.id] || '' : '', unter = ip || t.name;
+        txt(cx, kuerzen(cx, unter, p.w - 30), p.x + 12, p.y + p.h * 0.72, { g: 10, a: 'left', f: f('--leise'), mono: !!ip });
+        if (v) { kreis(cx, p.x + p.w - 10, p.y + p.h * 0.72, 4.5, v.farbe); }
+        if (fehler) txt(cx, '⚠', p.x + p.w - 10, p.y + p.h * 0.3, { g: 11, f: f('--fehler'), b: true });
+        treffer.push({ x: p.x, y: p.y, w: p.w, h: p.h, id: id });
+      });
+      if (!Object.keys(pos).length) txt(cx, 'Noch keine aktiven Geräte.', L.w / 2, L.h / 2, { g: 13, f: f('--leise') });
+    }
+    function rackZeichnen() {
+      const he = P.rack.he, imRack = P.geraete.filter(function (g) { return g.ort === 'rack' && g.he; });
+      const draussen = P.geraete.filter(function (g) { return g.ort !== 'rack' && TYP[g.typ].rolle !== 'zubehoer'; });
+      let hu = 20, unterH = 0;
+      const L = leinwand(cv, function (w) { hu = w < 420 ? 17 : 21; const spalten = Math.max(1, Math.floor((w - 20) / 170)); unterH = draussen.length ? 30 + Math.ceil(draussen.length / spalten) * 22 : 0; return Math.max(160, (he ? he * hu + 50 : 60) + unterH); });
+      const cx = L.cx; cx.clearRect(0, 0, L.w, L.h); treffer = [];
+      if (!he) txt(cx, 'Kein Rack geplant (Reiter „Rack und Strom“).', L.w / 2, 30, { g: 12, f: f('--leise') });
+      else {
+        const rb = Math.min(L.w - 56, 560), x0 = (L.w - rb) / 2 + 12, y0 = 26;
+        txt(cx, P.rack.name + ' · ' + he + ' HE · ' + A.rackBelegt + ' belegt', L.w / 2, 12, { g: 11, b: true });
+        kasten(cx, x0 - 16, y0 - 6, rb + 32, he * hu + 12, 6, '#2B2F33');
+        for (let h = 1; h <= he; h++) {
+          const y = y0 + (he - h) * hu;
+          cx.fillStyle = h % 2 ? '#34393E' : '#30353A'; cx.fillRect(x0, y, rb, hu);
+          txt(cx, String(h), x0 - 8, y + hu / 2, { g: 9, f: '#ADB5BD' });
+        }
+        imRack.forEach(function (g) {
+          const t = TYP[g.typ], y = y0 + (he - (g.he + g.hoehe - 1)) * hu, h = g.hoehe * hu, fehler = A.gFehler[g.id], gew = UI.gewaehlt === g.id;
+          if (g.he + g.hoehe - 1 > he) return;
+          kasten(cx, x0 + 1, y + 1, rb - 2, h - 2, 3, t.rolle === 'zubehoer' ? '#495057' : '#1E2226', gew ? '#4C6EF5' : fehler ? '#FF6B6B' : t.farbe, gew || fehler ? 2.2 : 1.4);
+          cx.fillStyle = t.farbe; cx.fillRect(x0 + 1, y + 1, 4, h - 2);
+          cx.font = '700 11px ' + (f('--technik') || 'sans-serif');
+          const ports = A.ports[g.id], n = ports.length;
+          const portBreite = n ? Math.min(rb * 0.62, n * 11) : 0, textBreite = rb - portBreite - 22;
+          txt(cx, kuerzen(cx, g.name, textBreite), x0 + 10, y + Math.min(h, hu) / 2 + (g.hoehe > 1 ? 2 : 0), { g: 11, b: true, a: 'left', f: '#F1F3F5' });
+          if (g.hoehe > 1) txt(cx, t.name, x0 + 10, y + hu / 2 + 13, { g: 9, a: 'left', f: '#ADB5BD' });
+          if (n) {
+            const reihen = n > 24 && hu * g.hoehe >= 20 ? 2 : 1, proR = Math.ceil(n / reihen), pw = Math.min(10, (rb * 0.62) / proR - 1.5), px0 = x0 + rb - 8 - proR * (pw + 1.5);
+            ports.forEach(function (pt, i) {
+              const r = Math.floor(i / proR), c = i % proR, py = y + (reihen === 2 ? 3 + r * (pw + 2) : (Math.min(h, hu) - pw) / 2), px = px0 + c * (pw + 1.5);
+              const kv = A.belegt[g.id + ':' + i + ':v'], kh = A.belegt[g.id + ':' + i + ':h'];
+              cx.fillStyle = kv ? KFARBEN[kv.farbe][1] : '#0B0D0F'; cx.fillRect(px, py, pw, pw * (pt.art === 'sfp' ? 0.6 : 0.85));
+              cx.strokeStyle = pt.art === 'sfp' ? '#868E96' : pt.poe !== 'nein' ? '#F59F00' : '#495057'; cx.lineWidth = 0.8; cx.strokeRect(px, py, pw, pw * (pt.art === 'sfp' ? 0.6 : 0.85));
+              if (kh && !kv) { cx.fillStyle = '#ADB5BD'; cx.fillRect(px + pw / 2 - 1, py + pw * 0.85 - 2, 2, 2); }
+            });
+          }
+          treffer.push({ x: x0, y: y, w: rb, h: h, id: g.id });
+        });
+      }
+      if (draussen.length) {
+        const y1 = (he ? 26 + he * hu + 24 : 50), spalten = Math.max(1, Math.floor((L.w - 20) / 170)), bw = (L.w - 20) / spalten;
+        txt(cx, 'außerhalb des Racks', L.w / 2, y1 - 8, { g: 11, f: f('--leise') });
+        draussen.forEach(function (g, i) {
+          const x = 10 + (i % spalten) * bw, y = y1 + Math.floor(i / spalten) * 22, gew = UI.gewaehlt === g.id;
+          kasten(cx, x + 2, y + 2, bw - 4, 18, 5, f('--flaeche'), gew ? '#3B5BDB' : A.gFehler[g.id] ? f('--fehler') : f('--linie'), gew ? 2 : 1);
+          cx.fillStyle = TYP[g.typ].farbe; cx.fillRect(x + 4, y + 6, 6, 10);
+          cx.font = '500 10px ' + (f('--technik') || 'sans-serif');
+          txt(cx, kuerzen(cx, g.name + (g.raum ? ' · ' + g.raum : ''), bw - 22), x + 14, y + 11, { g: 10, a: 'left' });
+          treffer.push({ x: x, y: y, w: bw, h: 20, id: g.id });
+        });
+      }
+    }
+    function stromZeichnen() {
+      const S = A.strom, liste = S.geraete.filter(function (z) { return z.max > 0 || z.viaPoE; }).sort(function (a, b) { return b.max - a.max; });
+      const usvs = Object.keys(S.usv), poes = Object.keys(A.poe);
+      const zeile = 22, kopf = 18 + (usvs.length + poes.length) * 30;
+      const L = leinwand(cv, function () { return Math.max(160, kopf + 24 + liste.length * zeile + 30); });
+      const cx = L.cx; cx.clearRect(0, 0, L.w, L.h); treffer = [];
+      const lx = Math.min(170, L.w * 0.38), bx = lx + 8, bb = L.w - bx - 70;
+      let y = 12;
+      // Auslastung der USV und PoE-Budgets
+      function balken(name, wert, max, einheit, farbe, zusatz) {
+        txt(cx, name, 10, y + 7, { g: 11, b: true, a: 'left' });
+        const w = L.w - 20, a = max > 0 ? Math.min(1.2, wert / max) : 0;
+        kasten(cx, 10, y + 15, w, 9, 4, f('--flaeche'), f('--linie'), 1);
+        kasten(cx, 10, y + 15, Math.max(4, Math.min(1, a) * w), 9, 4, a > 1 ? f('--fehler') : a > 0.8 ? '#F08C00' : farbe);
+        txt(cx, zahl(wert, 0) + ' / ' + zahl(max, 0) + ' ' + einheit + (zusatz || ''), L.w - 10, y + 7, { g: 10, a: 'right', f: f('--leise') });
+        y += 30;
+      }
+      usvs.forEach(function (id) { const u = S.usv[id]; balken(u.g.name + ' (Spitze)', u.max, u.g.usvW, 'W', '#F59F00', ' · ' + (isFinite(u.tTyp) ? '≈ ' + zahl(u.tTyp, 0) + ' min' : '')); });
+      poes.forEach(function (id) { const q = A.poe[id]; balken('PoE ' + gNach(id).name, q.summe, q.budget, 'W', '#1971C2'); });
+      y += 6;
+      const mx = Math.max.apply(null, liste.map(function (z) { return z.max; }).concat([1]));
+      liste.forEach(function (z) {
+        const g = z.g, gew = UI.gewaehlt === g.id;
+        cx.font = (gew ? '700 ' : '500 ') + '11px ' + (f('--technik') || 'sans-serif');
+        txt(cx, kuerzen(cx, g.name, lx - 10), lx, y + zeile / 2, { g: 11, a: 'right', b: gew });
+        const wm = z.max / mx * bb, wt = z.typ / mx * bb, farbe = g.usv ? '#F59F00' : TYP[g.typ].farbe;
+        cx.globalAlpha = 0.35; kasten(cx, bx, y + 4, Math.max(2, wm), zeile - 8, 3, farbe); cx.globalAlpha = 1;
+        kasten(cx, bx, y + 4, Math.max(2, wt), zeile - 8, 3, farbe);
+        if (z.poe > 0) { cx.globalAlpha = 0.9; strich(cx, [[bx + (z.eigen / mx * bb), y + 4], [bx + (z.eigen / mx * bb), y + zeile - 4]], '#FFFFFF', 1.2); cx.globalAlpha = 1; }
+        txt(cx, z.viaPoE ? 'über PoE' : zahl(z.typ, 0) + '–' + zahl(z.max, 0) + ' W', bx + Math.max(wm, 2) + 6, y + zeile / 2, { g: 10, a: 'left', f: f('--leise') });
+        treffer.push({ x: 0, y: y, w: L.w, h: zeile, id: g.id });
+        y += zeile;
+      });
+      txt(cx, 'Summe ' + zahl(S.typ, 0) + ' W typisch · ' + zahl(S.max, 0) + ' W Spitze · orange = an USV', L.w / 2, y + 14, { g: 11, b: true });
+    }
+    cv.addEventListener('click', function (ev) {
+      const r = cv.getBoundingClientRect(), x = ev.clientX - r.left, y = ev.clientY - r.top;
+      const t = treffer.filter(function (q) { return x >= q.x && x <= q.x + q.w && y >= q.y && y <= q.y + q.h; })[0];
+      if (!t) return;
+      UI.gewaehlt = t.id; UI.offen = {}; UI.offen[t.id] = true; reiterSetzen('geraete'); geraeteAufbauen(); zeichnen();
+      const el = document.querySelector('[data-g="' + t.id + '"]'); if (el && window.innerWidth > 1000) el.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      status(gNach(t.id).name + ' ausgewählt.');
+    });
+    function markieren() { document.querySelectorAll('.geraet').forEach(function (d) { d.classList.toggle('gewaehlt', d.getAttribute('data-g') === UI.gewaehlt); }); }
+
+    // ---------- Ergebnisse ----------
+    function ergebnisse() {
+      const S = A.strom, m = [];
+      A.fehler.forEach(function (t) { m.push([t, true]); });
+      A.warn.forEach(function (t) { m.push(['Hinweis: ' + t]); });
+      A.info.slice(0, 12).forEach(function (t) { m.push([t]); });
+      if (!m.length) m.push(['Keine Fehler gefunden: Ports, Kabel, Längen, PoE, VLANs, Adressen, Rack und USV passen.']);
+      meldungen($('meldungen'), m);
+      const u = A.fehler.length ? A.fehler.length + ' Fehler' : A.warn.length ? A.warn.length + ' Hinweise' : 'alles stimmig';
+      [$('urteil'), $('urteil2')].forEach(function (e) { e.textContent = u; e.className = 'urteil ' + (A.fehler.length ? 'schlecht' : A.warn.length ? '' : 'gut'); });
+      const usv = Object.keys(S.usv).map(function (id) { return S.usv[id]; })[0];
+      const poeS = Object.keys(A.poe).reduce(function (s, id) { return s + A.poe[id].summe; }, 0), poeB = Object.keys(A.poe).reduce(function (s, id) { return s + A.poe[id].budget; }, 0);
+      const strecken = A.kanaele.filter(function (c) { return c.b; });
+      kacheln($('kacheln'), [
+        [String(P.geraete.filter(aktiv).length), 'aktive Geräte', '#3B5BDB'],
+        [String(P.kabel.length), 'Kabel (' + zahl(P.kabel.reduce(function (s, k) { return s + k.len; }, 0), 0) + ' m)', '#6B7785'],
+        [String(strecken.length), 'Strecken, schnellste ' + sp(Math.max.apply(null, strecken.map(function (c) { return c.speed; }).concat([0]))), '#15AABF'],
+        [zahl(S.typ, 0) + ' W', 'Leistung typisch (Spitze ' + zahl(S.max, 0) + ' W)', '#F08C00'],
+        [zahl(S.kosten, 0) + ' €', 'Strom pro Jahr (' + zahl(S.kwh, 0) + ' kWh)', '#E03131'],
+        poeB ? [zahl(poeS, 0) + ' W', 'PoE von ' + zahl(poeB, 0) + ' W Budget', '#1971C2'] : null,
+        usv ? [isFinite(usv.tTyp) ? '≈ ' + zahl(usv.tTyp, 0) + ' min' : '–', 'USV-Laufzeit typisch', '#F59F00'] : null,
+        P.rack.he ? [A.rackBelegt + ' / ' + P.rack.he, 'HE im Rack belegt', '#495057'] : null
+      ]);
+      // Patchliste
+      const zeilen = [];
+      A.kanaele.forEach(function (c) {
+        const ga = gNach(c.a.g), pa = A.ports[ga.id][c.a.p];
+        let weg = ga.name + ' ' + pa.label, von = c.a.g;
+        c.kabel.forEach(function (k) { const e = k.a[0] === von ? k.b : k.a, g = gNach(e[0]); weg += ' → ' + kNr(k) + ' (' + (k.verlegt ? 'verlegt ' : '') + zahl(k.len, k.len < 10 ? 1 : 0) + ' m, ' + KFARBEN[k.farbe][0] + ') → ' + g.name + ' ' + A.ports[g.id][e[1]].label + (passiv(g) ? (k.verlegt ? ' hinten' : ' vorne') : ''); von = e[0]; });
+        zeilen.push({ c: c, z: ['S' + (c.nr < 10 ? '0' : '') + c.nr, weg, zahl(c.laenge, 1) + ' m', c.b ? sp(c.speed) : 'offen', c.poe ? POE[gNach(c.poe.pd).pd].name.split(' ')[0] : '', c.status === 'fehler' ? 'Fehler' : c.status === 'warn' ? 'prüfen' : c.b ? 'ok' : 'offen'] });
+      });
+      tabelle($('patchliste'), ['Strecke', 'Weg', 'Länge', 'Tempo', 'PoE', 'Status'], zeilen.map(function (q) { return q.z; }), { zahl: [2], klasse: function (j) { return zeilen[j].c.status === 'fehler' ? 'zeile-fehler' : ''; } });
+      // Port-Konfiguration
+      const pk = $('portKonfig'); pk.innerHTML = '';
+      if (!A.portKonfig.length) pk.append(knoten('p', 'hilfe', 'Keine Switches oder Router in der Planung.'));
+      A.portKonfig.forEach(function (q) {
+        pk.append(knoten('h3', 'port-switch', q.g.name + (A.ip[q.g.id + ':' + q.g.vlan] ? ' · ' + A.ip[q.g.id + ':' + q.g.vlan] : '') + (q.uplink && q.runter ? ' · Uplink ' + sp(q.uplink) + ', Überbuchung ' + zahl(q.runter / q.uplink, 1) + ' : 1' : '')));
+        const ra = knoten('div', 'rahmen'), d = knoten('div'); ra.append(d); pk.append(ra);
+        const vt = function (id) { const v = vNach(id); return v ? String(v.vid) : ''; };
+        tabelle(d, ['Port', 'Verbunden mit', 'Modus', 'untagged', 'tagged', 'Tempo', 'PoE'], q.zeilen.map(function (z) {
+          if (z.frei) return [z.port.label, z.offen ? 'Kabel ohne Gegenstelle' : '–', z.offen ? '' : 'frei (abschalten)', '', '', '', ''];
+          return [z.port.label, z.geraet.name + ' ' + z.gPort.label, z.modus, vt(z.unt), z.tag.map(vt).sort(function (a, b) { return a - b; }).join(', '), sp(z.c.speed), z.c.poe && z.c.poe.quelle === q.g.id ? '⚡ ' + zahl(gNach(z.c.poe.pd).wMax, 0) + ' W' : ''];
+        }), { mono: [0, 3, 4] });
+      });
+      // IP-Plan
+      const ipz = [];
+      A.netze.forEach(function (q) {
+        ipz.push(['VLAN ' + q.v.vid, q.v.name, q.n.text, 'Gateway ' + (q.router.length ? ipText(q.n.basis + 1) + ' (' + q.router[0].name + ')' : '–'), q.dhcp ? 'DHCP ' + ipText(q.dhcp[0]) + ' – ' + ipText(q.dhcp[1]) : '']);
+        P.geraete.forEach(function (g) { if (g.vlan === q.v.id && TYP[g.typ].rolle !== 'router' && aktiv(g)) ipz.push(['', g.name, A.ip[g.id + ':' + q.v.id] || '–', TYP[g.typ].name, g.ipArt === 'statisch' ? 'fest (eigene)' : g.ipArt === 'auto' ? 'fest (vorgeschlagen)' : g.ipArt === 'dhcp' ? 'per DHCP' : 'ohne']); });
+      });
+      tabelle($('ipPlan'), ['VLAN', 'Name', 'Adresse / Netz', 'Art', 'Vergabe'], ipz, { mono: [2], klasse: function (j) { return ipz[j][0] ? 'zeile-kopf' : ''; } });
+      // Strom
+      const sz = S.geraete.map(function (z) { return [z.g.name, z.viaPoE ? 'über PoE von ' + z.viaPoE.name : zahl(z.eigen, 0) + ' W', z.poe ? zahl(z.poe, 1) + ' W' : '', zahl(z.typ, 1) + ' W', zahl(z.max, 1) + ' W', z.g.usv ? gNach(z.g.usv).name : '', zahl(z.kwh * P.preis, 0) + ' €']; });
+      sz.push(['Summe', '', '', zahl(S.typ, 1) + ' W', zahl(S.max, 1) + ' W', '', zahl(S.kosten, 0) + ' €']);
+      sz.forEach(function (q, j) { if (j < S.geraete.length) q.splice(6, 0, zahl(S.geraete[j].g.h, 0) + ' h'); else q.splice(6, 0, ''); });
+      tabelle($('stromTabelle'), ['Gerät', 'eigen', 'PoE-Abgabe', 'typisch', 'Spitze', 'USV', 'Betrieb/Tag', 'Kosten/Jahr'], sz, { zahl: [1, 2, 3, 4, 6, 7], klasse: function (j) { return j === sz.length - 1 ? 'zeile-summe' : ''; } });
+      wegZeigenStrom();
+      stueckliste();
+    }
+    function wegZeigenStrom() {
+      const S = A.strom, w = [];
+      w.push(['Leistung des Labs', 'P = \\sum P_\\text{Gerät} + \\sum \\frac{1{,}1 \\, P_\\text{PoE}}{\\eta_\\text{NT}} = ' + E(tz(S.typ, 1) + '\\,\\text{W}') + '\\;(\\text{Spitze } ' + tz(S.max, 1) + '\\,\\text{W})']);
+      w.push(['Energie und Kosten im Jahr', 'W = \\sum P_i \\, t_i \\cdot 365 = ' + tz(S.kwh, 0) + '\\,\\text{kWh}\\;(\\bar P = ' + tz(S.mittel, 0) + '\\,\\text{W}),\\quad K = W \\cdot p = ' + tz(S.kwh, 0) + ' \\cdot ' + tz(P.preis, 2) + ' = ' + E(tz(S.kosten, 0) + '\\,\\text{€}')]);
+      w.push(['Abwärme', '\\dot Q = P = ' + tz(S.typ, 0) + '\\,\\text{W} = ' + tz(S.typ * 3.412, 0) + '\\,\\tfrac{\\text{BTU}}{\\text{h}}']);
+      Object.keys(A.poe).forEach(function (id) { const q = A.poe[id]; w.push(['PoE-Budget ' + gNach(id).name, '\\sum 1{,}1 \\cdot P_\\text{PD} = ' + q.geraete.map(function (g) { return '1{,}1 \\cdot ' + tz(g.wMax, 1); }).join(' + ') + ' = ' + E(tz(q.summe, 1) + '\\,\\text{W}') + (q.summe <= q.budget ? ' \\le ' : ' > ') + tz(q.budget, 0) + '\\,\\text{W}']); });
+      Object.keys(S.usv).forEach(function (id) {
+        const u = S.usv[id], g = u.g;
+        w.push(['Last an „' + g.name + '“', 'S = \\frac{P_\\text{max}}{\\cos\\varphi} = \\frac{' + tz(u.max, 0) + '}{0{,}9} = ' + tz(u.va, 0) + '\\,\\text{VA} \\;\\Rightarrow\\; ' + E(tz(u.lastW * 100, 0) + '\\,\\%') + '\\text{ von } ' + tz(g.usvW, 0) + '\\,\\text{W}']);
+        w.push(['Laufzeit „' + g.name + '“', 't \\approx \\frac{E_\\text{Akku} \\, \\eta_\\text{WR}}{P} \\left(\\frac{P}{P_\\text{n}/2}\\right)^{0{,}15} = \\frac{' + tz(g.usvWh, 0) + ' \\cdot 0{,}85}{' + tz(u.typ, 0) + '} \\cdot 60 \\cdot \\ldots = ' + E(tz(u.tTyp, 0) + '\\,\\text{min}')]);
+      });
+      wegZeigen($('weg'), w);
+    }
+    const PATCH_L = [0.15, 0.25, 0.5, 1, 1.5, 2, 3, 5, 7.5, 10, 15, 20, 30, 50], LWL_L = [0.5, 1, 2, 3, 5, 10, 15, 20, 30, 50, 100], DAC_L = [0.5, 1, 1.5, 2, 3, 5, 7];
+    function aufrunden(len, liste) { for (let i = 0; i < liste.length; i++) if (len <= liste[i] + 1e-9) return liste[i]; return Math.ceil(len); }
+    function stueckliste() {
+      const z = [], verlegt = {}, patch = {}, mod = { sr: 0, lr: 0, rj: 0 };
+      let keystone = 0;
+      P.kabel.forEach(function (k) {
+        const med = KABEL[k.art].medium;
+        if (k.verlegt && med === 'cu') { const v = verlegt[k.art] || (verlegt[k.art] = { m: 0, n: 0 }); v.m += k.len; v.n++; [k.a, k.b].forEach(function (e) { if (passiv(gNach(e[0]))) keystone++; }); return; }
+        const l = aufrunden(k.len, med === 'lwl' ? LWL_L : med === 'dac' ? DAC_L : PATCH_L), key = k.art + '|' + l + '|' + (med === 'cu' ? k.farbe : '');
+        patch[key] = (patch[key] || 0) + 1;
+      });
+      A.kanaele.forEach(function (c) { if (!c.b || c.status === 'fehler') return; if (c.medium === 'lwl') { if (c.kabel[0].art === 'os2') mod.lr += 2; else mod.sr += 2; } mod.rj += c.module || 0; });
+      Object.keys(verlegt).forEach(function (a) {
+        const v = verlegt[a], m = v.m * (1 + P.reserve / 100) + v.n * 1.5, gebinde = m <= 50 ? '1 Ring 50 m' : m <= 100 ? '1 Ring 100 m' : Math.ceil(m / 305) + ' × Karton 305 m';
+        z.push(['Verlegekabel ' + KABEL[a].name + ' (Installationskabel, AWG 23)', zahl(m, 0) + ' m', gebinde, v.n + ' Leitungen, ' + zahl(P.reserve, 0) + ' % Reserve und 1,5 m je Anschluss']);
+      });
+      if (keystone) z.push(['Anschlussmodule (Keystone, geschirmt)', String(keystone), '', 'je Ende eines Verlegekabels in Patchfeld oder Dose']);
+      const dosen = P.geraete.filter(function (g) { return g.typ === 'dose'; });
+      if (dosen.length) { const n = {}; dosen.forEach(function (d) { const a = portListe(d).length; n[a] = (n[a] || 0) + 1; }); Object.keys(n).forEach(function (a) { z.push(['Netzwerkdose ' + a + '-fach (Unterputz, für Keystone)', String(n[a]), '', '']); }); }
+      Object.keys(patch).sort().forEach(function (key) {
+        const t = key.split('|'), med = KABEL[t[0]].medium;
+        z.push([med === 'lwl' ? 'LWL-Patchkabel ' + KABEL[t[0]].name + ' LC/LC duplex' : med === 'dac' ? 'DAC-Kabel SFP+ (passiv)' : 'Patchkabel ' + KABEL[t[0]].name + ' S/FTP', String(patch[key]), zahl(Number(t[1]), Number(t[1]) < 1 ? 2 : 1) + ' m', t[2] ? KFARBEN[t[2]][0] : '']);
+      });
+      if (mod.sr) z.push(['SFP+-Modul 10GBASE-SR (Multimode, 850 nm)', String(mod.sr), '', 'je Glasfaserstrecke zwei']);
+      if (mod.lr) z.push(['SFP+-Modul 10GBASE-LR (Singlemode, 1310 nm)', String(mod.lr), '', '']);
+      if (mod.rj) z.push(['SFP-Modul RJ45 (Kupfer)', String(mod.rj), '', 'wird warm, 10GBASE-T meist nur bis 30 m']);
+      if (P.kabel.length) z.push(['Kabeletiketten', String(P.kabel.length * 2), '', 'Kabelnummer an beide Enden']);
+      if (P.kabel.length) z.push(['Klettkabelbinder', '1 Rolle', '', 'statt Kabelbindern, Kabel bleiben änderbar']);
+      tabelle($('stueckliste'), ['Teil', 'Menge', 'Länge / Gebinde', 'Hinweis'], z.length ? z : [['Noch nichts zu kaufen – Kabel anlegen.', '', '', '']], { zahl: [1] });
+    }
+    $('csv').addEventListener('click', function () {
+      const q = function (s) { return '"' + String(s).replace(/"/g, '""') + '"'; };
+      const zeilen = [['Kabel', 'Art', 'Typ', 'Länge m', 'Farbe', 'Von Gerät', 'Von Port', 'Nach Gerät', 'Nach Port'].map(q).join(';')];
+      P.kabel.slice().sort(function (a, b) { return a.nr - b.nr; }).forEach(function (k) {
+        const ga = gNach(k.a[0]), gb = gNach(k.b[0]);
+        zeilen.push([kNr(k), k.verlegt ? 'Verlegekabel' : 'Patchkabel', KABEL[k.art].name, zahl(k.len, 2), KFARBEN[k.farbe][0], ga.name, A.ports[ga.id][k.a[1]].label, gb.name, A.ports[gb.id][k.b[1]].label].map(q).join(';'));
+      });
+      herunterladen('﻿' + zeilen.join('\r\n'), 'patchliste.csv', 'text/csv');
+    });
+    function herunterladen(text, name, typ) { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([text], { type: typ + ';charset=utf-8' })); a.download = name; document.body.append(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500); }
+
+    // ---------- Ablauf ----------
+    function aufbauen() { A = auswerten(); geraeteAufbauen(); kabelAufbauen(); raumAufbauen(); vlansAufbauen(); allgemeinAufbauen(); ergebnisse(); zeichnen(); speichern(); }
+    let ergUhr = 0;
+    function aendern() { A = auswerten(); zeichnen(); speichern(); clearTimeout(ergUhr); ergUhr = setTimeout(function () { ergebnisse(); kopfzeilen(); }, 250); }
+    function kopfzeilen() {
+      // Zusammenfassungen der Geräte und Kabel ohne die Eingabefelder neu zu bauen
+      document.querySelectorAll('.geraet').forEach(function (d) {
+        const g = gNach(d.getAttribute('data-g')); if (!g) return;
+        const s = d.querySelector('summary'), t = TYP[g.typ], n = A.ports[g.id].length, b = A.ports[g.id].filter(function (q, i) { return A.belegt[g.id + ':' + i + ':v'] || A.belegt[g.id + ':' + i + ':h']; }).length;
+        s.querySelector('.titel').textContent = g.name;
+        s.querySelector('.klein').textContent = t.name + (n ? ' · ' + b + '/' + n + ' Ports' : '') + (g.ort === 'rack' && g.he ? ' · HE ' + g.he : g.raum ? ' · ' + g.raum : '');
+        let w = s.querySelector('.warn'); if (A.gFehler[g.id]) { if (!w) { w = knoten('span', 'warn'); s.append(w); } w.textContent = '⚠ ' + A.gFehler[g.id]; } else if (w) w.remove();
+      });
+      document.querySelectorAll('.kabel-zeile').forEach(function (d) { const id = d.getAttribute('data-k'); d.classList.toggle('fehler', !!A.kFehler[id]); });
+    }
+    function animieren(t) { pulsT = t / 1000; if (UI.ansicht === 'topo' && A) topoZeichnen(); requestAnimationFrame(animieren); }
+    $('beispiel').addEventListener('click', function () { if (!window.confirm('Beispiel laden? Die aktuelle Planung wird ersetzt.')) return; P = pruefen(beispiel()); UI.offen = {}; UI.gewaehlt = ''; aufbauen(); status('Beispiel geladen.'); });
+    $('leer').addEventListener('click', function () { if (!window.confirm('Neu beginnen? Die aktuelle Planung wird ersetzt.')) return; P = pruefen(leerPlan()); UI.offen = {}; UI.gewaehlt = ''; aufbauen(); status('Leere Planung mit einem Router angelegt.'); });
+    $('dateiSpeichern').addEventListener('click', function () { herunterladen(JSON.stringify(P, null, 1), (P.name || 'homelab').replace(/[^A-Za-z0-9äöüÄÖÜß_-]+/g, '-').slice(0, 40) + '.json', 'application/json'); });
+    $('dateiLaden').addEventListener('change', function (ev) {
+      const d = ev.target.files && ev.target.files[0]; if (!d) return;
+      if (d.size > 2000000) { status('Die Datei ist zu groß.'); return; }
+      const r = new FileReader();
+      r.onload = function () { let p = null; try { p = pruefen(JSON.parse(String(r.result))); } catch (e) { p = null; } if (!p) { status('Die Datei enthält keine gültige Planung – nichts geändert.'); return; } P = p; UI.offen = {}; aufbauen(); status('Planung „' + P.name + '“ aus der Datei geladen.'); };
+      r.readAsText(d); ev.target.value = '';
+    });
+    // Teilen (gemeinsames Muster aus basis.js)
+    $('teilen').addEventListener('click', function () { Teilen.url('plan', P).then(function (url) { Teilen.kopieren(url, function (t) { $('teilenMeldung').textContent = t; setTimeout(function () { $('teilenMeldung').textContent = ''; }, 5000); }); }); });
+    const vorherKnopf = Teilen.knopf($('teilen').parentNode, SPEICHER, function (roh) {
+      let p = null; try { p = pruefen(JSON.parse(roh)); } catch (e) { p = null; }
+      if (!p) { status('Keine gültige vorherige Planung gefunden.'); return; }
+      P = p; UI.offen = {}; aufbauen(); status('Vorherige Planung wiederhergestellt.');
+    }, 'Planung');
+    $('teilen').parentNode.insertBefore($('teilen').parentNode.querySelector('.vorher-knopf'), $('teilenMeldung'));
+    sammlung($('sammlung'), [
+      ['Kanallänge Kupfer', 'l_\\text{Kanal} = l_\\text{verlegt} + \\sum l_\\text{Patch} \\le 100\\,\\text{m},\\quad l_\\text{verlegt} \\le 90\\,\\text{m}', 'DIN EN 50173-1: Permanent Link höchstens 90 m, dazu Patch- und Geräteanschlusskabel'],
+      ['Reichweite nach Kabelklasse', '10\\,\\text{GBASE-T}: \\text{Cat 6} \\le 55\\,\\text{m},\\ \\text{Cat 6A} \\le 100\\,\\text{m}', '2,5 und 5 Gbit/s (802.3bz) über Cat 5e und Cat 6 bis 100 m; Glasfaser 10 Gbit/s: OM3 300 m, OM4 400 m, OS2 10 km'],
+      ['PoE-Budget', '\\sum_i 1{,}1 \\, P_{\\text{PD},i} \\le P_\\text{Budget}', 'Zuschlag 10 % für Verluste im Kabel; je Port höchstens 15,4 W (af), 30 W (at), 60/90 W (bt) am Switch'],
+      ['Scheinleistung USV', 'S = \\frac{P}{\\cos\\varphi},\\quad \\cos\\varphi \\approx 0{,}9', 'Watt und VA der USV müssen beide reichen, 20 bis 30 % Reserve'],
+      ['Laufzeit USV (Näherung)', 't \\approx \\frac{E_\\text{Akku}\\,\\eta_\\text{WR}}{P}', 'bei hoher Last kürzer, bei kleiner länger als die einfache Rechnung'],
+      ['Jahresenergie', 'W = \\sum_i P_i \\, t_i \\cdot 365', 't: Betriebsstunden am Tag; 1 W Dauerlast ≈ 8,76 kWh im Jahr'],
+      ['Abwärme', '1\\,\\text{W} = 3{,}412\\,\\tfrac{\\text{BTU}}{\\text{h}}', 'praktisch die ganze Leistung wird zu Wärme im Raum'],
+      ['Adressen im Subnetz', 'n_\\text{Host} = 2^{32 - p} - 2', '/24: 254 Adressen, /26: 62'],
+      ['Überbuchung eines Uplinks', 'r = \\frac{\\sum v_\\text{Downlink}}{v_\\text{Uplink}}', 'im Heimnetz sind 4:1 bis 8:1 unkritisch']
+    ]);
+    reiterSetzen('geraete');
+    aufbauen();
+    Teilen.lesen('plan').then(function (p) {
+      if (!p) return;
+      const q = pruefen(p); if (!q) throw new Error('ungültig');
+      const text = JSON.stringify(q), gesichert = Teilen.sichern(SPEICHER, text);
+      P = q; clearTimeout(uhr); try { localStorage.setItem(SPEICHER, text); } catch (e) { /* ohne Speicher */ }
+      UI.offen = {}; aufbauen(); vorherKnopf.zeigen();
+      status('Planung aus dem Link geladen und gespeichert.' + (gesichert ? ' Deine vorherige Planung ist gesichert.' : ''));
+    }).catch(function () { status('Der Link ist unvollständig oder beschädigt – es gilt die gespeicherte Planung.'); });
+    window.addEventListener('resize', function () { LAYOUT = null; zeichnen(); });
+    document.addEventListener('themawechsel', function () { zeichnen(); });
+    requestAnimationFrame(animieren);
+    void bewegungAus;
+  })();
+  </script>
+</body>
+</html>

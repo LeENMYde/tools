@@ -50,5 +50,18 @@
       "Typische Störungen mit Diagnose",
       "COP-Rechner in jede Richtung"
     ]
+  },
+  "it/homelab.html": {
+    "typ": "WebApplication",
+    "kategorie": "DesignApplication",
+    "stichworte": "Homelab Planer, Heimnetz planen, Netzwerk Verkabelung planen, Patchliste, Rack planen, VLAN Plan, PoE Budget, USV berechnen, Switch Konfiguration, Netzwerkdose Patchfeld",
+    "funktionen": [
+      "Geräte mit Ports, PoE und Leistung",
+      "Kabel von Port zu Port über Patchfeld und Netzwerkdose",
+      "Prüfung von Länge, Geschwindigkeit, Steckern, PoE, Schleifen und Adressen",
+      "Topologie, Rack-Ansicht und Strombilanz",
+      "VLAN-Port-Konfiguration und IP-Plan",
+      "Patchliste als CSV und Einkaufsliste"
+    ]
   }
 }
