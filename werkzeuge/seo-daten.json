@@ -63,5 +63,18 @@
       "VLAN-Port-Konfiguration und IP-Plan",
       "Patchliste als CSV und Einkaufsliste"
     ]
+  },
+  "it/homelab-server.html": {
+    "typ": "WebApplication",
+    "kategorie": "DesignApplication",
+    "stichworte": "Homelab Server planen, VM Planer, Proxmox Ressourcen, ZFS Rechner, RAIDZ Kapazität, vCPU Überbuchung, RAM für ZFS ARC, N+1 Cluster, Homelab Stromkosten",
+    "funktionen": [
+      "Dienste aus Vorlagen als VM oder Container",
+      "Automatische Verteilung auf Server nach RAM, CPU und Speicher",
+      "ZFS-Pool mit Spiegel und RAIDZ: Nutzkapazität, IOPS, Wiederaufbau",
+      "Prüfung bei Ausfall eines Servers (N+1)",
+      "Strom und Kosten pro Jahr",
+      "ZFS-Kapazitätsrechner in jede Richtung"
+    ]
   }
 }

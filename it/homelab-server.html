@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Homelab-Server planen: VMs, Container, RAM, CPU und ZFS – Formeln &amp; Rechner</title>
+  <meta name="description" content="Homelab-Server planen: VMs und Container verteilen, RAM mit Hypervisor und ZFS-Cache, vCPU-Überbuchung, ZFS-Pool mit Spiegel oder RAIDZ, Snapshots, N+1-Ausfall, Strom und Kosten.">
+  <!-- seo -->
+  <link rel="canonical" href="https://tools.pr1m3.de/it/homelab-server.html">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Formeln &amp; Rechner">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:title" content="Homelab-Server planen: VMs, Container, RAM, CPU und ZFS">
+  <meta property="og:description" content="Homelab-Server planen: VMs und Container verteilen, RAM mit Hypervisor und ZFS-Cache, vCPU-Überbuchung, ZFS-Pool mit Spiegel oder RAIDZ, Snapshots, N+1-Ausfall, Strom und Kosten.">
+  <meta property="og:url" content="https://tools.pr1m3.de/it/homelab-server.html">
+  <meta property="og:image" content="https://tools.pr1m3.de/assets/symbol-512.png">
+  <meta property="og:image:alt" content="Formeln &amp; Rechner">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Homelab-Server planen: VMs, Container, RAM, CPU und ZFS">
+  <meta name="twitter:description" content="Homelab-Server planen: VMs und Container verteilen, RAM mit Hypervisor und ZFS-Cache, vCPU-Überbuchung, ZFS-Pool mit Spiegel oder RAIDZ, Snapshots, N+1-Ausfall, Strom und Kosten.">
+  <meta name="twitter:image" content="https://tools.pr1m3.de/assets/symbol-512.png">
+  <meta name="keywords" content="Homelab Server planen, VM Planer, Proxmox Ressourcen, ZFS Rechner, RAIDZ Kapazität, vCPU Überbuchung, RAM für ZFS ARC, N+1 Cluster, Homelab Stromkosten">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://tools.pr1m3.de/it/homelab-server.html#seite","name":"Homelab-Server planen: VMs, Container, RAM, CPU und ZFS","url":"https://tools.pr1m3.de/it/homelab-server.html","inLanguage":"de","description":"Homelab-Server planen: VMs und Container verteilen, RAM mit Hypervisor und ZFS-Cache, vCPU-Überbuchung, ZFS-Pool mit Spiegel oder RAIDZ, Snapshots, N+1-Ausfall, Strom und Kosten.","isPartOf":{"@type":"WebSite","@id":"https://tools.pr1m3.de/#website","name":"Formeln & Rechner","url":"https://tools.pr1m3.de/"},"breadcrumb":{"@id":"https://tools.pr1m3.de/it/homelab-server.html#pfad"},"dateModified":"2026-11-08"},{"@type":"BreadcrumbList","@id":"https://tools.pr1m3.de/it/homelab-server.html#pfad","itemListElement":[{"@type":"ListItem","position":1,"name":"Formeln & Rechner","item":"https://tools.pr1m3.de/"},{"@type":"ListItem","position":2,"name":"Homelab-Server planen: VMs, Container, RAM, CPU und ZFS","item":"https://tools.pr1m3.de/it/homelab-server.html"}]},{"@type":"WebApplication","@id":"https://tools.pr1m3.de/it/homelab-server.html#anwendung","name":"Homelab-Server planen: VMs, Container, RAM, CPU und ZFS","url":"https://tools.pr1m3.de/it/homelab-server.html","description":"Homelab-Server planen: VMs und Container verteilen, RAM mit Hypervisor und ZFS-Cache, vCPU-Überbuchung, ZFS-Pool mit Spiegel oder RAIDZ, Snapshots, N+1-Ausfall, Strom und Kosten.","inLanguage":"de","applicationCategory":"DesignApplication","operatingSystem":"Alle mit aktuellem Webbrowser","browserRequirements":"JavaScript","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"publisher":{"@id":"https://tools.pr1m3.de/#herausgeber"},"mainEntityOfPage":{"@id":"https://tools.pr1m3.de/it/homelab-server.html#seite"},"featureList":["Dienste aus Vorlagen als VM oder Container","Automatische Verteilung auf Server nach RAM, CPU und Speicher","ZFS-Pool mit Spiegel und RAIDZ: Nutzkapazität, IOPS, Wiederaufbau","Prüfung bei Ausfall eines Servers (N+1)","Strom und Kosten pro Jahr","ZFS-Kapazitätsrechner in jede Richtung"],"keywords":"Homelab Server planen, VM Planer, Proxmox Ressourcen, ZFS Rechner, RAIDZ Kapazität, vCPU Überbuchung, RAM für ZFS ARC, N+1 Cluster, Homelab Stromkosten","image":"https://tools.pr1m3.de/assets/symbol-512.png"},{"@type":"Organization","@id":"https://tools.pr1m3.de/#herausgeber","name":"Formeln & Rechner","url":"https://tools.pr1m3.de/","logo":"https://tools.pr1m3.de/assets/symbol-512.png"},{"@type":"FAQPage","@id":"https://tools.pr1m3.de/it/homelab-server.html#fragen","mainEntity":[{"@type":"Question","name":"Wie viele vCPUs kann ich vergeben?","acceptedAnswer":{"@type":"Answer","text":"Mehr als der Server Threads hat – die meisten Dienste im Heimnetz schlafen fast immer. Eine Überbuchung von 3:1 bis 5:1 ist üblich. Entscheidend ist die durchschnittliche Last: Sie sollte unter etwa 70 % bleiben. Eine einzelne VM darf aber nie mehr vCPUs bekommen, als der Server Threads hat."}},{"@type":"Question","name":"Wie viel Arbeitsspeicher braucht ZFS?","acceptedAnswer":{"@type":"Answer","text":"ZFS nutzt freien Arbeitsspeicher als Lesecache (ARC). Die alte Faustregel „1 GB je TB“ gilt nur für Deduplizierung. Für ein Homelab reichen meist 2 bis 8 GB; neue Installationen begrenzen den Cache oft auf 10 % des Arbeitsspeichers. Arbeitsspeicher lässt sich anders als Prozessorzeit nicht sinnvoll überbuchen."}},{"@type":"Question","name":"Spiegel oder RAIDZ?","acceptedAnswer":{"@type":"Answer","text":"Spiegel sind schnell, einfach zu erweitern und bauen sich schnell wieder auf – ideal für VMs. RAIDZ2 bietet mehr Platz je Platte und verkraftet zwei Ausfälle – ideal für große Datenablagen mit Festplatten. RAIDZ1 mit großen Festplatten ist riskant, weil beim langen Wiederaufbau eine zweite Platte ausfallen kann."}},{"@type":"Question","name":"Ersetzt RAID ein Backup?","acceptedAnswer":{"@type":"Answer","text":"Nein. RAID und ZFS schützen vor Plattenausfall, nicht vor Löschen, Verschlüsselungstrojanern, Brand oder Fehlern der Software. Snapshots helfen gegen versehentliches Löschen, ein Backup auf ein anderes Gerät und außer Haus bleibt nötig (3-2-1-Regel)."}},{"@type":"Question","name":"Was bedeutet N+1?","acceptedAnswer":{"@type":"Answer","text":"Die übrigen Server können die wichtigen Dienste übernehmen, wenn einer ausfällt oder gewartet wird. Dafür muss auf ihnen genug Arbeitsspeicher und Platz frei sein, und die Daten müssen repliziert oder auf gemeinsamem Speicher liegen."}}],"isPartOf":{"@id":"https://tools.pr1m3.de/it/homelab-server.html#seite"}}]}</script>
+  <!-- /seo -->
+  <meta name="theme-color" content="#F1F3F2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111214" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="icon" href="../favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="../assets/symbol-apple.png">
+  <link rel="stylesheet" href="../assets/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/stil.css">
+  <link rel="stylesheet" href="../assets/rechner.css">
+  <script src="../assets/basis.js"></script>
+  <style>
+    .reiter-leiste { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 4px; }
+    .reiter-leiste button { border: 1.5px solid var(--linie); border-radius: 999px; background: var(--flaeche); color: var(--text); padding: 7px 14px; font: inherit; font-size: .92rem; cursor: pointer; }
+    .reiter-leiste button[aria-pressed="true"] { background: var(--text); color: var(--grund); border-color: var(--text); }
+    .raster { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px 12px; margin: 8px 0 4px; }
+    .raster label { display: flex; flex-direction: column; gap: 2px; font-size: .8rem; color: var(--leise); min-width: 0; }
+    .raster label.breit { grid-column: 1 / -1; }
+    .raster input, .raster select { padding: 7px 9px; border: 1.5px solid var(--linie); border-radius: var(--rund-klein); background: var(--flaeche); color: var(--text); font: inherit; font-size: .98rem; min-width: 0; width: 100%; }
+    .raster input.mono, .mono { font-family: ui-monospace, Menlo, Consolas, monospace; }
+    .raster input.falsch { border-color: var(--fehler); background: var(--fehler-flaeche); }
+    .raster input[type="range"] { padding: 0; border: none; accent-color: #3B5BDB; }
+    .bild { display: block; width: 100%; border-radius: var(--rund); background: var(--flaeche2); }
+    .schritte { list-style: none; margin: 10px 0 0; padding: 0; counter-reset: s; }
+    .schritte li { counter-increment: s; position: relative; padding: 9px 10px 9px 42px; border-radius: var(--rund); margin: 4px 0; cursor: pointer; border: 1px solid transparent; }
+    .schritte li::before { content: counter(s); position: absolute; left: 10px; top: 9px; width: 22px; height: 22px; border-radius: 50%; background: var(--linie); color: var(--text); font-size: .8rem; font-weight: 700; display: grid; place-items: center; }
+    .schritte li.aktiv { background: var(--flaeche2); border-color: var(--linie); }
+    .schritte li.aktiv::before { background: #3B5BDB; color: #FFFFFF; }
+    .schritte li.fertig::before { content: '✓'; background: #2E8B57; color: #FFFFFF; }
+    .schritte b { display: block; font-family: var(--technik); }
+    .schritte span { font-size: .9rem; color: var(--leise); }
+    .stepper { display: flex; gap: 8px; align-items: center; margin: 10px 0; flex-wrap: wrap; }
+    .stepper .status { color: var(--leise); font-size: .9rem; }
+    .bereich { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 18px; margin-top: 14px; align-items: start; }
+    @media (max-width: 960px) { .bereich { grid-template-columns: minmax(0, 1fr); } .bereich > .bild-tafel { order: -1; } }
+    @media print { .reiter-leiste, .stepper { display: none !important; } .bereich { display: block; } .bild { max-height: 100mm; width: auto; max-width: 100%; } }
+    .planer { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 18px; margin-top: 18px; align-items: start; }
+    @media (max-width: 1000px) { .planer { grid-template-columns: minmax(0, 1fr); } .planer > .bild-tafel { order: -1; } }
+    .bild-tafel { position: sticky; top: 12px; }
+    @media (max-width: 1000px) { .bild-tafel { position: static; } }
+    .raster.eng { grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); }
+    .geraet, .kabel-zeile, .vlan-zeile { border: 1px solid var(--linie); border-radius: var(--rund); background: var(--flaeche2); margin: 8px 0; }
+    .geraet > summary { cursor: pointer; padding: 8px 10px; display: flex; gap: 8px; align-items: center; list-style: none; }
+    .geraet > summary::-webkit-details-marker { display: none; }
+    .geraet > summary .punkt { width: 12px; height: 12px; border-radius: 3px; flex: none; }
+    .geraet > summary .titel { font-family: var(--technik); font-weight: 600; flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .geraet > summary .klein { font-size: .78rem; color: var(--leise); white-space: nowrap; }
+    .geraet > summary .warn { color: var(--fehler); font-weight: 700; }
+    .geraet[open] > summary { border-bottom: 1px solid var(--linie); }
+    .geraet.gewaehlt { border-color: #3B5BDB; box-shadow: 0 0 0 2px rgba(59, 91, 219, .25); }
+    .geraet-innen { padding: 4px 10px 10px; }
+    .ports { width: 100%; border-collapse: collapse; font-size: .85rem; margin: 6px 0; }
+    .ports th { text-align: left; font-weight: 500; color: var(--leise); font-size: .75rem; padding: 2px 4px; }
+    .ports td { padding: 2px 4px; }
+    .ports select, .ports input { width: 100%; padding: 5px 6px; border: 1.5px solid var(--linie); border-radius: var(--rund-klein); background: var(--flaeche); color: var(--text); font: inherit; font-size: .85rem; min-width: 0; }
+    .weg-k { border: 1px solid var(--linie); background: var(--flaeche); color: var(--fehler); border-radius: 999px; width: 28px; height: 28px; cursor: pointer; flex: none; }
+    .kabel-zeile { padding: 8px 10px; }
+    .kabel-kopf { display: flex; gap: 8px; align-items: center; justify-content: space-between; font-family: var(--technik); font-weight: 600; font-size: .92rem; }
+    .kabel-kopf .info { font-family: inherit; font-weight: 500; font-size: .8rem; color: var(--leise); flex: 1 1 auto; min-width: 0; }
+    .kabel-kopf .farbe { width: 22px; height: 8px; border-radius: 4px; flex: none; }
+    .kabel-zeile .raster { grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); margin: 6px 0 0; }
+    .kabel-zeile.fehler { border-color: var(--fehler); }
+    .vlan-zeile { padding: 8px 10px; }
+    .vlan-zeile .raster { margin: 0; }
+    .werkzeug-leiste { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 10px 0; }
+    .werkzeug-leiste.trenner { border-top: 1px solid var(--linie); padding-top: 12px; margin-top: 14px; }
+    .werkzeug-leiste select { padding: 6px 10px; border-radius: 999px; border: 1.5px solid var(--linie); background: var(--flaeche); color: var(--text); font: inherit; font-size: .9rem; max-width: 100%; }
+    .datei-knopf { position: relative; overflow: hidden; display: inline-flex; align-items: center; cursor: pointer; }
+    .datei-knopf input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+    .datei-knopf:focus-within { outline: 2px solid var(--text); outline-offset: 2px; }
+    .status { font-size: .9rem; color: var(--leise); min-height: 1.4em; margin: 0; }
+    .teilen-meldung { font-size: .85rem; color: var(--leise); }
+    #bild { cursor: pointer; touch-action: manipulation; }
+    .meldungen .hinweis { margin: 6px 0; }
+    .hinweis.ok { border-color: var(--ergebnis); }
+    .port-switch { margin: 14px 0 6px; font-size: 1rem; font-family: var(--technik); }
+    .tabelle td.ok { color: var(--ergebnis); font-weight: 600; }
+    .tabelle td.nok { color: var(--fehler); font-weight: 600; }
+    .tabelle tr.zeile-fehler td { color: var(--fehler); }
+    .vlan-chip { display: inline-block; padding: 0 6px; border-radius: 999px; font-size: .78rem; color: #FFFFFF; margin: 1px 2px 1px 0; }
+    .kein-umbruch { white-space: nowrap; }
+    .unterkopf { margin: 10px 0 2px; font-size: .85rem; font-weight: 600; font-family: var(--technik); }
+    .raum-zeile { display: flex; justify-content: space-between; gap: 8px; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--linie); font-size: .9rem; }
+    [hidden] { display: none !important; }
+    @media print {
+      .planer { display: block; }
+      .einstellungen, .werkzeug-leiste, .status, #ansichten, #bildHilfe, .kein-druck { display: none !important; }
+      .bild-tafel { position: static; }
+      #bild { max-height: 120mm; width: auto; max-width: 100%; }
+    }
+    .raeume-wahl { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: .85rem; margin: 4px 0; }
+    .raeume-wahl label { display: inline-flex; gap: 5px; align-items: center; color: var(--text); }
+    .tabelle tr.zeile-kopf td { font-weight: 700; background: var(--flaeche2); }
+    .tabelle tr.zeile-summe td { font-weight: 700; border-top: 2px solid var(--linie); }
+    .last-zeile { border: 1px solid var(--linie); border-radius: var(--rund); background: var(--flaeche2); margin: 8px 0; }
+    .last-zeile.gewaehlt { border-color: #3B5BDB; box-shadow: 0 0 0 2px rgba(59, 91, 219, .25); }
+    .last-zeile .kabel-kopf { padding: 8px 10px 0; }
+    .last-zeile .raster { padding: 0 10px 8px; }
+    .ha-wahl { display: inline-flex; gap: 6px; align-items: center; font-size: .85rem; color: var(--text); }
+    .kopf-zeile select { padding: 5px 10px; border-radius: 999px; border: 1.5px solid var(--linie); background: var(--flaeche); color: var(--text); font: inherit; font-size: .88rem; }
+  </style>
+</head>
+
+<body>
+  <div id="seitenkopf" data-wurzel="../"></div>
+
+  <main class="seite">
+    <section class="held">
+      <h1><span class="unterstrichen">Homelab-Server planen</span></h1>
+      <p>Virtuelle Maschinen und Container auf einen oder mehrere Server verteilen: Prozessorkerne mit Überbuchung, Arbeitsspeicher mit Reserve für den Hypervisor und den ZFS-Cache, Speicherpool mit Spiegel oder RAIDZ, Platz für Snapshots, Ausfall eines Servers (N+1), Stromverbrauch und Kosten. Mit Vorlagen für typische Dienste und einem Rechner für die Nutzkapazität von ZFS.</p>
+    </section>
+
+    <div class="planer">
+      <section class="tafel einstellungen" aria-labelledby="h-ein">
+        <h2 id="h-ein">Planung</h2>
+        <p class="hilfe">Alles wird in diesem Browser gespeichert. Speicher in GB (Dienste) und TB (Platten).</p>
+        <div class="reiter-leiste" role="tablist" aria-label="Bereiche der Planung" id="reiter">
+          <button type="button" role="tab" data-r="lasten" aria-pressed="true">Dienste</button>
+          <button type="button" role="tab" data-r="hosts" aria-pressed="false">Server</button>
+          <button type="button" role="tab" data-r="optionen" aria-pressed="false">Regeln und Strom</button>
+        </div>
+        <div class="feld-reiter" data-r="lasten">
+          <div class="werkzeug-leiste"><select id="neuVorlage" aria-label="Vorlage für den neuen Dienst"></select><button type="button" class="knopf" id="neuLast">+ Dienst</button></div>
+          <div id="lasten"></div>
+        </div>
+        <div class="feld-reiter" data-r="hosts" hidden>
+          <div class="werkzeug-leiste"><button type="button" class="knopf" id="neuHost">+ Server</button></div>
+          <div id="hosts"></div>
+        </div>
+        <div class="feld-reiter" data-r="optionen" hidden>
+          <div class="raster" id="optionen"></div>
+        </div>
+        <div class="werkzeug-leiste trenner">
+          <button type="button" class="knopf-leise" id="beispiel">Beispiel laden</button>
+          <button type="button" class="knopf-leise" id="leer">Neu beginnen</button>
+          <button type="button" class="knopf-leise" id="teilen">Link kopieren</button>
+          <button type="button" class="knopf-leise" id="dateiSpeichern">Als Datei speichern</button>
+          <label class="knopf-leise datei-knopf">Datei laden<input type="file" id="dateiLaden" accept=".json,application/json"></label>
+          <span class="teilen-meldung" id="teilenMeldung" aria-live="polite"></span>
+        </div>
+        <p class="status" id="status" aria-live="polite"></p>
+      </section>
+
+      <section class="tafel bild-tafel" aria-labelledby="h-bild">
+        <div class="kopf-zeile"><h2 id="h-bild">Auslastung</h2><span class="urteil" id="urteil"></span></div>
+        <canvas id="bild" class="bild" role="img" aria-label="Server mit Arbeitsspeicher, Prozessorlast, Speicherpool und den Diensten darauf"></canvas>
+        <p class="hilfe">Je Server: Arbeitsspeicher als Stapel (grau Hypervisor, türkis ZFS-Cache, farbig die Dienste), Prozessorlast im Tagesverlauf, Platten des Pools (schraffiert = Redundanz) und Belegung. Einen Dienst antippen, um ihn zu bearbeiten.</p>
+        <div class="kacheln" id="kacheln"></div>
+      </section>
+    </div>
+
+    <section class="tafel abstand" aria-labelledby="h-pruef">
+      <div class="kopf-zeile"><h2 id="h-pruef">Prüfung</h2><span class="urteil" id="urteil2"></span></div>
+      <div class="meldungen" id="meldungen"></div>
+    </section>
+
+    <section class="tafel abstand" aria-labelledby="h-vert">
+      <h2 id="h-vert">Verteilung und Ausfall</h2>
+      <div class="rahmen"><div id="verteilung"></div></div>
+      <h3 class="zwischen">Wenn ein Server ausfällt (N+1)</h3>
+      <div class="rahmen"><div id="ausfall"></div></div>
+    </section>
+
+    <section class="tafel abstand" aria-labelledby="h-pools">
+      <h2 id="h-pools">Speicherpools</h2>
+      <div class="rahmen"><div id="pools"></div></div>
+    </section>
+
+    <section class="tafel abstand" aria-labelledby="h-loeser">
+      <h2 id="h-loeser">ZFS-Nutzkapazität</h2>
+      <p class="hilfe">Bekannte Werte eintragen, der Rest wird in jede Richtung berechnet – zum Beispiel, wie viele Platten für 20 TB nutzbar mit RAIDZ2 nötig sind. Spiegel: Redundanz = Platten je vdev − 1.</p>
+      <div id="loeser"></div>
+      <div class="stepper"><button type="button" class="knopf-leise" id="loeserLeeren">Alle Felder leeren</button></div>
+      <ol class="weg" id="loeserWeg"></ol>
+    </section>
+
+    <section class="tafel abstand" aria-labelledby="h-weg">
+      <div class="kopf-zeile"><h2 id="h-weg">Rechenweg</h2><select id="wegHost" aria-label="Server für den Rechenweg" class="kein-druck"></select></div>
+      <ol class="weg" id="weg"></ol>
+    </section>
+
+    <section class="tafel abstand formelsammlung" aria-labelledby="h-formeln">
+      <h2 id="h-formeln">Formelsammlung und Grundlagen</h2>
+      <div id="sammlung"></div>
+      <p class="quellen">ZFS: Nutzkapazität je vdev bei Spiegel eine Platte, bei RAIDZ1/2/3 Plattenzahl minus Parität; ZFS hält etwa 1/32 als Reserve zurück (spa_slop_shift = 5). RAIDZ-Auffüllung bei kleinen Blöcken und Metadaten verringern den Platz zusätzlich um einige Prozent. Füllgrad unter 80 % halten, sonst sinkt die Schreibleistung. ZFS-Cache (ARC): neue Installationen eines verbreiteten Hypervisors begrenzen ihn auf 10 % des Arbeitsspeichers. Plattenleistung als Richtwert (Festplatte etwa 150 zufällige Zugriffe je Sekunde und 200 MB/s, SATA-SSD 500 MB/s, NVMe 2 000 MB/s). Durchschnittslasten der Vorlagen sind Erfahrungswerte für ein Heimnetz. Teile davon nachrechnen: <a href="raid.html">RAID</a>, <a href="usv.html">USV</a>, <a href="backup.html">Backup</a>, <a href="homelab.html">Homelab-Planer</a> (Verkabelung).</p>
+    </section>
+
+    <section class="tafel abstand seo-info" aria-labelledby="h-faq">
+      <h2 id="h-faq">Häufige Fragen</h2>
+      <div class="faq">
+        <details><summary>Wie viele vCPUs kann ich vergeben?</summary><p>Mehr als der Server Threads hat – die meisten Dienste im Heimnetz schlafen fast immer. Eine Überbuchung von 3:1 bis 5:1 ist üblich. Entscheidend ist die durchschnittliche Last: Sie sollte unter etwa 70 % bleiben. Eine einzelne VM darf aber nie mehr vCPUs bekommen, als der Server Threads hat.</p></details>
+        <details><summary>Wie viel Arbeitsspeicher braucht ZFS?</summary><p>ZFS nutzt freien Arbeitsspeicher als Lesecache (ARC). Die alte Faustregel „1 GB je TB“ gilt nur für Deduplizierung. Für ein Homelab reichen meist 2 bis 8 GB; neue Installationen begrenzen den Cache oft auf 10 % des Arbeitsspeichers. Arbeitsspeicher lässt sich anders als Prozessorzeit nicht sinnvoll überbuchen.</p></details>
+        <details><summary>Spiegel oder RAIDZ?</summary><p>Spiegel sind schnell, einfach zu erweitern und bauen sich schnell wieder auf – ideal für VMs. RAIDZ2 bietet mehr Platz je Platte und verkraftet zwei Ausfälle – ideal für große Datenablagen mit Festplatten. RAIDZ1 mit großen Festplatten ist riskant, weil beim langen Wiederaufbau eine zweite Platte ausfallen kann.</p></details>
+        <details><summary>Ersetzt RAID ein Backup?</summary><p>Nein. RAID und ZFS schützen vor Plattenausfall, nicht vor Löschen, Verschlüsselungstrojanern, Brand oder Fehlern der Software. Snapshots helfen gegen versehentliches Löschen, ein Backup auf ein anderes Gerät und außer Haus bleibt nötig (3-2-1-Regel).</p></details>
+        <details><summary>Was bedeutet N+1?</summary><p>Die übrigen Server können die wichtigen Dienste übernehmen, wenn einer ausfällt oder gewartet wird. Dafür muss auf ihnen genug Arbeitsspeicher und Platz frei sein, und die Daten müssen repliziert oder auf gemeinsamem Speicher liegen.</p></details>
+      </div>
+    </section>
+  </main>
+
+  <div id="seitenfuss" data-wurzel="../"></div>
+
+  <script src="../assets/katex/katex.min.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    const bewegungAus = false;
+    const $ = function (id) { return document.getElementById(id); };
+    function zahl(w, n) { if (typeof w !== 'number' || !isFinite(w)) return '–'; const p = Math.pow(10, n || 0); const t = (Math.round(w * p) / p).toFixed(n || 0).replace('.', ',').split(','); t[0] = t[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' '); return t.join(','); }
+    function tz(w, n) { return Formel.zahl(zahl(w, n)); }
+    function E(t) { return '\\htmlClass{ergebnis}{' + t + '}'; }
+    function f(n) { return Thema.farbe(n); }
+    function knoten(tag, klasse, text) { const k = document.createElement(tag); if (klasse) k.className = klasse; if (text !== undefined) k.textContent = text; return k; }
+    function leinwand(c, hoehe) {
+      const d = window.devicePixelRatio || 1, w = Math.max(240, c.parentNode.clientWidth), h = Math.round(hoehe(w));
+      if (c.width !== Math.round(w * d) || c.height !== Math.round(h * d)) { c.width = Math.round(w * d); c.height = Math.round(h * d); c.style.height = h + 'px'; }
+      const cx = c.getContext('2d'); cx.setTransform(d, 0, 0, d, 0, 0); return { cx: cx, w: w, h: h };
+    }
+    function txt(cx, t, x, y, o) { o = o || {}; cx.fillStyle = o.f || f('--text'); cx.font = (o.b ? '700 ' : '500 ') + Math.round(o.g || 12) + 'px ' + (o.mono ? 'ui-monospace, Menlo, Consolas, monospace' : (f('--technik') || 'sans-serif')); cx.textAlign = o.a || 'center'; cx.textBaseline = 'middle'; cx.fillText(t, x, y); }
+    function rund(cx, x, y, w, h, r) { r = Math.max(0, Math.min(r, w / 2, h / 2)); cx.beginPath(); cx.moveTo(x + r, y); cx.arcTo(x + w, y, x + w, y + h, r); cx.arcTo(x + w, y + h, x, y + h, r); cx.arcTo(x, y + h, x, y, r); cx.arcTo(x, y, x + w, y, r); cx.closePath(); }
+    function kasten(cx, x, y, w, h, r, fuell, rand, lw) { rund(cx, x, y, w, h, r); if (fuell) { cx.fillStyle = fuell; cx.fill(); } if (rand) { cx.strokeStyle = rand; cx.lineWidth = lw || 1.2; cx.stroke(); } }
+    function strich(cx, pts, farbe, w, dash) { cx.strokeStyle = farbe; cx.lineWidth = w; cx.lineJoin = 'round'; cx.lineCap = 'round'; cx.setLineDash(dash || []); cx.beginPath(); pts.forEach(function (q, i) { if (i) cx.lineTo(q[0], q[1]); else cx.moveTo(q[0], q[1]); }); cx.stroke(); cx.setLineDash([]); }
+    function kreis(cx, x, y, r, fuell, rand, lw) { cx.beginPath(); cx.arc(x, y, Math.max(0.1, r), 0, 2 * Math.PI); if (fuell) { cx.fillStyle = fuell; cx.fill(); } if (rand) { cx.strokeStyle = rand; cx.lineWidth = lw || 1.5; cx.stroke(); } }
+    function pfeil(cx, a, b, farbe, w) { strich(cx, [a, b], farbe, w || 2); const an = Math.atan2(b[1] - a[1], b[0] - a[0]), k = 8; cx.fillStyle = farbe; cx.beginPath(); cx.moveTo(b[0], b[1]); cx.lineTo(b[0] - k * Math.cos(an - 0.4), b[1] - k * Math.sin(an - 0.4)); cx.lineTo(b[0] - k * Math.cos(an + 0.4), b[1] - k * Math.sin(an + 0.4)); cx.closePath(); cx.fill(); }
+    // Ergebnis-Bausteine
+    function meldungen(ziel, liste) { ziel.innerHTML = ''; liste.forEach(function (m) { ziel.append(knoten('div', 'hinweis' + (m[1] ? ' fehler' : ''), m[0])); }); }
+    function kacheln(ziel, liste) { ziel.innerHTML = ''; liste.forEach(function (q) { if (!q) return; const d = knoten('div', 'kachel'); d.style.setProperty('--farbe', q[2] || 'var(--linie)'); d.append(knoten('div', 'wert', q[0]), knoten('small', '', q[1])); ziel.append(d); }); }
+    function wegZeigen(ziel, liste) { ziel.innerHTML = ''; liste.forEach(function (q) { if (!q) return; const li = knoten('li'), r = knoten('div', 'rechnung'); Formel.setze(r, q[1], true); li.append(knoten('div', 'titel', q[0]), r); ziel.append(li); }); }
+    function sammlung(ziel, liste) { liste.forEach(function (q) { const s = knoten('section'), fo = knoten('div', 'formelblock'); Formel.setze(fo, q[1], true); s.append(knoten('h3', '', q[0]), fo, knoten('p', '', q[2])); ziel.append(s); }); }
+    function tabelle(ziel, kopf, zeilen, opt) {
+      opt = opt || {}; ziel.innerHTML = '';
+      const t = knoten('table', 'tabelle'), tr0 = knoten('tr');
+      kopf.forEach(function (k, i) { tr0.append(knoten('th', (opt.zahl || []).indexOf(i) >= 0 ? 'zahl' : '', k)); }); t.append(tr0);
+      zeilen.forEach(function (z, j) { const tr = knoten('tr', opt.klasse ? opt.klasse(j) || '' : ''); z.forEach(function (w, i) { tr.append(knoten('td', ((opt.zahl || []).indexOf(i) >= 0 ? 'zahl' : '') + (opt.mono && opt.mono.indexOf(i) >= 0 ? ' mono' : ''), w)); }); t.append(tr); });
+      ziel.append(t);
+    }
+    // ===================== Homelab-Server planen =====================
+    const SPEICHER = 'homelab-server-1';
+    const LAYOUT = {
+      stripe: { name: 'ohne Redundanz (Stripe)', p: function () { return 0; }, min: 1 },
+      mirror: { name: 'Spiegel (Mirror)', p: function (n) { return n - 1; }, min: 2 },
+      raidz1: { name: 'RAIDZ1', p: function () { return 1; }, min: 3 },
+      raidz2: { name: 'RAIDZ2', p: function () { return 2; }, min: 4 },
+      raidz3: { name: 'RAIDZ3', p: function () { return 3; }, min: 5 }
+    };
+    const PLATTE = {
+      hdd: { name: 'Festplatte (HDD)', iops: 150, mbs: 200, w: 6 },
+      ssd: { name: 'SATA-SSD', iops: 50000, mbs: 500, w: 2 },
+      nvme: { name: 'NVMe-SSD', iops: 200000, mbs: 2000, w: 4 }
+    };
+    // Vorlagen: [Name, Art, vCPU, RAM GB, Speicher GB, Durchschnittslast %]
+    const VORLAGE = {
+      dns: ['Werbeblocker / DNS', 'ct', 1, 0.5, 4, 2], proxy: ['Reverse-Proxy', 'ct', 1, 0.5, 4, 3], haus: ['Hausautomation', 'vm', 2, 4, 32, 8],
+      cloud: ['Dateiablage / Cloud', 'ct', 2, 4, 500, 8], medien: ['Medienserver', 'ct', 4, 4, 2000, 12], db: ['Datenbank', 'ct', 2, 4, 50, 10],
+      monitor: ['Überwachung (Metriken, Logs)', 'ct', 2, 4, 100, 8], git: ['Code-Verwaltung', 'ct', 2, 4, 50, 4], passwort: ['Passwort-Tresor', 'ct', 1, 0.5, 4, 1],
+      vpn: ['VPN-Zugang', 'ct', 1, 0.5, 4, 2], windows: ['Windows-Desktop', 'vm', 4, 8, 128, 15], k8s: ['Kubernetes-Knoten', 'vm', 4, 8, 64, 25],
+      spiel: ['Spieleserver', 'vm', 4, 8, 32, 30], backup: ['Backup-Server', 'vm', 2, 4, 2000, 6], kamera: ['Videoüberwachung (NVR)', 'vm', 4, 4, 1000, 20],
+      eigen: ['Eigener Dienst', 'vm', 2, 2, 32, 10]
+    };
+    const FARBEN = ['#3B5BDB', '#2F9E44', '#E8590C', '#7048E8', '#C2255C', '#1971C2', '#5C940D', '#F08C00', '#9C36B5', '#0B7285', '#E03131', '#495057'];
+
+    // ---------- Daten ----------
+    let zaehler = 0;
+    function neueId(v) { zaehler++; return v + Date.now().toString(36).slice(-4) + zaehler.toString(36); }
+    function host(name, o) { const h = { id: neueId('h'), name: name, kerne: 8, threads: 16, ram: 64, pool: { art: 'nvme', layout: 'mirror', n: 2, vdevs: 1, tb: 2 }, wIdle: 25, wMax: 90 }; if (o) Object.keys(o).forEach(function (k) { h[k] = o[k]; }); return h; }
+    function last(v, o) { const t = VORLAGE[v], l = { id: neueId('l'), vorlage: v, name: t[0], art: t[1], vcpu: t[2], ram: t[3], disk: t[4], last: t[5], host: '', ha: false }; if (o) Object.keys(o).forEach(function (k) { l[k] = o[k]; }); return l; }
+    function beispiel() {
+      const h1 = host('Server 1', { id: 'h1', kerne: 8, threads: 16, ram: 64, pool: { art: 'nvme', layout: 'mirror', n: 2, vdevs: 1, tb: 2 }, wIdle: 22, wMax: 95 });
+      const h2 = host('Server 2', { id: 'h2', kerne: 6, threads: 12, ram: 32, pool: { art: 'nvme', layout: 'mirror', n: 2, vdevs: 1, tb: 1 }, wIdle: 12, wMax: 60 });
+      const h3 = host('Speicher', { id: 'h3', kerne: 4, threads: 8, ram: 32, pool: { art: 'hdd', layout: 'raidz2', n: 6, vdevs: 1, tb: 8 }, wIdle: 45, wMax: 85 });
+      const L = [
+        last('dns', { ha: true }), last('proxy', { ha: true }), last('haus', { ha: true, host: 'h2' }), last('passwort', { ha: true }), last('vpn', { ha: true }),
+        last('db'), last('monitor'), last('git'), last('k8s', { name: 'Kubernetes-Knoten 1' }), last('k8s', { name: 'Kubernetes-Knoten 2' }), last('windows'),
+        last('cloud', { host: 'h3', disk: 4000 }), last('medien', { host: 'h3', disk: 10000 }), last('backup', { host: 'h3', disk: 6000 })
+      ];
+      return { v: 1, name: 'Mein Homelab', hosts: [h1, h2, h3], lasten: L, opt: { cpu: 4, reserve: 3, arc: 10, snapshot: 20, fuell: 80, n1: 'ja', preis: 0.32 } };
+    }
+    function leerPlan() { return { v: 1, name: 'Mein Homelab', hosts: [host('Server 1', { id: 'h1' })], lasten: [last('dns'), last('haus')], opt: { cpu: 4, reserve: 3, arc: 10, snapshot: 20, fuell: 80, n1: 'nein', preis: 0.32 } }; }
+    function nz(v, d, min, max) { const x = Number(v); return v !== null && v !== '' && typeof v !== 'boolean' && isFinite(x) ? Math.max(min, Math.min(max, x)) : d; }
+    function eins(v, liste, d) { return liste.indexOf(v) >= 0 ? v : d; }
+    function tx(v, d, n) { return typeof v === 'string' ? v.replace(/[<>"'`]/g, '').slice(0, n || 40) : d; }
+    function idw(v) { return typeof v === 'string' && /^[A-Za-z0-9_-]{1,24}$/.test(v) ? v : null; }
+    function pruefen(p) {
+      if (!p || typeof p !== 'object' || !Array.isArray(p.hosts) || !Array.isArray(p.lasten)) return null;
+      p = Teilen.entschaerfen(p);
+      const ids = []; function eindeutig(x) { return x && idw(x.id) && ids.indexOf(x.id) < 0 && ids.push(x.id); }
+      const H = p.hosts.slice(0, 12).filter(eindeutig).map(function (h, i) {
+        const q = h.pool || {}, lay = eins(q.layout, Object.keys(LAYOUT), 'mirror');
+        const o = { id: h.id, name: tx(h.name, 'Server ' + (i + 1)), kerne: Math.round(nz(h.kerne, 4, 1, 256)), threads: Math.round(nz(h.threads, 8, 1, 512)), ram: nz(h.ram, 32, 1, 8192),
+          pool: { art: eins(q.art, Object.keys(PLATTE), 'nvme'), layout: lay, n: Math.round(nz(q.n, 2, 1, 24)), vdevs: Math.round(nz(q.vdevs, 1, 1, 24)), tb: nz(q.tb, 2, 0.1, 100) },
+          wIdle: nz(h.wIdle, 20, 0, 5000), wMax: nz(h.wMax, 80, 0, 5000) };
+        if (o.threads < o.kerne) o.threads = o.kerne;
+        if (o.wMax < o.wIdle) o.wMax = o.wIdle;
+        return o;
+      });
+      if (!H.length) return null;
+      const hid = H.map(function (h) { return h.id; });
+      const L = p.lasten.slice(0, 200).filter(eindeutig).map(function (l) {
+        const v = eins(l.vorlage, Object.keys(VORLAGE), 'eigen');
+        return { id: l.id, vorlage: v, name: tx(l.name, VORLAGE[v][0]), art: eins(l.art, ['vm', 'ct'], 'vm'), vcpu: Math.round(nz(l.vcpu, 1, 1, 256)), ram: nz(l.ram, 1, 0.1, 4096), disk: nz(l.disk, 8, 0, 1000000), last: nz(l.last, 10, 0, 100), host: hid.indexOf(l.host) >= 0 ? l.host : '', ha: l.ha === true };
+      });
+      const o = p.opt || {};
+      return { v: 1, name: tx(p.name, 'Mein Homelab', 60), hosts: H, lasten: L, opt: { cpu: nz(o.cpu, 4, 1, 20), reserve: nz(o.reserve, 3, 0, 256), arc: nz(o.arc, 10, 0, 90), snapshot: nz(o.snapshot, 20, 0, 300), fuell: nz(o.fuell, 80, 10, 100), n1: eins(o.n1, ['ja', 'nein'], 'nein'), preis: nz(o.preis, 0.32, 0, 5) } };
+    }
+    let P = laden() || pruefen(beispiel());
+    function laden() { let roh = null; try { roh = localStorage.getItem(SPEICHER); } catch (e) { roh = null; } if (!roh) return null; try { return pruefen(JSON.parse(roh)); } catch (e) { return null; } }
+    let uhr = 0;
+    function speichernJetzt() { try { localStorage.setItem(SPEICHER, JSON.stringify(P)); } catch (e) { /* ohne Speicher */ } }
+    function speichern() { clearTimeout(uhr); uhr = setTimeout(speichernJetzt, 300); }
+    window.addEventListener('pagehide', function () { clearTimeout(uhr); speichernJetzt(); });
+
+    // ---------- Rechnen ----------
+    const SLOP = 1 / 32, TIB = 1e12 / Math.pow(2, 40);
+    function pool(q) {
+      const L = LAYOUT[q.layout], p = Math.min(q.n - 1, L.p(q.n)), daten = Math.max(0, q.n - p), roh = q.n * q.vdevs * q.tb;
+      const nutzTB = q.vdevs * daten * q.tb * (1 - SLOP), d = PLATTE[q.art];
+      const iops = q.layout === 'mirror' ? q.vdevs * d.iops * q.n : q.layout === 'stripe' ? q.vdevs * q.n * d.iops : q.vdevs * d.iops;
+      const mbs = q.vdevs * (q.layout === 'mirror' ? 1 : daten) * d.mbs;
+      // Wiederaufbau: eine Platte mit etwa 60 % der Schreibrate neu beschreiben (bei voller Platte)
+      const resilver = q.tb * 1e6 / (d.mbs * 0.6) / 3600;
+      return { p: p, daten: daten, roh: roh, nutzTB: nutzTB, nutzTiB: nutzTB * TIB, toleranz: q.layout === 'stripe' ? 0 : p, iops: iops, mbs: mbs, resilver: resilver, effizienz: roh ? nutzTB / roh : 0, gueltig: q.n >= L.min };
+    }
+    let A = null;
+    function auswerten() {
+      const R = { fehler: [], warn: [], info: [], lFehler: {}, hFehler: {}, auf: {}, hosts: {} };
+      function melde(stufe, text, hid, lid) { R[stufe].push(text); if (stufe !== 'info') { (hid || []).forEach(function (h) { R.hFehler[h] = (R.hFehler[h] || 0) + 1; }); (lid || []).forEach(function (l) { R.lFehler[l] = true; }); } }
+      const o = P.opt;
+      P.hosts.forEach(function (h) {
+        const pl = pool(h.pool), arc = h.ram * o.arc / 100, frei0 = h.ram - o.reserve - arc;
+        R.hosts[h.id] = { h: h, pool: pl, arc: arc, ramFrei0: frei0, ram: 0, vcpu: 0, cpuLast: 0, disk: 0, lasten: [], platz: pl.nutzTB * 1000 * o.fuell / 100 };
+        if (!pl.gueltig) melde('fehler', h.name + ': ' + LAYOUT[h.pool.layout].name + ' braucht mindestens ' + LAYOUT[h.pool.layout].min + ' Platten je vdev.', [h.id]);
+        if (h.pool.layout === 'raidz1' && h.pool.art === 'hdd' && h.pool.tb >= 8) melde('warn', h.name + ': RAIDZ1 mit ' + zahl(h.pool.tb, 0) + '-TB-Festplatten – der Wiederaufbau dauert etwa ' + zahl(pl.resilver, 0) + ' h; fällt dabei eine zweite Platte aus, sind die Daten weg. RAIDZ2 oder Spiegel sind sicherer.', [h.id]);
+        if (h.pool.layout === 'stripe' && h.pool.n * h.pool.vdevs > 1) melde('warn', h.name + ': Stripe ohne Redundanz – eine defekte Platte zerstört den ganzen Pool.', [h.id]);
+        if (h.pool.layout.indexOf('raidz') === 0 && h.pool.n > 12) melde('warn', h.name + ': ' + h.pool.n + ' Platten in einem RAIDZ-vdev – über etwa 12 werden Wiederaufbau und Leistung schlecht; lieber mehrere vdevs.', [h.id]);
+        if (frei0 <= 0) melde('fehler', h.name + ': Reserve und ZFS-Cache brauchen schon den ganzen Arbeitsspeicher.', [h.id]);
+      });
+      // Verteilung: feste zuerst, dann die größten Dienste auf den Server mit dem meisten freien Platz
+      function passt(r, l) { return r.ram + l.ram <= r.ramFrei0 + 1e-9 && r.disk + l.disk * (1 + o.snapshot / 100) <= r.platz + 1e-9 && l.vcpu <= r.h.threads; }
+      function setzen(r, l) { r.ram += l.ram; r.vcpu += l.vcpu; r.cpuLast += l.vcpu * l.last / 100; r.disk += l.disk * (1 + o.snapshot / 100); r.lasten.push(l); R.auf[l.id] = r.h.id; }
+      P.lasten.filter(function (l) { return l.host; }).forEach(function (l) { setzen(R.hosts[l.host], l); });
+      R.ohne = [];
+      P.lasten.filter(function (l) { return !l.host; }).sort(function (a, b) { return b.ram - a.ram || b.disk - a.disk; }).forEach(function (l) {
+        const kand = P.hosts.map(function (h) { return R.hosts[h.id]; }).filter(function (r) { return passt(r, l); }).sort(function (a, b) { return (b.ramFrei0 - b.ram) - (a.ramFrei0 - a.ram); });
+        if (kand.length) setzen(kand[0], l); else { R.ohne.push(l); melde('fehler', l.name + ' passt auf keinen Server (' + zahl(l.ram, 1) + ' GB RAM, ' + zahl(l.disk, 0) + ' GB Speicher, ' + l.vcpu + ' vCPU).', [], [l.id]); }
+      });
+      P.hosts.forEach(function (h) {
+        const r = R.hosts[h.id];
+        r.ramGes = o.reserve + r.arc + r.ram; r.cpuProz = r.cpuLast / h.threads * 100; r.cpuFaktor = r.vcpu / h.threads; r.diskProz = r.platz ? r.disk / (r.pool.nutzTB * 1000) * 100 : 0;
+        if (r.ram > r.ramFrei0 + 1e-9) melde('fehler', h.name + ': Arbeitsspeicher überbucht – ' + zahl(r.ramGes, 1) + ' von ' + zahl(h.ram, 0) + ' GB (fest zugeordnete Dienste).', [h.id]);
+        else if (r.ramGes / h.ram > 0.9) melde('warn', h.name + ': Arbeitsspeicher zu ' + zahl(r.ramGes / h.ram * 100, 0) + ' % verplant – kaum Luft für Spitzen.', [h.id]);
+        if (r.cpuFaktor > o.cpu) melde('warn', h.name + ': ' + r.vcpu + ' vCPU auf ' + h.threads + ' Threads (' + zahl(r.cpuFaktor, 1) + ' : 1) – mehr als die erlaubten ' + zahl(o.cpu, 1) + ' : 1.', [h.id]);
+        if (r.cpuProz > 70) melde('warn', h.name + ': durchschnittliche Prozessorlast ' + zahl(r.cpuProz, 0) + ' % – über 70 % wird es bei Spitzen eng.', [h.id]);
+        r.lasten.forEach(function (l) { if (l.vcpu > h.threads) melde('fehler', l.name + ': ' + l.vcpu + ' vCPU, aber ' + h.name + ' hat nur ' + h.threads + ' Threads.', [h.id], [l.id]); });
+        if (r.disk > r.platz + 1e-9) melde('fehler', h.name + ': Speicher ' + zahl(r.disk / 1000, 2) + ' TB (mit ' + zahl(o.snapshot, 0) + ' % Snapshots) über ' + zahl(o.fuell, 0) + ' % des Pools (' + zahl(r.platz / 1000, 2) + ' TB).', [h.id]);
+        r.lasten.forEach(function (l) { if (l.art === 'vm' && l.disk > 1000 && h.pool.art === 'hdd' && h.pool.layout.indexOf('raidz') === 0) melde('info', l.name + ': große VM-Platte auf RAIDZ mit Festplatten – für Daten gut, für Betriebssysteme langsam.'); });
+        r.leistung = h.wIdle + (h.wMax - h.wIdle) * Math.min(1, r.cpuProz / 100);
+      });
+      // Ausfall eines Servers: HA-Dienste auf die übrigen verteilen
+      R.ausfall = [];
+      if (P.hosts.length > 1) P.hosts.forEach(function (h) {
+        const r = R.hosts[h.id], ha = r.lasten.filter(function (l) { return l.ha; });
+        const rest = P.hosts.filter(function (x) { return x !== h; }).map(function (x) { const q = R.hosts[x.id]; return { r: q, ram: q.ram, disk: q.disk }; });
+        const fehlt = [];
+        ha.slice().sort(function (a, b) { return b.ram - a.ram; }).forEach(function (l) {
+          const k = rest.filter(function (q) { return q.ram + l.ram <= q.r.ramFrei0 && q.disk + l.disk * (1 + o.snapshot / 100) <= q.r.platz; }).sort(function (a, b) { return (b.r.ramFrei0 - b.ram) - (a.r.ramFrei0 - a.ram); })[0];
+          if (k) { k.ram += l.ram; k.disk += l.disk * (1 + o.snapshot / 100); } else fehlt.push(l);
+        });
+        R.ausfall.push({ h: h, ha: ha, fehlt: fehlt });
+        if (o.n1 === 'ja' && fehlt.length) melde('fehler', 'Fällt ' + h.name + ' aus, finden ' + fehlt.map(function (l) { return l.name; }).join(', ') + ' keinen Platz auf den anderen Servern.', [h.id], fehlt.map(function (l) { return l.id; }));
+      });
+      if (o.n1 === 'ja' && P.hosts.length < 2) melde('warn', 'N+1 braucht mindestens zwei Server.');
+      if (o.n1 === 'ja' && P.hosts.length === 2) melde('info', 'Zwei Server: Für automatisches Umschalten wird eine dritte Stimme (Quorum-Gerät) gebraucht, sonst entscheidet keiner allein.');
+      if (!P.lasten.some(function (l) { return l.vorlage === 'backup'; })) melde('info', 'Kein Backup-Dienst geplant: RAID und Snapshots ersetzen keine Sicherung auf einem anderen Gerät.');
+      // Summen
+      R.summe = { ram: 0, ramHost: 0, vcpu: 0, threads: 0, disk: 0, platz: 0, w: 0 };
+      P.hosts.forEach(function (h) { const r = R.hosts[h.id]; R.summe.ram += r.ramGes; R.summe.ramHost += h.ram; R.summe.vcpu += r.vcpu; R.summe.threads += h.threads; R.summe.disk += r.disk; R.summe.platz += r.platz; R.summe.w += r.leistung; });
+      R.summe.kwh = R.summe.w * 8.76; R.summe.kosten = R.summe.kwh * o.preis;
+      return R;
+    }
+
+    // ---------- Oberfläche ----------
+    const UI = { gewaehlt: '', offen: false };
+    function status(t) { $('status').textContent = t; }
+    function zahlFeld(wert, min, max, fn, schritt) {
+      const e = knoten('input'); e.type = 'text'; e.inputMode = 'decimal'; e.autocomplete = 'off'; e.value = String(wert).replace('.', ',');
+      e.addEventListener('input', function () { const t = e.value.trim().replace(',', '.'), v = Number(t), ok = t !== '' && isFinite(v) && v >= min && v <= max; e.classList.toggle('falsch', !ok); e.setAttribute('aria-invalid', ok ? 'false' : 'true'); e.title = ok ? '' : 'Erlaubt: ' + zahl(min, 1) + ' bis ' + zahl(max, 0); if (ok) fn(schritt ? Math.round(v / schritt) * schritt : v); });
+      e.addEventListener('blur', function () { e.classList.remove('falsch'); e.setAttribute('aria-invalid', 'false'); });
+      return e;
+    }
+    function textFeld(wert, n, fn) { const e = knoten('input'); e.type = 'text'; e.maxLength = n; e.value = wert; e.autocomplete = 'off'; e.addEventListener('input', function () { fn(tx(e.value, '', n)); }); return e; }
+    function auswahl(optionen, wert, fn) { const e = knoten('select'); optionen.forEach(function (o) { const op = knoten('option', '', o[1]); op.value = o[0]; e.append(op); }); e.value = wert; e.addEventListener('change', function () { fn(e.value); }); return e; }
+    function feld(ziel, name, el, breit) { const l = knoten('label', breit ? 'breit' : ''); l.append(knoten('span', '', name), el); ziel.append(l); return l; }
+    function knopf(text, klasse, fn, aria) { const b = knoten('button', klasse, text); b.type = 'button'; if (aria) b.setAttribute('aria-label', aria); b.addEventListener('click', fn); return b; }
+    function reiterSetzen(r) {
+      document.querySelectorAll('#reiter button').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-r') === r ? 'true' : 'false'); });
+      document.querySelectorAll('.feld-reiter').forEach(function (d) { d.hidden = d.getAttribute('data-r') !== r; });
+    }
+    document.querySelectorAll('#reiter button').forEach(function (b) { b.addEventListener('click', function () { reiterSetzen(b.getAttribute('data-r')); }); });
+    Object.keys(VORLAGE).forEach(function (k) { const o = knoten('option', '', VORLAGE[k][0]); o.value = k; $('neuVorlage').append(o); });
+    $('neuVorlage').value = 'eigen';
+    $('neuLast').addEventListener('click', function () {
+      if (P.lasten.length >= 200) return;
+      const v = $('neuVorlage').value, l = last(v); if (P.lasten.some(function (x) { return x.name === l.name; })) l.name = (l.name + ' ' + (P.lasten.filter(function (x) { return x.vorlage === v; }).length + 1)).slice(0, 40);
+      P.lasten.push(l); UI.gewaehlt = l.id; UI.offen = true; aufbauen(); status(l.name + ' angelegt.');
+      const el = document.querySelector('[data-l="' + l.id + '"]'); if (el) el.scrollIntoView({ block: 'nearest' });
+    });
+    $('neuHost').addEventListener('click', function () { if (P.hosts.length >= 12) return; const h = host('Server ' + (P.hosts.length + 1)); P.hosts.push(h); aufbauen(); status(h.name + ' angelegt.'); });
+    function lastInfo(l) { return (l.art === 'vm' ? 'VM' : 'CT') + ' · ' + l.vcpu + ' vCPU · ' + zahl(l.ram, l.ram < 10 ? 1 : 0) + ' GB · ' + (A && A.auf[l.id] ? A.hosts[A.auf[l.id]].h.name : 'kein Platz') + (l.ha ? ' · wichtig' : ''); }
+    function lastenAufbauen() {
+      const z = $('lasten'); z.innerHTML = '';
+      if (!P.lasten.length) z.append(knoten('p', 'hilfe', 'Noch keine Dienste. Oben eine Vorlage wählen und „+ Dienst“.'));
+      P.lasten.forEach(function (l, i) {
+        const d = knoten('details', 'geraet' + (UI.gewaehlt === l.id ? ' gewaehlt' : '')); d.setAttribute('data-l', l.id); d.open = UI.gewaehlt === l.id && UI.offen;
+        const s = knoten('summary'), pk = knoten('span', 'punkt'); pk.style.background = farbeVon(l);
+        s.append(pk, knoten('span', 'titel', l.name), knoten('span', 'klein', lastInfo(l)));
+        if (A && A.lFehler[l.id]) s.append(knoten('span', 'warn', '⚠'));
+        d.append(s);
+        const innen = knoten('div', 'geraet-innen'); d.append(innen);
+        function fuellen() {
+          if (innen.childNodes.length) return;
+          const r = knoten('div', 'raster');
+          feld(r, 'Name', textFeld(l.name, 40, function (v) { l.name = v || VORLAGE[l.vorlage][0]; s.querySelector('.titel').textContent = l.name; aendern(); }));
+          feld(r, 'Art', auswahl([['vm', 'virtuelle Maschine'], ['ct', 'Container']], l.art, function (v) { l.art = v; aendern(); }));
+          feld(r, 'vCPU', zahlFeld(l.vcpu, 1, 256, function (v) { l.vcpu = v; aendern(); }, 1));
+          feld(r, 'RAM (GB)', zahlFeld(l.ram, 0.1, 4096, function (v) { l.ram = v; aendern(); }));
+          feld(r, 'Speicher (GB)', zahlFeld(l.disk, 0, 1000000, function (v) { l.disk = v; aendern(); }));
+          feld(r, 'Last im Mittel (%)', zahlFeld(l.last, 0, 100, function (v) { l.last = v; aendern(); }));
+          feld(r, 'Server', auswahl([['', 'automatisch']].concat(P.hosts.map(function (h) { return [h.id, h.name]; })), l.host, function (v) { l.host = v; aendern(); }));
+          feld(r, 'Bei Ausfall weiterlaufen', auswahl([['nein', 'nein'], ['ja', 'ja, wichtig (N+1)']], l.ha ? 'ja' : 'nein', function (v) { l.ha = v === 'ja'; aendern(); }));
+          innen.append(r);
+          const leiste = knoten('div', 'werkzeug-leiste');
+          leiste.append(knopf('Duplizieren', 'knopf-leise', function () { if (P.lasten.length >= 200) return; const n = JSON.parse(JSON.stringify(l)); n.id = neueId('l'); n.name = (l.name + ' 2').slice(0, 40); P.lasten.splice(P.lasten.indexOf(l) + 1, 0, n); UI.gewaehlt = n.id; UI.offen = true; aufbauen(); status(n.name + ' angelegt.'); }));
+          leiste.append(knopf('Löschen', 'knopf-leise', function () { P.lasten.splice(P.lasten.indexOf(l), 1); aufbauen(); status(l.name + ' entfernt.'); }));
+          innen.append(leiste);
+        }
+        if (d.open) fuellen();
+        d.addEventListener('toggle', function () { if (d.open) { fuellen(); UI.gewaehlt = l.id; UI.offen = true; markieren(); zeichnen(); } });
+        z.append(d);
+      });
+    }
+    function hostsAufbauen() {
+      const z = $('hosts'); z.innerHTML = '';
+      P.hosts.forEach(function (h) {
+        const d = knoten('div', 'last-zeile'), kopf = knoten('div', 'kabel-kopf'), r = A && A.hosts[h.id];
+        kopf.append(knoten('span', '', h.name), knoten('span', 'info', r ? zahl(r.pool.nutzTB, 2) + ' TB nutzbar · ' + r.lasten.length + ' Dienste' : ''));
+        kopf.append(knopf('×', 'weg-k', function () {
+          if (P.hosts.length < 2) { status('Mindestens ein Server bleibt bestehen.'); return; }
+          if (!window.confirm(h.name + ' löschen? Fest zugeordnete Dienste werden automatisch verteilt.')) return;
+          P.hosts.splice(P.hosts.indexOf(h), 1); P.lasten.forEach(function (l) { if (l.host === h.id) l.host = ''; }); aufbauen();
+        }, h.name + ' entfernen'));
+        d.append(kopf);
+        const g = knoten('div', 'raster');
+        feld(g, 'Name', textFeld(h.name, 40, function (v) { h.name = v || 'Server'; aendern(); }));
+        feld(g, 'Kerne', zahlFeld(h.kerne, 1, 256, function (v) { h.kerne = v; if (h.threads < v) h.threads = v; aendern(); }, 1));
+        feld(g, 'Threads', zahlFeld(h.threads, 1, 512, function (v) { h.threads = Math.max(v, h.kerne); aendern(); }, 1));
+        feld(g, 'RAM (GB)', zahlFeld(h.ram, 1, 8192, function (v) { h.ram = v; aendern(); }));
+        feld(g, 'Leistung Leerlauf (W)', zahlFeld(h.wIdle, 0, 5000, function (v) { h.wIdle = v; if (h.wMax < v) h.wMax = v; aendern(); }));
+        feld(g, 'Leistung Volllast (W)', zahlFeld(h.wMax, 0, 5000, function (v) { h.wMax = Math.max(v, h.wIdle); aendern(); }));
+        d.append(g);
+        const u = knoten('div', 'unterkopf', 'Speicherpool (ZFS)'); u.style.padding = '0 10px'; d.append(u);
+        const q = knoten('div', 'raster');
+        feld(q, 'Platten', auswahl(Object.keys(PLATTE).map(function (k) { return [k, PLATTE[k].name]; }), h.pool.art, function (v) { h.pool.art = v; aendern(); }));
+        feld(q, 'Aufbau', auswahl(Object.keys(LAYOUT).map(function (k) { return [k, LAYOUT[k].name]; }), h.pool.layout, function (v) { h.pool.layout = v; if (h.pool.n < LAYOUT[v].min) h.pool.n = LAYOUT[v].min; aufbauen(); }));
+        feld(q, 'Platten je vdev', zahlFeld(h.pool.n, 1, 24, function (v) { h.pool.n = v; aendern(); }, 1));
+        feld(q, 'Anzahl vdevs', zahlFeld(h.pool.vdevs, 1, 24, function (v) { h.pool.vdevs = v; aendern(); }, 1));
+        feld(q, 'Größe je Platte (TB)', zahlFeld(h.pool.tb, 0.1, 100, function (v) { h.pool.tb = v; aendern(); }));
+        d.append(q); z.append(d);
+      });
+    }
+    function optionenAufbauen() {
+      const z = $('optionen'), o = P.opt; z.innerHTML = '';
+      feld(z, 'Name der Planung', textFeld(P.name, 60, function (v) { P.name = v || 'Mein Homelab'; aendern(); }), true);
+      feld(z, 'vCPU-Überbuchung höchstens (x : 1)', zahlFeld(o.cpu, 1, 20, function (v) { o.cpu = v; aendern(); }));
+      feld(z, 'RAM-Reserve Hypervisor (GB)', zahlFeld(o.reserve, 0, 256, function (v) { o.reserve = v; aendern(); }));
+      feld(z, 'ZFS-Cache (ARC) in % des RAM', zahlFeld(o.arc, 0, 90, function (v) { o.arc = v; aendern(); }));
+      feld(z, 'Zuschlag Snapshots (%)', zahlFeld(o.snapshot, 0, 300, function (v) { o.snapshot = v; aendern(); }));
+      feld(z, 'Pool höchstens füllen bis (%)', zahlFeld(o.fuell, 10, 100, function (v) { o.fuell = v; aendern(); }));
+      feld(z, 'Ausfall eines Servers abfangen (N+1)', auswahl([['ja', 'ja, wichtige Dienste'], ['nein', 'nein']], o.n1, function (v) { o.n1 = v; aendern(); }));
+      feld(z, 'Strompreis (€/kWh)', zahlFeld(o.preis, 0, 5, function (v) { o.preis = v; aendern(); }));
+    }
+    function markieren() { document.querySelectorAll('[data-l]').forEach(function (d) { d.classList.toggle('gewaehlt', d.getAttribute('data-l') === UI.gewaehlt); }); }
+
+    // ---------- Zeichnen ----------
+    const cv = $('bild');
+    let treffer = [], zeit = 0;
+    function farbeVon(l) { return FARBEN[P.lasten.indexOf(l) % FARBEN.length]; }
+    function kuerzen(cx, t, max) { if (cx.measureText(t).width <= max) return t; while (t.length > 1 && cx.measureText(t + '…').width > max) t = t.slice(0, -1); return t + '…'; }
+    function zeichnen() {
+      if (!A) return;
+      const n = P.hosts.length;
+      let spalten = 1, sb = 0;
+      const L = leinwand(cv, function (w) { spalten = Math.max(1, Math.min(n, Math.floor(w / 190))); sb = w / spalten; return Math.ceil(n / spalten) * 372 + (A.ohne.length ? 34 : 0) + 6; });
+      const cx = L.cx; cx.clearRect(0, 0, L.w, L.h); treffer = [];
+      P.hosts.forEach(function (h, i) {
+        const r = A.hosts[h.id], x0 = (i % spalten) * sb + 8, y0 = Math.floor(i / spalten) * 372 + 8, w = sb - 16, fehler = A.hFehler[h.id];
+        kasten(cx, x0, y0, w, 358, 10, f('--flaeche'), fehler ? f('--fehler') : f('--linie'), fehler ? 2 : 1.2);
+        cx.font = '700 13px ' + (f('--technik') || 'sans-serif');
+        txt(cx, kuerzen(cx, h.name, w - 20), x0 + 10, y0 + 16, { g: 13, b: true, a: 'left' });
+        txt(cx, h.kerne + ' Kerne · ' + h.threads + ' Threads · ' + zahl(h.ram, 0) + ' GB', x0 + 10, y0 + 33, { g: 10, a: 'left', f: f('--leise') });
+        // RAM-Stapel
+        const bx = x0 + 10, by = y0 + 48, bw = Math.max(46, w * 0.42), bh = 220, sk = bh / Math.max(h.ram, r.ramGes);
+        kasten(cx, bx, by, bw, bh, 5, f('--flaeche2'), f('--linie'), 1);
+        let y = by + bh;
+        function teil(gb, farbe, name, l) {
+          const hh = gb * sk; if (hh <= 0) return;
+          y -= hh; cx.fillStyle = farbe; cx.fillRect(bx + 1, y, bw - 2, Math.max(0.5, hh - 0.6));
+          if (l && UI.gewaehlt === l.id) { cx.strokeStyle = f('--text'); cx.lineWidth = 2; cx.strokeRect(bx + 2, y + 1, bw - 4, Math.max(1, hh - 2)); }
+          if (hh >= 13) { cx.font = '600 10px ' + (f('--technik') || 'sans-serif'); txt(cx, kuerzen(cx, name, bw - 8), bx + bw / 2, y + hh / 2, { g: 10, b: true, f: '#FFFFFF' }); }
+          if (l) treffer.push({ x: bx, y: y, w: bw, h: hh, id: l.id });
+        }
+        teil(P.opt.reserve, '#868E96', 'Hypervisor');
+        teil(r.arc, '#15AABF', 'ZFS-Cache');
+        r.lasten.slice().sort(function (a, b) { return b.ram - a.ram; }).forEach(function (l) { teil(l.ram, farbeVon(l), l.name, l); });
+        if (r.ramGes > h.ram) { const yl = by + bh - h.ram * sk; strich(cx, [[bx - 4, yl], [bx + bw + 4, yl]], f('--fehler'), 2); }
+        txt(cx, 'RAM ' + zahl(r.ramGes, 1) + ' / ' + zahl(h.ram, 0) + ' GB', bx + bw / 2, by + bh + 12, { g: 10, b: true, f: r.ramGes > h.ram ? f('--fehler') : f('--text') });
+        // Prozessor: Tagesverlauf mit leicht schwankender Last
+        const cxx = bx + bw + 12, cw = x0 + w - 10 - cxx, ch = 96;
+        kasten(cx, cxx, by, cw, ch, 5, f('--flaeche2'), f('--linie'), 1);
+        const pts = [];
+        for (let k = 0; k <= 40; k++) {
+          const t = k / 40, tag = 0.55 + 0.45 * Math.sin((t * 24 - 9) / 24 * 2 * Math.PI), rausch = 0.12 * Math.sin(t * 37 + zeit * 1.7 + i) + 0.08 * Math.sin(t * 91 - zeit * 2.3);
+          const l = Math.max(0, Math.min(1.05, r.cpuProz / 100 * (tag + rausch) * 1.1));
+          pts.push([cxx + 2 + t * (cw - 4), by + ch - 2 - l * (ch - 6)]);
+        }
+        const farbeCpu = r.cpuProz > 70 ? f('--fehler') : r.cpuProz > 50 ? '#F08C00' : '#2F9E44';
+        cx.beginPath(); cx.moveTo(pts[0][0], by + ch - 2); pts.forEach(function (q) { cx.lineTo(q[0], q[1]); }); cx.lineTo(pts[pts.length - 1][0], by + ch - 2); cx.closePath(); cx.globalAlpha = 0.25; cx.fillStyle = farbeCpu; cx.fill(); cx.globalAlpha = 1;
+        strich(cx, pts, farbeCpu, 1.6);
+        const y70 = by + ch - 2 - 0.7 * (ch - 6); strich(cx, [[cxx + 2, y70], [cxx + cw - 2, y70]], f('--leise'), 1, [3, 3]);
+        txt(cx, 'CPU ⌀ ' + zahl(r.cpuProz, 0) + ' %', cxx + cw / 2, by + ch + 12, { g: 10, b: true });
+        txt(cx, r.vcpu + ' vCPU · ' + zahl(r.cpuFaktor, 1) + ' : 1', cxx + cw / 2, by + ch + 26, { g: 10, f: r.cpuFaktor > P.opt.cpu ? f('--fehler') : f('--leise') });
+        // Platten
+        const py = by + ch + 44, pl = r.pool, gesamt = h.pool.n * h.pool.vdevs, pro = Math.max(1, Math.min(gesamt, Math.floor((cw + 4) / 13))), ps = Math.min(11, (cw - (pro - 1) * 2) / pro);
+        txt(cx, 'Pool: ' + LAYOUT[h.pool.layout].name.split(' ')[0], cxx, py - 2, { g: 10, b: true, a: 'left' });
+        for (let k = 0; k < gesamt; k++) {
+          const v = Math.floor(k / h.pool.n), j = k % h.pool.n, px = cxx + (k % pro) * (ps + 2), pyy = py + 8 + Math.floor(k / pro) * (ps * 1.4 + 3);
+          if (pyy > by + bh - 10) break;
+          const par = j >= h.pool.n - pl.p, farbe = ['#3B5BDB', '#2F9E44', '#7048E8', '#E8590C'][v % 4];
+          kasten(cx, px, pyy, ps, ps * 1.4, 2, par ? f('--flaeche2') : farbe, farbe, 1.2);
+          if (par) { cx.save(); cx.beginPath(); cx.rect(px, pyy, ps, ps * 1.4); cx.clip(); for (let s = -ps; s < ps * 2; s += 3) strich(cx, [[px + s, pyy], [px + s + ps * 1.4, pyy + ps * 1.4]], farbe, 0.8); cx.restore(); }
+        }
+        const zeilen = Math.ceil(gesamt / pro), py2 = Math.min(by + bh - 6, py + 12 + zeilen * (ps * 1.4 + 3));
+        txt(cx, gesamt + ' × ' + zahl(h.pool.tb, h.pool.tb < 1 ? 2 : 0) + ' TB → ' + zahl(pl.nutzTB, 2) + ' TB', cxx, py2 + 4, { g: 10, a: 'left', f: f('--leise') });
+        // Speicherbelegung
+        const sy = by + bh + 30;
+        txt(cx, 'Speicher ' + zahl(r.disk / 1000, 2) + ' / ' + zahl(pl.nutzTB, 2) + ' TB', x0 + 10, sy, { g: 10, b: true, a: 'left' });
+        const sw = w - 20; kasten(cx, x0 + 10, sy + 9, sw, 12, 5, f('--flaeche2'), f('--linie'), 1);
+        let sx = x0 + 11;
+        r.lasten.forEach(function (l) { const ww = pl.nutzTB > 0 ? l.disk * (1 + P.opt.snapshot / 100) / (pl.nutzTB * 1000) * (sw - 2) : 0; if (sx + ww > x0 + 10 + sw) return; cx.fillStyle = farbeVon(l); cx.fillRect(sx, sy + 10, Math.max(0, ww - 0.5), 10); sx += ww; });
+        const yf = x0 + 10 + sw * P.opt.fuell / 100; strich(cx, [[yf, sy + 6], [yf, sy + 24]], f('--text'), 1.5);
+        txt(cx, zahl(P.opt.fuell, 0) + ' %', yf, sy + 33, { g: 9, f: f('--leise') });
+        // Leistung
+        txt(cx, '≈ ' + zahl(r.leistung, 0) + ' W · ' + zahl(r.lasten.length, 0) + ' Dienste', x0 + 10, y0 + 346, { g: 10, a: 'left', f: f('--leise') });
+        if (fehler) txt(cx, '⚠ ' + fehler, x0 + w - 10, y0 + 16, { g: 11, b: true, a: 'right', f: f('--fehler') });
+      });
+      if (A.ohne.length) {
+        const y = Math.ceil(n / spalten) * 372 + 10;
+        kasten(cx, 8, y, L.w - 16, 24, 6, null, f('--fehler'), 1.5);
+        cx.font = '600 11px ' + (f('--technik') || 'sans-serif');
+        txt(cx, kuerzen(cx, 'Ohne Platz: ' + A.ohne.map(function (l) { return l.name; }).join(', '), L.w - 30), L.w / 2, y + 12, { g: 11, b: true, f: f('--fehler') });
+      }
+    }
+    cv.addEventListener('click', function (ev) {
+      const r = cv.getBoundingClientRect(), x = ev.clientX - r.left, y = ev.clientY - r.top;
+      const t = treffer.filter(function (q) { return x >= q.x && x <= q.x + q.w && y >= q.y && y <= q.y + q.h; })[0];
+      if (!t) return;
+      UI.gewaehlt = t.id; UI.offen = true; reiterSetzen('lasten'); lastenAufbauen(); zeichnen();
+      const el = document.querySelector('[data-l="' + t.id + '"]'); if (el && window.innerWidth > 1000) el.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      const l = P.lasten.filter(function (q) { return q.id === t.id; })[0]; if (l) status(l.name + ' ausgewählt.');
+    });
+
+    // ---------- Ergebnisse ----------
+    function ergebnisse() {
+      const m = [];
+      A.fehler.forEach(function (t) { m.push([t, true]); }); A.warn.forEach(function (t) { m.push(['Hinweis: ' + t]); }); A.info.forEach(function (t) { m.push([t]); });
+      if (!A.fehler.length && !A.warn.length) m.unshift(['Alle Dienste haben Platz: Arbeitsspeicher, Prozessor und Speicher reichen' + (P.opt.n1 === 'ja' ? ', auch beim Ausfall eines Servers.' : '.')]);
+      meldungen($('meldungen'), m);
+      const u = A.fehler.length ? A.fehler.length + ' Fehler' : A.warn.length ? A.warn.length + ' Hinweise' : 'passt';
+      [$('urteil'), $('urteil2')].forEach(function (e) { e.textContent = u; e.className = 'urteil ' + (A.fehler.length ? 'schlecht' : A.warn.length ? '' : 'gut'); });
+      const S = A.summe;
+      kacheln($('kacheln'), [
+        [String(P.lasten.length), P.lasten.filter(function (l) { return l.art === 'vm'; }).length + ' VMs, ' + P.lasten.filter(function (l) { return l.art === 'ct'; }).length + ' Container', '#3B5BDB'],
+        [zahl(S.ram, 0) + ' / ' + zahl(S.ramHost, 0) + ' GB', 'Arbeitsspeicher verplant', '#15AABF'],
+        [S.vcpu + ' / ' + S.threads, 'vCPU auf Threads', '#2F9E44'],
+        [zahl(S.disk / 1000, 1) + ' / ' + zahl(S.platz / 1000, 1) + ' TB', 'Speicher (mit Snapshots) / nutzbar', '#7048E8'],
+        [zahl(S.w, 0) + ' W', 'Leistung im Mittel', '#F08C00'],
+        [zahl(S.kosten, 0) + ' €', 'Strom pro Jahr (' + zahl(S.kwh, 0) + ' kWh)', '#E03131']
+      ]);
+      // Verteilung
+      const z = [];
+      P.hosts.forEach(function (h) {
+        const r = A.hosts[h.id];
+        z.push([h.name, '', zahl(r.ramGes, 1) + ' / ' + zahl(h.ram, 0) + ' GB', r.vcpu + ' / ' + h.threads, zahl(r.cpuProz, 0) + ' %', zahl(r.disk / 1000, 2) + ' / ' + zahl(r.pool.nutzTB, 2) + ' TB', '']);
+        r.lasten.forEach(function (l) { z.push(['', l.name + (l.art === 'vm' ? ' (VM)' : ' (CT)'), zahl(l.ram, 1) + ' GB', String(l.vcpu), zahl(l.vcpu * l.last / h.threads, 1) + ' %', zahl(l.disk, 0) + ' GB', (l.ha ? 'wichtig' : '') + (l.host ? (l.ha ? ', ' : '') + 'fest' : '')]); });
+      });
+      A.ohne.forEach(function (l) { z.push(['ohne Platz', l.name, zahl(l.ram, 1) + ' GB', String(l.vcpu), '', zahl(l.disk, 0) + ' GB', '']); });
+      tabelle($('verteilung'), ['Server', 'Dienst', 'RAM', 'vCPU', 'CPU-Last', 'Speicher', ''], z, { zahl: [2, 3, 4, 5], klasse: function (j) { return z[j][0] === 'ohne Platz' ? 'zeile-fehler' : z[j][0] ? 'zeile-kopf' : ''; } });
+      const au = A.ausfall.map(function (q) { return [q.h.name, String(q.ha.length), q.ha.length ? zahl(q.ha.reduce(function (s, l) { return s + l.ram; }, 0), 1) + ' GB' : '', q.fehlt.length ? 'fehlt Platz für ' + q.fehlt.map(function (l) { return l.name; }).join(', ') : q.ha.length ? 'alle wichtigen Dienste laufen weiter' : 'keine wichtigen Dienste darauf']; });
+      tabelle($('ausfall'), ['Ausfall von', 'wichtige Dienste', 'RAM', 'Ergebnis'], au.length ? au : [['–', '', '', 'nur ein Server – kein Ausweichen möglich']], { zahl: [1, 2], klasse: function (j) { return A.ausfall[j] && A.ausfall[j].fehlt.length ? 'zeile-fehler' : ''; } });
+      const pz = P.hosts.map(function (h) { const p = A.hosts[h.id].pool, q = h.pool; return [h.name, q.n * q.vdevs + ' × ' + zahl(q.tb, q.tb < 1 ? 2 : 1) + ' TB ' + PLATTE[q.art].name.split(' ')[0], q.vdevs + ' × ' + LAYOUT[q.layout].name.split(' (')[0] + ' (' + q.n + ')', zahl(p.roh, 1) + ' TB', zahl(p.nutzTB, 2) + ' TB / ' + zahl(p.nutzTiB, 2) + ' TiB', zahl(p.effizienz * 100, 0) + ' %', p.toleranz + ' je vdev', zahl(p.iops, 0), zahl(p.mbs, 0) + ' MB/s', '≈ ' + zahl(p.resilver, 1) + ' h']; });
+      tabelle($('pools'), ['Server', 'Platten', 'Aufbau', 'roh', 'nutzbar', 'Anteil', 'Ausfälle', 'IOPS', 'Durchsatz', 'Wiederaufbau'], pz, { zahl: [3, 4, 5, 7, 8, 9] });
+      // Rechenweg
+      const sel = $('wegHost'), alt = sel.value; sel.innerHTML = '';
+      P.hosts.forEach(function (h) { const o = knoten('option', '', h.name); o.value = h.id; sel.append(o); });
+      sel.value = P.hosts.some(function (h) { return h.id === alt; }) ? alt : P.hosts[0].id;
+      wegHost();
+    }
+    function wegHost() {
+      const h = P.hosts.filter(function (x) { return x.id === $('wegHost').value; })[0] || P.hosts[0], r = A.hosts[h.id], p = r.pool, q = h.pool, o = P.opt;
+      const ramL = r.lasten.map(function (l) { return tz(l.ram, 1); });
+      wegZeigen($('weg'), [
+        ['Arbeitsspeicher', 'M = M_\\text{Res} + \\tfrac{a}{100} M_\\text{Server} + \\sum M_i = ' + tz(o.reserve, 1) + ' + ' + tz(r.arc, 1) + ' + (' + (ramL.length ? ramL.slice(0, 10).join(' + ') + (ramL.length > 10 ? ' + \\ldots' : '') : '0') + ') = ' + E(tz(r.ramGes, 1) + '\\,\\text{GB}') + (r.ramGes <= h.ram ? ' \\le ' : ' > ') + tz(h.ram, 0) + '\\,\\text{GB}'],
+        ['vCPU-Überbuchung', 'k = \\frac{\\sum n_\\text{vCPU}}{n_\\text{Threads}} = \\frac{' + r.vcpu + '}{' + h.threads + '} = ' + E(tz(r.cpuFaktor, 2) + ' : 1')],
+        ['Prozessorlast im Mittel', 'u = \\frac{\\sum n_{\\text{vCPU},i}\\, u_i}{n_\\text{Threads}} = \\frac{' + tz(r.cpuLast, 2) + '}{' + h.threads + '} = ' + E(tz(r.cpuProz, 1) + '\\,\\%')],
+        ['Nutzkapazität des Pools', 'K = v \\,(n - p)\\, C\\,\\left(1 - \\tfrac{1}{32}\\right) = ' + q.vdevs + ' \\cdot (' + q.n + ' - ' + p.p + ') \\cdot ' + tz(q.tb, 2) + ' \\cdot 0{,}969 = ' + E(tz(p.nutzTB, 2) + '\\,\\text{TB}') + ' = ' + tz(p.nutzTiB, 2) + '\\,\\text{TiB}'],
+        ['Speicherbedarf', 'S = (1 + s) \\sum S_i = ' + tz(1 + o.snapshot / 100, 2) + ' \\cdot ' + tz(r.disk / (1 + o.snapshot / 100), 0) + '\\,\\text{GB} = ' + E(tz(r.disk / 1000, 2) + '\\,\\text{TB}') + (r.disk <= r.platz ? ' \\le ' : ' > ') + tz(o.fuell / 100, 2) + ' \\cdot K = ' + tz(r.platz / 1000, 2) + '\\,\\text{TB}'],
+        ['Wiederaufbau einer Platte', 't = \\frac{C}{0{,}6\\, v_\\text{Platte}} = \\frac{' + tz(q.tb * 1e6, 0) + '\\,\\text{MB}}{0{,}6 \\cdot ' + PLATTE[q.art].mbs + '\\,\\text{MB/s}} = ' + E(tz(p.resilver, 1) + '\\,\\text{h}')],
+        ['Leistung und Kosten', 'P = P_0 + (P_\\text{max} - P_0)\\, u = ' + tz(h.wIdle, 0) + ' + ' + tz(h.wMax - h.wIdle, 0) + ' \\cdot ' + tz(Math.min(1, r.cpuProz / 100), 2) + ' = ' + tz(r.leistung, 0) + '\\,\\text{W} \\Rightarrow ' + E(tz(r.leistung * 8.76 * o.preis, 0) + '\\,\\text{€/Jahr}')]
+      ]);
+    }
+    $('wegHost').addEventListener('change', wegHost);
+
+    // ---------- ZFS-Löser ----------
+    const LF = [['v', 'v', 'Anzahl vdevs', '', 1, 100], ['n', 'n', 'Platten je vdev', '', 1, 100], ['p', 'p', 'Redundanz je vdev (Parität)', '', 0, 99], ['c', 'C', 'Größe je Platte', 'TB', 0.01, 100], ['k', 'K', 'nutzbar', 'TB', 0.001, 100000]];
+    const LW = { v: null, n: null, p: null, c: null, k: null }, LEL = {};
+    function loeserBauen() {
+      const z = $('loeser'); z.innerHTML = ''; z.setAttribute('data-nicht-merken', '');
+      LF.forEach(function (fd) {
+        const zeile = knoten('div', 'feld'), lab = document.createElement('label'), id = 'z-' + fd[0];
+        lab.htmlFor = id; const sym = knoten('span', 'symbol'); Formel.setze(sym, fd[1]); lab.append(sym, knoten('span', 'name', fd[2]));
+        const e = knoten('input'); e.id = id; e.type = 'text'; e.inputMode = 'decimal'; e.autocomplete = 'off';
+        const x = knoten('button', 'leeren', '×'); x.type = 'button'; x.setAttribute('aria-label', fd[2] + ' leeren');
+        e.addEventListener('input', function () { const t = e.value.trim(); if (t === '') { LW[fd[0]] = null; loesen(); return; } const v = Number(t.replace(',', '.')); if (!isFinite(v) || v < fd[4] || v > fd[5]) { zeile.className = 'feld widerspruch'; return; } LW[fd[0]] = v; loesen(); });
+        e.addEventListener('blur', loesen);
+        x.addEventListener('click', function () { LW[fd[0]] = null; loesen(); e.focus(); });
+        zeile.append(lab, e, knoten('span', 'einheit', fd[3]), x); z.append(zeile); LEL[fd[0]] = { z: zeile, e: e };
+      });
+      loesen();
+    }
+    function loesen() {
+      const v = {}, q = {}, weg = [], s = 1 - SLOP; let wid = false;
+      Object.keys(LW).forEach(function (k) { if (LW[k] !== null) { v[k] = LW[k]; q[k] = 'g'; } });
+      const offen = ['v', 'n', 'p', 'c', 'k'].filter(function (k) { return v[k] === undefined; });
+      if (offen.length === 1) {
+        const k = offen[0];
+        if (k === 'k') { v.k = v.v * (v.n - v.p) * v.c * s; weg.push(['Nutzkapazität', 'K = v\\,(n - p)\\,C\\,(1 - \\tfrac{1}{32}) = ' + tz(v.v, 0) + ' \\cdot (' + tz(v.n, 0) + ' - ' + tz(v.p, 0) + ') \\cdot ' + tz(v.c, 2) + ' \\cdot 0{,}969 = ' + E(tz(v.k, 2) + '\\,\\text{TB}')]); }
+        else if (k === 'n') { const r = v.k / (v.v * v.c * s) + v.p; v.n = Math.ceil(r - 1e-9); weg.push(['Platten je vdev', 'n = \\frac{K}{v\\,C\\,(1 - 1/32)} + p = ' + tz(r, 2) + ' \\Rightarrow ' + E(tz(v.n, 0))]); }
+        else if (k === 'v') { const r = v.k / ((v.n - v.p) * v.c * s); v.v = Math.ceil(r - 1e-9); weg.push(['Anzahl vdevs', 'v = \\frac{K}{(n - p)\\,C\\,(1 - 1/32)} = ' + tz(r, 2) + ' \\Rightarrow ' + E(tz(v.v, 0))]); }
+        else if (k === 'c') { v.c = v.k / (v.v * (v.n - v.p) * s); weg.push(['Größe je Platte', 'C = \\frac{K}{v\\,(n - p)\\,(1 - 1/32)} = ' + E(tz(v.c, 2) + '\\,\\text{TB}')]); }
+        else if (k === 'p') { const r = v.n - v.k / (v.v * v.c * s); v.p = Math.floor(r + 1e-9); weg.push(['Höchste mögliche Redundanz', 'p = n - \\frac{K}{v\\,C\\,(1 - 1/32)} = ' + tz(r, 2) + ' \\Rightarrow ' + E(tz(v.p, 0))]); }
+        if (!isFinite(v[k]) || v[k] < 0) { wid = true; delete v[k]; weg.length = 0; } else q[k] = 'b';
+      } else if (!offen.length) {
+        const kk = v.v * (v.n - v.p) * v.c * s; if (Math.abs(kk - v.k) / Math.max(1e-9, v.k) > 0.005) wid = true;
+        weg.push(['Kontrolle', 'v\\,(n - p)\\,C\\,(1 - \\tfrac{1}{32}) = ' + tz(kk, 2) + '\\,\\text{TB}']);
+      }
+      if (v.p !== undefined && v.n !== undefined && v.p >= v.n) wid = true;
+      if (v.n !== undefined && v.p !== undefined && !wid) {
+        const spiegel = v.p === v.n - 1 && v.n >= 2, lay = v.p === 0 ? 'Stripe ohne Redundanz' : spiegel ? (v.n === 2 ? 'Spiegel' : zahl(v.n, 0) + '-fach-Spiegel') : v.p <= 3 ? 'RAIDZ' + zahl(v.p, 0) : 'nicht möglich, höchstens RAIDZ3';
+        weg.push(['Aufbau', '\\text{' + lay + (v.p <= 3 || spiegel ? ', verkraftet ' + zahl(v.p, 0) + ' Ausfälle je vdev' : '') + (v.v !== undefined ? ', zusammen ' + zahl(v.v * v.n, 0) + ' Platten' : '') + '}']);
+        if (v.p > 3 && !spiegel) wid = true;
+        if (!spiegel && v.p >= 1 && v.p <= 3 && v.n < v.p + 2) wid = true;
+      }
+      if (!weg.length) weg.push(['Noch zu wenig Angaben', '\\text{vier der fünf Werte eintragen}']);
+      LF.forEach(function (fd) {
+        const k = fd[0], el = LEL[k]; if (!el) return;
+        el.z.className = 'feld' + (wid && q[k] === 'g' ? ' widerspruch' : q[k] === 'g' ? ' gegeben' : q[k] === 'b' ? ' berechnet' : '');
+        if (q[k] === 'b') el.e.value = zahl(v[k], k === 'c' || k === 'k' ? 2 : 0); else if (q[k] !== 'g') el.e.value = '';
+        el.e.setAttribute('aria-invalid', wid && q[k] === 'g' ? 'true' : 'false');
+      });
+      wegZeigen($('loeserWeg'), weg);
+    }
+    $('loeserLeeren').addEventListener('click', function () { Object.keys(LW).forEach(function (k) { LW[k] = null; }); LF.forEach(function (fd) { LEL[fd[0]].e.value = ''; }); loesen(); });
+
+    // ---------- Ablauf ----------
+    function aufbauen() { A = auswerten(); lastenAufbauen(); hostsAufbauen(); optionenAufbauen(); ergebnisse(); zeichnen(); speichern(); }
+    let ergUhr = 0;
+    function aendern() {
+      A = auswerten(); zeichnen(); speichern(); clearTimeout(ergUhr);
+      ergUhr = setTimeout(function () {
+        ergebnisse();
+        document.querySelectorAll('details[data-l]').forEach(function (d) { const id = d.getAttribute('data-l'), s2 = d.querySelector('summary'), l = P.lasten.filter(function (x) { return x.id === id; })[0]; if (!l) return; s2.querySelector('.klein').textContent = lastInfo(l); let w = s2.querySelector('.warn'); if (A.lFehler[id]) { if (!w) { w = knoten('span', 'warn', '⚠'); s2.append(w); } } else if (w) w.remove(); });
+      }, 250);
+    }
+    function animieren(t) { zeit = t / 1000; zeichnen(); requestAnimationFrame(animieren); }
+    function herunterladen(text, name, typ) { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([text], { type: typ + ';charset=utf-8' })); a.download = name; document.body.append(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500); }
+    $('beispiel').addEventListener('click', function () { if (!window.confirm('Beispiel laden? Die aktuelle Planung wird ersetzt.')) return; P = pruefen(beispiel()); aufbauen(); status('Beispiel geladen.'); });
+    $('leer').addEventListener('click', function () { if (!window.confirm('Neu beginnen? Die aktuelle Planung wird ersetzt.')) return; P = pruefen(leerPlan()); aufbauen(); status('Neue Planung mit einem Server.'); });
+    $('dateiSpeichern').addEventListener('click', function () { herunterladen(JSON.stringify(P, null, 1), (P.name || 'homelab').replace(/[^A-Za-z0-9äöüÄÖÜß_-]+/g, '-').slice(0, 40) + '-server.json', 'application/json'); });
+    $('dateiLaden').addEventListener('change', function (ev) {
+      const d = ev.target.files && ev.target.files[0]; if (!d) return;
+      if (d.size > 2000000) { status('Die Datei ist zu groß.'); return; }
+      const r = new FileReader();
+      r.onload = function () { let p = null; try { p = pruefen(JSON.parse(String(r.result))); } catch (e) { p = null; } if (!p) { status('Die Datei enthält keine gültige Planung – nichts geändert.'); return; } P = p; aufbauen(); status('Planung „' + P.name + '“ aus der Datei geladen.'); };
+      r.readAsText(d); ev.target.value = '';
+    });
+    $('teilen').addEventListener('click', function () { Teilen.url('plan', P).then(function (url) { Teilen.kopieren(url, function (t) { $('teilenMeldung').textContent = t; setTimeout(function () { $('teilenMeldung').textContent = ''; }, 5000); }); }); });
+    const vorherKnopf = Teilen.knopf($('teilen').parentNode, SPEICHER, function (roh) {
+      let p = null; try { p = pruefen(JSON.parse(roh)); } catch (e) { p = null; }
+      if (!p) { status('Keine gültige vorherige Planung gefunden.'); return; }
+      P = p; aufbauen(); status('Vorherige Planung wiederhergestellt.');
+    }, 'Planung');
+    $('teilen').parentNode.insertBefore($('teilen').parentNode.querySelector('.vorher-knopf'), $('teilenMeldung'));
+    sammlung($('sammlung'), [
+      ['Nutzkapazität ZFS', 'K = v\\,(n - p)\\,C\\,\\left(1 - \\tfrac{1}{32}\\right)', 'v vdevs mit je n Platten der Größe C, p = Parität (RAIDZ1/2/3) bzw. n − 1 beim Spiegel; 1/32 hält ZFS als Reserve'],
+      ['Terabyte und Tebibyte', '1\\,\\text{TB} = 10^{12}\\,\\text{B} = 0{,}909\\,\\text{TiB}', 'Plattenhersteller rechnen dezimal, Betriebssysteme oft binär'],
+      ['Arbeitsspeicher', 'M = M_\\text{Res} + M_\\text{ARC} + \\sum M_i \\le M_\\text{Server}', 'nicht überbuchen; Container teilen den Kernel und brauchen meist weniger'],
+      ['vCPU-Überbuchung', 'k = \\frac{\\sum n_\\text{vCPU}}{n_\\text{Threads}}', 'im Heimnetz 3:1 bis 5:1 üblich'],
+      ['Mittlere Prozessorlast', 'u = \\frac{\\sum n_{\\text{vCPU},i}\\, u_i}{n_\\text{Threads}}', 'unter etwa 70 % bleiben'],
+      ['Zufällige Zugriffe (IOPS)', '\\text{RAIDZ: } v \\cdot \\text{IOPS}_\\text{Platte},\\quad \\text{Spiegel lesen: } v \\cdot n \\cdot \\text{IOPS}_\\text{Platte}', 'darum Spiegel für VMs und Datenbanken'],
+      ['Wiederaufbau', 't \\approx \\frac{C}{0{,}6 \\, v_\\text{Platte}}', 'bei voller Platte; je länger, desto größer das Risiko eines zweiten Ausfalls'],
+      ['Leistung', 'P = P_0 + (P_\\text{max} - P_0)\\,u', 'Leerlauf plus lastabhängiger Anteil; Jahresenergie W = P · 8760 h']
+    ]);
+    reiterSetzen('lasten');
+    loeserBauen();
+    aufbauen();
+    Teilen.lesen('plan').then(function (p) {
+      if (!p) return;
+      const q = pruefen(p); if (!q) throw new Error('ungültig');
+      const text = JSON.stringify(q), gesichert = Teilen.sichern(SPEICHER, text);
+      P = q; clearTimeout(uhr); try { localStorage.setItem(SPEICHER, text); } catch (e) { /* ohne Speicher */ }
+      aufbauen(); vorherKnopf.zeigen();
+      status('Planung aus dem Link geladen und gespeichert.' + (gesichert ? ' Deine vorherige Planung ist gesichert.' : ''));
+    }).catch(function () { status('Der Link ist unvollständig oder beschädigt – es gilt die gespeicherte Planung.'); });
+    window.addEventListener('resize', zeichnen);
+    document.addEventListener('themawechsel', zeichnen);
+    requestAnimationFrame(animieren);
+    void bewegungAus;
+  })();
+  </script>
+</body>
+</html>
