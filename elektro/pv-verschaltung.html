@@ -81,10 +81,12 @@
     .etikett .klein { font-size: .72rem; color: var(--leise); }
     .etikett svg { display: block; background: #FFFFFF; margin-top: 4px; }
     .etikett svg.code-2d { width: 112px; height: 112px; image-rendering: pixelated; }
-    .etikett svg.code-1d { width: 100%; height: 56px; }
+    .etikett svg.code-1d { width: auto; max-width: 100%; height: 56px; align-self: flex-start; }
     .etikett .code-hinweis { font-size: .72rem; color: #B7791F; }
+    .etikett .code-feld { display: flex; flex-direction: column; gap: 2px; font-size: .74rem; color: var(--leise); margin-top: 4px; }
+    .etikett .code-feld input { padding: 5px 7px; border: 1.5px solid var(--linie); border-radius: var(--rund-klein); background: var(--flaeche2); color: var(--text); font: inherit; font-size: .85rem; min-width: 0; width: 100%; }
     @media print {
-      .nummer-leiste, .etikett-steuerung { display: none !important; }
+      .nummer-leiste, .etikett-steuerung, .etikett .code-feld { display: none !important; }
       .etiketten { grid-template-columns: repeat(3, 1fr); }
       .etikett { border-color: #000000; color: #000000; background: #FFFFFF; }
       .planer { display: block; }
@@ -183,7 +185,7 @@
 
     <section class="tafel abstand" aria-labelledby="h-etik">
       <h2 id="h-etik">String-Etiketten</h2>
-      <p class="hilfe">Zum Beschriften der DC-Leitungen am Wechselrichter, im Generatoranschlusskasten und am Dach. Mit Haken erscheint auf jedem Etikett ein Code, den ein Handy oder Scanner liest. QR-Code und Data Matrix sind klein und robust; Code 128 und Code 39 sind Strichcodes für ältere Scanner und sollten nur einen kurzen Inhalt tragen.</p>
+      <p class="hilfe">Zum Beschriften der DC-Leitungen am Wechselrichter, im Generatoranschlusskasten und am Dach. Mit Haken erscheint auf jedem Etikett ein Code, den ein Handy oder Scanner liest. QR-Code und Data Matrix sind klein und robust; Code 128 und Code 39 sind Strichcodes für ältere Scanner. Der Code enthält den Namen des Strings – außer im Feld „Code-Inhalt“ steht etwas anderes, etwa eine Inventarnummer oder ein Link.</p>
       <div class="etikett-steuerung" id="etikettSteuerung"></div>
       <div class="etiketten" id="etiketten"></div>
     </section>
@@ -236,7 +238,7 @@
         wr: [{ id: 'w1', name: 'WR 1', pac: 10, udc: 1000, umin: 160, umax: 850, ustart: 180, phasen: 3, mppt: [{ imax: 16, iscmax: 20 }, { imax: 16, iscmax: 20 }] }],
         strings: [], aktiv: null,
         nummer: { muster: 'fort', praefix: 'S', start: 1, stellen: 1, auto: true },
-        etikett: { an: false, art: 'qr', inhalt: 'zuordnung', stufe: 'M' }
+        etikett: { an: false, art: 'qr', stufe: 'M' }
       };
     }
     let P = laden() || beispiel();
@@ -254,6 +256,7 @@
     function tx(v, d) { return typeof v === 'string' || typeof v === 'number' ? String(v).slice(0, 60) : d; }
     function eins(v, liste, d) { return liste.indexOf(v) >= 0 ? v : d; }
     function farbe(v, d) { return typeof v === 'string' && /^#[0-9A-Fa-f]{6}$/.test(v) ? v : d; }
+    function codeText(v) { return typeof v === 'string' ? v.replace(/[<>"'`]/g, '').slice(0, 120) : ''; }
     function idw(v) { return typeof v === 'string' && /^[A-Za-z0-9_-]{1,24}$/.test(v) ? v : null; }
     function plaetze(a, groesse) {
       return (Array.isArray(a) ? a : []).slice(0, 400).filter(function (q) { return Array.isArray(q) && Object.prototype.hasOwnProperty.call(groesse, q[0]) && Number(q[1]) >= 0 && Number(q[1]) < groesse[q[0]] && Number(q[1]) === Math.round(Number(q[1])); }).map(function (q) { return [q[0], Number(q[1])]; });
@@ -281,21 +284,21 @@
       const wids = p.wr.map(function (w) { return w.id; });
       p.strings = p.strings.slice(0, 60).filter(function (x) { return x && idw(x.id); }).map(function (x, i) {
         const w = wids.indexOf(x.wr) >= 0 ? x.wr : wids[0], wr = p.wr[wids.indexOf(w)];
-        return { id: x.id, name: tx(x.name, 'S' + (i + 1)), farbe: farbe(x.farbe, FARBEN[i % FARBEN.length]), wr: w, mppt: gz(x.mppt, 0, 0, wr.mppt.length - 1), module: plaetze(x.module, groesse) };
+        return { id: x.id, name: tx(x.name, 'S' + (i + 1)), farbe: farbe(x.farbe, FARBEN[i % FARBEN.length]), wr: w, mppt: gz(x.mppt, 0, 0, wr.mppt.length - 1), module: plaetze(x.module, groesse), code: codeText(x.code) };
       });
       p.zul = (Array.isArray(p.zul) ? p.zul : []).slice(0, 60).filter(function (z) { return z && idw(z.id); }).map(function (z, i) {
         return { id: z.id, name: tx(z.name, 'Z' + (i + 1)), phase: eins(z.phase, ['L1', 'L2', 'L3'], 'L1'), laenge: nz(z.laenge, 15, 1, 300), A: eins(Number(z.A), [1.5, 2.5, 4, 6], 2.5), ls: eins(Number(z.ls), [10, 13, 16, 20, 25], 16), farbe: farbe(z.farbe, ZFARBEN[i % ZFARBEN.length]) };
       });
       const zids = p.zul.map(function (z) { return z.id; });
       p.mikro = (Array.isArray(p.mikro) ? p.mikro : []).slice(0, 200).filter(function (x) { return x && idw(x.id); }).map(function (x, i) {
-        return { id: x.id, name: tx(x.name, 'MW ' + (i + 1)), zul: zids.indexOf(x.zul) >= 0 ? x.zul : null, module: plaetze(x.module, groesse).slice(0, 4) };
+        return { id: x.id, name: tx(x.name, 'MW ' + (i + 1)), zul: zids.indexOf(x.zul) >= 0 ? x.zul : null, module: plaetze(x.module, groesse).slice(0, 4), code: codeText(x.code) };
       });
       p.aktiv = p.strings.some(function (x) { return x.id === p.aktiv; }) ? p.aktiv : (p.strings[0] ? p.strings[0].id : null);
       p.mAktiv = p.mikro.some(function (x) { return x.id === p.mAktiv; }) ? p.mAktiv : (p.mikro[0] ? p.mikro[0].id : null);
       p.fokus = p.fokus === 'mikro' ? 'mikro' : 'string';
       const nu = p.nummer || {}, et = p.etikett || {};
       p.nummer = { muster: eins(nu.muster, ['fort', 'wr', 'tracker'], 'fort'), praefix: typeof nu.praefix === 'string' && /^[A-Za-z0-9 ._\/-]{0,6}$/.test(nu.praefix) ? nu.praefix : 'S', start: gz(nu.start, 1, 0, 999), stellen: gz(nu.stellen, 1, 1, 3), auto: nu.auto !== false };
-      p.etikett = { an: et.an === true, art: eins(et.art, ['qr', 'dm', 'c128', 'c39'], 'qr'), inhalt: eins(et.inhalt, ['name', 'zuordnung', 'daten'], 'zuordnung'), stufe: eins(et.stufe, ['L', 'M', 'Q', 'H'], 'M') };
+      p.etikett = { an: et.an === true, art: eins(et.art, ['qr', 'dm', 'c128', 'c39'], 'qr'), stufe: eins(et.stufe, ['L', 'M', 'Q', 'H'], 'M') };
       p.strings.forEach(function (x) { x.name = x.name.replace(/[<>"'`]/g, '').slice(0, 16) || 'S'; });
       Object.keys(p).forEach(function (k) { if (['modul', 'temp', 'netz', 'mtyp', 'flaechen', 'wr', 'strings', 'zul', 'mikro', 'aktiv', 'mAktiv', 'fokus', 'nummer', 'etikett'].indexOf(k) < 0) delete p[k]; });
       return true;
@@ -471,7 +474,7 @@
       P.zul.push(z); return z;
     }
     function neuerMikro(z) {
-      const m = { id: neueId('m'), name: 'MW ' + (P.mikro.length + 1), module: [], zul: z ? z.id : null };
+      const m = { id: neueId('m'), name: 'MW ' + (P.mikro.length + 1), module: [], zul: z ? z.id : null, code: '' };
       P.mikro.push(m); P.mAktiv = m.id; P.fokus = 'mikro';
       return m;
     }
@@ -618,7 +621,7 @@
     function stringVon(fid, i) { return P.strings.filter(function (s) { return s.module.some(function (m) { return m[0] === fid && m[1] === i; }); })[0]; }
     function neuerString() {
       const n = P.strings.length;
-      const s = { id: neueId('s'), name: P.nummer ? P.nummer.praefix + nummerText(P.nummer.start + n) : 'S' + (n + 1), farbe: FARBEN[n % FARBEN.length], wr: P.wr[0].id, mppt: 0, module: [] };
+      const s = { id: neueId('s'), name: P.nummer ? P.nummer.praefix + nummerText(P.nummer.start + n) : 'S' + (n + 1), farbe: FARBEN[n % FARBEN.length], wr: P.wr[0].id, mppt: 0, module: [], code: '' };
       // freien Tracker vorschlagen
       outer: for (let w = 0; w < P.wr.length; w++) for (let m = 0; m < P.wr[w].mppt.length; m++) { if (!P.strings.some(function (x) { return x.wr === P.wr[w].id && x.mppt === m; })) { s.wr = P.wr[w].id; s.mppt = m; break outer; } }
       P.strings.push(s); P.aktiv = s.id;
@@ -1511,13 +1514,12 @@
     const ETK = {};
     function etikettSteuerungAufbauen() {
       const z = $('etikettSteuerung'); z.innerHTML = '';
-      function wahl(text, opt, wert, fn) { const l = document.createElement('label'); const e = document.createElement('select'); opt.forEach(function (o) { const x = document.createElement('option'); x.value = o[0]; x.textContent = o[1]; e.append(x); }); e.value = wert; e.addEventListener('change', function () { fn(e.value); speichern(); etikettenZeigen(); }); l.append(document.createTextNode(text), e); z.append(l); return l; }
+      function wahl(text, opt, wert, fn) { const l = document.createElement('label'); const e = document.createElement('select'); opt.forEach(function (o) { const x = document.createElement('option'); x.value = o[0]; x.textContent = o[1]; e.append(x); }); e.value = wert; e.addEventListener('change', function () { fn(e.value); speichern(); etikettenZeigen(true); }); l.append(document.createTextNode(text), e); z.append(l); return l; }
       const hl = document.createElement('label'); hl.className = 'haken'; const h = document.createElement('input'); h.type = 'checkbox'; h.id = 'etikettCode'; h.checked = P.etikett.an;
-      h.addEventListener('change', function () { P.etikett.an = h.checked; speichern(); etikettSteuerungAufbauen(); etikettenZeigen(); });
+      h.addEventListener('change', function () { P.etikett.an = h.checked; speichern(); etikettSteuerungAufbauen(); etikettenZeigen(true); });
       hl.append(h, document.createTextNode('Barcode / QR-Code anzeigen')); z.append(hl);
       if (!P.etikett.an) return;
       wahl('Codeart', [['qr', 'QR-Code'], ['dm', 'Data Matrix'], ['c128', 'Code 128 (Strichcode)'], ['c39', 'Code 39 (Strichcode)']], P.etikett.art, function (v) { P.etikett.art = v; etikettSteuerungAufbauen(); });
-      wahl('Inhalt', [['name', 'nur Bezeichnung'], ['zuordnung', 'Bezeichnung und Wechselrichter'], ['daten', 'mit Modulen und Kenndaten']], P.etikett.inhalt, function (v) { P.etikett.inhalt = v; });
       if (P.etikett.art === 'qr') wahl('Fehlerkorrektur', [['L', 'L – 7 %'], ['M', 'M – 15 %'], ['Q', 'Q – 25 %'], ['H', 'H – 30 %']], P.etikett.stufe, function (v) { P.etikett.stufe = v; });
     }
     function etikettDaten() {
@@ -1526,18 +1528,25 @@
         const w = P.wr.filter(function (x) { return x.id === s.wr; })[0], tr = String.fromCharCode(65 + s.mppt), n = s.module.length;
         const fl = s.module.map(function (m) { return m[0]; }).filter(function (x, i, a) { return a.indexOf(x) === i; }).map(function (id) { const f = P.flaechen.filter(function (q) { return q.id === id; })[0]; return f ? f.name : ''; });
         const zeilen = [(w ? w.name : 'WR') + ' · Tracker ' + tr + ' · ' + n + ' Modul' + (n === 1 ? '' : 'e'), 'Uoc (' + zahl(P.temp.min, 0) + ' °C) ' + zahl(n * uoc, 0) + ' V · Isc ' + zahl(mo.Isc, 1) + ' A', fl.join(', ')];
-        const inhalt = P.etikett.inhalt === 'name' ? s.name : P.etikett.inhalt === 'zuordnung' ? s.name + ' | ' + (w ? w.name : 'WR') + ' / ' + tr + ' | ' + n + ' Module'
-          : s.name + ' | ' + (w ? w.name : 'WR') + ' / ' + tr + ' | ' + n + ' x ' + zahl(mo.P, 0) + ' Wp | Uoc ' + zahl(n * uoc, 0) + ' V | Isc ' + zahl(mo.Isc, 1) + ' A';
-        l.push({ name: s.name, farbe: s.farbe, zeilen: zeilen, inhalt: inhalt });
+        l.push({ obj: s, name: s.name, farbe: s.farbe, zeilen: zeilen });
       });
       P.mikro.forEach(function (m) {
         const z = zulVon(m.zul);
-        const inhalt = P.etikett.inhalt === 'name' ? m.name : m.name + ' | ' + (z ? z.name + ' ' + z.phase : 'ohne Zuleitung') + ' | ' + m.module.length + ' Module';
-        l.push({ name: m.name, farbe: z ? z.farbe : '#6B7785', zeilen: [P.mtyp.name + ' · ' + m.module.length + ' Modul' + (m.module.length === 1 ? '' : 'e'), z ? z.name + ' an ' + z.phase + ', B' + z.ls : 'ohne Zuleitung'], inhalt: inhalt });
+        l.push({ obj: m, name: m.name, farbe: z ? z.farbe : '#6B7785', zeilen: [P.mtyp.name + ' · ' + m.module.length + ' Modul' + (m.module.length === 1 ? '' : 'e'), z ? z.name + ' an ' + z.phase + ', B' + z.ls : 'ohne Zuleitung'] });
       });
       return l;
     }
-    function etikettenZeigen() {
+    function codeZeigen(teil, q) {
+      teil.innerHTML = '';
+      const inhalt = (q.obj.code || '') || q.name, c = Strichcode.erzeugen(P.etikett.art, inhalt, P.etikett.stufe);
+      if (!c) { const e = document.createElement('div'); e.className = 'code-hinweis'; e.textContent = 'Inhalt zu lang für diese Codeart.'; teil.append(e); return; }
+      teil.append(Strichcode.svg(c, q.name + ': ' + c.info));
+      const e = document.createElement('div'); e.className = 'klein'; e.textContent = c.info + (q.obj.code ? ' · eigener Inhalt: ' : ' · Inhalt: ') + (c.text || inhalt); teil.append(e);
+      if (c.balken && c.balken.length > 260) { const h = document.createElement('div'); h.className = 'code-hinweis'; h.textContent = 'Sehr langer Strichcode – gedruckt kaum lesbar. Kürzeren Inhalt oder einen 2D-Code wählen.'; teil.append(h); }
+    }
+    function etikettenZeigen(erzwingen) {
+      // nicht neu bauen, solange im Feld für den Code-Inhalt getippt wird
+      if (!erzwingen && $('etiketten').contains(document.activeElement) && document.activeElement.tagName === 'INPUT') return;
       const z = $('etiketten'); z.innerHTML = '';
       const l = etikettDaten();
       if (!l.length) { const p = document.createElement('p'); p.className = 'hilfe'; p.textContent = 'Noch keine Strings oder Mikro-WR.'; z.append(p); return; }
@@ -1547,13 +1556,13 @@
         const n = document.createElement('span'); n.className = 'name'; n.textContent = q.name; k.append(i, n); d.append(k);
         q.zeilen.forEach(function (t) { if (!t) return; const e = document.createElement('div'); e.className = 'zeile'; e.textContent = t; d.append(e); });
         if (P.etikett.an) {
-          const c = Strichcode.erzeugen(P.etikett.art, q.inhalt, P.etikett.stufe);
-          if (!c) { const e = document.createElement('div'); e.className = 'code-hinweis'; e.textContent = 'Inhalt zu lang für diese Codeart.'; d.append(e); }
-          else {
-            d.append(Strichcode.svg(c, q.name + ': ' + c.info));
-            const e = document.createElement('div'); e.className = 'klein'; e.textContent = c.info + ' · Inhalt: ' + (c.text || q.inhalt); d.append(e);
-            if (c.balken && c.balken.length > 260) { const h = document.createElement('div'); h.className = 'code-hinweis'; h.textContent = 'Sehr langer Strichcode – gedruckt kaum lesbar. Inhalt „nur Bezeichnung“ oder einen 2D-Code wählen.'; d.append(h); }
-          }
+          const teil = document.createElement('div'); teil.className = 'code-teil'; d.append(teil);
+          codeZeigen(teil, q);
+          // eigener Inhalt für den Code; leer = Name des Strings
+          const l = document.createElement('label'); l.className = 'code-feld';
+          const e = document.createElement('input'); e.type = 'text'; e.maxLength = 120; e.autocomplete = 'off'; e.value = q.obj.code || ''; e.placeholder = q.name;
+          e.addEventListener('input', function () { q.obj.code = codeText(e.value); speichern(); codeZeigen(teil, q); });
+          l.append(document.createTextNode('Code-Inhalt (leer = Name)'), e); d.append(l);
         }
         z.append(d);
       });
