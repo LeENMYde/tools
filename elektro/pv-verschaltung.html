@@ -62,7 +62,31 @@
     .tabelle td.ok { color: var(--ergebnis); font-weight: 600; }
     .tabelle td.nok { color: var(--fehler); font-weight: 600; }
     .tabelle td.warn { color: #B7791F; font-weight: 600; }
+    .nummer-leiste { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 6px 10px; align-items: end; margin: 6px 0 4px; padding: 8px 10px; border: 1px solid var(--linie); border-radius: var(--rund); background: var(--flaeche2); }
+    .nummer-leiste label { display: flex; flex-direction: column; gap: 2px; font-size: .78rem; color: var(--leise); min-width: 0; }
+    .nummer-leiste input[type=text], .nummer-leiste select { padding: 5px 8px; border: 1.5px solid var(--linie); border-radius: var(--rund-klein); background: var(--flaeche); color: var(--text); font: inherit; font-size: .9rem; min-width: 0; width: 100%; }
+    .nummer-leiste input.falsch { border-color: var(--fehler); background: var(--fehler-flaeche); }
+    .nummer-leiste .haken { flex-direction: row; align-items: center; gap: 6px; color: var(--text); font-size: .85rem; padding-bottom: 6px; }
+    .nummer-leiste .knopf-leise { justify-self: start; }
+    .etikett-steuerung { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: end; margin: 8px 0 12px; }
+    .etikett-steuerung label { display: flex; flex-direction: column; gap: 2px; font-size: .8rem; color: var(--leise); }
+    .etikett-steuerung label.haken { flex-direction: row; align-items: center; gap: 8px; color: var(--text); font-size: .95rem; font-weight: 600; padding-bottom: 6px; }
+    .etikett-steuerung select { padding: 6px 8px; border: 1.5px solid var(--linie); border-radius: var(--rund-klein); background: var(--flaeche); color: var(--text); font: inherit; font-size: .92rem; }
+    .etiketten { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 12px; }
+    .etikett { border: 2px solid var(--text); border-radius: 8px; padding: 10px 12px; background: var(--flaeche); break-inside: avoid; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+    .etikett .kopf { display: flex; align-items: center; gap: 8px; }
+    .etikett .kopf i { width: 14px; height: 14px; border-radius: 3px; flex: none; }
+    .etikett .name { font-family: var(--technik); font-size: 1.5rem; font-weight: 800; line-height: 1.1; word-break: break-all; }
+    .etikett .zeile { font-size: .82rem; color: var(--text); }
+    .etikett .klein { font-size: .72rem; color: var(--leise); }
+    .etikett svg { display: block; background: #FFFFFF; margin-top: 4px; }
+    .etikett svg.code-2d { width: 112px; height: 112px; image-rendering: pixelated; }
+    .etikett svg.code-1d { width: 100%; height: 56px; }
+    .etikett .code-hinweis { font-size: .72rem; color: #B7791F; }
     @media print {
+      .nummer-leiste, .etikett-steuerung { display: none !important; }
+      .etiketten { grid-template-columns: repeat(3, 1fr); }
+      .etikett { border-color: #000000; color: #000000; background: #FFFFFF; }
       .planer { display: block; }
       .einstellungen, .werkzeug-leiste, .strings-wahl, .status { display: none !important; }
       .dachbild, .plan-svg { break-inside: avoid; max-height: 120mm; }
@@ -120,6 +144,7 @@
           <button type="button" class="knopf-leise" id="mikroWeg">aktiven Mikro-WR löschen</button>
         </div>
         <div class="strings-wahl" id="stringsWahl" role="group" aria-label="Aktiver String"></div>
+        <div class="nummer-leiste" id="nummerLeiste" role="group" aria-label="Bezeichnung und Nummerierung der Strings"></div>
         <div class="strings-wahl" id="mikroWahl" role="group" aria-label="Aktiver Mikro-Wechselrichter"></div>
         <div class="status" id="status" aria-live="polite"></div>
         <div id="daecher"></div>
@@ -154,6 +179,13 @@
       <div id="plan"></div>
       <h3 class="zwischen">Stückliste</h3>
       <div class="rahmen"><table class="tabelle" id="tabListe"></table></div>
+    </section>
+
+    <section class="tafel abstand" aria-labelledby="h-etik">
+      <h2 id="h-etik">String-Etiketten</h2>
+      <p class="hilfe">Zum Beschriften der DC-Leitungen am Wechselrichter, im Generatoranschlusskasten und am Dach. Mit Haken erscheint auf jedem Etikett ein Code, den ein Handy oder Scanner liest. QR-Code und Data Matrix sind klein und robust; Code 128 und Code 39 sind Strichcodes für ältere Scanner und sollten nur einen kurzen Inhalt tragen.</p>
+      <div class="etikett-steuerung" id="etikettSteuerung"></div>
+      <div class="etiketten" id="etiketten"></div>
     </section>
 
     <section class="tafel abstand formelsammlung" aria-labelledby="h-formeln">
@@ -202,7 +234,9 @@
         mtyp: { name: 'Mikro-WR 800 VA', eing: 2, pac: 800, udc: 60, umin: 16, umax: 60, imax: 18, iscmax: 25, jeZul: 2, maxZul: 5 },
         mikro: [], zul: [], mAktiv: null, fokus: 'string',
         wr: [{ id: 'w1', name: 'WR 1', pac: 10, udc: 1000, umin: 160, umax: 850, ustart: 180, phasen: 3, mppt: [{ imax: 16, iscmax: 20 }, { imax: 16, iscmax: 20 }] }],
-        strings: [], aktiv: null
+        strings: [], aktiv: null,
+        nummer: { muster: 'fort', praefix: 'S', start: 1, stellen: 1, auto: true },
+        etikett: { an: false, art: 'qr', inhalt: 'zuordnung', stufe: 'M' }
       };
     }
     let P = laden() || beispiel();
@@ -259,7 +293,11 @@
       p.aktiv = p.strings.some(function (x) { return x.id === p.aktiv; }) ? p.aktiv : (p.strings[0] ? p.strings[0].id : null);
       p.mAktiv = p.mikro.some(function (x) { return x.id === p.mAktiv; }) ? p.mAktiv : (p.mikro[0] ? p.mikro[0].id : null);
       p.fokus = p.fokus === 'mikro' ? 'mikro' : 'string';
-      Object.keys(p).forEach(function (k) { if (['modul', 'temp', 'netz', 'mtyp', 'flaechen', 'wr', 'strings', 'zul', 'mikro', 'aktiv', 'mAktiv', 'fokus'].indexOf(k) < 0) delete p[k]; });
+      const nu = p.nummer || {}, et = p.etikett || {};
+      p.nummer = { muster: eins(nu.muster, ['fort', 'wr', 'tracker'], 'fort'), praefix: typeof nu.praefix === 'string' && /^[A-Za-z0-9 ._\/-]{0,6}$/.test(nu.praefix) ? nu.praefix : 'S', start: gz(nu.start, 1, 0, 999), stellen: gz(nu.stellen, 1, 1, 3), auto: nu.auto !== false };
+      p.etikett = { an: et.an === true, art: eins(et.art, ['qr', 'dm', 'c128', 'c39'], 'qr'), inhalt: eins(et.inhalt, ['name', 'zuordnung', 'daten'], 'zuordnung'), stufe: eins(et.stufe, ['L', 'M', 'Q', 'H'], 'M') };
+      p.strings.forEach(function (x) { x.name = x.name.replace(/[<>"'`]/g, '').slice(0, 16) || 'S'; });
+      Object.keys(p).forEach(function (k) { if (['modul', 'temp', 'netz', 'mtyp', 'flaechen', 'wr', 'strings', 'zul', 'mikro', 'aktiv', 'mAktiv', 'fokus', 'nummer', 'etikett'].indexOf(k) < 0) delete p[k]; });
       return true;
     }
 
@@ -271,7 +309,7 @@
         const neu = JSON.stringify(p), gesichert = Teilen.sichern(SPEICHER, neu);
         P = p; clearTimeout(uhr);
         try { localStorage.setItem(SPEICHER, neu); } catch (e) { /* ohne Speicher */ }
-        einstellungenAufbauen(); aenderung(); vorherKnopf.zeigen();
+        einstellungenAufbauen(); nummerAufbauen(); etikettSteuerungAufbauen(); aenderung(); vorherKnopf.zeigen();
         status('Planung aus dem Link geladen und gespeichert.' + (gesichert ? ' Deine vorherige Planung ist gesichert.' : ''));
       }).catch(function () { status('Der Link ist unvollständig oder beschädigt – es bleibt die gespeicherte Planung.'); });
     }
@@ -408,7 +446,7 @@
     }
     $('neueFlaeche').addEventListener('click', function () { P.flaechen.push({ id: neueId('f'), art: 'string', name: 'Fläche ' + (P.flaechen.length + 1), neigung: 30, azimut: 0, spalten: 6, reihen: 2, hoch: true, aus: [], abstand: 15 }); einstellungenAufbauen(); aenderung(true); });
     $('neuerWR').addEventListener('click', function () { const v = kopie(P.wr[P.wr.length - 1]); v.id = neueId('w'); v.name = 'WR ' + (P.wr.length + 1); P.wr.push(v); einstellungenAufbauen(); aenderung(true); });
-    $('beispiel').addEventListener('click', function () { if (!window.confirm('Beispiel laden? Die aktuelle Planung wird ersetzt.')) return; P = beispiel(); autoVerstringen(true); einstellungenAufbauen(); aenderung(true); });
+    $('beispiel').addEventListener('click', function () { if (!window.confirm('Beispiel laden? Die aktuelle Planung wird ersetzt.')) return; P = beispiel(); autoVerstringen(true); einstellungenAufbauen(); nummerAufbauen(); etikettSteuerungAufbauen(); aenderung(true); });
     $('teilen').addEventListener('click', function () {
       Teilen.url('plan', P).then(function (url) {
         Teilen.kopieren(url, function (t) { $('teilenMeldung').textContent = t; setTimeout(function () { $('teilenMeldung').textContent = ''; }, 5000); });
@@ -417,7 +455,7 @@
     const vorherKnopf = Teilen.knopf($('teilen').parentNode, SPEICHER, function (roh) {
       let p = null; try { p = JSON.parse(roh); } catch (e) { p = null; }
       if (!p || !pruefeProjekt(p)) { status('Keine gültige vorherige Planung gefunden.'); return; }
-      P = p; einstellungenAufbauen(); aenderung(); status('Vorherige Planung wiederhergestellt.');
+      P = p; einstellungenAufbauen(); nummerAufbauen(); etikettSteuerungAufbauen(); aenderung(); status('Vorherige Planung wiederhergestellt.');
     }, 'Planung');
     $('teilen').parentNode.insertBefore($('teilen').parentNode.querySelector('.vorher-knopf'), $('teilenMeldung'));
 
@@ -580,7 +618,7 @@
     function stringVon(fid, i) { return P.strings.filter(function (s) { return s.module.some(function (m) { return m[0] === fid && m[1] === i; }); })[0]; }
     function neuerString() {
       const n = P.strings.length;
-      const s = { id: neueId('s'), name: 'S' + (n + 1), farbe: FARBEN[n % FARBEN.length], wr: P.wr[0].id, mppt: 0, module: [] };
+      const s = { id: neueId('s'), name: P.nummer ? P.nummer.praefix + nummerText(P.nummer.start + n) : 'S' + (n + 1), farbe: FARBEN[n % FARBEN.length], wr: P.wr[0].id, mppt: 0, module: [] };
       // freien Tracker vorschlagen
       outer: for (let w = 0; w < P.wr.length; w++) for (let m = 0; m < P.wr[w].mppt.length; m++) { if (!P.strings.some(function (x) { return x.wr === P.wr[w].id && x.mppt === m; })) { s.wr = P.wr[w].id; s.mppt = m; break outer; } }
       P.strings.push(s); P.aktiv = s.id;
@@ -1129,17 +1167,414 @@
       $('tabListe').innerHTML = '<thead><tr><th>Bauteil</th><th class="zahl">Menge</th><th>Einheit / Hinweis</th></tr></thead><tbody>' + zeilen.map(function (z) { return '<tr><td>' + esc(z[0]) + '</td><td class="zahl">' + esc(z[1]) + '</td><td>' + esc(z[2]) + '</td></tr>'; }).join('') + '</tbody>';
     }
 
+    // ---------- Strichcodes und 2D-Codes ohne Bibliotheken: QR-Code, Data Matrix, Code 128, Code 39 ----------
+    const Strichcode = (function () {
+      // Umlaute für Codes, die nur ASCII können
+      function ascii(t) {
+        const m = { 'ä': 'ae', 'ö': 'oe', 'ü': 'ue', 'Ä': 'Ae', 'Ö': 'Oe', 'Ü': 'Ue', 'ß': 'ss', '–': '-', '—': '-', '·': '-', '×': 'x', '°': ' ', 'µ': 'u', '₀': '0', '…': '...' };
+        let r = '';
+        for (let i = 0; i < t.length; i++) { const c = t.charAt(i), k = t.charCodeAt(i); r += m[c] !== undefined ? m[c] : k >= 32 && k <= 126 ? c : '?'; }
+        return r;
+      }
+      function utf8(t) {
+        const b = [];
+        for (let i = 0; i < t.length; i++) {
+          let c = t.charCodeAt(i);
+          if (c >= 0xD800 && c <= 0xDBFF && i + 1 < t.length) { c = 0x10000 + ((c - 0xD800) << 10) + (t.charCodeAt(++i) - 0xDC00); }
+          if (c < 0x80) b.push(c); else if (c < 0x800) b.push(0xC0 | c >> 6, 0x80 | c & 63);
+          else if (c < 0x10000) b.push(0xE0 | c >> 12, 0x80 | c >> 6 & 63, 0x80 | c & 63);
+          else b.push(0xF0 | c >> 18, 0x80 | c >> 12 & 63, 0x80 | c >> 6 & 63, 0x80 | c & 63);
+        }
+        return b;
+      }
+      // Rechnen im Galoiskörper GF(256)
+      function gf(prim) {
+        const exp = [], log = []; let x = 1;
+        for (let i = 0; i < 255; i++) { exp[i] = x; log[x] = i; x <<= 1; if (x & 256) x ^= prim; }
+        for (let i = 255; i < 512; i++) exp[i] = exp[i - 255];
+        return { mul: function (a, b) { return a && b ? exp[log[a] + log[b]] : 0; }, exp: exp };
+      }
+
+      // ===== QR-Code (ISO/IEC 18004), Byte-Modus, Version 1 bis 40 =====
+      const QR_ECC = {
+        L: [-1, 7, 10, 15, 20, 26, 18, 20, 24, 30, 18, 20, 24, 26, 30, 22, 24, 28, 30, 28, 28, 28, 28, 30, 30, 26, 28, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30],
+        M: [-1, 10, 16, 26, 18, 24, 16, 18, 22, 22, 26, 30, 22, 22, 24, 24, 28, 28, 26, 26, 26, 26, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28],
+        Q: [-1, 13, 22, 18, 26, 18, 24, 18, 22, 20, 24, 28, 26, 24, 20, 30, 24, 28, 28, 26, 30, 28, 30, 30, 30, 30, 28, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30],
+        H: [-1, 17, 28, 22, 16, 22, 28, 26, 26, 24, 28, 24, 28, 22, 24, 24, 30, 28, 28, 26, 28, 30, 24, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30]
+      };
+      const QR_BLOECKE = {
+        L: [-1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 4, 4, 4, 4, 4, 6, 6, 6, 6, 7, 8, 8, 9, 9, 10, 12, 12, 12, 13, 14, 15, 16, 17, 18, 19, 19, 20, 21, 22, 24, 25],
+        M: [-1, 1, 1, 1, 2, 2, 4, 4, 4, 5, 5, 5, 8, 9, 9, 10, 10, 11, 13, 14, 16, 17, 17, 18, 20, 21, 23, 25, 26, 28, 29, 31, 33, 35, 37, 38, 40, 43, 45, 47, 49],
+        Q: [-1, 1, 1, 2, 2, 4, 4, 6, 6, 8, 8, 8, 10, 12, 16, 12, 17, 16, 18, 21, 20, 23, 23, 25, 27, 29, 34, 34, 35, 38, 40, 43, 45, 48, 51, 53, 56, 59, 62, 65, 68],
+        H: [-1, 1, 1, 2, 4, 4, 4, 5, 6, 8, 8, 11, 11, 16, 16, 18, 16, 19, 21, 25, 25, 25, 34, 30, 32, 35, 37, 40, 42, 45, 48, 51, 54, 57, 60, 63, 66, 70, 74, 77, 81]
+      };
+      const QR_FORMAT = { L: 1, M: 0, Q: 3, H: 2 };
+      const GQ = gf(0x11D);
+      function rohModule(v) { let r = (16 * v + 128) * v + 64; if (v >= 2) { const n = Math.floor(v / 7) + 2; r -= (25 * n - 10) * n - 55; if (v >= 7) r -= 36; } return r; }
+      function datenWorte(v, s) { return Math.floor(rohModule(v) / 8) - QR_ECC[s][v] * QR_BLOECKE[s][v]; }
+      function rsTeiler(grad, feld, start) {
+        const r = []; for (let i = 0; i < grad - 1; i++) r.push(0); r.push(1);
+        let wurzel = feld.exp[start];
+        for (let i = 0; i < grad; i++) { for (let j = 0; j < r.length; j++) { r[j] = feld.mul(r[j], wurzel); if (j + 1 < r.length) r[j] ^= r[j + 1]; } wurzel = feld.mul(wurzel, 2); }
+        return r;
+      }
+      function rsRest(daten, teiler, feld) {
+        const r = teiler.map(function () { return 0; });
+        daten.forEach(function (b) { const f = b ^ r.shift(); r.push(0); teiler.forEach(function (c, i) { r[i] ^= feld.mul(c, f); }); });
+        return r;
+      }
+      function qr(text, stufe) {
+        stufe = QR_ECC[stufe] ? stufe : 'M';
+        const daten = utf8(text);
+        let v = 1;
+        for (; v <= 40; v++) if (4 + (v <= 9 ? 8 : 16) + 8 * daten.length <= datenWorte(v, stufe) * 8) break;
+        if (v > 40) return null;
+        const bits = [];
+        function anhaengen(wert, n) { for (let i = n - 1; i >= 0; i--) bits.push((wert >>> i) & 1); }
+        anhaengen(4, 4); anhaengen(daten.length, v <= 9 ? 8 : 16); daten.forEach(function (b) { anhaengen(b, 8); });
+        const kap = datenWorte(v, stufe) * 8;
+        anhaengen(0, Math.min(4, kap - bits.length)); anhaengen(0, (8 - bits.length % 8) % 8);
+        for (let p = 0xEC; bits.length < kap; p ^= 0xEC ^ 0x11) anhaengen(p, 8);
+        const worte = []; for (let i = 0; i < bits.length; i += 8) { let b = 0; for (let j = 0; j < 8; j++) b = b << 1 | bits[i + j]; worte.push(b); }
+        // Fehlerkorrektur und Verschachtelung
+        const nb = QR_BLOECKE[stufe][v], ne = QR_ECC[stufe][v], roh = Math.floor(rohModule(v) / 8), kurz = nb - roh % nb, kl = Math.floor(roh / nb), teiler = rsTeiler(ne, GQ, 0), bl = [];
+        for (let i = 0, k = 0; i < nb; i++) { const d = worte.slice(k, k + kl - ne + (i < kurz ? 0 : 1)); k += d.length; const e = rsRest(d, teiler, GQ); if (i < kurz) d.push(0); bl.push(d.concat(e)); }
+        const alle = [];
+        for (let i = 0; i < bl[0].length; i++) for (let j = 0; j < bl.length; j++) if (i !== kl - ne || j >= kurz) alle.push(bl[j][i]);
+        // Muster zeichnen
+        const g = v * 4 + 17, m = [], fn = [];
+        for (let y = 0; y < g; y++) { m.push([]); fn.push([]); for (let x = 0; x < g; x++) { m[y].push(false); fn[y].push(false); } }
+        function setze(x, y, d) { m[y][x] = d; fn[y][x] = true; }
+        for (let i = 0; i < g; i++) { setze(6, i, i % 2 === 0); setze(i, 6, i % 2 === 0); }
+        [[3, 3], [g - 4, 3], [3, g - 4]].forEach(function (c) { for (let dy = -4; dy <= 4; dy++) for (let dx = -4; dx <= 4; dx++) { const d = Math.max(Math.abs(dx), Math.abs(dy)), x = c[0] + dx, y = c[1] + dy; if (x >= 0 && x < g && y >= 0 && y < g) setze(x, y, d !== 2 && d !== 4); } });
+        const pos = [];
+        if (v > 1) { const n = Math.floor(v / 7) + 2, s = v === 32 ? 26 : Math.ceil((v * 4 + 4) / (n * 2 - 2)) * 2; pos.push(6); for (let p = g - 7; pos.length < n; p -= s) pos.splice(1, 0, p); }
+        pos.forEach(function (a, i) { pos.forEach(function (b, j) { if ((i === 0 && j === 0) || (i === 0 && j === pos.length - 1) || (i === pos.length - 1 && j === 0)) return; for (let dy = -2; dy <= 2; dy++) for (let dx = -2; dx <= 2; dx++) setze(a + dx, b + dy, Math.max(Math.abs(dx), Math.abs(dy)) !== 1); }); });
+        function format(maske) {
+          const d = QR_FORMAT[stufe] << 3 | maske; let r = d; for (let i = 0; i < 10; i++) r = (r << 1) ^ ((r >>> 9) * 0x537);
+          const b = (d << 10 | r) ^ 0x5412, bit = function (i) { return ((b >>> i) & 1) !== 0; };
+          for (let i = 0; i <= 5; i++) setze(8, i, bit(i));
+          setze(8, 7, bit(6)); setze(8, 8, bit(7)); setze(7, 8, bit(8));
+          for (let i = 9; i < 15; i++) setze(14 - i, 8, bit(i));
+          for (let i = 0; i < 8; i++) setze(g - 1 - i, 8, bit(i));
+          for (let i = 8; i < 15; i++) setze(8, g - 15 + i, bit(i));
+          setze(8, g - 8, true);
+        }
+        format(0);
+        if (v >= 7) { let r = v; for (let i = 0; i < 12; i++) r = (r << 1) ^ ((r >>> 11) * 0x1F25); const b = v << 12 | r; for (let i = 0; i < 18; i++) { const d = ((b >>> i) & 1) !== 0, a = g - 11 + i % 3, c = Math.floor(i / 3); setze(a, c, d); setze(c, a, d); } }
+        // Datenmodule im Zickzack
+        let i = 0;
+        for (let rechts = g - 1; rechts >= 1; rechts -= 2) {
+          if (rechts === 6) rechts = 5;
+          for (let s = 0; s < g; s++) for (let j = 0; j < 2; j++) {
+            const x = rechts - j, hoch = ((rechts + 1) & 2) === 0, y = hoch ? g - 1 - s : s;
+            if (!fn[y][x] && i < alle.length * 8) { m[y][x] = ((alle[i >>> 3] >>> (7 - (i & 7))) & 1) !== 0; i++; }
+          }
+        }
+        const MASKE = [function (x, y) { return (x + y) % 2 === 0; }, function (x, y) { return y % 2 === 0; }, function (x) { return x % 3 === 0; }, function (x, y) { return (x + y) % 3 === 0; },
+          function (x, y) { return (Math.floor(x / 3) + Math.floor(y / 2)) % 2 === 0; }, function (x, y) { return x * y % 2 + x * y % 3 === 0; }, function (x, y) { return (x * y % 2 + x * y % 3) % 2 === 0; }, function (x, y) { return ((x + y) % 2 + x * y % 3) % 2 === 0; }];
+        function maskieren(k) { for (let y = 0; y < g; y++) for (let x = 0; x < g; x++) if (!fn[y][x] && MASKE[k](x, y)) m[y][x] = !m[y][x]; }
+        function strafe() {
+          let s = 0, dunkel = 0;
+          function zeile(get) {
+            let lauf = 1;
+            for (let k = 1; k <= g; k++) { if (k < g && get(k) === get(k - 1)) lauf++; else { if (lauf >= 5) s += 3 + lauf - 5; lauf = 1; } }
+            for (let k = 0; k + 11 <= g; k++) {
+              const a = [1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0], b = [0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1];
+              let pa = true, pb = true; for (let t = 0; t < 11; t++) { const w = get(k + t) ? 1 : 0; if (w !== a[t]) pa = false; if (w !== b[t]) pb = false; }
+              if (pa) s += 40; if (pb) s += 40;
+            }
+          }
+          for (let y = 0; y < g; y++) zeile(function (x) { return m[y][x]; });
+          for (let x = 0; x < g; x++) zeile(function (y) { return m[y][x]; });
+          for (let y = 0; y < g - 1; y++) for (let x = 0; x < g - 1; x++) { const c = m[y][x]; if (c === m[y][x + 1] && c === m[y + 1][x] && c === m[y + 1][x + 1]) s += 3; }
+          for (let y = 0; y < g; y++) for (let x = 0; x < g; x++) if (m[y][x]) dunkel++;
+          return s + (Math.ceil(Math.abs(dunkel * 20 - g * g * 10) / (g * g)) - 1) * 10;
+        }
+        let beste = 0, min = Infinity;
+        for (let k = 0; k < 8; k++) { maskieren(k); format(k); const p = strafe(); if (p < min) { min = p; beste = k; } maskieren(k); }
+        maskieren(beste); format(beste);
+        return { matrix: m, rand: 4, info: 'QR-Code Version ' + v + ' (' + g + ' × ' + g + '), Fehlerkorrektur ' + stufe };
+      }
+
+      // ===== Data Matrix ECC 200 (ISO/IEC 16022), ASCII-Kodierung, quadratisch bis 52 × 52 =====
+      // [Größe, Datenwörter, Prüfwörter, Seitenlänge eines Datenfelds, Blöcke]
+      const DM = [[10, 3, 5, 8, 1], [12, 5, 7, 10, 1], [14, 8, 10, 12, 1], [16, 12, 12, 14, 1], [18, 18, 14, 16, 1], [20, 22, 18, 18, 1], [22, 30, 20, 20, 1], [24, 36, 24, 22, 1], [26, 44, 28, 24, 1],
+        [32, 62, 36, 14, 1], [36, 86, 42, 16, 1], [40, 114, 48, 18, 1], [44, 144, 56, 20, 1], [48, 174, 68, 22, 1], [52, 204, 84, 24, 2]];
+      const GD = gf(0x12D);
+      function datamatrix(text) {
+        // Nur ASCII: Umlaute werden umschrieben, weil Lesegeräte erweiterte Zeichen unterschiedlich deuten
+        const t0 = ascii(text), b = []; for (let i = 0; i < t0.length; i++) b.push(t0.charCodeAt(i));
+        const w = [];
+        for (let i = 0; i < b.length; i++) {
+          if (i + 1 < b.length && b[i] >= 48 && b[i] <= 57 && b[i + 1] >= 48 && b[i + 1] <= 57) { w.push(130 + (b[i] - 48) * 10 + (b[i + 1] - 48)); i++; }
+          else if (b[i] < 128) w.push(b[i] + 1);
+          else { w.push(235); w.push(b[i] - 128 + 1); }
+        }
+        const t = DM.filter(function (q) { return q[1] >= w.length; })[0];
+        if (!t) return null;
+        const groesse = t[0], nd = t[1], ne = t[2], feldSeite = t[3], bloecke = t[4], felder = (groesse - 2 * Math.floor(groesse / (feldSeite + 2))) / feldSeite;
+        if (w.length < nd) w.push(129);
+        while (w.length < nd) { const pos = w.length + 1; let p = 129 + ((149 * pos) % 253) + 1; if (p > 254) p -= 254; w.push(p); }
+        // Fehlerkorrektur je Block, verschachtelt
+        const teiler = rsTeiler(ne / bloecke, GD, 1), alle = w.slice(), pruef = [];
+        for (let k = 0; k < bloecke; k++) { const d = w.filter(function (x, i) { return i % bloecke === k; }); rsRest(d, teiler, GD).forEach(function (e, j) { pruef[j * bloecke + k] = e; }); }
+        const cw = alle.concat(pruef);
+        // Anordnung nach ISO/IEC 16022 Anhang F
+        const nrow = felder * feldSeite, ncol = nrow, a = [];
+        for (let i = 0; i < nrow * ncol; i++) a.push(0);
+        function modul(r, c, z, bit) { if (r < 0) { r += nrow; c += 4 - ((nrow + 4) % 8); } if (c < 0) { c += ncol; r += 4 - ((ncol + 4) % 8); } a[r * ncol + c] = 10 * z + bit; }
+        function utah(r, c, z) { modul(r - 2, c - 2, z, 1); modul(r - 2, c - 1, z, 2); modul(r - 1, c - 2, z, 3); modul(r - 1, c - 1, z, 4); modul(r - 1, c, z, 5); modul(r, c - 2, z, 6); modul(r, c - 1, z, 7); modul(r, c, z, 8); }
+        function ecke1(z) { modul(nrow - 1, 0, z, 1); modul(nrow - 1, 1, z, 2); modul(nrow - 1, 2, z, 3); modul(0, ncol - 2, z, 4); modul(0, ncol - 1, z, 5); modul(1, ncol - 1, z, 6); modul(2, ncol - 1, z, 7); modul(3, ncol - 1, z, 8); }
+        function ecke2(z) { modul(nrow - 3, 0, z, 1); modul(nrow - 2, 0, z, 2); modul(nrow - 1, 0, z, 3); modul(0, ncol - 4, z, 4); modul(0, ncol - 3, z, 5); modul(0, ncol - 2, z, 6); modul(0, ncol - 1, z, 7); modul(1, ncol - 1, z, 8); }
+        function ecke3(z) { modul(nrow - 3, 0, z, 1); modul(nrow - 2, 0, z, 2); modul(nrow - 1, 0, z, 3); modul(0, ncol - 2, z, 4); modul(0, ncol - 1, z, 5); modul(1, ncol - 1, z, 6); modul(2, ncol - 1, z, 7); modul(3, ncol - 1, z, 8); }
+        function ecke4(z) { modul(nrow - 1, 0, z, 1); modul(nrow - 1, ncol - 1, z, 2); modul(0, ncol - 3, z, 3); modul(0, ncol - 2, z, 4); modul(0, ncol - 1, z, 5); modul(1, ncol - 3, z, 6); modul(1, ncol - 2, z, 7); modul(1, ncol - 1, z, 8); }
+        let z = 1, r = 4, c = 0;
+        do {
+          if (r === nrow && c === 0) ecke1(z++);
+          if (r === nrow - 2 && c === 0 && ncol % 4) ecke2(z++);
+          if (r === nrow - 2 && c === 0 && ncol % 8 === 4) ecke3(z++);
+          if (r === nrow + 4 && c === 2 && !(ncol % 8)) ecke4(z++);
+          do { if (r < nrow && c >= 0 && !a[r * ncol + c]) utah(r, c, z++); r -= 2; c += 2; } while (r >= 0 && c < ncol);
+          r += 1; c += 3;
+          do { if (r >= 0 && c < ncol && !a[r * ncol + c]) utah(r, c, z++); r += 2; c -= 2; } while (r < nrow && c >= 0);
+          r += 3; c += 1;
+        } while (r < nrow || c < ncol);
+        if (!a[nrow * ncol - 1]) { a[nrow * ncol - 1] = a[nrow * ncol - ncol - 2] = 1; }
+        function dunkel(i) { const q = a[i]; if (q === 1) return true; if (q < 10) return false; const k = Math.floor(q / 10) - 1, bit = q % 10; return ((cw[k] >>> (8 - bit)) & 1) === 1; }
+        // Datenfelder mit Suchmustern zusammensetzen
+        const m = [];
+        for (let y = 0; y < groesse; y++) {
+          const zeile = [];
+          for (let x = 0; x < groesse; x++) {
+            const fy = Math.floor(y / (feldSeite + 2)), fx = Math.floor(x / (feldSeite + 2)), iy = y % (feldSeite + 2), ix = x % (feldSeite + 2);
+            let d;
+            if (iy === feldSeite + 1) d = true;                         // unten durchgehend
+            else if (ix === 0) d = true;                                // links durchgehend
+            else if (iy === 0) d = ix % 2 === 0;                        // oben abwechselnd
+            else if (ix === feldSeite + 1) d = iy % 2 === 1;            // rechts abwechselnd
+            else d = dunkel((fy * feldSeite + iy - 1) * ncol + fx * feldSeite + ix - 1);
+            zeile.push(d);
+          }
+          m.push(zeile);
+        }
+        return { matrix: m, rand: 2, text: t0, info: 'Data Matrix ' + groesse + ' × ' + groesse };
+      }
+
+      // ===== Code 128 (Zeichensatz B, Ziffernfolgen in C) =====
+      const C128 = ['212222', '222122', '222221', '121223', '121322', '131222', '122213', '122312', '132212', '221213', '221312', '231212', '112232', '122132', '122231', '113222', '123122', '123221', '223211', '221132', '221231', '213212', '223112', '312131', '311222', '321122', '321221', '312212', '322112', '322211', '212123', '212321', '232121', '111323', '131123', '131321', '112313', '132113', '132311', '211313', '231113', '231311', '112133', '112331', '132131', '113123', '113321', '133121', '313121', '211331', '231131', '213113', '213311', '213131', '311123', '311321', '331121', '312113', '312311', '332111', '314111', '221411', '431111', '111224', '111422', '121124', '121421', '141122', '141221', '112214', '112412', '122114', '122411', '142112', '142211', '241211', '221114', '413111', '241112', '134111', '111242', '121142', '121241', '114212', '124112', '124211', '411212', '421112', '421211', '212141', '214121', '412121', '111143', '111341', '131141', '114113', '114311', '411113', '411311', '113141', '114131', '311141', '411131', '211412', '211214', '211232', '2331112'];
+      function code128(text) {
+        const t = ascii(text); if (!t.length) return null;
+        const werte = [];
+        // Satz C für Folgen von mindestens 4 (am Anfang/Ende) bzw. 6 Ziffern, sonst B
+        let i = 0, satz = '';
+        function ziffern(k) { let n = 0; while (k + n < t.length && t.charCodeAt(k + n) >= 48 && t.charCodeAt(k + n) <= 57) n++; return n; }
+        while (i < t.length) {
+          const n = ziffern(i), lohnt = n >= (i === 0 || i + n === t.length ? 4 : 6);
+          if (lohnt) {
+            const gerade = n - n % 2;
+            if (satz !== 'C') { werte.push(satz ? 99 : 105); satz = 'C'; }
+            for (let k = 0; k < gerade; k += 2) werte.push(Number(t.substr(i + k, 2)));
+            i += gerade;
+          } else {
+            if (satz !== 'B') { werte.push(satz ? 100 : 104); satz = 'B'; }
+            werte.push(t.charCodeAt(i) - 32); i++;
+          }
+        }
+        let summe = werte[0]; for (let k = 1; k < werte.length; k++) summe += k * werte[k];
+        werte.push(summe % 103); werte.push(106);
+        const balken = [];
+        werte.forEach(function (w) { C128[w].split('').forEach(function (d) { balken.push(Number(d)); }); });
+        return { balken: balken, rand: 10, text: t, info: 'Code 128 (' + t.length + ' Zeichen)' };
+      }
+
+      // ===== Code 39 =====
+      const C39 = { '0': 'nnnwwnwnn', '1': 'wnnwnnnnw', '2': 'nnwwnnnnw', '3': 'wnwwnnnnn', '4': 'nnnwwnnnw', '5': 'wnnwwnnnn', '6': 'nnwwwnnnn', '7': 'nnnwnnwnw', '8': 'wnnwnnwnn', '9': 'nnwwnnwnn',
+        'A': 'wnnnnwnnw', 'B': 'nnwnnwnnw', 'C': 'wnwnnwnnn', 'D': 'nnnnwwnnw', 'E': 'wnnnwwnnn', 'F': 'nnwnwwnnn', 'G': 'nnnnnwwnw', 'H': 'wnnnnwwnn', 'I': 'nnwnnwwnn', 'J': 'nnnnwwwnn',
+        'K': 'wnnnnnnww', 'L': 'nnwnnnnww', 'M': 'wnwnnnnwn', 'N': 'nnnnwnnww', 'O': 'wnnnwnnwn', 'P': 'nnwnwnnwn', 'Q': 'nnnnnnwww', 'R': 'wnnnnnwwn', 'S': 'nnwnnnwwn', 'T': 'nnnnwnwwn',
+        'U': 'wwnnnnnnw', 'V': 'nwwnnnnnw', 'W': 'wwwnnnnnn', 'X': 'nwnnwnnnw', 'Y': 'wwnnwnnnn', 'Z': 'nwwnwnnnn', '-': 'nwnnnnwnw', '.': 'wwnnnnwnn', ' ': 'nwwnnnwnn', '*': 'nwnnwnwnn',
+        '$': 'nwnwnwnnn', '/': 'nwnwnnnwn', '+': 'nwnnnwnwn', '%': 'nnnwnwnwn' };
+      function code39(text) {
+        let t = ascii(text).toUpperCase().replace(/[^0-9A-Z\-. ]/g, '-');   // $ / + % bilden in Lesegeräten oft Sonderzeichen
+        if (!t.length) return null;
+        const balken = [];
+        ('*' + t + '*').split('').forEach(function (z, k) { if (k) balken.push(1); C39[z].split('').forEach(function (e) { balken.push(e === 'w' ? 3 : 1); }); });
+        return { balken: balken, rand: 10, text: t, info: 'Code 39 (' + t.length + ' Zeichen)' };
+      }
+
+      // ===== als SVG =====
+      const NSS = 'http://www.w3.org/2000/svg';
+      function svg(code, titel) {
+        const s = document.createElementNS(NSS, 'svg');
+        s.setAttribute('role', 'img'); s.setAttribute('aria-label', titel || code.info); s.setAttribute('shape-rendering', 'crispEdges');
+        let d = '';
+        if (code.matrix) {
+          const n = code.matrix.length, r = code.rand, g = n + 2 * r;
+          s.setAttribute('viewBox', '0 0 ' + g + ' ' + g);
+          code.matrix.forEach(function (zeile, y) { let x = 0; while (x < n) { if (zeile[x]) { let l = 1; while (x + l < n && zeile[x + l]) l++; d += 'M' + (x + r) + ' ' + (y + r) + 'h' + l + 'v1h-' + l + 'z'; x += l; } else x++; } });
+          s.setAttribute('class', 'code-2d');
+          const bg = document.createElementNS(NSS, 'rect'); bg.setAttribute('width', g); bg.setAttribute('height', g); bg.setAttribute('fill', '#FFFFFF'); s.append(bg);
+        } else {
+          const b = code.balken, ges = b.reduce(function (a, x) { return a + x; }, 0) + 2 * code.rand, h = Math.max(30, Math.round(ges * 0.22));
+          s.setAttribute('viewBox', '0 0 ' + ges + ' ' + h);
+          s.setAttribute('class', 'code-1d');
+          const bg = document.createElementNS(NSS, 'rect'); bg.setAttribute('width', ges); bg.setAttribute('height', h); bg.setAttribute('fill', '#FFFFFF'); s.append(bg);
+          let x = code.rand; b.forEach(function (w, i) { if (i % 2 === 0) d += 'M' + x + ' 0h' + w + 'v' + h + 'h-' + w + 'z'; x += w; });
+        }
+        const p = document.createElementNS(NSS, 'path'); p.setAttribute('d', d); p.setAttribute('fill', '#000000'); s.append(p);
+        return s;
+      }
+      function erzeugen(art, text, stufe) { return art === 'qr' ? qr(text, stufe) : art === 'dm' ? datamatrix(text) : art === 'c128' ? code128(text) : art === 'c39' ? code39(text) : null; }
+      return { erzeugen: erzeugen, svg: svg, qr: qr, datamatrix: datamatrix, code128: code128, code39: code39, ascii: ascii };
+    })();
+
+    // ---------- Nummerierung der Strings ----------
+    function nummerText(n) { const z = String(n); return z.length >= P.nummer.stellen ? z : '000'.slice(0, P.nummer.stellen - z.length) + z; }
+    function wrNr(id) { for (let i = 0; i < P.wr.length; i++) if (P.wr[i].id === id) return i + 1; return 1; }
+    function nummerieren() {
+      // Reihenfolge: fortlaufend wie angelegt, sonst nach Wechselrichter und Tracker
+      const nu = P.nummer, liste = P.strings.slice();
+      if (nu.muster !== 'fort') liste.sort(function (a, b) { return wrNr(a.wr) - wrNr(b.wr) || a.mppt - b.mppt || P.strings.indexOf(a) - P.strings.indexOf(b); });
+      const zaehler = {};
+      liste.forEach(function (x, i) {
+        let schluessel = '', n;
+        if (nu.muster === 'wr') schluessel = String(wrNr(x.wr));
+        if (nu.muster === 'tracker') schluessel = wrNr(x.wr) + String.fromCharCode(65 + x.mppt);
+        n = nu.muster === 'fort' ? nu.start + i : (zaehler[schluessel] = (zaehler[schluessel] === undefined ? nu.start : zaehler[schluessel] + 1));
+        x.name = nu.praefix + (nu.muster === 'wr' ? schluessel + '.' : nu.muster === 'tracker' ? schluessel + '.' : '') + nummerText(n);
+      });
+    }
+    function beispielNamen() {
+      const nu = P.nummer, p = nu.praefix, a = nummerText(nu.start), b = nummerText(nu.start + 1);
+      return nu.muster === 'fort' ? p + a + ', ' + p + b + ' …' : nu.muster === 'wr' ? p + '1.' + a + ', ' + p + '1.' + b + ', ' + p + '2.' + a + ' …' : p + '1A.' + a + ', ' + p + '1A.' + b + ', ' + p + '1B.' + a + ' …';
+    }
+    const NUM = {};
+    function nummerAufbauen() {
+      const z = $('nummerLeiste'); z.innerHTML = '';
+      function lab(text, e, klasse) { const l = document.createElement('label'); if (klasse) l.className = klasse; if (klasse === 'haken') l.append(e, document.createTextNode(text)); else l.append(document.createTextNode(text), e); z.append(l); return l; }
+      NUM.name = document.createElement('input'); NUM.name.type = 'text'; NUM.name.maxLength = 12; NUM.name.autocomplete = 'off'; NUM.name.setAttribute('aria-describedby', 'status');
+      NUM.name.addEventListener('input', function () {
+        const s = aktiver(); if (!s) return;
+        const v = NUM.name.value.replace(/[<>"'`]/g, '').trim().slice(0, 12);
+        const doppelt = P.strings.some(function (x) { return x !== s && x.name === v; });
+        NUM.name.classList.toggle('falsch', !v || doppelt);
+        if (!v) return;
+        s.name = v;
+        if (P.nummer.auto) { P.nummer.auto = false; NUM.auto.checked = false; status('Eigene Bezeichnung: automatische Nummerierung ausgeschaltet.'); }
+        else if (doppelt) status('Die Bezeichnung „' + v + '“ gibt es schon.');
+        aenderung();
+      });
+      NUM.name.addEventListener('blur', function () { NUM.name.classList.remove('falsch'); const s = aktiver(); NUM.name.value = s ? s.name : ''; });
+      lab('Bezeichnung des aktiven Strings', NUM.name);
+      NUM.muster = document.createElement('select');
+      [['fort', 'fortlaufend'], ['wr', 'je Wechselrichter'], ['tracker', 'je Tracker']].forEach(function (o) { const e = document.createElement('option'); e.value = o[0]; e.textContent = o[1]; NUM.muster.append(e); });
+      NUM.muster.value = P.nummer.muster;
+      NUM.muster.addEventListener('change', function () { P.nummer.muster = NUM.muster.value; nummerGeaendert(); });
+      lab('Nummerierung', NUM.muster);
+      NUM.praefix = document.createElement('input'); NUM.praefix.type = 'text'; NUM.praefix.maxLength = 6; NUM.praefix.value = P.nummer.praefix; NUM.praefix.autocomplete = 'off';
+      NUM.praefix.addEventListener('input', function () { const ok = /^[A-Za-z0-9 ._\/-]{0,6}$/.test(NUM.praefix.value); NUM.praefix.classList.toggle('falsch', !ok); if (ok) { P.nummer.praefix = NUM.praefix.value; nummerGeaendert(); } });
+      lab('Vorsilbe', NUM.praefix);
+      NUM.start = document.createElement('select');
+      [0, 1].forEach(function (v) { const e = document.createElement('option'); e.value = String(v); e.textContent = 'ab ' + v; NUM.start.append(e); });
+      if (P.nummer.start > 1) { const e = document.createElement('option'); e.value = String(P.nummer.start); e.textContent = 'ab ' + P.nummer.start; NUM.start.append(e); }
+      NUM.start.value = String(P.nummer.start);
+      NUM.start.addEventListener('change', function () { P.nummer.start = Number(NUM.start.value); nummerGeaendert(); });
+      lab('Beginn', NUM.start);
+      NUM.stellen = document.createElement('select');
+      [[1, '1, 2 … 10'], [2, '01, 02 …'], [3, '001, 002 …']].forEach(function (o) { const e = document.createElement('option'); e.value = String(o[0]); e.textContent = o[1]; NUM.stellen.append(e); });
+      NUM.stellen.value = String(P.nummer.stellen);
+      NUM.stellen.addEventListener('change', function () { P.nummer.stellen = Number(NUM.stellen.value); nummerGeaendert(); });
+      lab('Stellen', NUM.stellen);
+      NUM.auto = document.createElement('input'); NUM.auto.type = 'checkbox'; NUM.auto.checked = P.nummer.auto;
+      NUM.auto.addEventListener('change', function () { P.nummer.auto = NUM.auto.checked; if (P.nummer.auto) { nummerieren(); status('Strings werden automatisch nummeriert: ' + beispielNamen()); } aenderung(); });
+      lab('immer automatisch', NUM.auto, 'haken');
+      const k = document.createElement('button'); k.type = 'button'; k.className = 'knopf-leise'; k.textContent = 'Jetzt neu nummerieren';
+      k.addEventListener('click', function () { nummerieren(); status('Strings neu nummeriert: ' + beispielNamen()); aenderung(); });
+      z.append(k);
+    }
+    function nummerGeaendert() {
+      if (P.nummer.auto) nummerieren();
+      status('Muster: ' + beispielNamen() + (P.nummer.auto ? '' : ' – mit „Jetzt neu nummerieren“ übernehmen.'));
+      aenderung();
+    }
+    function nummerAnzeigen() {
+      const s = aktiver();
+      $('nummerLeiste').hidden = !P.strings.length;
+      if (!NUM.name) return;
+      if (document.activeElement !== NUM.name) NUM.name.value = s ? s.name : '';
+      NUM.name.disabled = !s;
+      NUM.auto.checked = P.nummer.auto; NUM.muster.value = P.nummer.muster; NUM.stellen.value = String(P.nummer.stellen);
+      if (document.activeElement !== NUM.praefix) NUM.praefix.value = P.nummer.praefix;
+    }
+
+    // ---------- Etiketten ----------
+    const ETK = {};
+    function etikettSteuerungAufbauen() {
+      const z = $('etikettSteuerung'); z.innerHTML = '';
+      function wahl(text, opt, wert, fn) { const l = document.createElement('label'); const e = document.createElement('select'); opt.forEach(function (o) { const x = document.createElement('option'); x.value = o[0]; x.textContent = o[1]; e.append(x); }); e.value = wert; e.addEventListener('change', function () { fn(e.value); speichern(); etikettenZeigen(); }); l.append(document.createTextNode(text), e); z.append(l); return l; }
+      const hl = document.createElement('label'); hl.className = 'haken'; const h = document.createElement('input'); h.type = 'checkbox'; h.id = 'etikettCode'; h.checked = P.etikett.an;
+      h.addEventListener('change', function () { P.etikett.an = h.checked; speichern(); etikettSteuerungAufbauen(); etikettenZeigen(); });
+      hl.append(h, document.createTextNode('Barcode / QR-Code anzeigen')); z.append(hl);
+      if (!P.etikett.an) return;
+      wahl('Codeart', [['qr', 'QR-Code'], ['dm', 'Data Matrix'], ['c128', 'Code 128 (Strichcode)'], ['c39', 'Code 39 (Strichcode)']], P.etikett.art, function (v) { P.etikett.art = v; etikettSteuerungAufbauen(); });
+      wahl('Inhalt', [['name', 'nur Bezeichnung'], ['zuordnung', 'Bezeichnung und Wechselrichter'], ['daten', 'mit Modulen und Kenndaten']], P.etikett.inhalt, function (v) { P.etikett.inhalt = v; });
+      if (P.etikett.art === 'qr') wahl('Fehlerkorrektur', [['L', 'L – 7 %'], ['M', 'M – 15 %'], ['Q', 'Q – 25 %'], ['H', 'H – 30 %']], P.etikett.stufe, function (v) { P.etikett.stufe = v; });
+    }
+    function etikettDaten() {
+      const mo = P.modul, uoc = tk(mo.Voc, mo.tkV, P.temp.min), l = [];
+      P.strings.forEach(function (s) {
+        const w = P.wr.filter(function (x) { return x.id === s.wr; })[0], tr = String.fromCharCode(65 + s.mppt), n = s.module.length;
+        const fl = s.module.map(function (m) { return m[0]; }).filter(function (x, i, a) { return a.indexOf(x) === i; }).map(function (id) { const f = P.flaechen.filter(function (q) { return q.id === id; })[0]; return f ? f.name : ''; });
+        const zeilen = [(w ? w.name : 'WR') + ' · Tracker ' + tr + ' · ' + n + ' Modul' + (n === 1 ? '' : 'e'), 'Uoc (' + zahl(P.temp.min, 0) + ' °C) ' + zahl(n * uoc, 0) + ' V · Isc ' + zahl(mo.Isc, 1) + ' A', fl.join(', ')];
+        const inhalt = P.etikett.inhalt === 'name' ? s.name : P.etikett.inhalt === 'zuordnung' ? s.name + ' | ' + (w ? w.name : 'WR') + ' / ' + tr + ' | ' + n + ' Module'
+          : s.name + ' | ' + (w ? w.name : 'WR') + ' / ' + tr + ' | ' + n + ' x ' + zahl(mo.P, 0) + ' Wp | Uoc ' + zahl(n * uoc, 0) + ' V | Isc ' + zahl(mo.Isc, 1) + ' A';
+        l.push({ name: s.name, farbe: s.farbe, zeilen: zeilen, inhalt: inhalt });
+      });
+      P.mikro.forEach(function (m) {
+        const z = zulVon(m.zul);
+        const inhalt = P.etikett.inhalt === 'name' ? m.name : m.name + ' | ' + (z ? z.name + ' ' + z.phase : 'ohne Zuleitung') + ' | ' + m.module.length + ' Module';
+        l.push({ name: m.name, farbe: z ? z.farbe : '#6B7785', zeilen: [P.mtyp.name + ' · ' + m.module.length + ' Modul' + (m.module.length === 1 ? '' : 'e'), z ? z.name + ' an ' + z.phase + ', B' + z.ls : 'ohne Zuleitung'], inhalt: inhalt });
+      });
+      return l;
+    }
+    function etikettenZeigen() {
+      const z = $('etiketten'); z.innerHTML = '';
+      const l = etikettDaten();
+      if (!l.length) { const p = document.createElement('p'); p.className = 'hilfe'; p.textContent = 'Noch keine Strings oder Mikro-WR.'; z.append(p); return; }
+      l.forEach(function (q) {
+        const d = document.createElement('div'); d.className = 'etikett';
+        const k = document.createElement('div'); k.className = 'kopf'; const i = document.createElement('i'); i.style.background = q.farbe;
+        const n = document.createElement('span'); n.className = 'name'; n.textContent = q.name; k.append(i, n); d.append(k);
+        q.zeilen.forEach(function (t) { if (!t) return; const e = document.createElement('div'); e.className = 'zeile'; e.textContent = t; d.append(e); });
+        if (P.etikett.an) {
+          const c = Strichcode.erzeugen(P.etikett.art, q.inhalt, P.etikett.stufe);
+          if (!c) { const e = document.createElement('div'); e.className = 'code-hinweis'; e.textContent = 'Inhalt zu lang für diese Codeart.'; d.append(e); }
+          else {
+            d.append(Strichcode.svg(c, q.name + ': ' + c.info));
+            const e = document.createElement('div'); e.className = 'klein'; e.textContent = c.info + ' · Inhalt: ' + (c.text || q.inhalt); d.append(e);
+            if (c.balken && c.balken.length > 260) { const h = document.createElement('div'); h.className = 'code-hinweis'; h.textContent = 'Sehr langer Strichcode – gedruckt kaum lesbar. Inhalt „nur Bezeichnung“ oder einen 2D-Code wählen.'; d.append(h); }
+          }
+        }
+        z.append(d);
+      });
+    }
+
     // ---------- Ablauf ----------
     function aenderung(neuBauen) {
+      if (P.nummer.auto) nummerieren();
       speichern();
       stringsWahlAufbauen();
+      nummerAnzeigen();
       mikroWahlAufbauen();
       if (!$('mikroDetails').contains(document.activeElement)) mikroEinstellungen();
       dachZeichnen();
       ergebnisZeigen();
+      etikettenZeigen();
     }
     document.addEventListener('themawechsel', function () { dachZeichnen(); planZeichnen(); });
     einstellungenAufbauen();
+    nummerAufbauen();
+    etikettSteuerungAufbauen();
     aenderung();
     linkLaden();
   })();
