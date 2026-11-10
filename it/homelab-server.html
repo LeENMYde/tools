@@ -715,6 +715,7 @@
       r.readAsText(d); ev.target.value = '';
     });
     $('teilen').addEventListener('click', function () { Teilen.url('plan', P).then(function (url) { Teilen.kopieren(url, function (t) { $('teilenMeldung').textContent = t; setTimeout(function () { $('teilenMeldung').textContent = ''; }, 5000); }); }); });
+    Teilen.druckLink(function () { return Teilen.url('plan', P); });
     const vorherKnopf = Teilen.knopf($('teilen').parentNode, SPEICHER, function (roh) {
       let p = null; try { p = pruefen(JSON.parse(roh)); } catch (e) { p = null; }
       if (!p) { status('Keine gültige vorherige Planung gefunden.'); return; }

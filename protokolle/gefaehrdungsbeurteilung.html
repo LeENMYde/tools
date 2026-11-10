@@ -491,6 +491,7 @@
     $('beispiel').addEventListener('click', function () { if (!window.confirm('Beispiel laden? Die aktuelle Beurteilung wird ersetzt.')) return; P = beispiel(); kopfAufbauen(); neu(true); });
     $('leeren').addEventListener('click', function () { if (!window.confirm('Neue, leere Beurteilung beginnen? Die aktuelle wird ersetzt.')) return; const d = heute(0); P = { kopf: { betrieb: P.kopf.betrieb, bereich: '', taetigkeit: '', ersteller: P.kopf.ersteller, beteiligte: '', datum: d, naechste: plusMonate(d, 12), anlass: 'erstmalig' }, gef: [], unterschrift: { verantwortlich: '', sifa: '', betriebsrat: '' } }; kopfAufbauen(); neu(true); });
     $('teilen').addEventListener('click', function () { Teilen.url('plan', P).then(function (url) { Teilen.kopieren(url, function (t) { $('teilenMeldung').textContent = t; setTimeout(function () { $('teilenMeldung').textContent = ''; }, 5000); }); }); });
+    Teilen.druckLink(function () { return Teilen.url('plan', P); });
     const vorherKnopf = Teilen.knopf($('teilen').parentNode, SPEICHER, function (roh) {
       let p = null; try { p = JSON.parse(roh); } catch (e) { p = null; }
       if (!p || !pruefen(p)) return;

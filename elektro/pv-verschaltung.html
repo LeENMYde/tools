@@ -455,6 +455,7 @@
         Teilen.kopieren(url, function (t) { $('teilenMeldung').textContent = t; setTimeout(function () { $('teilenMeldung').textContent = ''; }, 5000); });
       });
     });
+    Teilen.druckLink(function () { return Teilen.url('plan', P); });
     const vorherKnopf = Teilen.knopf($('teilen').parentNode, SPEICHER, function (roh) {
       let p = null; try { p = JSON.parse(roh); } catch (e) { p = null; }
       if (!p || !pruefeProjekt(p)) { status('Keine gültige vorherige Planung gefunden.'); return; }

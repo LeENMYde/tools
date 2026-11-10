@@ -867,6 +867,7 @@
     document.getElementById('teilen').addEventListener('click', function () {
       Teilen.url('anlage', anlage).then(function (url) { Teilen.kopieren(url, meldung); });
     });
+    Teilen.druckLink(function () { return Teilen.url('anlage', anlage); });
     function allesNeu() { sammlungAufbauen(); einstellungenAufbauen(); tabelleAufbauen(); groesse(); neu(); }
     const vorherKnopf = Teilen.knopf(document.getElementById('teilen').parentNode, SCHLUESSEL, function (roh) {
       let a = null; try { a = bereinigen(JSON.parse(roh)); } catch (e) { a = null; }
