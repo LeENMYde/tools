@@ -11,6 +11,14 @@
  * Felder:  { k, tex, name, e, min, max, ganz, wahl: [[wert, text], …], wenn: function (e) {…}, hilfe }
  * Listen:  { k, name, zeile: 'Raum', max, spalten: [ wie Felder ], neu: function (i) { return {…}; } }
  * Eingaben werden über basis.js gemerkt und lassen sich teilen; Listen liegen dafür als JSON in einem versteckten Feld.
+ *
+ * Löser in jede Richtung (optional, auch mehrere als Liste):
+ *   loeser: { titel, hilfe, felder: [ { k, tex, name, e, min, max, n } ], beispiel: { k: wert },
+ *             gleichungen: [ { name, v: ['U', 'R', 'I'], f: function (x) { return [x.U, x.R * x.I]; },
+ *                              loese: { k: function (x) {…} },      // geschlossene Lösung (sonst numerisch im Feldbereich)
+ *                              weg: function (k, x) { return 'TeX'; } } ] }
+ *   Bekannte Werte eintragen; jede Gleichung mit genau einer Unbekannten wird gelöst, bis nichts mehr geht.
+ *   Sind alle Größen einer Gleichung gegeben, wird geprüft, ob sie zusammenpassen (sonst rot).
  */
 (function () {
   'use strict';
@@ -93,6 +101,12 @@
     const melEl = knoten('div', 'meldungen'), kachEl = knoten('div', 'kacheln'), nwEl = knoten('ul', 'nachweise'), zusEl = knoten('div', 'zusatz');
     tErg.append(melEl, kachEl, nwEl, zusEl);
     haupt.append(tErg);
+    (K.loeser ? (Array.isArray(K.loeser) ? K.loeser : [K.loeser]) : []).forEach(function (L) { loeserBauen(L, haupt, id); });
+    // weitere Abschnitte der Seite (z. B. eine zweite Simulation): { titel, bauen: function (tafel, h2) {…} }
+    (K.zusatz || []).forEach(function (Z) {
+      const t = knoten('section', 'tafel abstand zusatz-tafel' + (Z.klasse ? ' ' + Z.klasse : '')); const h = knoten('h2', '', Z.titel); h.id = id('zusatz');
+      t.setAttribute('aria-labelledby', h.id); t.append(h); haupt.append(t); Z.bauen(t, h);
+    });
 
     const zwei = knoten('div', 'zwei');
     const tWeg = knoten('section', 'tafel'); const hW = knoten('h2', '', 'So wird gerechnet'); hW.id = id('weg'); tWeg.setAttribute('aria-labelledby', hW.id);
@@ -104,6 +118,8 @@
     if (K.quellen) { const q = knoten('p', 'quellen', K.quellen); tSam.append(q); }
     zwei.append(tWeg, tSam);
     haupt.append(zwei);
+    // statische Abschnitte der Seite (häufige Fragen) ans Ende
+    Array.prototype.slice.call(haupt.children).filter(function (c) { return c.classList.contains('seo-info'); }).forEach(function (c) { haupt.append(c); });
 
     // ---------- Eingaben ----------
     let e = kopie(K.beispiel);
@@ -356,6 +372,133 @@
     rechnen();
     if (cv) { zeichnen(0); requestAnimationFrame(schleife); }
     return { werte: function () { return e; }, neu: rechnen, setze: function (o) { setzeWerte(o); rechnen(); }, bildZusatz: zusatzBild };
+  }
+
+  // ---------- Löser in jede Richtung ----------
+  // Nullstelle von g im Bereich [a, b]: Raster (logarithmisch, wenn möglich) und Halbierung
+  function nullstelle(g, a, b) {
+    const N = 400, log = a > 0 && b / a > 50;
+    const t = function (i) { return log ? a * Math.pow(b / a, i / N) : a + (b - a) * i / N; };
+    let x0 = t(0), g0 = g(x0);
+    if (g0 === 0) return x0;
+    for (let i = 1; i <= N; i++) {
+      const x1 = t(i), g1 = g(x1);
+      if (g1 === 0) return x1;
+      if (isFinite(g0) && isFinite(g1) && (g0 < 0) !== (g1 < 0)) {
+        let lo = x0, hi = x1, glo = g0;
+        for (let k = 0; k < 90; k++) {
+          const m = log ? Math.sqrt(lo * hi) : (lo + hi) / 2, gm = g(m);
+          if (!isFinite(gm)) break;
+          if ((gm < 0) === (glo < 0)) { lo = m; glo = gm; } else hi = m;
+        }
+        // keine Polstelle: der Wert muss klein sein
+        const xm = (lo + hi) / 2, gm = g(xm);
+        if (isFinite(gm) && Math.abs(gm) <= 1e-6 * (Math.abs(g0) + Math.abs(g1)) + 1e-9) return xm;
+      }
+      x0 = x1; g0 = g1;
+    }
+    return NaN;
+  }
+  function loeserBauen(L, haupt, id) {
+    const t = knoten('section', 'tafel abstand loeser'); const h = knoten('h2', '', L.titel || 'In jede Richtung rechnen'); h.id = id('loeser');
+    t.setAttribute('aria-labelledby', h.id);
+    const kz = knoten('div', 'kopf-zeile'); const urt = knoten('span', 'urteil'); urt.setAttribute('aria-live', 'polite');
+    kz.append(h, urt); t.append(kz);
+    t.append(knoten('p', 'hilfe', L.hilfe || 'Bekannte Werte eintragen, der Rest wird berechnet. Felder leeren, um eine andere Größe auszurechnen.'));
+    const innen = knoten('div', 'loeser-innen'), feldBox = knoten('div', 'loeser-felder'), wegBox = knoten('div', 'loeser-weg');
+    const ol = knoten('ol', 'weg'); wegBox.append(ol);
+    const LW = {}, LEL = {}, FD = {};
+    L.felder.forEach(function (fd) {
+      FD[fd.k] = fd; LW[fd.k] = null;
+      const zeile = knoten('div', 'feld'), lab = document.createElement('label'), fid = id('l-' + fd.k);
+      lab.htmlFor = fid; const sym = knoten('span', 'symbol'); if (fd.tex) Formel.setze(sym, fd.tex); lab.append(sym, knoten('span', 'name', fd.name));
+      const el = document.createElement('input'); el.id = fid; el.type = 'text'; el.inputMode = 'decimal'; el.autocomplete = 'off';
+      const x = knoten('button', 'leeren', '×'); x.type = 'button'; x.setAttribute('aria-label', fd.name + ' leeren'); x.setAttribute('data-nicht-merken', '');
+      el.addEventListener('input', function () {
+        const w = lies(el.value);
+        if (el.value.trim() === '') { LW[fd.k] = null; loesen(); return; }
+        if (!isFinite(w) || w < fd.min || w > fd.max) {
+          zeile.className = 'feld widerspruch'; el.setAttribute('aria-invalid', 'true');
+          el.title = 'Erlaubt: ' + zahl(fd.min, 4) + ' bis ' + zahl(fd.max, 4) + ' ' + (fd.e || '');
+          return;
+        }
+        el.title = ''; LW[fd.k] = w; loesen();
+      });
+      el.addEventListener('blur', function () { if (LW[fd.k] === null && zeile.classList.contains('widerspruch')) { el.value = ''; loesen(); } });
+      x.addEventListener('click', function () { LW[fd.k] = null; el.value = ''; loesen(); el.focus(); });
+      zeile.append(lab, el, knoten('span', 'einheit', fd.e || ''), x);
+      feldBox.append(zeile); LEL[fd.k] = { z: zeile, e: el };
+    });
+    const knoepfe = knoten('div', 'stepper');
+    const kB = knoten('button', 'knopf-leise', 'Beispiel'), kL = knoten('button', 'knopf-leise', 'Alle Felder leeren');
+    kB.type = kL.type = 'button'; kB.setAttribute('data-nicht-merken', ''); kL.setAttribute('data-nicht-merken', '');
+    knoepfe.append(kB, kL);
+    innen.append(feldBox, wegBox); t.append(innen, knoepfe);
+    haupt.append(t);
+    function setze(o) {
+      Object.keys(LW).forEach(function (k) {
+        const w = o && o[k] !== undefined ? o[k] : null;
+        LW[k] = w; LEL[k].e.value = w === null ? '' : String(w).replace('.', ',');
+      });
+      loesen();
+    }
+    kB.addEventListener('click', function () { setze(L.beispiel || {}); });
+    kL.addEventListener('click', function () { setze({}); });
+    function stellen(k, w) { return FD[k].n !== undefined ? FD[k].n : (Math.abs(w) >= 100 ? 0 : Math.abs(w) >= 10 ? 1 : Math.abs(w) >= 1 ? 2 : 3); }
+    function loesen() {
+      const x = {}, q = {}, weg = [], wid = {};
+      Object.keys(LW).forEach(function (k) { if (LW[k] !== null) { x[k] = LW[k]; q[k] = 'g'; } });
+      const benutzt = [];
+      let weiter = true, runden = 0;
+      while (weiter && runden++ < 50) {
+        weiter = false;
+        L.gleichungen.forEach(function (G, gi) {
+          if (benutzt[gi]) return;
+          const offen = G.v.filter(function (k) { return x[k] === undefined; });
+          if (offen.length !== 1) return;
+          const k = offen[0], fd = FD[k];
+          let w = NaN;
+          if (G.loese && G.loese[k]) { try { w = G.loese[k](x); } catch (e) { w = NaN; } }
+          if (!isFinite(w)) {
+            w = nullstelle(function (v) { const y = Object.assign({}, x); y[k] = v; const r = G.f(y); return r[0] - r[1]; }, fd.min, fd.max);
+          }
+          benutzt[gi] = true;
+          if (!isFinite(w) || w < fd.min * (1 - 1e-9) - 1e-12 || w > fd.max * (1 + 1e-9) + 1e-12) {
+            G.v.forEach(function (v) { if (q[v] === 'g') wid[v] = true; });
+            weg.push([G.name + ': keine Lösung', '\\text{' + (fd.name + ' läge außerhalb von ' + zahl(fd.min, 4) + ' bis ' + zahl(fd.max, 4) + ' ' + (fd.e || '')).replace(/[{}\\$&#%_^~]/g, ' ') + '}']);
+            return;
+          }
+          x[k] = w; q[k] = 'b'; weiter = true;
+          let tex = '';
+          try { tex = G.weg ? G.weg(k, x) : ''; } catch (e) { tex = ''; }
+          weg.push([fd.name + (G.name ? ' (' + G.name + ')' : ''), tex || ((fd.tex || k) + ' = ' + E(tz(w, stellen(k, w)) + (fd.e ? '\\,\\text{' + fd.e.replace(/%/g, '\\%') + '}' : '')))]);
+        });
+      }
+      // Gleichungen, deren Größen alle feststehen, aber nicht zum Rechnen benutzt wurden: passen sie?
+      L.gleichungen.forEach(function (G, gi) {
+        if (benutzt[gi] || !G.v.every(function (k) { return x[k] !== undefined; })) return;
+        const r = G.f(x), d = Math.abs(r[0] - r[1]) / Math.max(Math.abs(r[0]), Math.abs(r[1]), 1e-12);
+        if (!(d <= (L.toleranz || 0.005))) {
+          G.v.forEach(function (v) { if (q[v] === 'g') wid[v] = true; });
+          weg.push([(G.name || 'Gleichung') + ' passt nicht', '\\text{Die gegebenen Werte widersprechen sich um ' + zahl(d * 100, 1) + '\\,\\%.}']);
+        }
+      });
+      const offen = L.felder.filter(function (fd) { return x[fd.k] === undefined; });
+      if (!weg.length) weg.push([Object.keys(q).length ? 'Noch zu wenig Angaben' : 'Noch nichts eingetragen', '\\text{Weitere bekannte Werte eintragen.}']);
+      L.felder.forEach(function (fd) {
+        const k = fd.k, el = LEL[k];
+        el.z.className = 'feld' + (wid[k] ? ' widerspruch' : q[k] === 'g' ? ' gegeben' : q[k] === 'b' ? ' berechnet' : '');
+        el.e.setAttribute('aria-invalid', wid[k] ? 'true' : 'false');
+        if (q[k] === 'b') el.e.value = zahl(x[k], stellen(k, x[k])).replace(/\s/g, ''); else if (q[k] !== 'g') el.e.value = '';
+      });
+      const n = Object.keys(wid).length;
+      urt.textContent = n ? 'Widerspruch' : offen.length ? offen.length + ' offen' : 'vollständig';
+      urt.className = 'urteil' + (n ? ' schlecht' : offen.length ? '' : ' gut');
+      ol.innerHTML = '';
+      weg.forEach(function (s) { const li = knoten('li'), b = knoten('div', 'rechnung'); Formel.setze(b, s[1], false); li.append(knoten('div', 'titel', s[0]), b); ol.append(li); });
+      if (L.nachher) L.nachher(x, q);
+    }
+    setze(L.beispiel || {});
   }
 
   // ---------- Zeichenhilfen ----------

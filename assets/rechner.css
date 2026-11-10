@@ -9,6 +9,12 @@
 .zwei { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; margin: 18px 0 0; align-items: start; }
 @media (max-width: 920px) { .zwei { grid-template-columns: minmax(0, 1fr); } }
 .tafel.abstand { margin-top: 18px; }
+.loeser-innen { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 18px; align-items: start; }
+@media (max-width: 920px) { .loeser-innen { grid-template-columns: minmax(0, 1fr); } }
+.loeser-felder { display: grid; gap: 2px; }
+.loeser-weg .weg { margin-top: 0; }
+.loeser .stepper { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+@media print { .loeser .stepper, .loeser .leeren { display: none !important; } .zusatz-tafel { break-inside: avoid-page; } }
 
 .feld select { grid-column: span 2; font-size: .95rem; padding: 7px 6px; cursor: pointer; color: var(--text); min-width: 0; }
 .feld .einheit { white-space: nowrap; }

@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Strom durch den Körper – Formeln &amp; Rechner</title>
+  <meta name="description" content="Was passiert beim Stromschlag: Körperimpedanz nach IEC 60479-1 für Haut und Stromweg, Körperstrom, Herzstromfaktor, Einwirkdauer bis zur Abschaltung und Zeit-Strom-Bereiche AC-1 bis AC-4 – mit Simulation von Stromweg und Herz.">
+  <!-- seo -->
+  <link rel="canonical" href="https://tools.pr1m3.de/elektro/koerperstrom.html">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Formeln &amp; Rechner">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:title" content="Strom durch den Körper">
+  <meta property="og:description" content="Was passiert beim Stromschlag: Körperimpedanz nach IEC 60479-1 für Haut und Stromweg, Körperstrom, Herzstromfaktor, Einwirkdauer bis zur Abschaltung und Zeit-Strom-Bereiche AC-1 bis AC-4 – mit Simulation von Stromweg und Herz.">
+  <meta property="og:url" content="https://tools.pr1m3.de/elektro/koerperstrom.html">
+  <meta property="og:image" content="https://tools.pr1m3.de/assets/symbol-512.png">
+  <meta property="og:image:alt" content="Formeln &amp; Rechner">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Strom durch den Körper">
+  <meta name="twitter:description" content="Was passiert beim Stromschlag: Körperimpedanz nach IEC 60479-1 für Haut und Stromweg, Körperstrom, Herzstromfaktor, Einwirkdauer bis zur Abschaltung und Zeit-Strom-Bereiche AC-1 bis AC-4 – mit Simulation von Stromweg und Herz.">
+  <meta name="twitter:image" content="https://tools.pr1m3.de/assets/symbol-512.png">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://tools.pr1m3.de/elektro/koerperstrom.html#seite","name":"Strom durch den Körper","url":"https://tools.pr1m3.de/elektro/koerperstrom.html","inLanguage":"de","description":"Was passiert beim Stromschlag: Körperimpedanz nach IEC 60479-1 für Haut und Stromweg, Körperstrom, Herzstromfaktor, Einwirkdauer bis zur Abschaltung und Zeit-Strom-Bereiche AC-1 bis AC-4 – mit Simulation von Stromweg und Herz.","isPartOf":{"@type":"WebSite","@id":"https://tools.pr1m3.de/#website","name":"Formeln & Rechner","url":"https://tools.pr1m3.de/"},"breadcrumb":{"@id":"https://tools.pr1m3.de/elektro/koerperstrom.html#pfad"},"dateModified":"2026-11-10"},{"@type":"BreadcrumbList","@id":"https://tools.pr1m3.de/elektro/koerperstrom.html#pfad","itemListElement":[{"@type":"ListItem","position":1,"name":"Formeln & Rechner","item":"https://tools.pr1m3.de/"},{"@type":"ListItem","position":2,"name":"Strom durch den Körper","item":"https://tools.pr1m3.de/elektro/koerperstrom.html"}]},{"@type":"FAQPage","@id":"https://tools.pr1m3.de/elektro/koerperstrom.html#fragen","mainEntity":[{"@type":"Question","name":"Ab wie viel Milliampere wird Strom gefährlich?","acceptedAnswer":{"@type":"Answer","text":"Ab etwa 0,5 mA Wechselstrom spürt man ihn, ab etwa 10 mA kann man einen umfassten Leiter oft nicht mehr loslassen. Herzkammerflimmern ist bei langer Einwirkung ab etwa 40 bis 50 mA möglich, bei 10 ms erst ab rund 500 mA. Entscheidend sind Stromstärke, Dauer und Weg durch den Körper."}},{"@type":"Question","name":"Warum haben Fehlerstrom-Schutzschalter 30 mA?","acceptedAnswer":{"@type":"Answer","text":"Ein 30-mA-Schutzschalter löst bei 30 mA spätestens nach 300 ms aus, bei 150 mA nach 40 ms. Damit bleibt ein Körperstrom bei den üblichen Fehlern unter der Flimmerschwelle c1. Er schützt nur gegen Strom, der über Erde abfließt – nicht bei Berührung von Außen- und Neutralleiter gleichzeitig."}},{"@type":"Question","name":"Wie groß ist der Widerstand des menschlichen Körpers?","acceptedAnswer":{"@type":"Answer","text":"Er hängt von der Spannung ab: Bei 230 V und trockener Haut liegt die Körperimpedanz von Hand zu Hand bei etwa 1 000 bis 1 300 Ω, bei 25 V bei über 3 000 Ω. Nasse Haut senkt den Wert bei niedriger Spannung deutlich. Bei hoher Spannung bleibt nur der innere Widerstand von rund 500 bis 800 Ω."}},{"@type":"Question","name":"Warum sind 50 V die Grenze?","acceptedAnswer":{"@type":"Answer","text":"50 V Wechselspannung treiben auch durch eine niedrige Körperimpedanz keinen Strom, der bei langer Dauer Herzkammerflimmern auslöst. Deshalb gelten sie nach DIN VDE 0100-410 als dauernd zulässige Berührungsspannung. Bei Gleichstrom sind es 120 V, in Bädern, Ställen und engen leitfähigen Räumen 25 V AC."}},{"@type":"Question","name":"Was tun nach einem Stromschlag?","acceptedAnswer":{"@type":"Answer","text":"Zuerst den Strom abschalten oder die Person mit nichtleitendem Gegenstand lösen, nicht direkt anfassen. Bei Bewusstlosigkeit Notruf 112 und Wiederbelebung, einen Defibrillator holen. Nach Stromunfällen mit Bewusstlosigkeit, Herzbeschwerden, Strommarken oder Hochspannung ins Krankenhaus – Herzrhythmusstörungen können verzögert auftreten."}}],"isPartOf":{"@id":"https://tools.pr1m3.de/elektro/koerperstrom.html#seite"}}]}</script>
+  <!-- /seo -->
+  <meta name="theme-color" content="#F1F3F2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111214" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="icon" href="../favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="../assets/symbol-apple.png">
+  <link rel="stylesheet" href="../assets/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/stil.css">
+  <link rel="stylesheet" href="../assets/rechner.css">
+  <script src="../assets/basis.js"></script>
+</head>
+
+<body>
+  <div id="seitenkopf" data-wurzel="../"></div>
+
+  <main class="seite" data-rechner data-merken>
+    <section class="tafel abstand seo-info" aria-labelledby="h-faq">
+      <h2 id="h-faq">Häufige Fragen</h2>
+      <div class="faq">
+        <details><summary>Ab wie viel Milliampere wird Strom gefährlich?</summary><p>Ab etwa 0,5 mA Wechselstrom spürt man ihn, ab etwa 10 mA kann man einen umfassten Leiter oft nicht mehr loslassen. Herzkammerflimmern ist bei langer Einwirkung ab etwa 40 bis 50 mA möglich, bei 10 ms erst ab rund 500 mA. Entscheidend sind Stromstärke, Dauer und Weg durch den Körper.</p></details>
+        <details><summary>Warum haben Fehlerstrom-Schutzschalter 30 mA?</summary><p>Ein 30-mA-Schutzschalter löst bei 30 mA spätestens nach 300 ms aus, bei 150 mA nach 40 ms. Damit bleibt ein Körperstrom bei den üblichen Fehlern unter der Flimmerschwelle c1. Er schützt nur gegen Strom, der über Erde abfließt – nicht bei Berührung von Außen- und Neutralleiter gleichzeitig.</p></details>
+        <details><summary>Wie groß ist der Widerstand des menschlichen Körpers?</summary><p>Er hängt von der Spannung ab: Bei 230 V und trockener Haut liegt die Körperimpedanz von Hand zu Hand bei etwa 1 000 bis 1 300 Ω, bei 25 V bei über 3 000 Ω. Nasse Haut senkt den Wert bei niedriger Spannung deutlich. Bei hoher Spannung bleibt nur der innere Widerstand von rund 500 bis 800 Ω.</p></details>
+        <details><summary>Warum sind 50 V die Grenze?</summary><p>50 V Wechselspannung treiben auch durch eine niedrige Körperimpedanz keinen Strom, der bei langer Dauer Herzkammerflimmern auslöst. Deshalb gelten sie nach DIN VDE 0100-410 als dauernd zulässige Berührungsspannung. Bei Gleichstrom sind es 120 V, in Bädern, Ställen und engen leitfähigen Räumen 25 V AC.</p></details>
+        <details><summary>Was tun nach einem Stromschlag?</summary><p>Zuerst den Strom abschalten oder die Person mit nichtleitendem Gegenstand lösen, nicht direkt anfassen. Bei Bewusstlosigkeit Notruf 112 und Wiederbelebung, einen Defibrillator holen. Nach Stromunfällen mit Bewusstlosigkeit, Herzbeschwerden, Strommarken oder Hochspannung ins Krankenhaus – Herzrhythmusstörungen können verzögert auftreten.</p></details>
+      </div>
+    </section>
+  </main>
+
+  <div id="seitenfuss" data-wurzel="../"></div>
+
+  <script src="../assets/katex/katex.min.js"></script>
+  <script src="../assets/rechner.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    const bewegungAus = false;
+    const R = Rechner, z = R.zahl, tz = R.tz, E = R.E, rund = R.rund;
+
+    // Körperimpedanz Hand–Hand, große Berührungsfläche, nach IEC 60479-1 (Tabellen 1–3 und 10), Werte in Ω
+    // Spalten: Berührungsspannung; 5 %, 50 %, 95 % der Bevölkerung (Perzentile)
+    const SPANNUNGEN = [25, 50, 75, 100, 125, 150, 175, 200, 225, 400, 500, 700, 1000];
+    const IMPEDANZ = {
+      ac: {
+        trocken: [[1750, 3250, 6100], [1375, 2500, 4600], [1125, 2000, 3600], [990, 1725, 3125], [900, 1550, 2675], [850, 1400, 2350], [825, 1325, 2175], [800, 1275, 2050], [775, 1225, 1900], [700, 950, 1275], [625, 850, 1150], [575, 775, 1050], [575, 775, 1050]],
+        wasser: [[1175, 2175, 4100], [1100, 2000, 3675], [1025, 1825, 3275], [975, 1675, 2950], [900, 1550, 2675], [850, 1400, 2350], [825, 1325, 2175], [800, 1275, 2050], [775, 1225, 1900], [700, 950, 1275], [625, 850, 1150], [575, 775, 1050], [575, 775, 1050]],
+        salz: [[960, 1300, 1755], [940, 1275, 1720], [920, 1250, 1685], [880, 1225, 1655], [850, 1200, 1620], [830, 1180, 1590], [810, 1155, 1560], [790, 1135, 1530], [770, 1115, 1505], [700, 1000, 1340], [625, 950, 1270], [575, 850, 1170], [575, 775, 1050]]
+      },
+      dc: {
+        trocken: [[2100, 3875, 7275], [1600, 2900, 5325], [1275, 2275, 4100], [1100, 1900, 3350], [1000, 1675, 2875], [875, 1475, 2475], [825, 1350, 2225], [800, 1275, 2050], [775, 1225, 1900], [700, 950, 1275], [625, 850, 1150], [575, 775, 1050], [575, 775, 1050]]
+      }
+    };
+    // Stromwege: [Text, Anteil der Impedanz Hand–Hand, Herzstromfaktor F nach IEC 60479-1 Tabelle 12, Kontakte]
+    const WEG = {
+      'lh-f': ['Linke Hand – beide Füße', 0.75, 1.0, ['lh', 'f']],
+      'rh-f': ['Rechte Hand – beide Füße', 0.75, 0.8, ['rh', 'f']],
+      'hh-f': ['Beide Hände – beide Füße', 0.5, 1.0, ['lh', 'rh', 'f']],
+      'lh-rh': ['Linke Hand – rechte Hand', 1.0, 0.4, ['lh', 'rh']],
+      'br-lh': ['Brust – linke Hand', 0.5, 1.5, ['br', 'lh']],
+      'br-rh': ['Brust – rechte Hand', 0.5, 1.3, ['br', 'rh']],
+      'ru-lh': ['Rücken – linke Hand', 0.5, 0.7, ['ru', 'lh']],
+      'ru-rh': ['Rücken – rechte Hand', 0.5, 0.3, ['ru', 'rh']],
+      'lf-rf': ['Fuß – Fuß (Schrittspannung)', 1.0, 0.04, ['lf', 'rf']]
+    };
+    const HAUT = { trocken: 'trocken', wasser: 'nass (Leitungswasser)', salz: 'nass (Salzwasser, Schweiß)' };
+    // Schutzeinrichtung: [Text, Bemessungsdifferenzstrom mA oder 0, feste Abschaltzeit ms oder 0]
+    const SCHUTZ = {
+      keine: ['keine – Dauer selbst eintragen', 0, 0],
+      rcd30: ['Fehlerstrom-Schutzschalter 30 mA', 30, 0],
+      rcd10: ['Fehlerstrom-Schutzschalter 10 mA', 10, 0],
+      ta04: ['Abschaltung in 0,4 s (TN, Endstromkreis)', 0, 400],
+      ta5: ['Abschaltung in 5 s (Verteilerstromkreis)', 0, 5000]
+    };
+    // Kurven des Zeit-Strom-Diagramms für Wechselstrom 15–100 Hz, Hand–Füße (IEC 60479-1 Bild 20), [t ms, I mA]
+    const KURVE = {
+      a: [[10, 0.5], [10000, 0.5]],
+      b: [[10, 200], [2000, 10], [10000, 10]],
+      c1: [[10, 500], [100, 400], [1000, 50], [3000, 40], [10000, 40]]
+    };
+    const DC_FAKTOR = 3.75;   // Gleichstrom-Wechselstrom-Äquivalenzfaktor für Herzkammerflimmern (IEC 60479-1)
+    const ZONEN_AC = [
+      ['AC-1', 'Wahrnehmung möglich, meist keine Reaktion', '#2E8B57'],
+      ['AC-2', 'Wahrnehmung und unwillkürliche Muskelzuckungen, meist ohne schädliche Wirkung', '#8DB33A'],
+      ['AC-3', 'Starke Muskelverkrampfung, Loslassen oft unmöglich, Atemnot, umkehrbare Herzrhythmusstörungen', '#F2A541'],
+      ['AC-4', 'Herzkammerflimmern möglich, Herz- und Atemstillstand, Verbrennungen', '#C0392B']
+    ];
+    const ZONEN_DC = [
+      ['DC-1', 'Leichtes Prickeln, meist keine Reaktion', '#2E8B57'],
+      ['DC-2/3', 'Muskelzuckungen beim Ein- und Ausschalten, Wärme, bei hohem Strom Rhythmusstörungen', '#F2A541'],
+      ['DC-4', 'Herzkammerflimmern möglich, Verbrennungen', '#C0392B']
+    ];
+
+    function interp(liste, x) {
+      if (x <= liste[0][0]) return liste[0][1];
+      for (let i = 1; i < liste.length; i++) {
+        if (x <= liste[i][0]) { const a = liste[i - 1], b = liste[i]; return a[1] + (b[1] - a[1]) * (x - a[0]) / (b[0] - a[0]); }
+      }
+      return liste[liste.length - 1][1];
+    }
+    // log-log zwischen den Stützstellen
+    function kurve(name, t, dc) {
+      const L = KURVE[name], tt = Math.max(10, Math.min(10000, t));
+      let w = L[L.length - 1][1];
+      for (let i = 1; i < L.length; i++) {
+        if (tt <= L[i][0]) { const a = L[i - 1], b = L[i]; const s = Math.log(tt / a[0]) / Math.log(b[0] / a[0]); w = Math.exp(Math.log(a[1]) + s * Math.log(b[1] / a[1])); break; }
+      }
+      if (dc) { if (name === 'a') return 2; if (name === 'c1') return w * DC_FAKTOR; }
+      return w;
+    }
+    // Zone eines Herzstroms (äquivalenter Strom linke Hand – Füße) bei Dauer t
+    function zone(Ih, t, dc) {
+      if (dc) return Ih < 2 ? 0 : Ih < kurve('c1', t, true) ? 1 : 2;
+      return Ih < 0.5 ? 0 : Ih < kurve('b', t) ? 1 : Ih < kurve('c1', t) ? 2 : 3;
+    }
+    function zonenListe(e) { return e.art === 'dc' ? ZONEN_DC : ZONEN_AC; }
+    // Körperimpedanz Hand–Hand bei Berührungsspannung Ut
+    function zKoerper(e, Ut) {
+      const tab = (IMPEDANZ[e.art] && IMPEDANZ[e.art][e.haut]) || IMPEDANZ.ac[e.haut];
+      const sp = { 5: 0, 50: 1, 95: 2 }[e.perz];
+      return interp(SPANNUNGEN.map(function (u, i) { return [u, tab[i][sp]]; }), Math.max(25, Math.min(1000, Ut)));
+    }
+    function hatFuesse(w) { return WEG[w][3].indexOf('f') >= 0 || w === 'lf-rf'; }
+    function dauerText(ms) { return ms >= 1000 ? z(ms / 1000, ms >= 10000 ? 0 : 1) + ' s' : z(ms, 0) + ' ms'; }
+
+    const BEISPIEL = { art: 'ac', u: 230, rq: 0, weg: 'lh-f', haut: 'trocken', perz: 50, rst: 1000, schutz: 'rcd30', t: 1000 };
+
+    let steuer = null, dg = null, dgHinweis = null;
+    steuer = R.seite({
+      titel: 'Strom durch den Körper',
+      einleitung: 'Was passiert, wenn man unter Spannung gerät? Körperimpedanz nach IEC 60479-1 für Hautzustand und Stromweg, Körperstrom und Berührungsspannung, Herzstromfaktor, Einwirkdauer bis zur Abschaltung und die Wirkung im Zeit-Strom-Diagramm – mit Simulation des Stromflusses und der Gründe für 30 mA beim Fehlerstrom-Schutzschalter und 50 V als Grenze.',
+      hilfe: 'Spannung zwischen den Berührungspunkten, bei Wechselstrom als Effektivwert. Alle Werte gelten für Erwachsene und eine große Berührungsfläche (ganze Hand) – das ist der ungünstige Fall.',
+      gruppen: [
+        { titel: 'Quelle', farbe: '#C0392B', felder: [
+          { k: 'art', name: 'Stromart', wahl: [['ac', 'Wechselstrom 50 Hz'], ['dc', 'Gleichstrom (glatt)']] },
+          { k: 'u', tex: 'U', name: 'Spannung an den Berührungspunkten', e: 'V', min: 1, max: 1000 },
+          { k: 'rq', tex: 'R_\\text{Q}', name: 'Innenwiderstand der Quelle', e: 'Ω', min: 0, max: 1e7, hilfe: 'Netz: praktisch 0 Ω. Weidezaun, Prüfgerät oder schwache Quelle: deutlich mehr.' }
+        ] },
+        { titel: 'Körper', farbe: '#3B5BDB', felder: [
+          { k: 'weg', name: 'Stromweg', wahl: Object.keys(WEG).map(function (k) { return [k, WEG[k][0]]; }) },
+          { k: 'haut', name: 'Haut', wahl: Object.keys(HAUT).map(function (k) { return [k, HAUT[k]]; }) },
+          { k: 'perz', name: 'Körperimpedanz wie bei', wahl: [[5, '5 % der Menschen (niedrig, ungünstig)'], [50, '50 % der Menschen (Mittel)'], [95, '95 % der Menschen (hoch)']] },
+          { k: 'rst', tex: 'R_\\text{St}', name: 'Standort (Schuhe und Boden)', e: 'Ω', min: 0, max: 1e8, wenn: function (e) { return hatFuesse(e.weg); }, hilfe: 'Barfuß auf nassem Boden oder auf Metall ≈ 0 Ω. Isolierender Standort nach VDE 0100-600: mindestens 50 kΩ (bis 500 V).' }
+        ] },
+        { titel: 'Schutz und Dauer', farbe: '#2E8B57', felder: [
+          { k: 'schutz', name: 'Schutzeinrichtung', wahl: Object.keys(SCHUTZ).map(function (k) { return [k, SCHUTZ[k][0]]; }) },
+          { k: 't', tex: 't', name: 'Einwirkdauer, wenn nichts abschaltet', e: 'ms', min: 1, max: 600000, hilfe: 'Zeit, bis man loskommt oder jemand abschaltet.' }
+        ] }
+      ],
+      beispiel: BEISPIEL,
+      rechne: rechne, ergebnis: ergebnis, weg: wegRechnung,
+      loeser: {
+        titel: 'Ohmsches Gesetz am Körper – in jede Richtung',
+        hilfe: 'Zum Beispiel: Welche Spannung treibt 30 mA durch 1 000 Ω? Wie lange darf ein Strom fließen, bis 1 J umgesetzt ist? Bekannte Werte eintragen, der Rest wird berechnet.',
+        felder: [
+          { k: 'U', tex: 'U', name: 'Spannung', e: 'V', min: 0.001, max: 1e5 },
+          { k: 'R', tex: 'R', name: 'Widerstand im Stromkreis', e: 'Ω', min: 1, max: 1e9 },
+          { k: 'I', tex: 'I_\\text{K}', name: 'Körperstrom', e: 'mA', min: 1e-6, max: 1e6 },
+          { k: 'F', tex: 'F', name: 'Herzstromfaktor', e: '', min: 0.01, max: 2 },
+          { k: 'Ih', tex: 'I_\\text{h}', name: 'gleich gefährlicher Strom linke Hand – Füße', e: 'mA', min: 1e-6, max: 1e6 },
+          { k: 't', tex: 't', name: 'Einwirkdauer', e: 'ms', min: 0.01, max: 1e7 },
+          { k: 'P', tex: 'P', name: 'Leistung im Körper', e: 'W', min: 1e-9, max: 1e9 },
+          { k: 'W', tex: 'W', name: 'umgesetzte Energie', e: 'J', min: 1e-9, max: 1e9 }
+        ],
+        beispiel: { U: 230, R: 1300, F: 1, t: 300 },
+        gleichungen: [
+          { name: 'Ohmsches Gesetz', v: ['U', 'R', 'I'], f: function (x) { return [x.U, x.R * x.I / 1000]; },
+            loese: { U: function (x) { return x.R * x.I / 1000; }, R: function (x) { return x.U / x.I * 1000; }, I: function (x) { return x.U / x.R * 1000; } },
+            weg: function (k, x) {
+              if (k === 'I') return 'I_\\text{K} = \\frac{U}{R} = \\frac{' + tz(x.U, 1) + '\\,\\text{V}}{' + tz(x.R, 0) + '\\,\\Omega} = ' + E(rz(x.I) + '\\,\\text{mA}');
+              if (k === 'U') return 'U = R \\cdot I_\\text{K} = ' + tz(x.R, 0) + '\\,\\Omega \\cdot ' + rz(x.I / 1000) + '\\,\\text{A} = ' + E(rz(x.U) + '\\,\\text{V}');
+              return 'R = \\frac{U}{I_\\text{K}} = \\frac{' + rz(x.U) + '\\,\\text{V}}{' + rz(x.I / 1000) + '\\,\\text{A}} = ' + E(rz(x.R) + '\\,\\Omega');
+            } },
+          { name: 'Herzstromfaktor', v: ['Ih', 'F', 'I'], f: function (x) { return [x.Ih, x.F * x.I]; },
+            loese: { Ih: function (x) { return x.F * x.I; }, F: function (x) { return x.Ih / x.I; }, I: function (x) { return x.Ih / x.F; } },
+            weg: function (k, x) {
+              if (k === 'Ih') return 'I_\\text{h} = F \\cdot I_\\text{K} = ' + tz(x.F, 2) + ' \\cdot ' + rz(x.I) + '\\,\\text{mA} = ' + E(rz(x.Ih) + '\\,\\text{mA}');
+              if (k === 'I') return 'I_\\text{K} = \\frac{I_\\text{h}}{F} = \\frac{' + rz(x.Ih) + '}{' + tz(x.F, 2) + '} = ' + E(rz(x.I) + '\\,\\text{mA}');
+              return 'F = \\frac{I_\\text{h}}{I_\\text{K}} = ' + E(tz(x.F, 2));
+            } },
+          { name: 'Leistung', v: ['P', 'U', 'I'], f: function (x) { return [x.P, x.U * x.I / 1000]; },
+            loese: { P: function (x) { return x.U * x.I / 1000; }, U: function (x) { return x.P / x.I * 1000; }, I: function (x) { return x.P / x.U * 1000; } },
+            weg: function (k, x) { return k === 'P' ? 'P = U \\cdot I_\\text{K} = ' + rz(x.U) + '\\,\\text{V} \\cdot ' + rz(x.I / 1000) + '\\,\\text{A} = ' + E(rz(x.P) + '\\,\\text{W}') : ''; } },
+          { name: 'Energie', v: ['W', 'P', 't'], f: function (x) { return [x.W, x.P * x.t / 1000]; },
+            loese: { W: function (x) { return x.P * x.t / 1000; }, P: function (x) { return x.W / x.t * 1000; }, t: function (x) { return x.W / x.P * 1000; } },
+            weg: function (k, x) {
+              if (k === 'W') return 'W = P \\cdot t = ' + rz(x.P) + '\\,\\text{W} \\cdot ' + rz(x.t / 1000) + '\\,\\text{s} = ' + E(rz(x.W) + '\\,\\text{J}');
+              if (k === 't') return 't = \\frac{W}{P} = \\frac{' + rz(x.W) + '\\,\\text{J}}{' + rz(x.P) + '\\,\\text{W}} = ' + E(rz(x.t) + '\\,\\text{ms}');
+              return '';
+            } }
+        ]
+      },
+      zusatz: [{ titel: 'Zeit-Strom-Bereiche', bauen: diagrammBauen }],
+      nachher: function (r, e) { diagrammZeichnen(); },
+      sammlung: [
+        ['Körperstrom', 'I_\\text{K} = \\frac{U}{Z_\\text{T} + R_\\text{St} + R_\\text{Q}}', 'Z_T Körperimpedanz für den Stromweg, R_St Standort (Schuhe, Boden), R_Q Innenwiderstand der Quelle'],
+        ['Berührungsspannung am Körper', 'U_\\text{T} = I_\\text{K} \\cdot Z_\\text{T}', 'Z_T hängt selbst von U_T ab: die Haut schlägt bei höherer Spannung durch, deshalb wird iteriert'],
+        ['Körperimpedanz für den Stromweg', 'Z_\\text{T} = k_\\text{Weg} \\cdot Z_\\text{T,Hand–Hand}(U_\\text{T})', 'k_Weg: Hand–Füße 0,75, beide Hände–Füße 0,5, Hand–Rumpf 0,5 (IEC 60479-1, innere Teilimpedanzen)'],
+        ['Herzstromfaktor', 'I_\\text{h} = F \\cdot I_\\text{K}', 'gleich gefährlicher Strom auf dem Weg linke Hand – Füße, für den das Zeit-Strom-Diagramm gilt; F = 1,5 Brust–linke Hand bis 0,04 Fuß–Fuß'],
+        ['Gleichstrom', 'I_\\text{h,DC} \\approx 3{,}75 \\cdot I_\\text{h,AC}', 'gleiche Flimmergefahr erst bei rund 3,75-fachem Gleichstrom (Äquivalenzfaktor); Wahrnehmung ab etwa 2 mA'],
+        ['Leistung und Energie', 'P = I_\\text{K}^2 \\, Z_\\text{T} \\qquad W = P \\cdot t', 'Wärme im Gewebe; Strommarken und innere Verbrennungen vor allem bei hoher Spannung'],
+        ['Auslösung RCD', 't_\\text{A} \\le 300\\,\\text{ms bei } I_{\\Delta n},\\; 150\\,\\text{ms bei } 2 I_{\\Delta n},\\; 40\\,\\text{ms bei } 5 I_{\\Delta n}', 'Höchstwerte nach DIN EN 61008-1; unter I_Δn/2 löst er nicht aus, dazwischen vielleicht'],
+        ['Grenze der Berührungsspannung', 'U_\\text{L} = 50\\,\\text{V AC} \\quad 120\\,\\text{V DC}', 'dauernd zulässig nach DIN VDE 0100-410; in Bädern, Ställen und engen leitfähigen Räumen gelten 25 V AC und 60 V DC']
+      ],
+      quellen: 'IEC 60479-1 bzw. DIN IEC/TS 60479-1 (VDE V 0140-479-1): Körperimpedanzen (Tabellen 1 bis 3 und 10 für große Berührungsfläche), Herzstromfaktoren (Tabelle 12), Zeit-Strom-Bereiche (Bilder 20 und 22). Kurven aus dem Diagramm abgelesen und gerundet. DIN VDE 0100-410 (Schutz gegen elektrischen Schlag), DIN EN 61008-1 (RCD), DIN VDE 0100-600 (Standortisolation). Die Werte sind statistische Mittel für Erwachsene; Kinder, Herzkranke und Träger von Herzschrittmachern sind empfindlicher. Nach jedem Stromunfall mit Herzbeteiligung oder Bewusstlosigkeit ärztlich untersuchen lassen.',
+      bild: { titel: 'Simulation', label: 'Mensch mit dem gewählten Stromweg, fließender Strom und Herz', animiert: !bewegungAus,
+        hoehe: function (B) { return B < 520 ? 470 : 340; }, zeichne: zeichne,
+        hinweis: function (r, e) { return r.zone >= (e.art === 'dc' ? 2 : 3) ? 'Lebensgefahr: Herzkammerflimmern möglich.' : 'Punkte zeigen die Stromstärke (logarithmisch).'; } }
+    });
+
+    function rz(w) { return Formel.zahl(rund(w, 4)); }
+
+    function rechne(e) {
+      const w = WEG[e.weg], r = {};
+      r.kWeg = w[1]; r.F = w[2];
+      r.rst = hatFuesse(e.weg) ? (e.weg === 'lf-rf' ? 2 : 1) * e.rst : 0;
+      r.rAus = r.rst + e.rq;
+      // Festpunkt: Ut → Z → I → Ut
+      let Ut = e.u, Z = 0;
+      for (let i = 0; i < 60; i++) {
+        Z = r.kWeg * zKoerper(e, Ut);
+        const neu = e.u * Z / (Z + r.rAus);
+        if (Math.abs(neu - Ut) < 1e-6) { Ut = neu; break; }
+        Ut = 0.5 * (Ut + neu);
+      }
+      r.Z = Z; r.ZHand = zKoerper(e, Ut); r.Ut = Ut;
+      r.I = e.u / (Z + r.rAus) * 1000;                 // mA
+      r.Ih = r.I * r.F;
+      // Einwirkdauer
+      const s = SCHUTZ[e.schutz];
+      r.ausgeloest = false; r.t = e.t; r.schutzText = '';
+      if (s[1]) {
+        const v = r.I / s[1];
+        if (v >= 5) { r.t = Math.min(e.t, 40); r.ausgeloest = true; }
+        else if (v >= 2) { r.t = Math.min(e.t, 150); r.ausgeloest = true; }
+        else if (v >= 1) { r.t = Math.min(e.t, 300); r.ausgeloest = true; }
+        r.schutzText = r.ausgeloest ? 'RCD löst spätestens nach ' + dauerText(r.t) + ' aus' : v >= 0.5 ? 'RCD löst vielleicht aus (zwischen ' + z(s[1] / 2, 0) + ' und ' + s[1] + ' mA)' : 'RCD löst nicht aus (unter ' + z(s[1] / 2, 0) + ' mA)';
+      } else if (s[2]) { r.t = Math.min(e.t, s[2]); r.ausgeloest = true; r.schutzText = 'Abschaltung nach ' + dauerText(r.t); }
+      else r.schutzText = 'Nichts schaltet ab';
+      r.zone = zone(r.Ih, r.t, e.art === 'dc');
+      r.P = r.I * r.I / 1e6 * r.Z;
+      r.W = r.P * r.t / 1000;
+      r.loslassen = e.art === 'dc' ? true : r.Ih < 10;    // Loslassschwelle etwa 10 mA (Wechselstrom)
+      r.UL = e.art === 'dc' ? 120 : 50;
+      // höchste Spannung, die bei dieser Dauer unter c1 bleibt (Suche)
+      r.uSicher = NaN;
+      let lo = 1, hi = 1000;
+      const gefahr = function (U) { const e2 = Object.assign({}, e, { u: U }); return zone(strom(e2) * r.F, r.t, e.art === 'dc') >= (e.art === 'dc' ? 2 : 3); };
+      if (!gefahr(hi)) r.uSicher = 1000; else if (!gefahr(lo)) { for (let i = 0; i < 40; i++) { const m = (lo + hi) / 2; if (gefahr(m)) hi = m; else lo = m; } r.uSicher = lo; } else r.uSicher = 0;
+      return r;
+    }
+    // nur Körperstrom (für die Suche)
+    function strom(e) {
+      const w = WEG[e.weg], rAus = (hatFuesse(e.weg) ? (e.weg === 'lf-rf' ? 2 : 1) * e.rst : 0) + e.rq;
+      let Ut = e.u, Z = 0;
+      for (let i = 0; i < 40; i++) { Z = w[1] * zKoerper(e, Ut); const neu = e.u * Z / (Z + rAus); if (Math.abs(neu - Ut) < 1e-4) break; Ut = 0.5 * (Ut + neu); }
+      return e.u / (Z + rAus) * 1000;
+    }
+
+    function ergebnis(r, e, H) {
+      const Zn = zonenListe(e), zo = Zn[r.zone], dc = e.art === 'dc', schlimm = r.zone === Zn.length - 1;
+      if (schlimm) H.meldung('Lebensgefahr: In ' + zo[0] + ' kann das Herz flimmern. Sofort Notruf 112, Herz-Lungen-Wiederbelebung und Defibrillator, wenn die Person nicht normal atmet.', true);
+      else if (r.zone === 2 && !dc) H.meldung('Verkrampfung: Ab etwa 10 mA kann man einen umfassten Leiter oft nicht mehr loslassen – die Dauer wird dann nur durch die Abschaltung begrenzt.', true);
+      if (e.u > r.UL) H.meldung('Mehr als ' + r.UL + ' V ' + (dc ? 'Gleichspannung' : 'Wechselspannung') + ': Schutz durch automatische Abschaltung, Isolierung oder Schutzkleinspannung ist Pflicht (DIN VDE 0100-410).');
+      if (e.schutz === 'keine') H.meldung('Ohne Schutzeinrichtung bestimmt allein die Einwirkdauer die Gefahr. Ein Fehlerstrom-Schutzschalter mit 30 mA begrenzt sie auf höchstens 300 ms, meist unter 40 ms.');
+      if (e.schutz.indexOf('rcd') === 0 && !r.ausgeloest) H.meldung('Der Fehlerstrom-Schutzschalter schützt nur gegen Ströme, die über Erde abfließen. Fließt der Strom von Leiter zu Leiter durch den Körper (Hand–Hand an L und N), löst er gar nicht aus.');
+      if (e.haut !== 'trocken') H.meldung('Nasse Haut senkt den Widerstand bei niedriger Spannung stark – deshalb gelten in Bad, Schwimmbad und Stall strengere Grenzen.');
+      if (r.W > 10) H.meldung('Mit ' + rund(r.W, 1) + ' J entsteht viel Wärme im Gewebe: Strommarken und innere Verbrennungen sind möglich, auch an Nieren und Muskeln (später Nierenversagen). Immer ins Krankenhaus.', true);
+      H.urteil(!schlimm && r.zone < 2, zo[0]);
+      H.kacheln([
+        [rund(r.I, 1) + ' mA', 'Körperstrom', '#C0392B'],
+        [z(r.Z, 0) + ' Ω', 'Körperimpedanz ' + WEG[e.weg][0], '#3B5BDB'],
+        [z(r.Ut, 0) + ' V', 'Spannung am Körper (von ' + z(e.u, 0) + ' V)', '#6E6FA6'],
+        [rund(r.Ih, 1) + ' mA', 'gleich gefährlich wie linke Hand – Füße (F = ' + z(r.F, 2) + ')', '#E4572E'],
+        [dauerText(r.t), r.schutzText, r.ausgeloest ? '#2E8B57' : '#6B7785'],
+        [zo[0], zo[1], zo[2]]
+      ]);
+      H.nachweise([
+        [e.u <= r.UL, 'Berührungsspannung', z(e.u, 0) + ' V ' + (e.u <= r.UL ? '≤' : '>') + ' ' + r.UL + ' V (dauernd zulässig)'],
+        [r.loslassen, 'Loslassen möglich', dc ? 'bei Gleichstrom keine Loslassschwelle' : rund(r.Ih, 1) + ' mA ' + (r.Ih < 10 ? '<' : '≥') + ' 10 mA'],
+        [!schlimm, 'Unter der Flimmerschwelle c1', rund(r.Ih, 1) + ' mA bei ' + dauerText(r.t) + ' – Grenze ' + rund(kurve('c1', r.t, dc), 0) + ' mA'],
+        [isFinite(r.uSicher) ? r.uSicher >= e.u : null, 'Höchste Spannung ohne Flimmergefahr', isFinite(r.uSicher) ? (r.uSicher >= 1000 ? 'über 1 000 V' : z(r.uSicher, 0) + ' V') + ' bei ' + dauerText(r.t) + ' und diesem Stromweg' : '']
+      ]);
+      const zeilen = [10, 40, 150, 300, 1000, 5000].map(function (t) {
+        const zz = zone(r.Ih, t, dc);
+        return [dauerText(t), Zn[zz][0], rund(kurve('c1', t, dc), 0) + ' mA', Zn[zz][1]];
+      });
+      H.tabelle('Derselbe Strom bei anderer Einwirkdauer', ['Dauer', 'Bereich', 'Flimmerschwelle c1', 'Wirkung'], zeilen, { zahl: [2], klasse: function (j) { return zone(r.Ih, [10, 40, 150, 300, 1000, 5000][j], dc) === Zn.length - 1 ? 'schlecht' : ''; } });
+      const sp = [12, 25, 50, 120, 230, 400, 690].map(function (U) {
+        const e2 = Object.assign({}, e, { u: U }), I = strom(e2);
+        return [z(U, 0) + ' V', rund(I, 1) + ' mA', rund(I * r.F, 1) + ' mA', Zn[zone(I * r.F, r.t, dc)][0]];
+      });
+      H.tabelle('Gleicher Stromweg bei anderen Spannungen (Dauer ' + dauerText(r.t) + ')', ['Spannung', 'Körperstrom', 'Herzstrom-Äquivalent', 'Bereich'], sp, { zahl: [1, 2] });
+    }
+
+    function wegRechnung(r, e) {
+      const tab = 'Z_\\text{T,Hand–Hand}(' + z(r.Ut, 0) + '\\,\\text{V})';
+      return [
+        ['Körperimpedanz', 'Z_\\text{T} = ' + tz(r.kWeg, 2) + ' \\cdot ' + tab + ' = ' + tz(r.kWeg, 2) + ' \\cdot ' + tz(r.ZHand, 0) + '\\,\\Omega = ' + E(tz(r.Z, 0) + '\\,\\Omega')],
+        ['Körperstrom', 'I_\\text{K} = \\frac{U}{Z_\\text{T} + R_\\text{St} + R_\\text{Q}} = \\frac{' + tz(e.u, 0) + '\\,\\text{V}}{' + tz(r.Z, 0) + ' + ' + tz(r.rst, 0) + ' + ' + tz(e.rq, 0) + '\\,\\Omega} = ' + E(rz(r.I) + '\\,\\text{mA}')],
+        ['Spannung am Körper', 'U_\\text{T} = I_\\text{K} \\cdot Z_\\text{T} = ' + rz(r.I / 1000) + '\\,\\text{A} \\cdot ' + tz(r.Z, 0) + '\\,\\Omega = ' + E(tz(r.Ut, 1) + '\\,\\text{V}')],
+        ['Herzstrom-Äquivalent', 'I_\\text{h} = F \\cdot I_\\text{K} = ' + tz(r.F, 2) + ' \\cdot ' + rz(r.I) + ' = ' + E(rz(r.Ih) + '\\,\\text{mA}')],
+        ['Einwirkdauer', 't = ' + E(tz(r.t, 0) + '\\,\\text{ms}') + '\\quad\\text{(' + r.schutzText.replace(/[{}\\$&#%_^~]/g, ' ') + ')}'],
+        ['Vergleich mit der Flimmerschwelle', 'I_\\text{h} = ' + rz(r.Ih) + '\\,\\text{mA}' + (r.Ih < kurve('c1', r.t, e.art === 'dc') ? ' < ' : ' \\ge ') + 'I_\\text{c1}(' + tz(r.t, 0) + '\\,\\text{ms}) = ' + rz(kurve('c1', r.t, e.art === 'dc')) + '\\,\\text{mA} \\Rightarrow ' + E('\\text{' + zonenListe(e)[r.zone][0] + '}')],
+        ['Energie im Körper', 'W = I_\\text{K}^2 \\, Z_\\text{T} \\, t = (' + rz(r.I / 1000) + ')^2 \\cdot ' + tz(r.Z, 0) + ' \\cdot ' + rz(r.t / 1000) + ' = ' + E(rz(r.W) + '\\,\\text{J}')]
+      ];
+    }
+
+    // ---------- Zeit-Strom-Diagramm (eigene Tafel) ----------
+    function diagrammBauen(t) {
+      t.append(Object.assign(document.createElement('p'), { className: 'hilfe', textContent: 'Waagrecht die Einwirkdauer, senkrecht der gleich gefährliche Strom linke Hand – Füße, beides logarithmisch. Der Punkt wandert in der Simulation von der ersten Millisekunde bis zur Abschaltung.' }));
+      dg = document.createElement('canvas'); dg.className = 'rechner-bild'; dg.setAttribute('role', 'img'); dg.setAttribute('aria-label', 'Zeit-Strom-Diagramm mit den Bereichen und dem aktuellen Punkt');
+      t.append(dg);
+      dgHinweis = document.createElement('p'); dgHinweis.className = 'hilfe'; t.append(dgHinweis);
+      window.addEventListener('resize', function () { diagrammZeichnen(); });
+      document.addEventListener('themawechsel', function () { diagrammZeichnen(); });
+    }
+    function diagrammZeichnen() {
+      if (!dg || !steuer) return;
+      const e = steuer.werte(), r = rechne(e), dc = e.art === 'dc';
+      const B = Math.max(260, dg.parentElement.clientWidth - 40), Hh = Math.round(Math.max(260, Math.min(420, B * 0.6))), d = window.devicePixelRatio || 1;
+      dg.width = Math.round(B * d); dg.height = Math.round(Hh * d); dg.style.height = Hh + 'px';
+      const cx = dg.getContext('2d'); cx.setTransform(d, 0, 0, d, 0, 0);
+      cx.fillStyle = R.farbe('--flaeche2'); cx.fillRect(0, 0, B, Hh);
+      diagramm(cx, 46, 14, B - 60, Hh - 52, e, r, r.t, true);
+      dgHinweis.textContent = 'Bereich ' + zonenListe(e)[r.zone][0] + ': ' + zonenListe(e)[r.zone][1] + '.';
+    }
+    // Diagramm in ein Rechteck zeichnen; tJetzt: bis wohin der Punkt gelaufen ist
+    function diagramm(cx, x0, y0, b, h, e, r, tJetzt, gross) {
+      const dc = e.art === 'dc', f = R.farbe, Zn = zonenListe(e);
+      const lt0 = 1, lt1 = 4, li0 = -1, li1 = 4;    // 10 ms … 10 s; 0,1 mA … 10 A
+      const X = function (t) { return x0 + (Math.log(Math.max(10, t)) / Math.LN10 - lt0) / (lt1 - lt0) * b; };
+      const Y = function (I) { return y0 + h - (Math.log(Math.max(0.1, Math.min(1e4, I))) / Math.LN10 - li0) / (li1 - li0) * h; };
+      // Bereiche als Flächen (von oben nach unten übermalen)
+      const schritte = 80, tt = function (i) { return Math.pow(10, lt0 + (lt1 - lt0) * i / schritte); };
+      const flaeche = function (fn, farbe) {
+        cx.beginPath(); cx.moveTo(X(10), Y(1e4));
+        for (let i = 0; i <= schritte; i++) cx.lineTo(X(tt(i)), Y(fn(tt(i))));
+        cx.lineTo(X(1e4), Y(1e4)); cx.closePath(); cx.fillStyle = farbe; cx.fill();
+      };
+      const alpha = function (c, a) { const n = parseInt(c.slice(1), 16); return 'rgba(' + (n >> 16) + ',' + ((n >> 8) & 255) + ',' + (n & 255) + ',' + a + ')'; };
+      cx.fillStyle = alpha(Zn[0][2], 0.16); cx.fillRect(x0, y0, b, h);
+      if (dc) { flaeche(function () { return 2; }, alpha(Zn[1][2], 0.18)); flaeche(function (t) { return kurve('c1', t, true); }, alpha(Zn[2][2], 0.22)); }
+      else { flaeche(function () { return 0.5; }, alpha(Zn[1][2], 0.18)); flaeche(function (t) { return kurve('b', t); }, alpha(Zn[2][2], 0.2)); flaeche(function (t) { return kurve('c1', t); }, alpha(Zn[3][2], 0.22)); }
+      // Gitter
+      cx.strokeStyle = f('--linie'); cx.lineWidth = 1; cx.font = '11px ' + f('--technik'); cx.fillStyle = f('--leise');
+      [10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000].forEach(function (t) {
+        cx.beginPath(); cx.moveTo(X(t), y0); cx.lineTo(X(t), y0 + h); cx.stroke();
+        if (gross || [10, 100, 1000, 10000].indexOf(t) >= 0) { cx.textAlign = 'center'; cx.textBaseline = 'top'; cx.fillText(t >= 1000 ? z(t / 1000, 0) + ' s' : t + '', X(t), y0 + h + 4); }
+      });
+      [0.1, 1, 10, 100, 1000, 10000].forEach(function (I) {
+        cx.beginPath(); cx.moveTo(x0, Y(I)); cx.lineTo(x0 + b, Y(I)); cx.stroke();
+        cx.textAlign = 'right'; cx.textBaseline = 'middle'; cx.fillText(I >= 1000 ? z(I / 1000, 0) + ' A' : z(I, I < 1 ? 1 : 0), x0 - 4, Y(I));
+      });
+      cx.textAlign = 'left'; cx.textBaseline = 'bottom'; cx.fillText('mA', x0 + 2, y0 + 12);
+      cx.textAlign = 'right'; cx.textBaseline = 'top'; cx.fillText('Dauer in ms', x0 + b, y0 + h + 18);
+      // Kurven
+      const linie = function (fn, farbe, name) {
+        cx.strokeStyle = farbe; cx.lineWidth = 2; cx.beginPath();
+        for (let i = 0; i <= schritte; i++) { const x = X(tt(i)), y = Y(fn(tt(i))); if (i) cx.lineTo(x, y); else cx.moveTo(x, y); }
+        cx.stroke();
+        R.Z.text(cx, name, X(6500), Y(fn(6500)) - 8, 'center', 11, true, farbe);
+      };
+      if (dc) { linie(function () { return 2; }, '#2E8B57', 'a'); linie(function (t) { return kurve('c1', t, true); }, '#C0392B', 'c1'); }
+      else { linie(function () { return 0.5; }, '#2E8B57', 'a'); linie(function (t) { return kurve('b', t); }, '#B7791F', 'b'); linie(function (t) { return kurve('c1', t); }, '#C0392B', 'c1'); }
+      // Zonen beschriften
+      if (gross) {
+        const lab = dc ? [[30, 0.6, 0], [30, 20, 1], [30, 3000, 2]] : [[30, 0.2, 0], [30, 3, 1], [3000, 20, 2], [30, 2500, 3]];
+        lab.forEach(function (q) { R.Z.text(cx, Zn[q[2]][0], X(q[0]), Y(q[1]), 'center', 12, true, Zn[q[2]][2]); });
+      }
+      // Weg des Punkts und Punkt
+      const Ih = r.Ih, tEnde = Math.max(10, r.t), tp = Math.max(10, Math.min(tEnde, tJetzt));
+      cx.strokeStyle = f('--text'); cx.lineWidth = 2; cx.setLineDash([4, 4]);
+      cx.beginPath(); cx.moveTo(X(10), Y(Ih)); cx.lineTo(X(Math.min(1e4, tEnde)), Y(Ih)); cx.stroke(); cx.setLineDash([]);
+      if (r.ausgeloest && tEnde <= 1e4) { cx.strokeStyle = '#2E8B57'; cx.lineWidth = 2; cx.beginPath(); cx.moveTo(X(tEnde), y0); cx.lineTo(X(tEnde), y0 + h); cx.stroke(); R.Z.text(cx, 'Abschaltung', Math.min(x0 + b - 30, X(tEnde) + 4), y0 + 10, X(tEnde) > x0 + b - 80 ? 'right' : 'left', 11, true, '#2E8B57'); }
+      const zz = zone(Ih, tp, dc);
+      R.Z.text(cx, '', 0, 0);
+      cx.beginPath(); cx.arc(X(tp), Y(Ih), 7, 0, 2 * Math.PI); cx.fillStyle = Zn[zz][2]; cx.fill(); cx.strokeStyle = f('--flaeche'); cx.lineWidth = 2; cx.stroke();
+      if (Ih < 0.1 || Ih > 1e4) R.Z.text(cx, Ih < 0.1 ? 'Strom unter 0,1 mA' : 'Strom über 10 A', x0 + b / 2, y0 + 12, 'center', 11, true, f('--leise'));
+    }
+
+    // ---------- Simulation: Mensch, Stromweg, Herz ----------
+    function zeichne(cx, B, H, t, r, e) {
+      const f = R.farbe, Zn = zonenListe(e), dc = e.art === 'dc';
+      const breit = B >= 520;
+      const fb = breit ? Math.min(B * 0.42, 260) : B * 0.5, fx = breit ? fb / 2 + 10 : B * 0.27, fy = 18, fh = breit ? H - 50 : 265;
+      // Zeitraffer: 0–6 s wächst die Dauer logarithmisch von 1 ms bis zur Einwirkdauer, dann 1,5 s halten
+      const T = 7500, ph = (t % T) / T, lauf = Math.min(1, ph / 0.8);
+      const tEnde = Math.max(1, r.t), tJetzt = Math.pow(10, Math.log(tEnde) / Math.LN10 * lauf);
+      const aus = r.ausgeloest && lauf >= 1;
+      const zJetzt = zone(r.Ih, Math.max(10, tJetzt), dc);
+      // Figur
+      const P = function (u, v) { return [fx + u * fb * 0.5, fy + v * fh]; };
+      const pt = {
+        kopf: P(0, 0.08), hals: P(0, 0.17), lsch: P(0.32, 0.22), rsch: P(-0.32, 0.22), lh: P(0.78, 0.5), rh: P(-0.78, 0.5),
+        br: P(0, 0.3), herz: P(0.1, 0.32), ru: P(0, 0.38), becken: P(0, 0.56), lhuef: P(0.15, 0.58), rhuef: P(-0.15, 0.58), lk: P(0.18, 0.77), rk: P(-0.18, 0.77), lf: P(0.2, 0.97), rf: P(-0.2, 0.97)
+      };
+      const haut = f('--linie'), umriss = f('--leise');
+      cx.lineCap = 'round'; cx.lineJoin = 'round';
+      const glied = function (a, b, w) { cx.strokeStyle = haut; cx.lineWidth = w; cx.beginPath(); cx.moveTo(a[0], a[1]); cx.lineTo(b[0], b[1]); cx.stroke(); };
+      glied(pt.lsch, pt.lh, fb * 0.1); glied(pt.rsch, pt.rh, fb * 0.1);
+      glied(pt.lhuef, pt.lk, fb * 0.13); glied(pt.lk, pt.lf, fb * 0.11); glied(pt.rhuef, pt.rk, fb * 0.13); glied(pt.rk, pt.rf, fb * 0.11);
+      R.Z.text(cx, '', 0, 0);
+      cx.fillStyle = haut; cx.beginPath();
+      cx.moveTo(pt.rsch[0] - fb * 0.04, pt.rsch[1]); cx.lineTo(pt.lsch[0] + fb * 0.04, pt.lsch[1]); cx.lineTo(pt.lhuef[0] + fb * 0.06, pt.lhuef[1]); cx.lineTo(pt.rhuef[0] - fb * 0.06, pt.rhuef[1]); cx.closePath(); cx.fill();
+      cx.beginPath(); cx.arc(pt.kopf[0], pt.kopf[1], fb * 0.13, 0, 2 * Math.PI); cx.fill();
+      glied(pt.hals, pt.kopf, fb * 0.08);
+      R.Z.text(cx, 'links', pt.lh[0], pt.lh[1] + 22, 'center', 10, false, umriss);
+      R.Z.text(cx, 'rechts', pt.rh[0], pt.rh[1] + 22, 'center', 10, false, umriss);
+      // Stromweg als Linienzüge von Eintritt zu Austritt
+      const wege = {
+        lh: [pt.lh, pt.lsch, pt.herz], rh: [pt.rh, pt.rsch, pt.br], br: [pt.br], ru: [pt.ru],
+        lfB: [pt.herz, pt.becken, pt.lhuef, pt.lk, pt.lf], rfB: [pt.herz, pt.becken, pt.rhuef, pt.rk, pt.rf]
+      };
+      const k = WEG[e.weg][3];
+      let zuege = [];
+      const mitte = function (a) { return a === 'br' ? [pt.br, pt.herz] : a === 'ru' ? [pt.ru, pt.herz] : a === 'lh' ? wege.lh : a === 'rh' ? wege.rh.concat([pt.herz]) : null; };
+      if (e.weg === 'lf-rf') zuege = [[pt.lf, pt.lk, pt.lhuef, pt.becken, pt.rhuef, pt.rk, pt.rf]];
+      else {
+        const ein = k.filter(function (a) { return a !== 'f'; });
+        if (k.indexOf('f') >= 0) ein.forEach(function (a) { zuege.push(mitte(a).concat([pt.becken, pt.lhuef, pt.lk, pt.lf])); zuege.push(mitte(a).concat([pt.becken, pt.rhuef, pt.rk, pt.rf])); });
+        else zuege.push(mitte(ein[0]).concat(mitte(ein[1]).slice().reverse()));
+      }
+      const zf = Zn[zJetzt][2];
+      const fliesst = !aus && r.I > 0.01;
+      zuege.forEach(function (zg) {
+        cx.strokeStyle = fliesst ? zf : f('--linie'); cx.globalAlpha = 0.35; cx.lineWidth = 6; cx.beginPath();
+        zg.forEach(function (q, i) { if (i) cx.lineTo(q[0], q[1]); else cx.moveTo(q[0], q[1]); }); cx.stroke(); cx.globalAlpha = 1;
+        if (!fliesst) return;
+        // Punkte: Abstand nach Stromstärke (logarithmisch), bei Wechselstrom hin und her
+        let lang = 0; const seg = [];
+        for (let i = 1; i < zg.length; i++) { const l = Math.hypot(zg[i][0] - zg[i - 1][0], zg[i][1] - zg[i - 1][1]); seg.push(l); lang += l; }
+        const abst = Math.max(7, 34 - 7 * Math.log(Math.max(0.1, r.I)) / Math.LN10);
+        const v = dc ? (t / 25) : 14 * Math.sin(t / 1000 * 2 * Math.PI * 1.2);
+        for (let s = ((v % abst) + abst) % abst; s < lang; s += abst) {
+          let rest = s, i = 0; while (i < seg.length - 1 && rest > seg[i]) { rest -= seg[i]; i++; }
+          const a = zg[i], b = zg[i + 1], u = seg[i] ? rest / seg[i] : 0;
+          cx.fillStyle = zf; cx.beginPath(); cx.arc(a[0] + (b[0] - a[0]) * u, a[1] + (b[1] - a[1]) * u, 2.6, 0, 2 * Math.PI); cx.fill();
+        }
+      });
+      // Kontakte: Leiter an Händen/Brust/Rücken, Erde unter den Füßen
+      const leiter = function (q) { cx.fillStyle = '#8A6D3B'; cx.fillRect(q[0] - 4, q[1] - 26, 8, 22); cx.fillStyle = aus ? '#9AA3AD' : '#C0392B'; cx.beginPath(); cx.arc(q[0], q[1] - 30, 5, 0, 2 * Math.PI); cx.fill(); };
+      k.forEach(function (a, i) {
+        if (a === 'lh' || a === 'rh') {
+          const q = pt[a];
+          if (e.weg === 'lh-rh' && i === 1) { cx.strokeStyle = '#2B7BB9'; cx.lineWidth = 3; cx.beginPath(); cx.moveTo(q[0], q[1]); cx.lineTo(q[0], q[1] - 28); cx.stroke(); R.Z.text(cx, 'N', q[0], q[1] - 36, 'center', 10, true, '#2B7BB9'); }
+          else { leiter(q); R.Z.text(cx, dc ? '+' : 'L', q[0] + (a === 'lh' ? 12 : -12), q[1] - 30, 'center', 11, true, '#C0392B'); }
+        } else if (a === 'br' || a === 'ru') {
+          const q = pt[a]; cx.fillStyle = a === 'br' ? '#8A6D3B' : '#6B7785'; cx.globalAlpha = 0.8; cx.fillRect(q[0] - 14, q[1] - 6, 28, 12); cx.globalAlpha = 1;
+          R.Z.text(cx, a === 'br' ? 'Brust' : 'Rücken', q[0] - fb * 0.18, q[1] - 2, 'right', 10, true, umriss);
+        }
+      });
+      if (k.indexOf('f') >= 0 || e.weg === 'lf-rf') {
+        const yb = pt.lf[1] + 6; cx.strokeStyle = '#2E8B57'; cx.lineWidth = 3; cx.beginPath(); cx.moveTo(fx - fb * 0.45, yb); cx.lineTo(fx + fb * 0.45, yb); cx.stroke();
+        cx.lineWidth = 1.5; for (let x = fx - fb * 0.42; x < fx + fb * 0.45; x += 9) { cx.beginPath(); cx.moveTo(x, yb); cx.lineTo(x - 6, yb + 7); cx.stroke(); }
+        if (e.weg === 'lf-rf') R.Z.text(cx, 'Spannungstrichter: Schritt', fx, yb + 18, 'center', 10, true, umriss);
+        else R.Z.text(cx, 'Erde', fx + fb * 0.47, yb + 2, 'left', 10, true, '#2E8B57');
+      }
+      // Herz: normaler Schlag oder Flimmern
+      const flimmern = !aus ? zJetzt === Zn.length - 1 : false;
+      const puls = flimmern ? 0.85 + 0.25 * Math.random() : 1 + 0.12 * Math.max(0, Math.pow(Math.sin(t / 1000 * 2 * Math.PI * 1.2), 9));
+      const hx = pt.herz[0], hy = pt.herz[1], hs = fb * 0.07 * puls;
+      cx.fillStyle = flimmern ? (Math.floor(t / 70) % 2 ? '#C0392B' : '#7B1E1E') : '#D64545';
+      cx.beginPath(); cx.moveTo(hx, hy + hs * 0.9);
+      cx.bezierCurveTo(hx - hs * 1.4, hy - hs * 0.1, hx - hs * 0.6, hy - hs * 1.2, hx, hy - hs * 0.4);
+      cx.bezierCurveTo(hx + hs * 0.6, hy - hs * 1.2, hx + hs * 1.4, hy - hs * 0.1, hx, hy + hs * 0.9); cx.fill();
+      // EKG-Streifen rechts oder unten
+      const ex = breit ? fb + 30 : B * 0.55, ey = 30, ew = breit ? B - fb - 44 : B * 0.45 - 6, eh = breit ? 70 : 56;
+      cx.fillStyle = f('--flaeche'); cx.fillRect(ex, ey, ew, eh);
+      cx.strokeStyle = flimmern ? '#C0392B' : '#2E8B57'; cx.lineWidth = 2; cx.beginPath();
+      for (let i = 0; i <= ew; i += 2) {
+        const tt = (t / 6 - (ew - i)) / 120, p = tt - Math.floor(tt);
+        let y = 0;
+        if (flimmern) y = Math.sin(tt * 37) * 0.35 + Math.sin(tt * 23 + 1) * 0.25;
+        else y = p > 0.30 && p < 0.33 ? -1 : p > 0.33 && p < 0.36 ? 0.35 : p > 0.18 && p < 0.24 ? -0.12 : p > 0.5 && p < 0.62 ? -0.2 * Math.sin((p - 0.5) / 0.12 * Math.PI) : 0;
+        const yy = ey + eh / 2 + y * eh * 0.4;
+        if (i) cx.lineTo(ex + i, yy); else cx.moveTo(ex + i, yy);
+      }
+      cx.stroke();
+      R.Z.text(cx, flimmern ? 'Kammerflimmern' : 'Herzschlag', ex + 6, ey + 10, 'left', 11, true, flimmern ? '#C0392B' : '#2E8B57');
+      // Werte
+      const zx = ex, zy = ey + eh + 22, zl = breit ? 20 : 17, gr = breit ? 13 : 11;
+      R.Z.text(cx, 'Körperstrom ' + rund(r.I, 1) + ' mA', zx, zy, 'left', gr, true, '#C0392B');
+      R.Z.text(cx, 'Zeit ' + (tJetzt < 10 ? z(tJetzt, 1) : z(tJetzt, 0)) + ' ms', zx, zy + zl, 'left', gr, true);
+      R.Z.text(cx, Zn[zJetzt][0] + (aus ? ' – abgeschaltet' : ''), zx, zy + 2 * zl, 'left', gr, true, Zn[zJetzt][2]);
+      let wort = Zn[zJetzt][1].split(', ')[0];
+      cx.font = (breit ? 11 : 10) + 'px ' + (f('--technik') || 'sans-serif');
+      const platz = (breit ? B - zx : B - zx) - 8;
+      while (wort.length > 4 && cx.measureText(wort).width > platz) wort = wort.slice(0, -2).replace(/\s+$/, '') + '…';
+      R.Z.text(cx, wort, zx, zy + 3 * zl, 'left', breit ? 11 : 10, false, f('--leise'));
+      // kleines Zeit-Strom-Diagramm
+      if (breit) diagramm(cx, ex + 28, zy + 4 * zl, ew - 32, H - (zy + 4 * zl) - 26, e, r, tJetzt, false);
+      else diagramm(cx, 40, 318, B - 52, H - 318 - 26, e, r, tJetzt, false);
+    }
+
+    diagrammZeichnen();
+  })();
+  </script>
+</body>
+</html>
