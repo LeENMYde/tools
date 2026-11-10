@@ -436,6 +436,7 @@ ol.weg li::before {
 .pdf-form label.pdf-haken { flex-direction: row; align-items: center; gap: 6px; color: var(--text); font-size: .9rem; padding-bottom: 8px; }
 .pdf-form label.pdf-haken input { min-width: 0; width: 17px; height: 17px; accent-color: var(--ergebnis); }
 .druckkopf { display: none; }
+.druck-qr { display: none; }
 
 @media print {
   @page { size: A4; margin: 13mm 12mm 15mm;
@@ -445,6 +446,14 @@ ol.weg li::before {
   .druckkopf { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 18px; padding: 0 0 6px; margin: 0 0 8px; border-bottom: 2px solid #000; font-size: 9.5pt; }
   .druckkopf-titel { grid-column: 1 / -1; font-family: var(--technik); font-weight: 600; font-size: 15pt; }
   .druckkopf-quelle { grid-column: 1 / -1; color: #555; font-size: 8pt; }
+  .druck-qr { display: block; position: absolute; top: 0; right: 0; z-index: 5; background: #fff; text-align: center; font-size: 6.5pt; line-height: 1.2; color: #333; }
+  .druck-qr svg { display: block; }
+  .druck-qr span { display: block; margin-top: .6mm; }
+  .druck-qr.am-ende { position: static; float: right; width: max-content; margin: 0 0 3mm 5mm; }
+  .druck-qr.zu-lang { width: 42mm; padding: 1.5mm; border: 1px solid #999; text-align: left; font-size: 7pt; }
+  .druck-qr.zu-lang.am-ende { width: 42mm; }
+  body.mit-druck-qr main[data-eigenes-pdf] .tafel { clear: right; }
+  body.mit-druck-qr .druckkopf { padding-right: calc(var(--qr-breite, 22mm) + 4mm); min-height: calc(var(--qr-breite, 22mm) + 4mm); align-content: start; }
   .held { padding: 0 !important; }
   .held h1 { display: none; }
   .held > p { font-size: 9.5pt; max-width: none; margin: 0 0 6px; }

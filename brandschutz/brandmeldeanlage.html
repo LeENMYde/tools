@@ -787,6 +787,7 @@
 
     // ---------- Teilen (gemeinsames Muster aus basis.js) ----------
     $('teilen').addEventListener('click', function () { Teilen.url('anlage', P).then(function (url) { Teilen.kopieren(url, function (t) { $('teilenMeldung').textContent = t; setTimeout(function () { $('teilenMeldung').textContent = ''; }, 5000); }); }); });
+    Teilen.druckLink(function () { return Teilen.url('anlage', P); });
     const vorherKnopf = Teilen.knopf($('teilen').parentNode, SPEICHER, function (roh) {
       let p = null; try { p = JSON.parse(roh); } catch (e) { p = null; }
       if (!p || !pruefen(p)) { status('Keine gültige vorherige Planung gefunden.'); return; }

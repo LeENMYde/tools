@@ -2658,6 +2658,7 @@
     document.getElementById('planLink').addEventListener('click', function () {
       Teilen.url('dach', projekt).then(function (url) { Teilen.kopieren(url, planMelden); });
     });
+    Teilen.druckLink(function () { return Teilen.url('dach', projekt); });
     const vorherKnopf = Teilen.knopf(document.getElementById('planLink').parentNode, SCHLUESSEL, function (roh) {
       let p = null; try { p = planBereinigen(JSON.parse(roh)); } catch (e) { p = null; }
       if (!p || !planUebernehmen(p)) { planMelden('Kein gültiger vorheriger Plan gefunden.'); return; }

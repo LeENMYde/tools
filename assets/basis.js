@@ -406,6 +406,7 @@
       clearTimeout(uhr);
       uhr = setTimeout(sofort, 400);
     };
+    if (!druckLinkQuelle) Teilen.druckLink(function () { return Teilen.url('werte', zustandLesen(haupt)); });
     haupt.addEventListener('input', sichern, true);
     haupt.addEventListener('change', sichern, true);
     haupt.addEventListener('click', function (ev) { if (ev.target.closest('button')) sichern(); }, true);
@@ -450,6 +451,187 @@
       leiste.insertBefore(leiste.querySelector('.vorher-knopf'), leiste.querySelector('.teilen-meldung'));
     }
   }
+
+  // ---------- QR-Code (ISO/IEC 18004, Byte-Modus, Version 1–40) für den Link auf dem Ausdruck ----------
+  const QRCode = (function () {
+  function utf8(t) {
+    const b = [];
+    for (let i = 0; i < t.length; i++) {
+      let c = t.charCodeAt(i);
+      if (c >= 0xD800 && c <= 0xDBFF && i + 1 < t.length) { c = 0x10000 + ((c - 0xD800) << 10) + (t.charCodeAt(++i) - 0xDC00); }
+      if (c < 0x80) b.push(c); else if (c < 0x800) b.push(0xC0 | c >> 6, 0x80 | c & 63);
+      else if (c < 0x10000) b.push(0xE0 | c >> 12, 0x80 | c >> 6 & 63, 0x80 | c & 63);
+      else b.push(0xF0 | c >> 18, 0x80 | c >> 12 & 63, 0x80 | c >> 6 & 63, 0x80 | c & 63);
+    }
+    return b;
+  }
+  // Rechnen im Galoiskörper GF(256)
+  function gf(prim) {
+    const exp = [], log = []; let x = 1;
+    for (let i = 0; i < 255; i++) { exp[i] = x; log[x] = i; x <<= 1; if (x & 256) x ^= prim; }
+    for (let i = 255; i < 512; i++) exp[i] = exp[i - 255];
+    return { mul: function (a, b) { return a && b ? exp[log[a] + log[b]] : 0; }, exp: exp };
+  }
+
+  // ===== QR-Code (ISO/IEC 18004), Byte-Modus, Version 1 bis 40 =====
+  const QR_ECC = {
+    L: [-1, 7, 10, 15, 20, 26, 18, 20, 24, 30, 18, 20, 24, 26, 30, 22, 24, 28, 30, 28, 28, 28, 28, 30, 30, 26, 28, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30],
+    M: [-1, 10, 16, 26, 18, 24, 16, 18, 22, 22, 26, 30, 22, 22, 24, 24, 28, 28, 26, 26, 26, 26, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28],
+    Q: [-1, 13, 22, 18, 26, 18, 24, 18, 22, 20, 24, 28, 26, 24, 20, 30, 24, 28, 28, 26, 30, 28, 30, 30, 30, 30, 28, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30],
+    H: [-1, 17, 28, 22, 16, 22, 28, 26, 26, 24, 28, 24, 28, 22, 24, 24, 30, 28, 28, 26, 28, 30, 24, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30]
+  };
+  const QR_BLOECKE = {
+    L: [-1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 4, 4, 4, 4, 4, 6, 6, 6, 6, 7, 8, 8, 9, 9, 10, 12, 12, 12, 13, 14, 15, 16, 17, 18, 19, 19, 20, 21, 22, 24, 25],
+    M: [-1, 1, 1, 1, 2, 2, 4, 4, 4, 5, 5, 5, 8, 9, 9, 10, 10, 11, 13, 14, 16, 17, 17, 18, 20, 21, 23, 25, 26, 28, 29, 31, 33, 35, 37, 38, 40, 43, 45, 47, 49],
+    Q: [-1, 1, 1, 2, 2, 4, 4, 6, 6, 8, 8, 8, 10, 12, 16, 12, 17, 16, 18, 21, 20, 23, 23, 25, 27, 29, 34, 34, 35, 38, 40, 43, 45, 48, 51, 53, 56, 59, 62, 65, 68],
+    H: [-1, 1, 1, 2, 4, 4, 4, 5, 6, 8, 8, 11, 11, 16, 16, 18, 16, 19, 21, 25, 25, 25, 34, 30, 32, 35, 37, 40, 42, 45, 48, 51, 54, 57, 60, 63, 66, 70, 74, 77, 81]
+  };
+  const QR_FORMAT = { L: 1, M: 0, Q: 3, H: 2 };
+  const GQ = gf(0x11D);
+  function rohModule(v) { let r = (16 * v + 128) * v + 64; if (v >= 2) { const n = Math.floor(v / 7) + 2; r -= (25 * n - 10) * n - 55; if (v >= 7) r -= 36; } return r; }
+  function datenWorte(v, s) { return Math.floor(rohModule(v) / 8) - QR_ECC[s][v] * QR_BLOECKE[s][v]; }
+  function rsTeiler(grad, feld, start) {
+    const r = []; for (let i = 0; i < grad - 1; i++) r.push(0); r.push(1);
+    let wurzel = feld.exp[start];
+    for (let i = 0; i < grad; i++) { for (let j = 0; j < r.length; j++) { r[j] = feld.mul(r[j], wurzel); if (j + 1 < r.length) r[j] ^= r[j + 1]; } wurzel = feld.mul(wurzel, 2); }
+    return r;
+  }
+  function rsRest(daten, teiler, feld) {
+    const r = teiler.map(function () { return 0; });
+    daten.forEach(function (b) { const f = b ^ r.shift(); r.push(0); teiler.forEach(function (c, i) { r[i] ^= feld.mul(c, f); }); });
+    return r;
+  }
+  function qr(text, stufe) {
+    stufe = QR_ECC[stufe] ? stufe : 'M';
+    const daten = utf8(text);
+    let v = 1;
+    for (; v <= 40; v++) if (4 + (v <= 9 ? 8 : 16) + 8 * daten.length <= datenWorte(v, stufe) * 8) break;
+    if (v > 40) return null;
+    const bits = [];
+    function anhaengen(wert, n) { for (let i = n - 1; i >= 0; i--) bits.push((wert >>> i) & 1); }
+    anhaengen(4, 4); anhaengen(daten.length, v <= 9 ? 8 : 16); daten.forEach(function (b) { anhaengen(b, 8); });
+    const kap = datenWorte(v, stufe) * 8;
+    anhaengen(0, Math.min(4, kap - bits.length)); anhaengen(0, (8 - bits.length % 8) % 8);
+    for (let p = 0xEC; bits.length < kap; p ^= 0xEC ^ 0x11) anhaengen(p, 8);
+    const worte = []; for (let i = 0; i < bits.length; i += 8) { let b = 0; for (let j = 0; j < 8; j++) b = b << 1 | bits[i + j]; worte.push(b); }
+    // Fehlerkorrektur und Verschachtelung
+    const nb = QR_BLOECKE[stufe][v], ne = QR_ECC[stufe][v], roh = Math.floor(rohModule(v) / 8), kurz = nb - roh % nb, kl = Math.floor(roh / nb), teiler = rsTeiler(ne, GQ, 0), bl = [];
+    for (let i = 0, k = 0; i < nb; i++) { const d = worte.slice(k, k + kl - ne + (i < kurz ? 0 : 1)); k += d.length; const e = rsRest(d, teiler, GQ); if (i < kurz) d.push(0); bl.push(d.concat(e)); }
+    const alle = [];
+    for (let i = 0; i < bl[0].length; i++) for (let j = 0; j < bl.length; j++) if (i !== kl - ne || j >= kurz) alle.push(bl[j][i]);
+    // Muster zeichnen
+    const g = v * 4 + 17, m = [], fn = [];
+    for (let y = 0; y < g; y++) { m.push([]); fn.push([]); for (let x = 0; x < g; x++) { m[y].push(false); fn[y].push(false); } }
+    function setze(x, y, d) { m[y][x] = d; fn[y][x] = true; }
+    for (let i = 0; i < g; i++) { setze(6, i, i % 2 === 0); setze(i, 6, i % 2 === 0); }
+    [[3, 3], [g - 4, 3], [3, g - 4]].forEach(function (c) { for (let dy = -4; dy <= 4; dy++) for (let dx = -4; dx <= 4; dx++) { const d = Math.max(Math.abs(dx), Math.abs(dy)), x = c[0] + dx, y = c[1] + dy; if (x >= 0 && x < g && y >= 0 && y < g) setze(x, y, d !== 2 && d !== 4); } });
+    const pos = [];
+    if (v > 1) { const n = Math.floor(v / 7) + 2, s = v === 32 ? 26 : Math.ceil((v * 4 + 4) / (n * 2 - 2)) * 2; pos.push(6); for (let p = g - 7; pos.length < n; p -= s) pos.splice(1, 0, p); }
+    pos.forEach(function (a, i) { pos.forEach(function (b, j) { if ((i === 0 && j === 0) || (i === 0 && j === pos.length - 1) || (i === pos.length - 1 && j === 0)) return; for (let dy = -2; dy <= 2; dy++) for (let dx = -2; dx <= 2; dx++) setze(a + dx, b + dy, Math.max(Math.abs(dx), Math.abs(dy)) !== 1); }); });
+    function format(maske) {
+      const d = QR_FORMAT[stufe] << 3 | maske; let r = d; for (let i = 0; i < 10; i++) r = (r << 1) ^ ((r >>> 9) * 0x537);
+      const b = (d << 10 | r) ^ 0x5412, bit = function (i) { return ((b >>> i) & 1) !== 0; };
+      for (let i = 0; i <= 5; i++) setze(8, i, bit(i));
+      setze(8, 7, bit(6)); setze(8, 8, bit(7)); setze(7, 8, bit(8));
+      for (let i = 9; i < 15; i++) setze(14 - i, 8, bit(i));
+      for (let i = 0; i < 8; i++) setze(g - 1 - i, 8, bit(i));
+      for (let i = 8; i < 15; i++) setze(8, g - 15 + i, bit(i));
+      setze(8, g - 8, true);
+    }
+    format(0);
+    if (v >= 7) { let r = v; for (let i = 0; i < 12; i++) r = (r << 1) ^ ((r >>> 11) * 0x1F25); const b = v << 12 | r; for (let i = 0; i < 18; i++) { const d = ((b >>> i) & 1) !== 0, a = g - 11 + i % 3, c = Math.floor(i / 3); setze(a, c, d); setze(c, a, d); } }
+    // Datenmodule im Zickzack
+    let i = 0;
+    for (let rechts = g - 1; rechts >= 1; rechts -= 2) {
+      if (rechts === 6) rechts = 5;
+      for (let s = 0; s < g; s++) for (let j = 0; j < 2; j++) {
+        const x = rechts - j, hoch = ((rechts + 1) & 2) === 0, y = hoch ? g - 1 - s : s;
+        if (!fn[y][x] && i < alle.length * 8) { m[y][x] = ((alle[i >>> 3] >>> (7 - (i & 7))) & 1) !== 0; i++; }
+      }
+    }
+    const MASKE = [function (x, y) { return (x + y) % 2 === 0; }, function (x, y) { return y % 2 === 0; }, function (x) { return x % 3 === 0; }, function (x, y) { return (x + y) % 3 === 0; },
+      function (x, y) { return (Math.floor(x / 3) + Math.floor(y / 2)) % 2 === 0; }, function (x, y) { return x * y % 2 + x * y % 3 === 0; }, function (x, y) { return (x * y % 2 + x * y % 3) % 2 === 0; }, function (x, y) { return ((x + y) % 2 + x * y % 3) % 2 === 0; }];
+    function maskieren(k) { for (let y = 0; y < g; y++) for (let x = 0; x < g; x++) if (!fn[y][x] && MASKE[k](x, y)) m[y][x] = !m[y][x]; }
+    function strafe() {
+      let s = 0, dunkel = 0;
+      function zeile(get) {
+        let lauf = 1;
+        for (let k = 1; k <= g; k++) { if (k < g && get(k) === get(k - 1)) lauf++; else { if (lauf >= 5) s += 3 + lauf - 5; lauf = 1; } }
+        for (let k = 0; k + 11 <= g; k++) {
+          const a = [1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0], b = [0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1];
+          let pa = true, pb = true; for (let t = 0; t < 11; t++) { const w = get(k + t) ? 1 : 0; if (w !== a[t]) pa = false; if (w !== b[t]) pb = false; }
+          if (pa) s += 40; if (pb) s += 40;
+        }
+      }
+      for (let y = 0; y < g; y++) zeile(function (x) { return m[y][x]; });
+      for (let x = 0; x < g; x++) zeile(function (y) { return m[y][x]; });
+      for (let y = 0; y < g - 1; y++) for (let x = 0; x < g - 1; x++) { const c = m[y][x]; if (c === m[y][x + 1] && c === m[y + 1][x] && c === m[y + 1][x + 1]) s += 3; }
+      for (let y = 0; y < g; y++) for (let x = 0; x < g; x++) if (m[y][x]) dunkel++;
+      return s + (Math.ceil(Math.abs(dunkel * 20 - g * g * 10) / (g * g)) - 1) * 10;
+    }
+    let beste = 0, min = Infinity;
+    for (let k = 0; k < 8; k++) { maskieren(k); format(k); const p = strafe(); if (p < min) { min = p; beste = k; } maskieren(k); }
+    maskieren(beste); format(beste);
+    return { matrix: m, rand: 4, info: 'QR-Code Version ' + v + ' (' + g + ' × ' + g + '), Fehlerkorrektur ' + stufe };
+  }
+    return { matrix: function (text, stufe) { return qr(text, stufe); } };
+  })();
+  window.QRCode = QRCode;
+
+  // ---------- QR-Code mit dem Link zum Stand auf der ersten Druckseite ----------
+  // Quelle: Seiten mit data-merken automatisch, Planer melden sich mit Teilen.druckLink(function () { return Teilen.url(…); }).
+  // Der Code wird nach Änderungen vorbereitet, weil der Druck nicht auf Promises wartet.
+  let druckLinkQuelle = null, druckQr = null, druckQrUhr = null, druckQrStand = '';
+  const QR_MODUL_MM = 0.33, QR_MIN_MM = 22;
+  Teilen.druckLink = function (quelle) { druckLinkQuelle = quelle; druckQrPlanen(); };
+  function druckQrElement() {
+    if (druckQr) return druckQr;
+    druckQr = document.createElement('div');
+    druckQr.className = 'druck-qr';
+    druckQr.setAttribute('aria-hidden', 'true');
+    // Seiten mit eigenem Druckbild (Protokolle): Code rechts oben umflossen, damit er nichts überdeckt
+    const eigen = document.querySelector('main[data-eigenes-pdf]');
+    if (eigen) { druckQr.classList.add('am-ende'); eigen.insertBefore(druckQr, eigen.firstChild); } else document.body.append(druckQr);
+    return druckQr;
+  }
+  function druckQrPlanen() { clearTimeout(druckQrUhr); druckQrUhr = setTimeout(druckQrJetzt, 700); }
+  function druckQrJetzt() {
+    clearTimeout(druckQrUhr);
+    if (!druckLinkQuelle || !/^https?:$/.test(location.protocol)) return Promise.resolve();
+    let p;
+    try { p = Promise.resolve(druckLinkQuelle()); } catch (e) { p = Promise.reject(e); }
+    return p.then(function (url) {
+      if (typeof url !== 'string' || !url || url === druckQrStand) return;
+      druckQrStand = url;
+      const el = druckQrElement();
+      el.innerHTML = '';
+      let q = QRCode.matrix(url, 'M');
+      if (!q || q.matrix.length > 97) q = QRCode.matrix(url, 'L');          // ab Version 21 lieber mehr Platz für Daten
+      if (!q) {
+        el.className = 'druck-qr zu-lang' + (el.parentNode.tagName === 'MAIN' ? ' am-ende' : '');
+        el.textContent = 'Stand zu groß für einen QR-Code (' + url.length.toLocaleString('de-DE') + ' Zeichen) – Link kopieren oder als Datei speichern.';
+        document.body.style.setProperty('--qr-breite', '42mm');
+        return;
+      }
+      const g = q.matrix.length, r = 4, n = g + 2 * r, mm = Math.max(QR_MIN_MM, n * QR_MODUL_MM);
+      let d = '';
+      for (let y = 0; y < g; y++) {
+        let x = 0;
+        while (x < g) {
+          if (!q.matrix[y][x]) { x++; continue; }
+          let l = 1; while (x + l < g && q.matrix[y][x + l]) l++;
+          d += 'M' + (x + r) + ' ' + (y + r) + 'h' + l + 'v1h-' + l + 'z';
+          x += l;
+        }
+      }
+      el.className = 'druck-qr' + (el.parentNode.tagName === 'MAIN' ? ' am-ende' : '');
+      el.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + n + ' ' + n + '" shape-rendering="crispEdges" style="width:' + mm.toFixed(1) + 'mm;height:' + mm.toFixed(1) + 'mm"><rect width="' + n + '" height="' + n + '" fill="#fff"/><path fill="#000" d="' + d + '"/></svg><span>Scannen öffnet diesen Stand</span>';
+      document.body.style.setProperty('--qr-breite', mm.toFixed(1) + 'mm');
+    }).catch(function () { /* ohne Link kein Code */ });
+  }
+  window.addEventListener('load', druckQrPlanen);
+  ['input', 'change', 'click', 'pointerup', 'keyup'].forEach(function (art) { document.addEventListener(art, druckQrPlanen, true); });
+  window.addEventListener('beforeprint', function () { if (druckQr) document.body.classList.add('mit-druck-qr'); });
 
   // ---------- PDF-Export (über den Druckdialog „Als PDF speichern“) ----------
   // Jede Seite mit <main> bekommt einen Knopf; Kopf mit Bauvorhaben, Bearbeiter und Datum,
@@ -507,7 +689,7 @@
       i.addEventListener('input', function () { const a = pdfAngaben(); a[i.getAttribute('data-k')] = i.value.slice(0, 120); try { localStorage.setItem(PDF_SPEICHER, JSON.stringify(a)); } catch (e) { /* ohne Speicher */ } });
     });
     knopf.addEventListener('click', function () { form.hidden = !form.hidden; knopf.setAttribute('aria-expanded', String(!form.hidden)); if (!form.hidden) form.querySelector('input').focus(); });
-    form.querySelector('.knopf-haupt').addEventListener('click', function () { window.print(); });
+    form.querySelector('.knopf-haupt').addEventListener('click', function () { druckQrJetzt().then(function () { window.print(); }); });
     // vor und nach dem Druck
     let geoeffnet = [], titelAlt = document.title;
     window.addEventListener('beforeprint', function () {
