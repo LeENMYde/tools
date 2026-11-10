@@ -98,6 +98,57 @@
   };
 
 
+  // ---------- Favoriten: nur in diesem Browser gespeichert ----------
+  // Liste von Pfaden relativ zur Startseite, z. B. "it/usv.html"; Ereignis „favoritenwechsel“ bei jeder Änderung
+  const FAV_SPEICHER = 'favoriten-1';
+  const FAV_MUSTER = /^[a-z0-9][a-z0-9-]{0,60}(\/[a-z0-9][a-z0-9-]{0,60})?\.html$/;
+  let favNotfall = [];   // falls der Browser keinen Speicher erlaubt: wenigstens bis zum Neuladen
+  function favLesen() {
+    let a = null;
+    try { a = JSON.parse(localStorage.getItem(FAV_SPEICHER) || 'null'); } catch (e) { a = null; }
+    if (!Array.isArray(a)) a = favNotfall;
+    return a.filter(function (p, i) { return typeof p === 'string' && FAV_MUSTER.test(p) && p !== 'index.html' && a.indexOf(p) === i; }).slice(0, 300);
+  }
+  function favSchreiben(a) {
+    favNotfall = a.slice();
+    try { localStorage.setItem(FAV_SPEICHER, JSON.stringify(a)); } catch (e) { /* privates Fenster */ }
+    document.dispatchEvent(new CustomEvent('favoritenwechsel'));
+  }
+  // Pfad dieser Seite relativ zur Startseite (aus data-wurzel); null auf der Startseite
+  function favPfadHier() {
+    const kopf = document.getElementById('seitenkopf');
+    const tiefe = ((kopf && kopf.getAttribute('data-wurzel')) || '').split('../').length - 1;
+    const teile = location.pathname.split('/').filter(Boolean);
+    let p = '';
+    try { p = teile.slice(-(tiefe + 1)).map(decodeURIComponent).join('/'); } catch (e) { return null; }
+    return FAV_MUSTER.test(p) && p !== 'index.html' ? p : null;
+  }
+  window.Favoriten = {
+    liste: favLesen,
+    ist: function (p) { return favLesen().indexOf(p) >= 0; },
+    setze: function (p, an) {
+      if (typeof p !== 'string' || !FAV_MUSTER.test(p)) return;
+      const a = favLesen().filter(function (x) { return x !== p; });
+      if (an) a.push(p);
+      favSchreiben(a);
+    },
+    umschalten: function (p) { const an = !this.ist(p); this.setze(p, an); return an; },
+    hier: favPfadHier
+  };
+  window.addEventListener('storage', function (ev) { if (ev.key === FAV_SPEICHER) document.dispatchEvent(new CustomEvent('favoritenwechsel')); });
+  const STERN = '<svg viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.8l2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3-4.6-4.4 6.3-.9z"/></svg>';
+  window.Favoriten.stern = STERN;
+  function favKnopfAktualisieren() {
+    const p = favPfadHier();
+    document.querySelectorAll('.favorit-schalter').forEach(function (k) {
+      const an = !!p && favLesen().indexOf(p) >= 0;
+      k.setAttribute('aria-pressed', String(an));
+      k.setAttribute('aria-label', an ? 'Aus den Favoriten entfernen' : 'Zu den Favoriten hinzufügen');
+      k.title = an ? 'Favorit – auf der Übersicht unter „Favoriten“' : 'Als Favorit merken';
+    });
+  }
+  document.addEventListener('favoritenwechsel', favKnopfAktualisieren);
+
   // ---------- Kopf- und Fußzeile ----------
   function kopfBauen() {
     const ziel = document.getElementById('seitenkopf');
@@ -116,6 +167,7 @@
           '<a class="optional" href="' + wurzel + 'index.html#bereiche">Bereiche</a>' +
           '<a class="optional" href="' + wurzel + 'projektmappe.html"' + (/projektmappe\.html$/.test(location.pathname) ? ' aria-current="page"' : '') + '>Projekte</a>' +
           '<button type="button" class="installieren" hidden>App installieren</button>' +
+          (hier !== 'start' && favPfadHier() ? '<button type="button" class="favorit-schalter" aria-pressed="false">' + STERN + '</button>' : '') +
           '<button type="button" class="themenschalter"></button>' +
         '</nav>' +
       '</header>';
@@ -123,6 +175,11 @@
       themaSetzen(aktuellesThema() === 'dunkel' ? 'hell' : 'dunkel', true);
     });
     schalterAktualisieren();
+    const fav = ziel.querySelector('.favorit-schalter');
+    if (fav) {
+      fav.addEventListener('click', function () { const p = favPfadHier(); if (p) window.Favoriten.umschalten(p); });
+      favKnopfAktualisieren();
+    }
     const inst = ziel.querySelector('.installieren');
     if (installAngebot) inst.hidden = false;
     inst.addEventListener('click', function () {

@@ -59,7 +59,19 @@
     .karte .formelbild { min-height: 54px; font-size: 1.05rem; padding: 10px; }
     .karte h3 { font-size: 1.25rem; }
     .karte p { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; font-size: .92rem; }
-    .karte .stichworte { margin-top: auto; color: var(--leise); font-size: .84rem; }
+    .karte .stichworte { margin-top: auto; color: var(--leise); font-size: .84rem; padding-right: 40px; }
+    .karte-huelle { position: relative; display: flex; min-width: 0; transition: transform .15s; }
+    .karte-huelle > .karte { flex: 1 1 auto; min-width: 0; }
+    .karte-huelle:hover { transform: translateY(-2px); }
+    .karte-huelle > .karte:hover { transform: none; }
+    .stern {
+      position: absolute; right: 12px; bottom: 10px; width: 34px; height: 34px; padding: 0; border-radius: 50%;
+      border: 1px solid var(--linie); background: var(--flaeche); color: var(--leise); cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .reiter .fav-zeichen { color: #D98A0B; font-size: .95rem; line-height: 1; }
+    .reiter button[aria-pressed="true"] .fav-zeichen { color: #F2A541; }
+    .fav-hinweis { color: var(--leise); margin: 6px 0 0; font-size: .92rem; }
 
     .leer { color: var(--leise); padding: 20px 0; }
   </style>
@@ -657,30 +669,45 @@
       if (bereiche.indexOf(b) < 0 && eintraege.some(function (e) { return imBereich(e, b); })) bereiche.push(b);
     });
 
+    // Favoriten: Pfade aus basis.js, nur solche, die es (noch) gibt; in der Reihenfolge des Merkens
+    const FAV = '\u2605';   // eigener Reiter-Wert für „Favoriten“
+    const FAV_AUSWAHL = 'uebersicht-auswahl';
+    function favoriten() {
+      const liste = window.Favoriten ? window.Favoriten.liste() : [];
+      return liste.map(function (p) { return eintraege.filter(function (e) { return e.pfad === p; })[0]; }).filter(Boolean);
+    }
+    function istFavorit(e) { return !!window.Favoriten && window.Favoriten.ist(e.pfad); }
+
     let auswahl = '';
+    try { if (sessionStorage.getItem(FAV_AUSWAHL) === FAV) auswahl = FAV; } catch (x) { /* ohne Speicher */ }
     const reiter = document.getElementById('reiter');
-    [''].concat(bereiche).forEach(function (b) {
-      const k = document.createElement('button');
-      k.type = 'button';
-      k.style.setProperty('--farbe', b ? farbe(b) : 'var(--leise)');
-      const anzahl = b ? eintraege.filter(function (e) { return imBereich(e, b); }).length : eintraege.length;
-      k.innerHTML = (b ? '<i aria-hidden="true"></i>' : '') + '<span></span> <small>' + anzahl + '</small>';
-      k.querySelector('span').textContent = b || 'Alle';
-      k.setAttribute('aria-pressed', String(b === auswahl));
-      k.addEventListener('click', function () {
-        auswahl = b;
-        reiter.querySelectorAll('button').forEach(function (x, i) { x.setAttribute('aria-pressed', String(([''].concat(bereiche))[i] === auswahl)); });
-        zeigen();
+    function reiterBauen() {
+      reiter.innerHTML = '';
+      [''].concat([FAV], bereiche).forEach(function (b) {
+        const k = document.createElement('button');
+        k.type = 'button';
+        k.style.setProperty('--farbe', b && b !== FAV ? farbe(b) : 'var(--leise)');
+        const anzahl = b === FAV ? favoriten().length : b ? eintraege.filter(function (e) { return imBereich(e, b); }).length : eintraege.length;
+        k.innerHTML = (b === FAV ? '<b class="fav-zeichen" aria-hidden="true">\u2605</b>' : b ? '<i aria-hidden="true"></i>' : '') + '<span></span> <small>' + anzahl + '</small>';
+        k.querySelector('span').textContent = b === FAV ? 'Favoriten' : b || 'Alle';
+        k.setAttribute('aria-pressed', String(b === auswahl));
+        k.addEventListener('click', function () {
+          auswahl = b;
+          try { sessionStorage.setItem(FAV_AUSWAHL, auswahl === FAV ? FAV : ''); } catch (x) { /* ohne Speicher */ }
+          reiterBauen();
+          zeigen();
+        });
+        reiter.append(k);
       });
-      reiter.append(k);
-    });
+    }
+    reiterBauen();
 
     document.getElementById('suchfeld').addEventListener('input', zeigen);
 
     function passt(e) {
       const suche = document.getElementById('suchfeld').value.trim().toLowerCase();
       const alles = [e.titel, e.text, e.bereich, e.gruppe || ''].concat(e.auchIn || []).concat(e.themen).join(' ').toLowerCase();
-      return (!auswahl || imBereich(e, auswahl)) && (!suche || suche.split(/\s+/).every(function (w) { return alles.indexOf(w) >= 0; }));
+      return (!auswahl || (auswahl === FAV ? istFavorit(e) : imBereich(e, auswahl))) && (!suche || suche.split(/\s+/).every(function (w) { return alles.indexOf(w) >= 0; }));
     }
 
     function karte(e) {
@@ -698,30 +725,86 @@
       const p = document.createElement('p'); p.textContent = e.text;
       const w = document.createElement('div'); w.className = 'stichworte'; w.textContent = e.themen.slice(0, 3).join(' · ');
       a.append(h, p, w);
-      return a;
+      const huelle = document.createElement('div');
+      huelle.className = 'karte-huelle';
+      const st = document.createElement('button');
+      st.type = 'button';
+      st.className = 'stern';
+      st.setAttribute('data-pfad', e.pfad);
+      st.innerHTML = window.Favoriten ? window.Favoriten.stern : '\u2605';
+      const an = istFavorit(e);
+      st.setAttribute('aria-pressed', String(an));
+      st.setAttribute('aria-label', (an ? 'Aus den Favoriten entfernen: ' : 'Zu den Favoriten: ') + e.titel);
+      st.title = an ? 'Aus den Favoriten entfernen' : 'Als Favorit merken';
+      st.addEventListener('click', function () { if (window.Favoriten) window.Favoriten.umschalten(e.pfad); });
+      huelle.append(a, st);
+      return huelle;
+    }
+
+    // Nach jeder Änderung (auch aus einem anderen Tab) neu zeichnen; der Fokus bleibt auf dem Stern
+    document.addEventListener('favoritenwechsel', function () {
+      const fokus = document.activeElement && document.activeElement.getAttribute ? document.activeElement.getAttribute('data-pfad') : null;
+      const imBereichFokus = document.activeElement && document.activeElement.closest ? document.activeElement.closest('section.bereich') : null;
+      const favAbschnitt = !!(imBereichFokus && imBereichFokus.classList.contains('favoriten'));
+      reiterBauen();
+      zeigen();
+      if (fokus) {
+        const alle = Array.prototype.slice.call(document.querySelectorAll('.stern'));
+        const ziel = alle.filter(function (k) { return k.getAttribute('data-pfad') === fokus && !!k.closest('section.favoriten') === favAbschnitt; })[0] ||
+          alle.filter(function (k) { return k.getAttribute('data-pfad') === fokus; })[0];
+        if (ziel) ziel.focus(); else if (reiter.querySelector('[aria-pressed="true"]')) reiter.querySelector('[aria-pressed="true"]').focus();
+      }
+    });
+
+    function abschnittBauen(titel, f, liste, klasse) {
+      const abschnitt = document.createElement('section');
+      abschnitt.className = 'bereich' + (klasse ? ' ' + klasse : '');
+      abschnitt.style.setProperty('--farbe', f);
+      const kopf = document.createElement('div');
+      kopf.className = 'bereich-kopf';
+      kopf.innerHTML = '<i aria-hidden="true"></i><h2></h2><span></span>';
+      kopf.querySelector('h2').textContent = titel;
+      kopf.querySelector('span').textContent = liste.length + (liste.length === 1 ? ' Seite' : ' Seiten');
+      abschnitt.append(kopf);
+      return abschnitt;
+    }
+    function favoritenZeigen(ziel, mitHinweis) {
+      const liste = favoriten().filter(passt);
+      if (!liste.length) return false;
+      const abschnitt = abschnittBauen('Favoriten', '#F2A541', liste, 'favoriten');
+      const raster = document.createElement('div');
+      raster.className = 'raster';
+      raster.style.marginTop = '14px';
+      liste.forEach(function (e) { raster.append(karte(e)); });
+      abschnitt.append(raster);
+      if (mitHinweis) { const t = document.createElement('p'); t.className = 'fav-hinweis'; t.textContent = 'Nur in diesem Browser gespeichert. Stern antippen, um eine Seite zu entfernen.'; abschnitt.append(t); }
+      ziel.append(abschnitt);
+      return true;
     }
 
     function zeigen() {
       const ziel = document.getElementById('liste');
       ziel.innerHTML = '';
+      const suche = document.getElementById('suchfeld').value.trim();
+      if (auswahl === FAV) {
+        if (!favoritenZeigen(ziel, true)) {
+          ziel.innerHTML = favoriten().length
+            ? '<p class="leer">Keiner deiner Favoriten passt zur Suche.</p>'
+            : '<p class="leer">Noch keine Favoriten. Tippe auf den Stern unten rechts an einer Karte oder oben auf einer Seite, um sie hier zu sammeln.</p>';
+        }
+        return;
+      }
       const treffer = eintraege.filter(passt);
       if (!treffer.length) {
         ziel.innerHTML = '<p class="leer">Nichts gefunden. Anderen Begriff versuchen oder „Alle“ wählen.</p>';
         return;
       }
+      if (!auswahl && !suche) favoritenZeigen(ziel, false);   // Übersicht: Favoriten zuerst
       bereiche.forEach(function (b) {
         if (auswahl && b !== auswahl) return;   // gewählter Reiter: nur dieser Bereich
         const liste = treffer.filter(function (e) { return imBereich(e, b); });
         if (!liste.length) return;
-        const abschnitt = document.createElement('section');
-        abschnitt.className = 'bereich';
-        abschnitt.style.setProperty('--farbe', farbe(b));
-        const kopf = document.createElement('div');
-        kopf.className = 'bereich-kopf';
-        kopf.innerHTML = '<i aria-hidden="true"></i><h2></h2><span></span>';
-        kopf.querySelector('h2').textContent = b;
-        kopf.querySelector('span').textContent = liste.length + (liste.length === 1 ? ' Seite' : ' Seiten');
-        abschnitt.append(kopf);
+        const abschnitt = abschnittBauen(b, farbe(b), liste);
         // Untergruppen, falls vorhanden; sonst ein Raster
         const gruppen = [];
         GRUPPEN.concat(liste.map(function (e) { return gruppeIn(e, b); })).forEach(function (gr) {
