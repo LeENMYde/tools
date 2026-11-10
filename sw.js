@@ -5,12 +5,13 @@
  * Bilder, Schriften, Skripte: sofort aus dem Speicher, im Hintergrund aufgefrischt.
  * Neue Seite? Unten in DATEIEN eintragen und STAND ändern.
  */
-const STAND = '88c0272f05';
+const STAND = 'b68a93135b';
 const SPEICHER = 'rechner-' + STAND;
 const DATEIEN = [
   "./",
   "index.html",
   "arbeitsschutz/heben-tragen.html",
+  "arbeitsschutz/klima-hitze.html",
   "arbeitsschutz/laerm-vibration.html",
   "assets/basis.js",
   "assets/katex/fonts/KaTeX_AMS-Regular.woff2",
