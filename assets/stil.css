@@ -153,6 +153,20 @@ button b, button strong, .karte h3 { hyphens: auto; -webkit-hyphens: auto; }
   display: inline-flex; align-items: center; justify-content: center;
 }
 .themenschalter svg { width: 18px; height: 18px; }
+.favorit-schalter {
+  width: 38px; height: 38px;
+  border: 1px solid var(--linie);
+  border-radius: 50%;
+  background: var(--flaeche);
+  color: var(--leise);
+  cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 0;
+}
+.favorit-schalter svg, .stern svg { width: 18px; height: 18px; fill: none; stroke: currentColor; }
+.favorit-schalter:hover, .stern:hover { color: var(--text); border-color: var(--leise); }
+.favorit-schalter[aria-pressed="true"], .stern[aria-pressed="true"] { color: #D98A0B; border-color: #D98A0B; }
+.favorit-schalter[aria-pressed="true"] svg, .stern[aria-pressed="true"] svg { fill: #F2A541; stroke: #D98A0B; }
 
 @media (max-width: 560px) { .seitenkopf nav a.optional { display: none; } }
 
@@ -405,7 +419,7 @@ ol.weg li::before {
     --ergebnis: #0E6B6A; --ergebnis-flaeche: #E6F3F1; --fehler: #B42318; --fehler-flaeche: #FDECEA; --achtung-flaeche: #FFF4E0;
   }
   body { background: #FFFFFF; }
-  .seitenkopf, .seitenfuss, .sprung, .installieren, .themenschalter, .knopf-leise, .zoom { display: none !important; }
+  .seitenkopf, .seitenfuss, .sprung, .installieren, .themenschalter, .favorit-schalter, .stern, .knopf-leise, .zoom { display: none !important; }
   .tafel, .karte { box-shadow: none !important; border: 1px solid #C8D0D5; break-inside: avoid-page; }
   .seite { max-width: none; padding: 0; }
   a { text-decoration: none; }
