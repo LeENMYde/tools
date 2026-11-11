@@ -98,7 +98,7 @@
           { k: 'stunden', name: 'Volllaststunden im Jahr', e: 'h', min: 0, max: 8760 }, { k: 'preis', name: 'Strompreis', e: 'ct/kWh', min: 0, max: 200 }
         ] }
       ],
-      beispiel: { netz: 'ac1', udc: 48, strom: 16, cos: 0.95, laenge: 35, quer: 2.5, werk: 'cu', temp: 50, grenze: 3, stunden: 1000, preis: 35 },
+      beispiel: { netz: 'ac1', udc: 48, strom: 16, cos: 0.95, laenge: 25, quer: 2.5, werk: 'cu', temp: 50, grenze: 3, stunden: 1000, preis: 35 },
       rechne: function (e) {
         const r = fall(e, e.quer);
         r.ok = r.proz <= e.grenze; r.Uende = r.U - r.dU;
@@ -127,7 +127,7 @@
         H.tabelle('Alle Querschnitte im Vergleich', ['Querschnitt', 'Spannungsfall', 'in %', 'Verlust', 'Kosten je Jahr', 'größte Länge'], QUER.filter(function (q) { return q >= e.quer / 4 && q <= e.quer * 10; }).slice(0, 9).map(function (q) {
           const f = fall(e, q);
           return [z(q, q % 1 ? 1 : 0) + ' mm²', z(f.dU, 2) + ' V', z(f.proz, 2) + (f.proz > e.grenze ? ' ✕' : ''), z(f.Pv, 0) + ' W', z(f.Pv * e.stunden / 1000 * e.preis / 100, 2) + ' €', z(e.laenge * e.grenze / f.proz, 0) + ' m'];
-        }), { zahl: [1, 2, 3, 4, 5], klasse: function (j) { return ''; }, fuss: '✕ über dem zulässigen Spannungsfall.' });
+        }), { zahl: [1, 2, 3, 4, 5], fuss: '✕ über dem zulässigen Spannungsfall.' });
       },
       weg: function (r, e) {
         const dc = e.netz === 'dc';

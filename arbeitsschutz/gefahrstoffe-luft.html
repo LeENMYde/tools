@@ -88,7 +88,7 @@
           { k: 'schicht', tex: 't', name: 'Aufenthalt', e: 'h', min: 0.1, max: 12 }
         ] }
       ],
-      beispiel: { stoff: 'aceton', ml: 500, gramm: 5, dauer: 60, volumen: 150, n: 1, misch: 2, schicht: 2 },
+      beispiel: { stoff: 'aceton', ml: 150, gramm: 5, dauer: 60, volumen: 150, n: 2, misch: 2, schicht: 2 },
       rechne: function (e) {
         const S = STOFF[e.stoff], r = { S: S };
         r.m = S[3] > 0 ? e.ml * S[3] : e.gramm;                         // g

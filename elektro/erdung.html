@@ -128,7 +128,7 @@
         H.tabelle('Potentialtrichter bei ' + z(e.ifehler, 1) + ' A', ['Abstand', 'Potential', 'Schrittspannung'], [0.5, 1, 2, 5, 10, 20, 50].map(function (x) { return [z(x, 1) + ' m', z(r.phi(x), 1) + ' V', z(r.phi(x) - r.phi(x + e.schritt), 1) + ' V']; }), { zahl: [1, 2] });
       },
       weg: function (r, e) {
-        const f = e.art === 'tief' ? 'R = \\frac{\\rho}{2\\pi l} \\ln\\frac{4 l}{d} = \\frac{' + tz(e.rho, 0) + '}{2\\pi \\cdot ' + tz(e.laenge, 1) + '} \\ln\\frac{4 \\cdot ' + tz(e.laenge, 1) + '}{' + tz(e.durchm / 1000, 3) + '}' : e.art === 'band' ? 'R = \\frac{\\rho}{\\pi l} \\ln\\frac{2 l}{d} = \\frac{' + tz(e.rho, 0) + '}{\\pi \\cdot ' + tz(e.laenge, 1) + '} \\ln\\frac{2 \\cdot ' + tz(e.laenge, 1) + '}{' + tz(e.durchm / 1000, 3) + '}' : 'R = \\frac{2 \\rho}{3 D}, \; D = 1{,}13 \\sqrt{A} = ' + tz(1.13 * Math.sqrt(e.flaeche), 1) + '\\,\\text{m}';
+        const f = e.art === 'tief' ? 'R = \\frac{\\rho}{2\\pi l} \\ln\\frac{4 l}{d} = \\frac{' + tz(e.rho, 0) + '}{2\\pi \\cdot ' + tz(e.laenge, 1) + '} \\ln\\frac{4 \\cdot ' + tz(e.laenge, 1) + '}{' + tz(e.durchm / 1000, 3) + '}' : e.art === 'band' ? 'R = \\frac{\\rho}{\\pi l} \\ln\\frac{2 l}{d} = \\frac{' + tz(e.rho, 0) + '}{\\pi \\cdot ' + tz(e.laenge, 1) + '} \\ln\\frac{2 \\cdot ' + tz(e.laenge, 1) + '}{' + tz(e.durchm / 1000, 3) + '}' : 'R = \\frac{2 \\rho}{3 D}, \\; D = 1{,}13 \\sqrt{A} = ' + tz(1.13 * Math.sqrt(e.flaeche), 1) + '\\,\\text{m}';
         return [
           ['Ausbreitungswiderstand eines Erders', f + ' = ' + E(u(r.R1, 2, 'Ω'))],
           ['Mehrere Erder', e.anzahl > 1 ? 'R = 1{,}1 \\cdot \\frac{' + tz(r.R1, 2) + '}{' + e.anzahl + '} = ' + E(u(r.R, 2, 'Ω')) : 'R = ' + E(u(r.R, 2, 'Ω'))],

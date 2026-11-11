@@ -89,7 +89,7 @@
           { k: 'netz', name: 'aus dem Trinkwassernetz lieferbar', e: 'm³/h', min: 0, max: 400, hilfe: 'Auskunft des Wasserversorgers. Den Rest müssen Löschteich, Zisterne oder Löschwasserbrunnen im Umkreis von 300 m decken.' }
         ] }
       ],
-      beispiel: { lang: 40, breit: 25, geschosse: 2, gef: 1, beschaeftigte: 60, geraet: 's6', weg: 20, wasser: 96, dauer: 2, netz: 48 },
+      beispiel: { lang: 40, breit: 25, geschosse: 2, gef: 1, beschaeftigte: 60, geraet: 's6', weg: 20, wasser: 96, dauer: 2, netz: 96 },
       rechne: function (e) {
         const r = {};
         r.A = e.lang * e.breit; r.leGrund = leSoll(r.A); r.leSoll = r.leGrund * e.gef; r.le = leGeraet(e.geraet);
