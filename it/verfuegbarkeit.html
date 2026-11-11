@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Verfügbarkeit und Ausfallzeit – Formeln &amp; Rechner</title>
+  <meta name="description" content="Verfügbarkeit einer Kette berechnen: MTBF und MTTR je Komponente, Reihen- und Parallelschaltung, Ausfallzeit je Jahr und Monat, Vergleich mit der zugesagten Verfügbarkeit, Kosten des Stillstands und schwächstes Glied – mit Zufallssimulation über zehn Jahre.">
+  <!-- seo -->
+  <link rel="canonical" href="https://tools.pr1m3.de/it/verfuegbarkeit.html">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Formeln &amp; Rechner">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:title" content="Verfügbarkeit und Ausfallzeit">
+  <meta property="og:description" content="Verfügbarkeit einer Kette berechnen: MTBF und MTTR je Komponente, Reihen- und Parallelschaltung, Ausfallzeit je Jahr und Monat, Vergleich mit der zugesagten Verfügbarkeit, Kosten des Stillstands und schwächstes Glied – mit Zufallssimulation über zehn Jahre.">
+  <meta property="og:url" content="https://tools.pr1m3.de/it/verfuegbarkeit.html">
+  <meta property="og:image" content="https://tools.pr1m3.de/assets/symbol-512.png">
+  <meta property="og:image:alt" content="Formeln &amp; Rechner">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Verfügbarkeit und Ausfallzeit">
+  <meta name="twitter:description" content="Verfügbarkeit einer Kette berechnen: MTBF und MTTR je Komponente, Reihen- und Parallelschaltung, Ausfallzeit je Jahr und Monat, Vergleich mit der zugesagten Verfügbarkeit, Kosten des Stillstands und schwächstes Glied – mit Zufallssimulation über zehn Jahre.">
+  <meta name="twitter:image" content="https://tools.pr1m3.de/assets/symbol-512.png">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://tools.pr1m3.de/it/verfuegbarkeit.html#seite","name":"Verfügbarkeit und Ausfallzeit","url":"https://tools.pr1m3.de/it/verfuegbarkeit.html","inLanguage":"de","description":"Verfügbarkeit einer Kette berechnen: MTBF und MTTR je Komponente, Reihen- und Parallelschaltung, Ausfallzeit je Jahr und Monat, Vergleich mit der zugesagten Verfügbarkeit, Kosten des Stillstands und schwächstes Glied – mit Zufallssimulation über zehn Jahre.","isPartOf":{"@type":"WebSite","@id":"https://tools.pr1m3.de/#website","name":"Formeln & Rechner","url":"https://tools.pr1m3.de/"},"breadcrumb":{"@id":"https://tools.pr1m3.de/it/verfuegbarkeit.html#pfad"},"dateModified":"2026-11-11"},{"@type":"BreadcrumbList","@id":"https://tools.pr1m3.de/it/verfuegbarkeit.html#pfad","itemListElement":[{"@type":"ListItem","position":1,"name":"Formeln & Rechner","item":"https://tools.pr1m3.de/"},{"@type":"ListItem","position":2,"name":"Verfügbarkeit und Ausfallzeit","item":"https://tools.pr1m3.de/it/verfuegbarkeit.html"}]},{"@type":"FAQPage","@id":"https://tools.pr1m3.de/it/verfuegbarkeit.html#fragen","mainEntity":[{"@type":"Question","name":"Wie viel Ausfall bedeuten 99,9 % Verfügbarkeit?","acceptedAnswer":{"@type":"Answer","text":"8,76 Stunden im Jahr, 44 Minuten im Monat oder 10 Minuten in der Woche. Bei 99,99 % sind es 53 Minuten im Jahr, bei 99 % schon mehr als dreieinhalb Tage."}},{"@type":"Question","name":"Wie berechnet man die Verfügbarkeit mehrerer Komponenten?","acceptedAnswer":{"@type":"Answer","text":"Hängen sie in Reihe – jede muss laufen –, multipliziert man die Einzelwerte. Sechs Komponenten mit je 99,9 % ergeben nur noch 99,4 %. Sind Geräte redundant, multipliziert man die Ausfallwahrscheinlichkeiten: zwei Geräte mit je 99 % erreichen zusammen 99,99 %."}},{"@type":"Question","name":"Was bedeuten MTBF und MTTR?","acceptedAnswer":{"@type":"Answer","text":"MTBF ist die mittlere Betriebsdauer zwischen zwei Ausfällen, MTTR die mittlere Zeit bis zur Wiederherstellung. Die Verfügbarkeit ist MTBF geteilt durch MTBF plus MTTR. Eine kürzere Reparaturzeit verbessert sie genauso wie zuverlässigere Hardware."}},{"@type":"Question","name":"Bedeutet eine MTBF von einer Million Stunden 114 Jahre Lebensdauer?","acceptedAnswer":{"@type":"Answer","text":"Nein. Die MTBF ist eine Statistik über viele Geräte in ihrer normalen Nutzungszeit: Von 1 000 Geräten fallen im Jahr etwa neun aus. Über die Lebensdauer eines einzelnen Geräts sagt sie nichts – Verschleiß beginnt meist nach einigen Jahren."}},{"@type":"Question","name":"Warum erreicht Redundanz in der Praxis nicht die berechneten Werte?","acceptedAnswer":{"@type":"Answer","text":"Weil die Rechnung unabhängige Ausfälle voraussetzt. Tatsächlich teilen sich redundante Geräte oft Stromkreis, Raum, Software und Administrator. Fehlkonfigurationen, fehlerhafte Updates und nicht getestete Umschaltungen verursachen mehr Ausfälle als defekte Hardware."}}],"isPartOf":{"@id":"https://tools.pr1m3.de/it/verfuegbarkeit.html#seite"}}]}</script>
+  <!-- /seo -->
+  <meta name="theme-color" content="#F1F3F2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111214" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="icon" href="../favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="../assets/symbol-apple.png">
+  <link rel="stylesheet" href="../assets/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/stil.css">
+  <link rel="stylesheet" href="../assets/rechner.css">
+  <script src="../assets/basis.js"></script>
+</head>
+
+<body>
+  <div id="seitenkopf" data-wurzel="../"></div>
+
+  <main class="seite" data-rechner data-merken>
+    <section class="tafel abstand seo-info" aria-labelledby="h-faq">
+      <h2 id="h-faq">Häufige Fragen</h2>
+      <div class="faq">
+        <details><summary>Wie viel Ausfall bedeuten 99,9 % Verfügbarkeit?</summary><p>8,76 Stunden im Jahr, 44 Minuten im Monat oder 10 Minuten in der Woche. Bei 99,99 % sind es 53 Minuten im Jahr, bei 99 % schon mehr als dreieinhalb Tage.</p></details>
+        <details><summary>Wie berechnet man die Verfügbarkeit mehrerer Komponenten?</summary><p>Hängen sie in Reihe – jede muss laufen –, multipliziert man die Einzelwerte. Sechs Komponenten mit je 99,9 % ergeben nur noch 99,4 %. Sind Geräte redundant, multipliziert man die Ausfallwahrscheinlichkeiten: zwei Geräte mit je 99 % erreichen zusammen 99,99 %.</p></details>
+        <details><summary>Was bedeuten MTBF und MTTR?</summary><p>MTBF ist die mittlere Betriebsdauer zwischen zwei Ausfällen, MTTR die mittlere Zeit bis zur Wiederherstellung. Die Verfügbarkeit ist MTBF geteilt durch MTBF plus MTTR. Eine kürzere Reparaturzeit verbessert sie genauso wie zuverlässigere Hardware.</p></details>
+        <details><summary>Bedeutet eine MTBF von einer Million Stunden 114 Jahre Lebensdauer?</summary><p>Nein. Die MTBF ist eine Statistik über viele Geräte in ihrer normalen Nutzungszeit: Von 1 000 Geräten fallen im Jahr etwa neun aus. Über die Lebensdauer eines einzelnen Geräts sagt sie nichts – Verschleiß beginnt meist nach einigen Jahren.</p></details>
+        <details><summary>Warum erreicht Redundanz in der Praxis nicht die berechneten Werte?</summary><p>Weil die Rechnung unabhängige Ausfälle voraussetzt. Tatsächlich teilen sich redundante Geräte oft Stromkreis, Raum, Software und Administrator. Fehlkonfigurationen, fehlerhafte Updates und nicht getestete Umschaltungen verursachen mehr Ausfälle als defekte Hardware.</p></details>
+      </div>
+    </section>
+  </main>
+
+  <div id="seitenfuss" data-wurzel="../"></div>
+
+  <script src="../assets/katex/katex.min.js"></script>
+  <script src="../assets/rechner.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    const bewegungAus = false;
+    const R = Rechner, z = R.zahl, tz = R.tz, E = R.E, rund = R.rund, F = R.farbe;
+    const GUT = '#2E8B57', WARN = '#F2A541', SCHLECHT = '#C0392B', BLAU = '#3B5BDB', GRAU = '#6B7785';
+    const T = function (cx, s, x, y, a, g, f, c) { R.Z.text(cx, s, x, y, a || 'left', g || 11, !!f, c); };
+    const u = function (w, n, e) { return tz(w, n) + '\\,\\text{' + String(e).replace(/²/g, '}^2\\text{').replace(/³/g, '}^3\\text{').replace(/°/g, '}°\\text{').replace(/Ω/g, '}\\Omega\\text{').replace(/%/g, '\\%') + '}'; };
+    const ampel = function (ok, fast) { return ok ? GUT : fast ? WARN : SCHLECHT; };
+    const KLASSEN = [[90, '1 Neun'], [99, '2 Neunen'], [99.9, '3 Neunen'], [99.99, '4 Neunen'], [99.999, '5 Neunen'], [99.9999, '6 Neunen']];
+    function dauer(h) { return h >= 48 ? z(h / 24, 1) + ' Tage' : h >= 1 ? z(h, 1) + ' h' : h * 60 >= 1 ? z(h * 60, 1) + ' min' : z(h * 3600, 0) + ' s'; }
+    function zufall(saat) { let a = saat >>> 0; return function () { a = (a + 0x6D2B79F5) >>> 0; let x = Math.imul(a ^ (a >>> 15), 1 | a); x = (x + Math.imul(x ^ (x >>> 7), 61 | x)) ^ x; return ((x ^ (x >>> 14)) >>> 0) / 4294967296; }; }
+    const JAHRE = 10, HORIZONT = JAHRE * 8760;
+    R.seite({
+      titel: 'Verfügbarkeit und Ausfallzeit',
+      einleitung: 'Wie oft steht das System? Verfügbarkeit jeder Komponente aus MTBF und MTTR, Reihenschaltung der ganzen Kette, Redundanz durch parallele Geräte, Ausfallzeit je Jahr, Monat und Woche, Vergleich mit dem zugesagten Wert, Kosten des Stillstands und das schwächste Glied – mit Zufallssimulation über zehn Jahre.',
+      hilfe: 'Jede Zeile ist ein Glied der Kette: Fällt es aus, steht alles. „Geräte parallel“ sind redundante Geräte – die Zeile fällt erst aus, wenn alle gleichzeitig defekt sind.',
+      gruppen: [
+        { titel: 'Kette der Komponenten', farbe: BLAU, liste: { k: 'teile', name: 'Komponenten', zeile: 'Komponente', max: 12, min: 1, spalten: [
+          { k: 'name', name: 'Komponente', text: true, breit: true }, { k: 'mtbf', name: 'MTBF', e: 'h', min: 10, max: 10000000 }, { k: 'mttr', name: 'MTTR', e: 'h', min: 0.01, max: 2000 }, { k: 'n', name: 'parallel', e: '', min: 1, max: 4, ganz: true }
+        ], neu: function () { return { name: 'Komponente', mtbf: 50000, mttr: 8, n: 1 }; } } },
+        { titel: 'Zusage und Kosten', farbe: '#2F9E44', felder: [
+          { k: 'ziel', name: 'zugesagte Verfügbarkeit', wahl: [[99, '99 %'], [99.5, '99,5 %'], [99.9, '99,9 %'], [99.95, '99,95 %'], [99.99, '99,99 %'], [99.999, '99,999 %']] },
+          { k: 'kosten', name: 'Kosten je Stunde Stillstand', e: '€', min: 0, max: 10000000 },
+          { k: 'saat', name: 'Zufallslauf', e: '', min: 1, max: 999, ganz: true, hilfe: 'Andere Zahl = anderer zufälliger Verlauf über zehn Jahre. Die berechneten Werte ändern sich nicht.' }
+        ] }
+      ],
+      beispiel: { teile: [{ name: 'Internetanschluss', mtbf: 4000, mttr: 6, n: 1 }, { name: 'Router und Firewall', mtbf: 60000, mttr: 8, n: 1 }, { name: 'Switch', mtbf: 150000, mttr: 4, n: 1 }, { name: 'Server', mtbf: 30000, mttr: 12, n: 1 }, { name: 'Datenträger (Spiegel)', mtbf: 200000, mttr: 24, n: 2 }, { name: 'Stromversorgung mit USV', mtbf: 20000, mttr: 2, n: 1 }], ziel: 99.5, kosten: 500, saat: 7 },
+      rechne: function (e) {
+        const r = {}; let A = 1, rate = 0;
+        r.teile = e.teile.map(function (q) { const a1 = q.mtbf / (q.mtbf + q.mttr), a = 1 - Math.pow(1 - a1, q.n); A *= a;
+          const lam = q.n * Math.pow(q.mttr / q.mtbf, q.n - 1) / q.mtbf; rate += lam;                         // Ausfälle der Zeile je Stunde (Näherung für MTTR << MTBF)
+          return { a1: a1, a: a, aus: (1 - a) * 8760, lam: lam }; });
+        r.A = A; r.aus = (1 - A) * 8760; r.proJahr = rate * 8760; r.mtbf = rate > 0 ? 1 / rate : Infinity; r.mttr = r.proJahr > 0 ? r.aus / r.proJahr : 0;
+        r.zielAus = (1 - e.ziel / 100) * 8760; r.ok = A * 100 >= e.ziel - 1e-12; r.euro = r.aus * e.kosten;
+        r.neunen = A < 1 ? -Math.log(1 - A) / Math.LN10 : 9;
+        let schw = 0; r.teile.forEach(function (q, i) { if (q.aus > r.teile[schw].aus) schw = i; }); r.schwach = schw; r.anteil = r.aus > 0 ? r.teile[schw].aus / r.aus * 100 : 0;
+        // was brächte ein zweites Gerät am schwächsten Glied?
+        const s = e.teile[schw], sNeu = 1 - Math.pow(1 - r.teile[schw].a1, s.n + 1); r.Aneu = A / r.teile[schw].a * sNeu; r.ausNeu = (1 - r.Aneu) * 8760;
+        // Zufallslauf über zehn Jahre
+        const zf = zufall(e.saat * 7919 + 13); let alle = [];
+        r.lauf = e.teile.map(function (q) { const ger = []; for (let g = 0; g < q.n; g++) { const iv = []; let t = 0, wache = 0; while (wache++ < 3000) { t += -Math.log(1 - zf()) * q.mtbf; if (t >= HORIZONT) break; iv.push([t, Math.min(HORIZONT, t + q.mttr)]); t += q.mttr; } ger.push(iv); }
+          let gem = ger[0]; for (let g = 1; g < ger.length; g++) { const neu = []; gem.forEach(function (a) { ger[g].forEach(function (b) { const lo = Math.max(a[0], b[0]), hi = Math.min(a[1], b[1]); if (hi > lo) neu.push([lo, hi]); }); }); gem = neu; }
+          alle = alle.concat(gem); return { einzel: q.n > 1 ? ger.reduce(function (x, y) { return x.concat(y); }, []) : [], aus: gem }; });
+        alle.sort(function (a, b) { return a[0] - b[0]; }); const sys = []; alle.forEach(function (iv) { const l = sys[sys.length - 1]; if (l && iv[0] <= l[1]) l[1] = Math.max(l[1], iv[1]); else sys.push([iv[0], iv[1]]); });
+        r.sys = sys; r.simAus = sys.reduce(function (x, iv) { return x + iv[1] - iv[0]; }, 0); r.simA = 1 - r.simAus / HORIZONT;
+        return r;
+      },
+      ergebnis: function (r, e, H) {
+        const s = e.teile[r.schwach];
+        if (!r.ok) H.meldung('Zusage verfehlt: ' + z(r.A * 100, 3) + ' % statt ' + z(e.ziel, 3) + ' %. Erwartet werden ' + dauer(r.aus) + ' Ausfall im Jahr, erlaubt sind ' + dauer(r.zielAus) + '.', true);
+        if (r.anteil > 40 && e.teile.length > 1) H.meldung('Schwächstes Glied: „' + s.name + '“ verursacht ' + z(r.anteil, 0) + ' % der Ausfallzeit. Ein weiteres paralleles Gerät würde die Ausfallzeit von ' + dauer(r.aus) + ' auf ' + dauer(r.ausNeu) + ' im Jahr senken.');
+        if (e.teile.some(function (q) { return q.n > 1; })) H.meldung('Redundanz wirkt nur, wenn die Geräte unabhängig ausfallen. Gemeinsame Ursachen – derselbe Stromkreis, dieselbe Firmware, derselbe Raum, ein Bedienfehler – sind in der Rechnung nicht enthalten und in der Praxis oft der Hauptgrund für Ausfälle.');
+        if (e.teile.some(function (q) { return q.mttr >= 24; })) H.meldung('Lange Reparaturzeiten wiegen schwer: Die Ausfallzeit wächst direkt mit der MTTR. Ersatzgerät im Regal, Servicevertrag oder geübte Wiederherstellung helfen oft mehr als teurere Hardware.');
+        H.urteil(r.ok, z(r.A * 100, r.A > 0.9999 ? 4 : 3) + ' %');
+        H.kacheln([
+          [z(r.A * 100, r.A > 0.9999 ? 4 : 3) + ' %', 'Verfügbarkeit der ganzen Kette (' + z(r.neunen, 1) + ' Neunen)', ampel(r.ok)],
+          [dauer(r.aus), 'Ausfall im Jahr – erlaubt ' + dauer(r.zielAus), ampel(r.ok)],
+          [dauer(r.aus / 12), 'Ausfall im Monat', '#6E6FA6'],
+          [z(r.proJahr, 1) + ' je Jahr', 'Ausfälle, im Mittel ' + dauer(r.mttr) + ' lang', BLAU],
+          [z(r.euro, 0) + ' €', 'Kosten des Stillstands im Jahr', '#C2410C'],
+          [z(r.anteil, 0) + ' %', 'der Ausfallzeit durch das schwächste Glied: ' + s.name, WARN]
+        ]);
+        H.tabelle('Komponenten', ['Komponente', 'einzeln', 'parallel', 'Zeile', 'Ausfall im Jahr', 'Anteil'], e.teile.map(function (q, i) { const x = r.teile[i]; return [q.name, z(x.a1 * 100, 3) + ' %', String(q.n), z(x.a * 100, x.a > 0.9999 ? 5 : 3) + ' %', dauer(x.aus), z(r.aus > 0 ? x.aus / (r.teile.reduce(function (s2, y) { return s2 + y.aus; }, 0) || 1) * 100 : 0, 0) + ' %']; }), { zahl: [1, 2, 3, 4, 5] });
+        H.tabelle('Was die Neunen bedeuten', ['Verfügbarkeit', 'Ausfall im Jahr', 'im Monat', 'in der Woche'], [99, 99.5, 99.9, 99.95, 99.99, 99.999].map(function (p) { const h = (1 - p / 100) * 8760; return [z(p, 3) + ' %' + (p === e.ziel ? ' ◄' : ''), dauer(h), dauer(h / 12), dauer(h / 52.14)]; }), { zahl: [0, 1, 2, 3], fuss: 'Rund um die Uhr gerechnet (8 760 h im Jahr). Geplante Wartung zählt in vielen Verträgen nicht als Ausfall.' });
+      },
+      weg: function (r, e) {
+        const q = e.teile[0], x = r.teile[0], w = [['Verfügbarkeit eines Geräts', 'A = \\frac{MTBF}{MTBF + MTTR} = \\frac{' + tz(q.mtbf, 0) + '}{' + tz(q.mtbf, 0) + ' + ' + tz(q.mttr, 1) + '} = ' + E(tz(x.a1 * 100, 4) + '\\,\\%')]];
+        const par = e.teile.map(function (t, i) { return i; }).filter(function (i) { return e.teile[i].n > 1; })[0];
+        if (par !== undefined) w.push(['Parallel (redundant)', 'A_\\text{par} = 1 - (1 - A)^n = 1 - (1 - ' + tz(r.teile[par].a1, 6) + ')^{' + e.teile[par].n + '} = ' + E(tz(r.teile[par].a * 100, 6) + '\\,\\%')]);
+        w.push(['Reihe (Kette)', 'A_\\text{ges} = \\prod A_i = ' + r.teile.slice(0, 6).map(function (t) { return tz(t.a, 5); }).join(' \\cdot ') + (r.teile.length > 6 ? ' \\cdots' : '') + ' = ' + E(tz(r.A * 100, 4) + '\\,\\%')]);
+        w.push(['Ausfallzeit', 't = (1 - A_\\text{ges}) \\cdot 8760\\,\\text{h} = ' + tz(1 - r.A, 6) + ' \\cdot 8760 = ' + E(u(r.aus, 2, 'h'))]);
+        w.push(['Kosten', 'K = t \\cdot k = ' + tz(r.aus, 2) + ' \\cdot ' + tz(e.kosten, 0) + ' = ' + E(u(r.euro, 0, 'Euro'))]);
+        return w;
+      },
+      loeser: {
+        titel: 'MTBF, MTTR, Verfügbarkeit – in jede Richtung', hilfe: 'Zum Beispiel: Wie schnell muss repariert sein, damit ein Gerät mit 20 000 h MTBF 99,99 % erreicht? Wie viele Stunden Ausfall erlaubt 99,95 %?',
+        felder: [{ k: 'mtbf', tex: 'MTBF', name: 'mittlere Zeit zwischen Ausfällen', e: 'h', min: 0.1, max: 1e9 }, { k: 'mttr', tex: 'MTTR', name: 'mittlere Reparaturzeit', e: 'h', min: 0.0001, max: 1e5 }, { k: 'A', tex: 'A', name: 'Verfügbarkeit', e: '%', min: 1, max: 99.9999999, n: 5 }, { k: 't', tex: 't', name: 'Ausfall im Jahr', e: 'h', min: 0.00001, max: 8700, n: 3 }, { k: 'n', tex: 'n', name: 'Geräte parallel', e: '', min: 1, max: 10 }, { k: 'Ap', tex: 'A_\\text{par}', name: 'Verfügbarkeit parallel', e: '%', min: 1, max: 99.99999999999, n: 7 }],
+        beispiel: { mtbf: 20000, A: 99.99, n: 2 },
+        gleichungen: [
+          { name: 'Verfügbarkeit', v: ['A', 'mtbf', 'mttr'], f: function (q) { return [q.A / 100 * (q.mtbf + q.mttr), q.mtbf]; }, loese: { A: function (q) { return q.mtbf / (q.mtbf + q.mttr) * 100; }, mttr: function (q) { return q.mtbf * (100 / q.A - 1); }, mtbf: function (q) { return q.mttr * q.A / (100 - q.A); } },
+            weg: function (k, q) { return k === 'mttr' ? 'MTTR = MTBF \\left(\\frac{1}{A} - 1\\right) = ' + tz(q.mtbf, 0) + ' \\cdot \\left(\\frac{1}{' + tz(q.A / 100, 6) + '} - 1\\right) = ' + E(u(q.mttr, 2, 'h')) : k === 'A' ? 'A = \\frac{MTBF}{MTBF + MTTR} = ' + E(tz(q.A, 4) + '\\,\\%') : 'MTBF = \\frac{MTTR \\cdot A}{1 - A} = ' + E(u(q.mtbf, 0, 'h')); } },
+          { name: 'Ausfallzeit', v: ['t', 'A'], f: function (q) { return [q.t, (1 - q.A / 100) * 8760]; }, loese: { t: function (q) { return (1 - q.A / 100) * 8760; }, A: function (q) { return (1 - q.t / 8760) * 100; } }, weg: function (k, q) { return k === 't' ? 't = (1 - A) \\cdot 8760 = ' + E(u(q.t, 2, 'h')) : 'A = 1 - \\frac{t}{8760} = ' + E(tz(q.A, 4) + '\\,\\%'); } },
+          { name: 'Parallel', v: ['Ap', 'A', 'n'], f: function (q) { return [1 - q.Ap / 100, Math.pow(1 - q.A / 100, q.n)]; }, loese: { Ap: function (q) { return (1 - Math.pow(1 - q.A / 100, q.n)) * 100; }, A: function (q) { return (1 - Math.pow(1 - q.Ap / 100, 1 / q.n)) * 100; }, n: function (q) { return Math.log(1 - q.Ap / 100) / Math.log(1 - q.A / 100); } }, weg: function (k, q) { return k === 'Ap' ? 'A_\\text{par} = 1 - (1 - A)^n = ' + E(tz(q.Ap, 6) + '\\,\\%') : ''; } }
+        ]
+      },
+      sammlung: [
+        ['Verfügbarkeit', 'A = \\frac{MTBF}{MTBF + MTTR}', 'MTBF mittlere Betriebsdauer zwischen Ausfällen, MTTR mittlere Reparaturzeit'],
+        ['Reihe', 'A_\\text{ges} = A_1 \\cdot A_2 \\cdots A_n', 'jedes Glied muss laufen – die Kette ist schlechter als ihr schwächstes Glied'],
+        ['Parallel', 'A_\\text{par} = 1 - (1 - A)^n', 'n unabhängige Geräte, eines genügt'],
+        ['Ausfallzeit', 't = (1 - A) \\cdot 8760\\,\\tfrac{\\text{h}}{\\text{a}}', '99,9 % = 8,8 h im Jahr; 99,99 % = 53 min'],
+        ['Ausfallrate', '\\lambda = \\frac{1}{MTBF} \\qquad R(t) = e^{-\\lambda t}', 'Wahrscheinlichkeit, die Zeit t ohne Ausfall zu überstehen'],
+        ['Jährliche Ausfallrate', 'AFR = 1 - e^{-8760 / MTBF}', 'MTBF 1 000 000 h bedeutet etwa 0,9 % Ausfälle je Jahr – nicht 114 Jahre Lebensdauer']
+      ],
+      quellen: 'DIN EN 61703 und DIN EN 60300 (Zuverlässigkeit, Begriffe), IEC 61078 (Zuverlässigkeitsblockdiagramme), BSI-Standard 200-4 (Business Continuity Management), ITIL (Verfügbarkeitsmanagement), DIN EN 50600 (Verfügbarkeitsklassen von Rechenzentren). Die Rechnung setzt konstante Ausfallraten und unabhängige Ausfälle voraus; Bedienfehler, Software, gemeinsame Ursachen und Umschaltzeiten fehlen. MTBF-Angaben der Hersteller sind Statistik über viele Geräte, keine Lebensdauer.',
+      bild: { titel: 'Simulation', label: 'Zeitleiste über zehn Jahre: zufällige Ausfälle jeder Komponente und die daraus folgenden Ausfälle des Gesamtsystems', animiert: !bewegungAus, hoehe: function (B, r, e) { return 96 + Math.min(12, (e && e.teile ? e.teile.length : 6)) * 24; },
+        hinweis: function (r) { return 'Rot: Ausfall der Zeile. Gelb: ein redundantes Gerät ist defekt, die Zeile läuft weiter. Die Striche sind verbreitert gezeichnet, sonst wären sie unsichtbar. In diesem Lauf: ' + z(r.simA * 100, 3) + ' %, berechnet ' + z(r.A * 100, 3) + ' %.'; },
+        zeichne: function (cx, B, H, t, r, e) {
+          const x1 = B < 520 ? 96 : 150, x2 = B - 10, y1 = 26, zh = 24, X = function (h) { return x1 + (x2 - x1) * h / HORIZONT; }, jetzt = (t / 20000 % 1) * HORIZONT;
+          for (let j = 0; j <= JAHRE; j++) { cx.strokeStyle = F('--linie') || 'rgba(128,128,128,0.3)'; cx.lineWidth = 1; cx.beginPath(); cx.moveTo(X(j * 8760), y1 - 4); cx.lineTo(X(j * 8760), y1 + (e.teile.length + 1) * zh + 6); cx.stroke(); if (j % 2 === 0) T(cx, j + ' a', X(j * 8760), y1 - 8, 'center', 9, false, F('--leise')); }
+          const zeile = function (i, name, einzel, aus, farbe) { const y = y1 + i * zh; cx.fillStyle = 'rgba(46,139,87,0.35)'; cx.fillRect(x1, y + 4, x2 - x1, zh - 10);
+            einzel.forEach(function (iv) { if (iv[0] > jetzt) return; cx.fillStyle = WARN; cx.fillRect(X(iv[0]), y + 4, Math.max(1.5, X(Math.min(iv[1], jetzt)) - X(iv[0])), zh - 10); });
+            aus.forEach(function (iv) { if (iv[0] > jetzt) return; cx.fillStyle = SCHLECHT; cx.fillRect(X(iv[0]) - 0.5, y + 1, Math.max(2.5, X(Math.min(iv[1], jetzt)) - X(iv[0])), zh - 4); });
+            cx.save(); cx.beginPath(); cx.rect(0, y, x1 - 6, zh); cx.clip(); T(cx, name, 6, y + zh / 2 + 4, 'left', 10, i === e.teile.length, farbe); cx.restore(); };
+          e.teile.forEach(function (q, i) { zeile(i, q.name + (q.n > 1 ? ' ×' + q.n : ''), r.lauf[i].einzel, r.lauf[i].aus, F('--text')); });
+          zeile(e.teile.length, 'Gesamtsystem', [], r.sys, F('--text'));
+          cx.fillStyle = 'rgba(128,128,128,0.25)'; cx.fillRect(X(jetzt), y1, x2 - X(jetzt), (e.teile.length + 1) * zh);
+          cx.strokeStyle = BLAU; cx.lineWidth = 2; cx.beginPath(); cx.moveTo(X(jetzt), y1 - 2); cx.lineTo(X(jetzt), y1 + (e.teile.length + 1) * zh + 2); cx.stroke();
+          let bisher = 0, n = 0; r.sys.forEach(function (iv) { if (iv[0] <= jetzt) { n++; bisher += Math.min(iv[1], jetzt) - iv[0]; } });
+          const yb = y1 + (e.teile.length + 1) * zh + 22;
+          T(cx, 'Jahr ' + z(jetzt / 8760, 1) + ' · ' + n + ' Ausfälle · ' + dauer(bisher) + ' Stillstand', B / 2, yb, 'center', 11, true, F('--text'));
+          T(cx, 'berechnet ' + z(r.A * 100, 3) + ' % = ' + dauer(r.aus) + ' je Jahr · Zusage ' + z(e.ziel, 3) + ' %', B / 2, yb + 18, 'center', 11, true, ampel(r.ok));
+        } }
+    });
+  })();
+  </script>
+</body>
+</html>

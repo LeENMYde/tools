@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Drehstrommotor und Anlauf – Formeln &amp; Rechner</title>
+  <meta name="description" content="Drehstrommotor vom Typenschild zum Anschluss: Nennstrom, Drehzahl und Drehmoment, Anlaufstrom bei Direktanlauf, Stern-Dreieck, Sanftanlauf und Frequenzumrichter, Motorschutz und Blindstromkompensation – mit Simulation von Drehfeld und Hochlauf.">
+  <!-- seo -->
+  <link rel="canonical" href="https://tools.pr1m3.de/elektro/motor.html">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Formeln &amp; Rechner">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:title" content="Drehstrommotor und Anlauf">
+  <meta property="og:description" content="Drehstrommotor vom Typenschild zum Anschluss: Nennstrom, Drehzahl und Drehmoment, Anlaufstrom bei Direktanlauf, Stern-Dreieck, Sanftanlauf und Frequenzumrichter, Motorschutz und Blindstromkompensation – mit Simulation von Drehfeld und Hochlauf.">
+  <meta property="og:url" content="https://tools.pr1m3.de/elektro/motor.html">
+  <meta property="og:image" content="https://tools.pr1m3.de/assets/symbol-512.png">
+  <meta property="og:image:alt" content="Formeln &amp; Rechner">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Drehstrommotor und Anlauf">
+  <meta name="twitter:description" content="Drehstrommotor vom Typenschild zum Anschluss: Nennstrom, Drehzahl und Drehmoment, Anlaufstrom bei Direktanlauf, Stern-Dreieck, Sanftanlauf und Frequenzumrichter, Motorschutz und Blindstromkompensation – mit Simulation von Drehfeld und Hochlauf.">
+  <meta name="twitter:image" content="https://tools.pr1m3.de/assets/symbol-512.png">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://tools.pr1m3.de/elektro/motor.html#seite","name":"Drehstrommotor und Anlauf","url":"https://tools.pr1m3.de/elektro/motor.html","inLanguage":"de","description":"Drehstrommotor vom Typenschild zum Anschluss: Nennstrom, Drehzahl und Drehmoment, Anlaufstrom bei Direktanlauf, Stern-Dreieck, Sanftanlauf und Frequenzumrichter, Motorschutz und Blindstromkompensation – mit Simulation von Drehfeld und Hochlauf.","isPartOf":{"@type":"WebSite","@id":"https://tools.pr1m3.de/#website","name":"Formeln & Rechner","url":"https://tools.pr1m3.de/"},"breadcrumb":{"@id":"https://tools.pr1m3.de/elektro/motor.html#pfad"},"dateModified":"2026-11-11"},{"@type":"BreadcrumbList","@id":"https://tools.pr1m3.de/elektro/motor.html#pfad","itemListElement":[{"@type":"ListItem","position":1,"name":"Formeln & Rechner","item":"https://tools.pr1m3.de/"},{"@type":"ListItem","position":2,"name":"Drehstrommotor und Anlauf","item":"https://tools.pr1m3.de/elektro/motor.html"}]},{"@type":"FAQPage","@id":"https://tools.pr1m3.de/elektro/motor.html#fragen","mainEntity":[{"@type":"Question","name":"Wie berechnet man den Strom eines Drehstrommotors?","acceptedAnswer":{"@type":"Answer","text":"Wellenleistung geteilt durch Wurzel 3 mal Spannung mal cos φ mal Wirkungsgrad. Ein 7,5-kW-Motor an 400 V mit cos φ 0,84 und 89 % Wirkungsgrad nimmt etwa 14,5 A auf. Als Faustregel gelten 2 A je Kilowatt."}},{"@type":"Question","name":"Warum ist der Anlaufstrom so hoch?","acceptedAnswer":{"@type":"Answer","text":"Beim Einschalten steht der Läufer, der Motor wirkt wie ein kurzgeschlossener Transformator und zieht das 5- bis 8-Fache des Bemessungsstroms. Erst mit steigender Drehzahl fällt der Strom ab. Das belastet Netz, Sicherungen und die Wicklung."}},{"@type":"Question","name":"Was bewirkt die Stern-Dreieck-Schaltung?","acceptedAnswer":{"@type":"Answer","text":"Im Stern liegt an jeder Wicklung nur die Spannung geteilt durch Wurzel 3. Anlaufstrom und Drehmoment sinken dadurch auf ein Drittel. Nach dem Hochlauf wird auf Dreieck umgeschaltet. Das eignet sich nur für Antriebe, die leicht anlaufen."}},{"@type":"Question","name":"Auf welchen Wert stellt man den Motorschutz ein?","acceptedAnswer":{"@type":"Answer","text":"Auf den Bemessungsstrom vom Typenschild. Bei Stern-Dreieck-Schaltung sitzt das Überlastrelais meist im Strang und wird auf das 0,58-Fache eingestellt. Die Sicherung davor schützt nur bei Kurzschluss, nicht bei Überlast."}},{"@type":"Question","name":"Wozu dient die Blindstromkompensation?","acceptedAnswer":{"@type":"Answer","text":"Motoren brauchen Blindleistung für ihr Magnetfeld. Sie belastet die Leitungen, ohne Arbeit zu leisten, und Gewerbekunden zahlen ab einem cos φ unter etwa 0,9 dafür. Kondensatoren liefern die Blindleistung vor Ort und senken den Leitungsstrom."}}],"isPartOf":{"@id":"https://tools.pr1m3.de/elektro/motor.html#seite"}}]}</script>
+  <!-- /seo -->
+  <meta name="theme-color" content="#F1F3F2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111214" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="icon" href="../favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="../assets/symbol-apple.png">
+  <link rel="stylesheet" href="../assets/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/stil.css">
+  <link rel="stylesheet" href="../assets/rechner.css">
+  <script src="../assets/basis.js"></script>
+</head>
+
+<body>
+  <div id="seitenkopf" data-wurzel="../"></div>
+
+  <main class="seite" data-rechner data-merken>
+    <section class="tafel abstand seo-info" aria-labelledby="h-faq">
+      <h2 id="h-faq">Häufige Fragen</h2>
+      <div class="faq">
+        <details><summary>Wie berechnet man den Strom eines Drehstrommotors?</summary><p>Wellenleistung geteilt durch Wurzel 3 mal Spannung mal cos φ mal Wirkungsgrad. Ein 7,5-kW-Motor an 400 V mit cos φ 0,84 und 89 % Wirkungsgrad nimmt etwa 14,5 A auf. Als Faustregel gelten 2 A je Kilowatt.</p></details>
+        <details><summary>Warum ist der Anlaufstrom so hoch?</summary><p>Beim Einschalten steht der Läufer, der Motor wirkt wie ein kurzgeschlossener Transformator und zieht das 5- bis 8-Fache des Bemessungsstroms. Erst mit steigender Drehzahl fällt der Strom ab. Das belastet Netz, Sicherungen und die Wicklung.</p></details>
+        <details><summary>Was bewirkt die Stern-Dreieck-Schaltung?</summary><p>Im Stern liegt an jeder Wicklung nur die Spannung geteilt durch Wurzel 3. Anlaufstrom und Drehmoment sinken dadurch auf ein Drittel. Nach dem Hochlauf wird auf Dreieck umgeschaltet. Das eignet sich nur für Antriebe, die leicht anlaufen.</p></details>
+        <details><summary>Auf welchen Wert stellt man den Motorschutz ein?</summary><p>Auf den Bemessungsstrom vom Typenschild. Bei Stern-Dreieck-Schaltung sitzt das Überlastrelais meist im Strang und wird auf das 0,58-Fache eingestellt. Die Sicherung davor schützt nur bei Kurzschluss, nicht bei Überlast.</p></details>
+        <details><summary>Wozu dient die Blindstromkompensation?</summary><p>Motoren brauchen Blindleistung für ihr Magnetfeld. Sie belastet die Leitungen, ohne Arbeit zu leisten, und Gewerbekunden zahlen ab einem cos φ unter etwa 0,9 dafür. Kondensatoren liefern die Blindleistung vor Ort und senken den Leitungsstrom.</p></details>
+      </div>
+    </section>
+  </main>
+
+  <div id="seitenfuss" data-wurzel="../"></div>
+
+  <script src="../assets/katex/katex.min.js"></script>
+  <script src="../assets/rechner.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    const bewegungAus = false;
+    const R = Rechner, z = R.zahl, tz = R.tz, E = R.E, rund = R.rund, F = R.farbe;
+    const GUT = '#2E8B57', WARN = '#F2A541', SCHLECHT = '#C0392B', BLAU = '#3B5BDB', GRAU = '#6B7785';
+    const T = function (cx, s, x, y, a, g, f, c) { R.Z.text(cx, s, x, y, a || 'left', g || 11, !!f, c); };
+    const u = function (w, n, e) { return tz(w, n) + '\\,\\text{' + String(e).replace(/²/g, '}^2\\text{').replace(/³/g, '}^3\\text{').replace(/°/g, '}°\\text{').replace(/Ω/g, '}\\Omega\\text{').replace(/%/g, '\\%') + '}'; };
+    const ampel = function (ok, fast) { return ok ? GUT : fast ? WARN : SCHLECHT; };
+    const ANLAUF = { direkt: ['Direktanlauf', 7, 1], sd: ['Stern-Dreieck', 7 / 3, 1 / 3], sanft: ['Sanftanlauf', 3.5, 0.25], fu: ['Frequenzumrichter', 1.5, 1] };
+    const POLE = { 2: '2-polig (3 000 /min)', 4: '4-polig (1 500 /min)', 6: '6-polig (1 000 /min)', 8: '8-polig (750 /min)' };
+    R.seite({
+      titel: 'Drehstrommotor und Anlauf',
+      einleitung: 'Vom Typenschild zum Anschluss: Nennstrom aus Leistung, Wirkungsgrad und Leistungsfaktor, Drehzahl aus Polzahl und Schlupf, Drehmoment, Anlaufstrom bei Direktanlauf, Stern-Dreieck, Sanftanlauf und Frequenzumrichter, Einstellung des Motorschutzes und Kondensatoren für die Blindstromkompensation – mit Simulation von Drehfeld und Hochlauf.',
+      hilfe: 'Leistung auf dem Typenschild ist die mechanische Leistung an der Welle. Asynchronmotor am 400-V-Drehstromnetz, 50 Hz.',
+      gruppen: [
+        { titel: 'Typenschild', farbe: BLAU, felder: [
+          { k: 'p', tex: 'P_\\text{N}', name: 'Bemessungsleistung an der Welle', e: 'kW', min: 0.05, max: 1000 },
+          { k: 'u', tex: 'U', name: 'Netzspannung', e: 'V', min: 100, max: 1000 },
+          { k: 'cos', tex: '\\cos\\varphi', name: 'Leistungsfaktor', e: '', min: 0.3, max: 1 },
+          { k: 'eta', tex: '\\eta', name: 'Wirkungsgrad', e: '%', min: 30, max: 99 },
+          { k: 'pole', name: 'Polzahl', wahl: Object.keys(POLE).map(function (k) { return [k, POLE[k]]; }) },
+          { k: 'schlupf', tex: 's', name: 'Schlupf bei Nennlast', e: '%', min: 0.2, max: 15 }
+        ] },
+        { titel: 'Anlauf und Betrieb', farbe: '#E4572E', felder: [
+          { k: 'anlauf', name: 'Anlaufart', wahl: Object.keys(ANLAUF).map(function (k) { return [k, ANLAUF[k][0]]; }) },
+          { k: 'ia', tex: 'I_\\text{A}/I_\\text{N}', name: 'Anzugsstrom bei Direktanlauf', e: '×', min: 3, max: 12 },
+          { k: 'tAn', tex: 't_\\text{A}', name: 'Hochlaufzeit', e: 's', min: 0.2, max: 60 },
+          { k: 'last', name: 'Auslastung im Betrieb', e: '%', min: 10, max: 120 },
+          { k: 'cosZiel', tex: '\\cos\\varphi_2', name: 'Ziel-Leistungsfaktor der Kompensation', e: '', min: 0.8, max: 1 },
+          { k: 'stunden', name: 'Betriebsstunden im Jahr', e: 'h', min: 0, max: 8760 }, { k: 'preis', name: 'Strompreis', e: 'ct/kWh', min: 0, max: 200 }
+        ] }
+      ],
+      beispiel: { p: 7.5, u: 400, cos: 0.84, eta: 89, pole: 4, schlupf: 3, anlauf: 'sd', ia: 7, tAn: 4, last: 80, cosZiel: 0.95, stunden: 2500, preis: 30 },
+      rechne: function (e) {
+        const r = {}, A = ANLAUF[e.anlauf];
+        r.Pel = e.p / (e.eta / 100); r.I = r.Pel * 1000 / (Math.sqrt(3) * e.u * e.cos);
+        r.S = Math.sqrt(3) * e.u * r.I / 1000; r.Q = r.S * Math.sqrt(1 - e.cos * e.cos);
+        r.nSyn = 60 * 50 / (e.pole / 2); r.n = r.nSyn * (1 - e.schlupf / 100); r.M = e.p * 1000 / (2 * Math.PI * r.n / 60);
+        r.faktor = A[1] * (e.anlauf === 'fu' ? 1 : e.ia / 7); r.IA = r.I * r.faktor; r.MA = A[2];
+        r.schutz = r.I; r.sicherung = [2, 4, 6, 10, 16, 20, 25, 32, 40, 50, 63, 80, 100, 125, 160, 200, 250, 315, 400].filter(function (s) { return s >= r.I * (e.anlauf === 'direkt' ? 1.6 : 1.25); })[0] || 500;
+        r.tan1 = Math.tan(Math.acos(e.cos)); r.tan2 = Math.tan(Math.acos(e.cosZiel));
+        r.Qc = Math.max(0, r.Pel * (r.tan1 - r.tan2)); r.C = r.Qc * 1000 / (3 * 2 * Math.PI * 50 * e.u * e.u) * 1e6;      // µF je Strang, Dreieck
+        r.Ikomp = r.Pel * 1000 / (Math.sqrt(3) * e.u * e.cosZiel);
+        r.kwh = r.Pel * e.last / 100 * e.stunden; r.euro = r.kwh * e.preis / 100; r.verlust = (r.Pel - e.p) * e.last / 100;
+        r.dreieck = e.u >= 380 && e.p >= 3;
+        return r;
+      },
+      ergebnis: function (r, e, H) {
+        if (e.anlauf === 'direkt' && e.p > 4) H.meldung('Direktanlauf über etwa 4 kW (Anlaufstrom über 60 A) ist am öffentlichen Netz meist nicht erlaubt – Stern-Dreieck, Sanftanlauf oder Frequenzumrichter verwenden (TAB des Netzbetreibers).', e.p > 5.5);
+        if (e.anlauf === 'sd') H.meldung('Stern-Dreieck: Strom und Drehmoment sinken auf ein Drittel. Das geht nur bei leichtem Anlauf (Lüfter, Pumpe, Leerlauf) und nur, wenn der Motor für 400 V in Dreieck gewickelt ist (Typenschild 400/690 V).');
+        if (e.anlauf === 'fu') H.meldung('Frequenzumrichter: Anlauf mit vollem Moment bei kleinem Strom, Drehzahl stufenlos. Motorleitung geschirmt, Netzfilter und allstromsensitiven Fehlerstrom-Schutzschalter (Typ B) beachten.');
+        if (e.cos < 0.9) H.meldung('Blindleistung ' + z(r.Q, 1) + ' kvar: Mit ' + z(r.Qc, 1) + ' kvar Kondensatoren sinkt der Leitungsstrom von ' + z(r.I, 1) + ' A auf ' + z(r.Ikomp, 1) + ' A.');
+        if (e.last < 50) H.meldung('Unter 50 % Auslastung fallen Wirkungsgrad und Leistungsfaktor deutlich – der Motor ist zu groß.');
+        H.urteil(null, z(r.I, 1) + ' A');
+        H.kacheln([
+          [z(r.I, 1) + ' A', 'Bemessungsstrom = Einstellung Motorschutz', BLAU],
+          [z(r.IA, 0) + ' A', 'Anlaufstrom (' + ANLAUF[e.anlauf][0] + ', ' + z(r.faktor, 1) + '-fach)', '#E4572E'],
+          [z(r.n, 0) + ' /min', 'Drehzahl (Drehfeld ' + z(r.nSyn, 0) + ' /min)', '#6E6FA6'],
+          [z(r.M, 1) + ' N·m', 'Bemessungsmoment (Anlauf ' + z(r.MA * 100, 0) + ' % des Anzugsmoments)', '#0E6B6A'],
+          [z(r.Pel, 2) + ' kW', 'elektrische Leistung, Scheinleistung ' + z(r.S, 2) + ' kVA', GRAU],
+          [z(r.euro, 0) + ' €', z(r.kwh, 0) + ' kWh im Jahr bei ' + z(e.last, 0) + ' % Last', '#C2410C']
+        ]);
+        H.tabelle('Anlaufarten im Vergleich', ['Anlauf', 'Strom', 'Vielfaches', 'Drehmoment', 'Vorsicherung gG'], Object.keys(ANLAUF).map(function (k) {
+          const f = ANLAUF[k][1] * (k === 'fu' ? 1 : e.ia / 7);
+          return [ANLAUF[k][0], z(r.I * f, 0) + ' A', z(f, 1) + ' × I_N', z(ANLAUF[k][2] * 100, 0) + ' %', ([2, 4, 6, 10, 16, 20, 25, 32, 40, 50, 63, 80, 100, 125, 160, 200, 250, 315, 400].filter(function (s) { return s >= r.I * (k === 'direkt' ? 1.6 : 1.25); })[0] || 500) + ' A'];
+        }), { zahl: [1, 2, 3, 4], fuss: 'Vorsicherung als Anhalt – maßgebend sind die Angaben des Schütz- und Motorschutzherstellers (Zuordnungsart 1 oder 2).' });
+        H.tabelle('Kompensation', ['Größe', 'ohne', 'mit Kondensatoren'], [['Leistungsfaktor', z(e.cos, 2), z(e.cosZiel, 2)], ['Blindleistung', z(r.Q, 2) + ' kvar', z(r.Q - r.Qc, 2) + ' kvar'], ['Leitungsstrom', z(r.I, 1) + ' A', z(r.Ikomp, 1) + ' A'], ['Kondensatoren', '–', z(r.Qc, 2) + ' kvar = 3 × ' + z(r.C, 0) + ' µF in Dreieck']], { zahl: [1, 2] });
+      },
+      weg: function (r, e) {
+        return [
+          ['Elektrische Leistung', 'P_\\text{el} = \\frac{P_\\text{N}}{\\eta} = \\frac{' + tz(e.p, 2) + '}{' + tz(e.eta / 100, 2) + '} = ' + E(u(r.Pel, 2, 'kW'))],
+          ['Bemessungsstrom', 'I_\\text{N} = \\frac{P_\\text{el}}{\\sqrt{3}\\, U \\cos\\varphi} = \\frac{' + tz(r.Pel * 1000, 0) + '}{1{,}732 \\cdot ' + tz(e.u, 0) + ' \\cdot ' + tz(e.cos, 2) + '} = ' + E(u(r.I, 1, 'A'))],
+          ['Drehzahl', 'n = \\frac{60 f}{p}\\,(1 - s) = \\frac{60 \\cdot 50}{' + (e.pole / 2) + '} \\cdot (1 - ' + tz(e.schlupf / 100, 3) + ') = ' + E(u(r.n, 0, '1/min'))],
+          ['Drehmoment', 'M = \\frac{P_\\text{N}}{2\\pi n} = \\frac{' + tz(e.p * 1000, 0) + '}{2\\pi \\cdot ' + tz(r.n / 60, 2) + '} = ' + E(u(r.M, 1, 'N m'))],
+          ['Anlaufstrom', 'I_\\text{A} = ' + tz(r.faktor, 2) + ' \\cdot ' + tz(r.I, 1) + ' = ' + E(u(r.IA, 0, 'A'))],
+          ['Kompensation', 'Q_\\text{C} = P_\\text{el}\\,(\\tan\\varphi_1 - \\tan\\varphi_2) = ' + tz(r.Pel, 2) + ' \\cdot (' + tz(r.tan1, 3) + ' - ' + tz(r.tan2, 3) + ') = ' + E(u(r.Qc, 2, 'kvar'))]
+        ];
+      },
+      loeser: {
+        titel: 'Leistung, Strom, Drehmoment – in jede Richtung', hilfe: 'Zum Beispiel: Welche Wellenleistung hat ein Motor mit 15 A, cos φ 0,85 und 90 % Wirkungsgrad? Welches Moment hat er bei 1 450 /min?',
+        felder: [
+          { k: 'P', tex: 'P_\\text{N}', name: 'Wellenleistung', e: 'kW', min: 0.001, max: 1e5 }, { k: 'U', tex: 'U', name: 'Spannung', e: 'V', min: 1, max: 1e5 }, { k: 'I', tex: 'I', name: 'Strom', e: 'A', min: 0.001, max: 1e5 },
+          { k: 'cos', tex: '\\cos\\varphi', name: 'Leistungsfaktor', e: '', min: 0.05, max: 1 }, { k: 'eta', tex: '\\eta', name: 'Wirkungsgrad', e: '%', min: 1, max: 100 },
+          { k: 'n', tex: 'n', name: 'Drehzahl', e: '1/min', min: 1, max: 1e5 }, { k: 'M', tex: 'M', name: 'Drehmoment', e: 'N·m', min: 0.001, max: 1e6 }
+        ],
+        beispiel: { U: 400, I: 15, cos: 0.85, eta: 90, n: 1450 },
+        gleichungen: [
+          { name: 'Drehstromleistung', v: ['P', 'U', 'I', 'cos', 'eta'], f: function (q) { return [q.P * 1000, Math.sqrt(3) * q.U * q.I * q.cos * q.eta / 100]; },
+            loese: { P: function (q) { return Math.sqrt(3) * q.U * q.I * q.cos * q.eta / 100000; }, I: function (q) { return q.P * 100000 / (Math.sqrt(3) * q.U * q.cos * q.eta); }, U: function (q) { return q.P * 100000 / (Math.sqrt(3) * q.I * q.cos * q.eta); }, cos: function (q) { return q.P * 100000 / (Math.sqrt(3) * q.U * q.I * q.eta); }, eta: function (q) { return q.P * 100000 / (Math.sqrt(3) * q.U * q.I * q.cos); } },
+            weg: function (k, q) { return k === 'P' ? 'P_\\text{N} = \\sqrt{3}\\, U I \\cos\\varphi\\, \\eta = 1{,}732 \\cdot ' + tz(q.U, 0) + ' \\cdot ' + tz(q.I, 1) + ' \\cdot ' + tz(q.cos, 2) + ' \\cdot ' + tz(q.eta / 100, 2) + ' = ' + E(u(q.P, 2, 'kW')) : k === 'I' ? 'I = \\frac{P_\\text{N}}{\\sqrt{3}\\, U \\cos\\varphi\\, \\eta} = ' + E(u(q.I, 1, 'A')) : ''; } },
+          { name: 'Drehmoment', v: ['M', 'P', 'n'], f: function (q) { return [q.M * q.n, q.P * 9549.3]; }, loese: { M: function (q) { return q.P * 9549.3 / q.n; }, P: function (q) { return q.M * q.n / 9549.3; }, n: function (q) { return q.P * 9549.3 / q.M; } },
+            weg: function (k, q) { return k === 'M' ? 'M = 9549 \\cdot \\frac{P_\\text{N}}{n} = 9549 \\cdot \\frac{' + tz(q.P, 2) + '}{' + tz(q.n, 0) + '} = ' + E(u(q.M, 1, 'N m')) : ''; } }
+        ]
+      },
+      sammlung: [
+        ['Bemessungsstrom', 'I_\\text{N} = \\frac{P_\\text{N}}{\\sqrt{3}\\, U \\cos\\varphi\\, \\eta}', 'Faustregel bei 400 V: etwa 2 A je kW'],
+        ['Drehfeld- und Läuferdrehzahl', 'n_\\text{s} = \\frac{60 f}{p} \\qquad n = n_\\text{s}\\,(1 - s)', 'p Polpaarzahl; Schlupf s bei Nennlast 2–5 %'],
+        ['Drehmoment', 'M = \\frac{P}{2\\pi n} = 9549\\,\\frac{P[\\text{kW}]}{n[\\text{1/min}]}', 'in N·m'],
+        ['Stern-Dreieck', 'I_\\text{Y} = \\tfrac13 I_\\Delta \\qquad M_\\text{Y} = \\tfrac13 M_\\Delta', 'im Stern liegt an jeder Wicklung nur U/√3'],
+        ['Kompensation', 'Q_\\text{C} = P\\,(\\tan\\varphi_1 - \\tan\\varphi_2) \\qquad C = \\frac{Q_\\text{C}}{3 \\cdot 2\\pi f\\, U^2}', 'Kondensatoren in Dreieck, Kapazität je Strang'],
+        ['Motorschutz', 'I_\\text{Einstell} = I_\\text{N}', 'Überlastrelais oder Motorschutzschalter auf den Bemessungsstrom, bei Stern-Dreieck im Strang auf 0,58 · I_N']
+      ],
+      quellen: 'DIN EN 60034 (drehende elektrische Maschinen, Wirkungsgradklassen IE1–IE4), DIN VDE 0100-430 und -530, DIN EN 60947-4-1 (Schütze, Motorstarter), TAB der Netzbetreiber (Anlaufströme). Anlaufströme und Momente sind typische Werte; maßgebend ist das Datenblatt des Motors.',
+      bild: { titel: 'Simulation', label: 'Drehfeld und Läufer im Hochlauf, Strom über der Zeit', animiert: !bewegungAus, hoehe: function (B) { return B < 520 ? 430 : 320; },
+        hinweis: function (r, e) { return 'Der Zeiger des Drehfelds (blau) läuft dem Läufer (orange) um den Schlupf voraus. Hochlauf alle ' + z(e.tAn + 3, 0) + ' s.'; },
+        zeichne: function (cx, B, H, t, r, e) {
+          const breit = B >= 520, mw = breit ? B * 0.4 : B, mh = breit ? H - 10 : 220, mx = mw / 2, my = mh / 2 + 6, rad = Math.min(mw, mh) * 0.36;
+          const T0 = (e.tAn + 3) * 1000, tp = (t % T0) / 1000, hoch = Math.min(1, tp / e.tAn), umY = e.anlauf === 'sd' ? 0.8 : 2;
+          const n = e.anlauf === 'fu' ? hoch * (1 - e.schlupf / 100) : (1 - Math.pow(1 - hoch, 2.2)) * (1 - e.schlupf / 100);
+          const stern = e.anlauf === 'sd' && hoch < umY;
+          let iRel = e.anlauf === 'fu' ? 1.5 - 0.5 * hoch : r.faktor * (1 - Math.pow(n / (1 - e.schlupf / 100), 4)) + Math.pow(n / (1 - e.schlupf / 100), 4);
+          if (e.anlauf === 'sd' && hoch >= umY && hoch < 1) iRel = Math.max(iRel, 3 * (1 - (hoch - umY) / (1 - umY)) + 1);
+          if (hoch >= 1) iRel = e.last / 100;
+          cx.strokeStyle = F('--leise'); cx.lineWidth = 10; cx.beginPath(); cx.arc(mx, my, rad, 0, 2 * Math.PI); cx.stroke();
+          const ph = t / 1000 * 2 * Math.PI * 0.6, phL = ph * 1 - 0, feld = ph, laeufer = (t / 1000 * 2 * Math.PI * 0.6) * n;
+          for (let k = 0; k < 6; k++) { const a = k * Math.PI / 3; cx.fillStyle = ['#C0392B', '#2B7BB9', '#2E8B57'][k % 3]; cx.globalAlpha = 0.35 + 0.65 * Math.abs(Math.cos(feld - a)); cx.beginPath(); cx.arc(mx + Math.cos(a) * rad, my + Math.sin(a) * rad, 8, 0, 2 * Math.PI); cx.fill(); cx.globalAlpha = 1; }
+          cx.fillStyle = F('--flaeche'); cx.beginPath(); cx.arc(mx, my, rad * 0.72, 0, 2 * Math.PI); cx.fill();
+          cx.strokeStyle = '#E4572E'; cx.lineWidth = 3; for (let k = 0; k < 8; k++) { const a = laeufer + k * Math.PI / 4; cx.beginPath(); cx.moveTo(mx + Math.cos(a) * rad * 0.2, my + Math.sin(a) * rad * 0.2); cx.lineTo(mx + Math.cos(a) * rad * 0.68, my + Math.sin(a) * rad * 0.68); cx.stroke(); }
+          cx.strokeStyle = BLAU; cx.fillStyle = BLAU; cx.lineWidth = 3; R.Z.pfeil(cx, mx, my, mx + Math.cos(feld) * rad * 0.9, my + Math.sin(feld) * rad * 0.9, 8);
+          T(cx, z(n * r.nSyn, 0) + ' /min', mx, my + rad + 22, 'center', 13, true, '#E4572E');
+          T(cx, stern ? 'Stern' : e.anlauf === 'sd' ? 'Dreieck' : ANLAUF[e.anlauf][0], mx, 14, 'center', 11, true, F('--leise'));
+          const gx = breit ? mw + 44 : 44, gy = breit ? 24 : mh + 24, gw = breit ? B - gx - 14 : B - 60, gh = breit ? H - 70 : H - gy - 40;
+          const iMax = Math.max(2, Math.ceil(r.faktor + 0.5)), ach = R.Z.achsen(cx, gx, gy, gw, gh, 0, e.tAn + 3, 0, iMax, { xSchritt: (e.tAn + 3) > 12 ? 5 : (e.tAn + 3) > 5 ? 2 : 1, xStellen: 0, ySchritt: iMax > 5 ? 2 : 1, xName: 'Sekunden', yName: '× I_N' });
+          cx.strokeStyle = GRAU; cx.setLineDash([4, 3]); cx.lineWidth = 1; cx.beginPath(); cx.moveTo(gx, ach.Y(1)); cx.lineTo(gx + gw, ach.Y(1)); cx.stroke(); cx.setLineDash([]);
+          cx.strokeStyle = '#E4572E'; cx.lineWidth = 2; cx.beginPath();
+          for (let i = 0; i <= 150; i++) {
+            const tt = i / 150 * tp, hh = Math.min(1, tt / e.tAn), nn = e.anlauf === 'fu' ? hh : (1 - Math.pow(1 - hh, 2.2));
+            let ii = e.anlauf === 'fu' ? 1.5 - 0.5 * hh : r.faktor * (1 - Math.pow(nn, 4)) + Math.pow(nn, 4);
+            if (e.anlauf === 'sd' && hh >= umY && hh < 1) ii = Math.max(ii, 3 * (1 - (hh - umY) / (1 - umY)) + 1);
+            if (hh >= 1) ii = e.last / 100;
+            const x = ach.X(tt), y = ach.Y(Math.min(iMax, ii)); if (i) cx.lineTo(x, y); else cx.moveTo(x, y);
+          }
+          cx.stroke();
+          T(cx, 'Strom ' + z(iRel * r.I, 0) + ' A', gx + gw, gy - 8, 'right', 12, true, '#E4572E');
+        } }
+    });
+  })();
+  </script>
+</body>
+</html>

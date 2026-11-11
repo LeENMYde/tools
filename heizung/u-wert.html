@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>U-Wert und Schichtaufbau – Formeln &amp; Rechner</title>
+  <meta name="description" content="U-Wert eines Bauteils aus beliebigen Schichten: Temperaturverlauf, Oberflächentemperatur, Tauwasserprüfung nach Glaser, Wärmeverlust und Kosten je Quadratmeter, nötige Dämmstärke für einen Ziel-U-Wert – mit Simulation des Wärmestroms.">
+  <!-- seo -->
+  <link rel="canonical" href="https://tools.pr1m3.de/heizung/u-wert.html">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Formeln &amp; Rechner">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:title" content="U-Wert und Schichtaufbau">
+  <meta property="og:description" content="U-Wert eines Bauteils aus beliebigen Schichten: Temperaturverlauf, Oberflächentemperatur, Tauwasserprüfung nach Glaser, Wärmeverlust und Kosten je Quadratmeter, nötige Dämmstärke für einen Ziel-U-Wert – mit Simulation des Wärmestroms.">
+  <meta property="og:url" content="https://tools.pr1m3.de/heizung/u-wert.html">
+  <meta property="og:image" content="https://tools.pr1m3.de/assets/symbol-512.png">
+  <meta property="og:image:alt" content="Formeln &amp; Rechner">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="U-Wert und Schichtaufbau">
+  <meta name="twitter:description" content="U-Wert eines Bauteils aus beliebigen Schichten: Temperaturverlauf, Oberflächentemperatur, Tauwasserprüfung nach Glaser, Wärmeverlust und Kosten je Quadratmeter, nötige Dämmstärke für einen Ziel-U-Wert – mit Simulation des Wärmestroms.">
+  <meta name="twitter:image" content="https://tools.pr1m3.de/assets/symbol-512.png">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://tools.pr1m3.de/heizung/u-wert.html#seite","name":"U-Wert und Schichtaufbau","url":"https://tools.pr1m3.de/heizung/u-wert.html","inLanguage":"de","description":"U-Wert eines Bauteils aus beliebigen Schichten: Temperaturverlauf, Oberflächentemperatur, Tauwasserprüfung nach Glaser, Wärmeverlust und Kosten je Quadratmeter, nötige Dämmstärke für einen Ziel-U-Wert – mit Simulation des Wärmestroms.","isPartOf":{"@type":"WebSite","@id":"https://tools.pr1m3.de/#website","name":"Formeln & Rechner","url":"https://tools.pr1m3.de/"},"breadcrumb":{"@id":"https://tools.pr1m3.de/heizung/u-wert.html#pfad"},"dateModified":"2026-11-11"},{"@type":"BreadcrumbList","@id":"https://tools.pr1m3.de/heizung/u-wert.html#pfad","itemListElement":[{"@type":"ListItem","position":1,"name":"Formeln & Rechner","item":"https://tools.pr1m3.de/"},{"@type":"ListItem","position":2,"name":"U-Wert und Schichtaufbau","item":"https://tools.pr1m3.de/heizung/u-wert.html"}]},{"@type":"FAQPage","@id":"https://tools.pr1m3.de/heizung/u-wert.html#fragen","mainEntity":[{"@type":"Question","name":"Was sagt der U-Wert aus?","acceptedAnswer":{"@type":"Answer","text":"Er gibt an, wie viel Wärme in Watt durch einen Quadratmeter eines Bauteils fließt, wenn es innen 1 Kelvin wärmer ist als außen. Je kleiner, desto besser die Dämmung. Eine ungedämmte Altbauwand hat 1,0 bis 1,5, eine gut gedämmte Wand 0,15 bis 0,24 W/(m²K)."}},{"@type":"Question","name":"Wie berechnet man den U-Wert?","acceptedAnswer":{"@type":"Answer","text":"Für jede Schicht teilt man die Dicke in Metern durch die Wärmeleitfähigkeit λ. Diese Widerstände werden addiert, dazu kommen 0,13 für den Übergang innen und 0,04 für außen. Der Kehrwert der Summe ist der U-Wert."}},{"@type":"Question","name":"Welcher U-Wert ist vorgeschrieben?","acceptedAnswer":{"@type":"Answer","text":"Wer ein Außenbauteil erneuert oder dämmt, muss nach dem Gebäudeenergiegesetz Höchstwerte einhalten: Außenwand 0,24, Dachschrägen und oberste Geschossdecke 0,24, Flachdach 0,20 und Kellerdecke 0,30 W/(m²K). Für Förderungen gelten strengere Werte."}},{"@type":"Question","name":"Wie viel Dämmung braucht man für 0,24?","acceptedAnswer":{"@type":"Answer","text":"Auf einer 24 cm dicken Vollziegelwand etwa 12 bis 14 cm Dämmstoff mit λ = 0,035. Jeder weitere Zentimeter bringt weniger als der vorige: Die ersten 6 cm halbieren den Verlust, die nächsten 6 cm sparen nur noch ein Sechstel."}},{"@type":"Question","name":"Wann entsteht Tauwasser im Bauteil?","acceptedAnswer":{"@type":"Answer","text":"Wenn Wasserdampf von innen in eine kalte Schicht wandert und dort den Sättigungsdruck erreicht. Das passiert vor allem bei Innendämmung ohne Dampfbremse oder wenn außen eine dampfdichte Schicht liegt. Die Regel: innen dichter als außen."}}],"isPartOf":{"@id":"https://tools.pr1m3.de/heizung/u-wert.html#seite"}}]}</script>
+  <!-- /seo -->
+  <meta name="theme-color" content="#F1F3F2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111214" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="icon" href="../favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="../assets/symbol-apple.png">
+  <link rel="stylesheet" href="../assets/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/stil.css">
+  <link rel="stylesheet" href="../assets/rechner.css">
+  <script src="../assets/basis.js"></script>
+</head>
+
+<body>
+  <div id="seitenkopf" data-wurzel="../"></div>
+
+  <main class="seite" data-rechner data-merken>
+    <section class="tafel abstand seo-info" aria-labelledby="h-faq">
+      <h2 id="h-faq">Häufige Fragen</h2>
+      <div class="faq">
+        <details><summary>Was sagt der U-Wert aus?</summary><p>Er gibt an, wie viel Wärme in Watt durch einen Quadratmeter eines Bauteils fließt, wenn es innen 1 Kelvin wärmer ist als außen. Je kleiner, desto besser die Dämmung. Eine ungedämmte Altbauwand hat 1,0 bis 1,5, eine gut gedämmte Wand 0,15 bis 0,24 W/(m²K).</p></details>
+        <details><summary>Wie berechnet man den U-Wert?</summary><p>Für jede Schicht teilt man die Dicke in Metern durch die Wärmeleitfähigkeit λ. Diese Widerstände werden addiert, dazu kommen 0,13 für den Übergang innen und 0,04 für außen. Der Kehrwert der Summe ist der U-Wert.</p></details>
+        <details><summary>Welcher U-Wert ist vorgeschrieben?</summary><p>Wer ein Außenbauteil erneuert oder dämmt, muss nach dem Gebäudeenergiegesetz Höchstwerte einhalten: Außenwand 0,24, Dachschrägen und oberste Geschossdecke 0,24, Flachdach 0,20 und Kellerdecke 0,30 W/(m²K). Für Förderungen gelten strengere Werte.</p></details>
+        <details><summary>Wie viel Dämmung braucht man für 0,24?</summary><p>Auf einer 24 cm dicken Vollziegelwand etwa 12 bis 14 cm Dämmstoff mit λ = 0,035. Jeder weitere Zentimeter bringt weniger als der vorige: Die ersten 6 cm halbieren den Verlust, die nächsten 6 cm sparen nur noch ein Sechstel.</p></details>
+        <details><summary>Wann entsteht Tauwasser im Bauteil?</summary><p>Wenn Wasserdampf von innen in eine kalte Schicht wandert und dort den Sättigungsdruck erreicht. Das passiert vor allem bei Innendämmung ohne Dampfbremse oder wenn außen eine dampfdichte Schicht liegt. Die Regel: innen dichter als außen.</p></details>
+      </div>
+    </section>
+  </main>
+
+  <div id="seitenfuss" data-wurzel="../"></div>
+
+  <script src="../assets/katex/katex.min.js"></script>
+  <script src="../assets/rechner.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    const bewegungAus = false;
+    const R = Rechner, z = R.zahl, tz = R.tz, E = R.E, rund = R.rund, F = R.farbe;
+    const GUT = '#2E8B57', WARN = '#F2A541', SCHLECHT = '#C0392B', BLAU = '#3B5BDB', GRAU = '#6B7785';
+    const T = function (cx, s, x, y, a, g, f, c) { R.Z.text(cx, s, x, y, a || 'left', g || 11, !!f, c); };
+    const u = function (w, n, e) { return tz(w, n) + '\\,\\text{' + String(e).replace(/²/g, '}^2\\text{').replace(/³/g, '}^3\\text{').replace(/°/g, '}°\\text{').replace(/Ω/g, '}\\Omega\\text{').replace(/%/g, '\\%') + '}'; };
+    const ampel = function (ok, fast) { return ok ? GUT : fast ? WARN : SCHLECHT; };
+    function ps(t) { return 610.94 * Math.exp(17.625 * t / (243.04 + t)); }
+    const ZIEL = { 0.24: 'Außenwand, Sanierung nach GEG (0,24)', 0.2: 'Dach oder oberste Decke, Sanierung (0,20 Flachdach / 0,24)', 0.3: 'Kellerdecke, Boden gegen Erdreich (0,30)', 0.15: 'Passivhaus-Niveau (0,15)', 0.28: 'Neubau-Referenz Außenwand (0,28)' };
+    const FARBEN = ['#C9C2B8', '#B5553C', '#F2D16B', '#9FB4C7', '#8FBF8F', '#D9A066', '#B9A3D0'];
+    R.seite({
+      titel: 'U-Wert und Schichtaufbau',
+      einleitung: 'Wie gut dämmt die Wand? U-Wert aus beliebig vielen Schichten, Temperaturverlauf durch das Bauteil, Oberflächentemperatur, Tauwasserprüfung nach dem Glaser-Verfahren, Wärmeverlust und Heizkosten je Quadratmeter und nötige Dämmstärke für einen Ziel-U-Wert – mit Simulation des Wärmestroms.',
+      hilfe: 'Schichten von innen nach außen. λ: Wärmeleitfähigkeit, μ: Wasserdampf-Diffusionswiderstandszahl. Richtwerte: Ziegel λ 0,5–0,8 / μ 10, Beton 2,1 / 100, Mineralwolle 0,035 / 1, EPS 0,035 / 40, Holz 0,13 / 40, Putz 0,7–1,0 / 15, Gipskarton 0,25 / 8.',
+      gruppen: [
+        { titel: 'Schichten von innen nach außen', farbe: '#8A6D3B', liste: { k: 'schichten', name: 'Schichten', zeile: 'Schicht', max: 10, min: 1, spalten: [
+          { k: 'name', name: 'Material', text: true, breit: true }, { k: 'd', name: 'Dicke', e: 'cm', min: 0.01, max: 200 }, { k: 'l', name: 'λ', e: 'W/(mK)', min: 0.004, max: 400 }, { k: 'mu', name: 'μ', e: '', min: 1, max: 1000000 }
+        ], neu: function () { return { name: 'Dämmung', d: 10, l: 0.035, mu: 1 }; } } },
+        { titel: 'Klima und Ziel', farbe: BLAU, felder: [
+          { k: 'ti', tex: '\\vartheta_\\text{i}', name: 'innen', e: '°C', min: 5, max: 30 }, { k: 'rfi', name: 'Feuchte innen', e: '%', min: 10, max: 95 },
+          { k: 'ta', tex: '\\vartheta_\\text{e}', name: 'außen', e: '°C', min: -25, max: 25 }, { k: 'rfa', name: 'Feuchte außen', e: '%', min: 10, max: 100 },
+          { k: 'ziel', name: 'Anforderung', wahl: Object.keys(ZIEL).sort(function (a, b) { return a - b; }).map(function (k) { return [k, ZIEL[k]]; }) },
+          { k: 'gt', name: 'Gradtagzahl des Orts', e: 'Kd', min: 1500, max: 5500, hilfe: 'Deutschland etwa 3 000–4 000 Kelvin-Tage (Mittel rund 3 500).' },
+          { k: 'preis', name: 'Wärmepreis', e: 'ct/kWh', min: 1, max: 60 }
+        ] }
+      ],
+      beispiel: { schichten: [{ name: 'Innenputz', d: 1.5, l: 0.7, mu: 10 }, { name: 'Vollziegel', d: 24, l: 0.68, mu: 10 }, { name: 'Mineralwolle', d: 14, l: 0.035, mu: 1 }, { name: 'Außenputz', d: 1.5, l: 0.87, mu: 25 }], ti: 20, rfi: 50, ta: -5, rfa: 80, ziel: 0.24, gt: 3500, preis: 12 },
+      rechne: function (e) {
+        const r = { Rsi: 0.13, Rse: 0.04 };
+        r.R = e.schichten.map(function (s) { return s.d / 100 / s.l; }); r.sd = e.schichten.map(function (s) { return s.mu * s.d / 100; });
+        r.Rsum = r.R.reduce(function (a, b) { return a + b; }, 0); r.RT = r.Rsi + r.Rsum + r.Rse; r.U = 1 / r.RT;
+        r.q = r.U * (e.ti - e.ta);
+        // Temperaturen an den Grenzen: innen Luft, Oberfläche, Schichtgrenzen, außen Oberfläche, Luft
+        r.temp = [e.ti - r.q * r.Rsi]; r.R.forEach(function (R1) { r.temp.push(r.temp[r.temp.length - 1] - r.q * R1); });
+        r.tsi = r.temp[0];
+        // Glaser: Dampfdruck linear über s_d, Vergleich mit Sättigungsdruck an jeder Grenze (innerhalb der Schichten fein unterteilt)
+        const pi = e.rfi / 100 * ps(e.ti), pe = e.rfa / 100 * ps(e.ta), sdSum = r.sd.reduce(function (a, b) { return a + b; }, 0) || 1e-9;
+        r.pi = pi; r.pe = pe; r.sdSum = sdSum; r.profil = []; let sdBis = 0, tauMax = 0, tauOrt = -1;
+        e.schichten.forEach(function (s, i) { for (let k = 0; k <= 10; k++) { const an = k / 10, tt = r.temp[i] + (r.temp[i + 1] - r.temp[i]) * an, sdx = sdBis + r.sd[i] * an, p = pi + (pe - pi) * sdx / sdSum, sat = ps(tt); r.profil.push({ i: i, an: an, t: tt, p: p, sat: sat }); if (p - sat > tauMax) { tauMax = p - sat; tauOrt = i; } } sdBis += r.sd[i]; });
+        r.tau = tauMax > 1; r.tauOrt = tauOrt;
+        r.zielOk = r.U <= e.ziel;
+        r.kwh = r.U * e.gt * 24 / 1000; r.euro = r.kwh * e.preis / 100;
+        // nötige Zusatzdämmung λ 0,035
+        r.dZusatz = Math.max(0, (1 / e.ziel - r.RT) * 0.035 * 100);
+        r.dicke = e.schichten.reduce(function (a, s) { return a + s.d; }, 0);
+        r.frsi = (e.ti - 0.25 * r.U * (e.ti - e.ta) - e.ta) / ((e.ti - e.ta) || 1e-9);
+        r.innenDaemm = (function () { let nachDaemm = false, innen = false; e.schichten.forEach(function (s, i) { if (s.l < 0.07 && i < e.schichten.length / 2 && e.schichten.length > 1) innen = true; }); return innen; })();
+        return r;
+      },
+      ergebnis: function (r, e, H) {
+        if (!r.zielOk) H.meldung('U = ' + z(r.U, 2) + ' W/(m²K) erfüllt die Anforderung ' + z(e.ziel, 2) + ' nicht. Es fehlen etwa ' + z(Math.ceil(r.dZusatz), 0) + ' cm Dämmung mit λ = 0,035.', true);
+        if (r.tau) H.meldung('Tauwasser im Bauteil: In der Schicht „' + e.schichten[r.tauOrt].name + '“ übersteigt der Dampfdruck den Sättigungsdruck. Dampfbremse auf der warmen Seite einbauen oder diffusionsoffener nach außen bauen (innen dicht, außen offen).', true);
+        if (r.innenDaemm) H.meldung('Dämmung auf der Innenseite: Die Wand dahinter wird kalt, Tauwasser und Wärmebrücken an einbindenden Decken und Wänden sind kritisch. Nur mit Dampfbremse oder kapillaraktiven Systemen und sorgfältiger Planung.');
+        if (r.frsi < 0.7) H.meldung('Mindestwärmeschutz nicht erfüllt: f_Rsi = ' + z(r.frsi, 2) + ' < 0,70 – Schimmelgefahr an der Innenoberfläche (siehe Feuchte, Taupunkt und Schimmel).', true);
+        H.urteil(r.zielOk && !r.tau, 'U = ' + z(r.U, 2));
+        H.kacheln([
+          [z(r.U, 3) + ' W/(m²K)', 'U-Wert (Anforderung ' + z(e.ziel, 2) + ')', ampel(r.zielOk)],
+          [z(r.RT, 2) + ' m²K/W', 'Wärmedurchgangswiderstand, Dicke ' + z(r.dicke, 1) + ' cm', '#8A6D3B'],
+          [z(r.tsi, 1) + ' °C', 'Oberfläche innen bei ' + z(e.ta, 0) + ' °C außen', ampel(r.frsi >= 0.7)],
+          [z(r.q, 1) + ' W/m²', 'Wärmestrom jetzt', '#E4572E'],
+          [z(r.kwh, 0) + ' kWh', 'Wärmeverlust je m² und Jahr = ' + z(r.euro, 2) + ' €', '#C2410C'],
+          [r.tau ? 'Tauwasser' : 'kein Tauwasser', 'Glaser-Prüfung für dieses Klima', ampel(!r.tau)]
+        ]);
+        let sum = 0;
+        H.tabelle('Schichten', ['Schicht', 'Dicke', 'λ', 'R', 'Anteil', 's_d', 'Temperatur außen'], e.schichten.map(function (s, i) { return [s.name, z(s.d, 1) + ' cm', z(s.l, 3), z(r.R[i], 3), z(r.R[i] / r.RT * 100, 0) + ' %', z(r.sd[i], 2) + ' m', z(r.temp[i + 1], 1) + ' °C']; }).concat([['Übergänge innen + außen', '', '', z(r.Rsi + r.Rse, 2), z((r.Rsi + r.Rse) / r.RT * 100, 0) + ' %', '', '']]), { zahl: [1, 2, 3, 4, 5, 6] });
+        H.tabelle('Zusätzliche Dämmung (λ = 0,035)', ['zusätzlich', 'U-Wert', 'Verlust je m² und Jahr', 'Ersparnis je m² und Jahr'], [0, 4, 8, 12, 16, 20, 30].map(function (d) { const U2 = 1 / (r.RT + d / 100 / 0.035); return ['+ ' + d + ' cm', z(U2, 3) + (U2 <= e.ziel ? '' : ' ✕'), z(U2 * e.gt * 24 / 1000, 0) + ' kWh', z((r.U - U2) * e.gt * 24 / 1000 * e.preis / 100, 2) + ' €']; }), { zahl: [1, 2, 3], fuss: '✕ erfüllt die Anforderung noch nicht.' });
+      },
+      weg: function (r, e) {
+        return [
+          ['Widerstände der Schichten', 'R = \\frac{d}{\\lambda}: \\quad ' + e.schichten.slice(0, 5).map(function (s, i) { return '\\frac{' + tz(s.d / 100, 3) + '}{' + tz(s.l, 3) + '} = ' + tz(r.R[i], 3); }).join(', \; ')],
+          ['Gesamtwiderstand', 'R_\\text{T} = R_\\text{si} + \\sum R + R_\\text{se} = 0{,}13 + ' + tz(r.Rsum, 3) + ' + 0{,}04 = ' + E(u(r.RT, 3, 'm²K/W'))],
+          ['U-Wert', 'U = \\frac{1}{R_\\text{T}} = ' + E(u(r.U, 3, 'W/(m²K)'))],
+          ['Wärmestrom', 'q = U\\,(\\vartheta_\\text{i} - \\vartheta_\\text{e}) = ' + tz(r.U, 3) + ' \\cdot ' + tz(e.ti - e.ta, 1) + ' = ' + E(u(r.q, 1, 'W/m²'))],
+          ['Oberfläche innen', '\\vartheta_\\text{si} = \\vartheta_\\text{i} - q\\, R_\\text{si} = ' + tz(e.ti, 1) + ' - ' + tz(r.q, 1) + ' \\cdot 0{,}13 = ' + E(u(r.tsi, 1, '°C'))],
+          ['Verlust im Jahr', 'Q = U \\cdot G_\\text{t} \\cdot 24\\,\\text{h} = ' + tz(r.U, 3) + ' \\cdot ' + tz(e.gt, 0) + ' \\cdot 24 / 1000 = ' + E(u(r.kwh, 0, 'kWh/m²'))]
+        ];
+      },
+      loeser: {
+        titel: 'Eine Schicht – in jede Richtung', hilfe: 'Zum Beispiel: Wie dick muss eine Dämmung mit λ 0,035 sein, damit zusammen mit einem vorhandenen Widerstand von 0,6 m²K/W ein U-Wert von 0,20 herauskommt?',
+        felder: [{ k: 'd', tex: 'd', name: 'Dicke der Schicht', e: 'cm', min: 0.01, max: 500 }, { k: 'l', tex: '\\lambda', name: 'Wärmeleitfähigkeit', e: 'W/(mK)', min: 0.004, max: 400 }, { k: 'R0', tex: 'R_0', name: 'Widerstand des restlichen Bauteils mit Übergängen', e: 'm²K/W', min: 0, max: 50 }, { k: 'U', tex: 'U', name: 'U-Wert', e: 'W/(m²K)', min: 0.01, max: 10 }, { k: 'dT', tex: '\\Delta\\vartheta', name: 'Temperaturunterschied', e: 'K', min: 0.1, max: 100 }, { k: 'q', tex: 'q', name: 'Wärmestrom', e: 'W/m²', min: 0.01, max: 2000 }],
+        beispiel: { l: 0.035, R0: 0.6, U: 0.2, dT: 25 },
+        gleichungen: [
+          { name: 'U-Wert', v: ['U', 'd', 'l', 'R0'], f: function (q) { return [1 / q.U, q.R0 + q.d / 100 / q.l]; }, loese: { U: function (q) { return 1 / (q.R0 + q.d / 100 / q.l); }, d: function (q) { return (1 / q.U - q.R0) * q.l * 100; }, l: function (q) { return q.d / 100 / (1 / q.U - q.R0); }, R0: function (q) { return 1 / q.U - q.d / 100 / q.l; } },
+            weg: function (k, q) { return k === 'd' ? 'd = \\left(\\frac{1}{U} - R_0\\right) \\lambda = \\left(\\frac{1}{' + tz(q.U, 2) + '} - ' + tz(q.R0, 2) + '\\right) \\cdot ' + tz(q.l, 3) + ' = ' + E(u(q.d, 1, 'cm')) : k === 'U' ? 'U = \\frac{1}{R_0 + d/\\lambda} = ' + E(u(q.U, 3, 'W/(m²K)')) : ''; } },
+          { name: 'Wärmestrom', v: ['q', 'U', 'dT'], f: function (q) { return [q.q, q.U * q.dT]; }, loese: { q: function (q) { return q.U * q.dT; }, U: function (q) { return q.q / q.dT; }, dT: function (q) { return q.q / q.U; } },
+            weg: function (k, q) { return k === 'q' ? 'q = U \\cdot \\Delta\\vartheta = ' + tz(q.U, 3) + ' \\cdot ' + tz(q.dT, 1) + ' = ' + E(u(q.q, 1, 'W/m²')) : ''; } }
+        ]
+      },
+      sammlung: [
+        ['Wärmedurchlasswiderstand', 'R = \\frac{d}{\\lambda}', 'je Schicht, d in Metern'],
+        ['U-Wert', 'U = \\frac{1}{R_\\text{si} + \\sum R_j + R_\\text{se}}', 'Übergangswiderstände für Wände: R_si = 0,13, R_se = 0,04 m²K/W (DIN EN ISO 6946)'],
+        ['Wärmestrom', 'q = U\\,(\\vartheta_\\text{i} - \\vartheta_\\text{e})', 'in W je Quadratmeter'],
+        ['Temperatur an einer Schichtgrenze', '\\vartheta_x = \\vartheta_\\text{i} - q \\sum_{0}^{x} R', 'das Gefälle ist in der Dämmung am steilsten'],
+        ['Diffusion (Glaser)', 's_\\text{d} = \\mu\\, d \\qquad p(x) = p_\\text{i} - (p_\\text{i} - p_\\text{e})\\,\\frac{s_\\text{d}(x)}{\\sum s_\\text{d}}', 'Tauwasser, wo p den Sättigungsdruck erreicht'],
+        ['Jahresverlust', 'Q = U \\cdot G_\\text{t} \\cdot 24\\,\\text{h}', 'G_t Gradtagzahl in Kd; 0,1 W/(m²K) weniger spart rund 8 kWh je m² und Jahr']
+      ],
+      quellen: 'DIN EN ISO 6946 (Wärmedurchgangswiderstand und U-Wert), DIN 4108-2 (Mindestwärmeschutz), DIN 4108-3 (Tauwasserschutz, Glaser-Verfahren mit Normklima), DIN 4108-4 und DIN EN ISO 10456 (Bemessungswerte λ und μ), Gebäudeenergiegesetz GEG Anlage 7 (Höchstwerte bei Änderung von Außenbauteilen). Homogene Schichten ohne Wärmebrücken, Luftschichten und Befestiger; das Glaser-Verfahren der Norm rechnet mit festgelegten Tau- und Verdunstungsperioden – hier nur die Prüfung für das eingegebene Klima.',
+      bild: { titel: 'Simulation', label: 'Schichtaufbau im Schnitt mit Temperaturverlauf, Dampfdruck, Sättigungsdruck und fließender Wärme', animiert: !bewegungAus, hoehe: function (B) { return B < 520 ? 360 : 330; },
+        hinweis: function () { return 'Rot: Temperatur. Blau gestrichelt: Sättigungsdampfdruck, blau durchgezogen: Dampfdruck – berühren sie sich, fällt Tauwasser aus. Innen ist links.'; },
+        zeichne: function (cx, B, H, t, r, e) {
+          const x1 = 46, x2 = B - 46, y1 = 22, y2 = H - 46, ges = r.dicke || 1; let x = x1; const grenzen = [x1];
+          e.schichten.forEach(function (s, i) { const w = (x2 - x1) * s.d / ges; cx.fillStyle = FARBEN[i % FARBEN.length]; cx.globalAlpha = 0.55; cx.fillRect(x, y1, w, y2 - y1); cx.globalAlpha = 1; cx.strokeStyle = F('--leise'); cx.lineWidth = 1; cx.strokeRect(x, y1, w, y2 - y1); if (w > 34) { cx.save(); cx.beginPath(); cx.rect(x, y1, w, y2 - y1); cx.clip(); T(cx, s.name, x + 4, y2 - 10, 'left', 10, true, F('--text')); cx.restore(); } x += w; grenzen.push(x); });
+          const tmin = Math.min(e.ta, e.ti) - 2, tmax = Math.max(e.ta, e.ti) + 2, Y = function (tt) { return y2 - 6 - (y2 - y1 - 12) * (tt - tmin) / (tmax - tmin); };
+          cx.strokeStyle = SCHLECHT; cx.lineWidth = 2.5; cx.beginPath(); cx.moveTo(4, Y(e.ti)); cx.lineTo(x1 - 14, Y(e.ti)); cx.lineTo(x1, Y(r.temp[0])); r.temp.forEach(function (tt, i) { cx.lineTo(grenzen[i], Y(tt)); }); cx.lineTo(x2 + 14, Y(e.ta)); cx.lineTo(B - 4, Y(e.ta)); cx.stroke();
+          const pMax = Math.max(ps(e.ti), r.pi) * 1.05, Yp = function (p) { return y2 - 6 - (y2 - y1 - 12) * Math.min(1, p / pMax); };
+          const linie = function (k, strich) { cx.strokeStyle = BLAU; cx.lineWidth = 1.5; cx.setLineDash(strich ? [5, 4] : []); cx.beginPath(); r.profil.forEach(function (q, j) { const X = grenzen[q.i] + (grenzen[q.i + 1] - grenzen[q.i]) * q.an, Yy = Yp(q[k]); if (j) cx.lineTo(X, Yy); else cx.moveTo(X, Yy); }); cx.stroke(); cx.setLineDash([]); };
+          linie('sat', true); linie('p', false);
+          if (r.tau) r.profil.forEach(function (q) { if (q.p > q.sat) { const X = grenzen[q.i] + (grenzen[q.i + 1] - grenzen[q.i]) * q.an; cx.fillStyle = '#2B7BB9'; cx.beginPath(); cx.arc(X, Yp(q.sat) + 6 + ((t / 30) % 14), 2.5, 0, 2 * Math.PI); cx.fill(); } });
+          // Wärmestrom als wandernde Pfeile, Tempo nach q
+          const v = Math.min(120, 8 + r.q * 3); for (let k = 0; k < 4; k++) { const px = x1 - 20 + ((t / 1000 * v + k * (x2 - x1 + 40) / 4) % (x2 - x1 + 40)), py = y1 + 16 + k * 18; cx.strokeStyle = '#E4572E'; cx.fillStyle = '#E4572E'; cx.lineWidth = 2; if (e.ti >= e.ta) R.Z.pfeil(cx, px, py, px + 16, py, 6); else R.Z.pfeil(cx, B - px, py, B - px - 16, py, 6); }
+          T(cx, z(e.ti, 0) + ' °C', 4, Y(e.ti) - 10, 'left', 11, true, SCHLECHT); T(cx, z(e.ta, 0) + ' °C', B - 4, Y(e.ta) - 10, 'right', 11, true, SCHLECHT);
+          T(cx, 'innen', 4, y2 + 14, 'left', 10, false, F('--leise')); T(cx, 'außen', B - 4, y2 + 14, 'right', 10, false, F('--leise'));
+          T(cx, 'U = ' + z(r.U, 3) + ' W/(m²K) · q = ' + z(r.q, 1) + ' W/m²', B / 2, y2 + 30, 'center', 12, true, ampel(r.zielOk));
+        } }
+    });
+  })();
+  </script>
+</body>
+</html>

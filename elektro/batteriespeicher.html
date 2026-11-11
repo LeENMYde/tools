@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Batteriespeicher auslegen – Formeln &amp; Rechner</title>
+  <meta name="description" content="Batteriespeicher zur Photovoltaik auslegen: stundengenaue Jahresrechnung mit Eigenverbrauch, Autarkie und Vollzyklen, Ersparnis, Kosten je gespeicherter Kilowattstunde und Amortisation – mit Simulation eines Sommer- und Wintertags.">
+  <!-- seo -->
+  <link rel="canonical" href="https://tools.pr1m3.de/elektro/batteriespeicher.html">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Formeln &amp; Rechner">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:title" content="Batteriespeicher auslegen">
+  <meta property="og:description" content="Batteriespeicher zur Photovoltaik auslegen: stundengenaue Jahresrechnung mit Eigenverbrauch, Autarkie und Vollzyklen, Ersparnis, Kosten je gespeicherter Kilowattstunde und Amortisation – mit Simulation eines Sommer- und Wintertags.">
+  <meta property="og:url" content="https://tools.pr1m3.de/elektro/batteriespeicher.html">
+  <meta property="og:image" content="https://tools.pr1m3.de/assets/symbol-512.png">
+  <meta property="og:image:alt" content="Formeln &amp; Rechner">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Batteriespeicher auslegen">
+  <meta name="twitter:description" content="Batteriespeicher zur Photovoltaik auslegen: stundengenaue Jahresrechnung mit Eigenverbrauch, Autarkie und Vollzyklen, Ersparnis, Kosten je gespeicherter Kilowattstunde und Amortisation – mit Simulation eines Sommer- und Wintertags.">
+  <meta name="twitter:image" content="https://tools.pr1m3.de/assets/symbol-512.png">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://tools.pr1m3.de/elektro/batteriespeicher.html#seite","name":"Batteriespeicher auslegen","url":"https://tools.pr1m3.de/elektro/batteriespeicher.html","inLanguage":"de","description":"Batteriespeicher zur Photovoltaik auslegen: stundengenaue Jahresrechnung mit Eigenverbrauch, Autarkie und Vollzyklen, Ersparnis, Kosten je gespeicherter Kilowattstunde und Amortisation – mit Simulation eines Sommer- und Wintertags.","isPartOf":{"@type":"WebSite","@id":"https://tools.pr1m3.de/#website","name":"Formeln & Rechner","url":"https://tools.pr1m3.de/"},"breadcrumb":{"@id":"https://tools.pr1m3.de/elektro/batteriespeicher.html#pfad"},"dateModified":"2026-11-11"},{"@type":"BreadcrumbList","@id":"https://tools.pr1m3.de/elektro/batteriespeicher.html#pfad","itemListElement":[{"@type":"ListItem","position":1,"name":"Formeln & Rechner","item":"https://tools.pr1m3.de/"},{"@type":"ListItem","position":2,"name":"Batteriespeicher auslegen","item":"https://tools.pr1m3.de/elektro/batteriespeicher.html"}]},{"@type":"FAQPage","@id":"https://tools.pr1m3.de/elektro/batteriespeicher.html#fragen","mainEntity":[{"@type":"Question","name":"Wie groß sollte ein Batteriespeicher sein?","acceptedAnswer":{"@type":"Answer","text":"Als Faustregel 1 bis 1,5 kWh nutzbare Kapazität je kWp PV-Leistung und je 1 000 kWh Jahresverbrauch – der kleinere Wert zählt. Für ein Haus mit 4 500 kWh Verbrauch und 8 kWp sind 5 bis 7 kWh sinnvoll. Größere Speicher werden im Winter nicht voll und im Sommer nicht leer."}},{"@type":"Question","name":"Was ist der Unterschied zwischen Autarkie und Eigenverbrauch?","acceptedAnswer":{"@type":"Answer","text":"Autarkie ist der Anteil des eigenen Verbrauchs, den die Anlage deckt. Eigenverbrauch ist der Anteil des erzeugten PV-Stroms, den man selbst nutzt. Eine große PV-Anlage hat hohe Autarkie, aber niedrigen Eigenverbrauchsanteil."}},{"@type":"Question","name":"Lohnt sich ein Stromspeicher?","acceptedAnswer":{"@type":"Answer","text":"Wenn eine Kilowattstunde aus dem Speicher weniger kostet als der Unterschied zwischen Strompreis und Einspeisevergütung. Dafür teilt man den Speicherpreis durch die über die Lebensdauer abgegebene Energie. Bei 600 € je kWh und 250 Zyklen im Jahr über 15 Jahre sind das etwa 16 ct."}},{"@type":"Question","name":"Wie viele Zyklen schafft ein Speicher?","acceptedAnswer":{"@type":"Answer","text":"Lithium-Eisenphosphat-Speicher sind für 6 000 bis 10 000 Vollzyklen ausgelegt. Im Einfamilienhaus fallen 200 bis 300 Zyklen im Jahr an, sodass meist die kalendarische Alterung nach 15 bis 20 Jahren begrenzt, nicht die Zyklenzahl."}},{"@type":"Question","name":"Kann man mit einem Speicher im Winter autark sein?","acceptedAnswer":{"@type":"Answer","text":"Nein. Im Dezember und Januar liefert eine PV-Anlage in Deutschland nur etwa ein Zehntel des Sommerertrags – oft weniger als der Tagesverbrauch. Der Speicher verschiebt Strom vom Tag in die Nacht, nicht vom Sommer in den Winter."}}],"isPartOf":{"@id":"https://tools.pr1m3.de/elektro/batteriespeicher.html#seite"}}]}</script>
+  <!-- /seo -->
+  <meta name="theme-color" content="#F1F3F2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111214" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="icon" href="../favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="../assets/symbol-apple.png">
+  <link rel="stylesheet" href="../assets/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/stil.css">
+  <link rel="stylesheet" href="../assets/rechner.css">
+  <script src="../assets/basis.js"></script>
+</head>
+
+<body>
+  <div id="seitenkopf" data-wurzel="../"></div>
+
+  <main class="seite" data-rechner data-merken>
+    <section class="tafel abstand seo-info" aria-labelledby="h-faq">
+      <h2 id="h-faq">Häufige Fragen</h2>
+      <div class="faq">
+        <details><summary>Wie groß sollte ein Batteriespeicher sein?</summary><p>Als Faustregel 1 bis 1,5 kWh nutzbare Kapazität je kWp PV-Leistung und je 1 000 kWh Jahresverbrauch – der kleinere Wert zählt. Für ein Haus mit 4 500 kWh Verbrauch und 8 kWp sind 5 bis 7 kWh sinnvoll. Größere Speicher werden im Winter nicht voll und im Sommer nicht leer.</p></details>
+        <details><summary>Was ist der Unterschied zwischen Autarkie und Eigenverbrauch?</summary><p>Autarkie ist der Anteil des eigenen Verbrauchs, den die Anlage deckt. Eigenverbrauch ist der Anteil des erzeugten PV-Stroms, den man selbst nutzt. Eine große PV-Anlage hat hohe Autarkie, aber niedrigen Eigenverbrauchsanteil.</p></details>
+        <details><summary>Lohnt sich ein Stromspeicher?</summary><p>Wenn eine Kilowattstunde aus dem Speicher weniger kostet als der Unterschied zwischen Strompreis und Einspeisevergütung. Dafür teilt man den Speicherpreis durch die über die Lebensdauer abgegebene Energie. Bei 600 € je kWh und 250 Zyklen im Jahr über 15 Jahre sind das etwa 16 ct.</p></details>
+        <details><summary>Wie viele Zyklen schafft ein Speicher?</summary><p>Lithium-Eisenphosphat-Speicher sind für 6 000 bis 10 000 Vollzyklen ausgelegt. Im Einfamilienhaus fallen 200 bis 300 Zyklen im Jahr an, sodass meist die kalendarische Alterung nach 15 bis 20 Jahren begrenzt, nicht die Zyklenzahl.</p></details>
+        <details><summary>Kann man mit einem Speicher im Winter autark sein?</summary><p>Nein. Im Dezember und Januar liefert eine PV-Anlage in Deutschland nur etwa ein Zehntel des Sommerertrags – oft weniger als der Tagesverbrauch. Der Speicher verschiebt Strom vom Tag in die Nacht, nicht vom Sommer in den Winter.</p></details>
+      </div>
+    </section>
+  </main>
+
+  <div id="seitenfuss" data-wurzel="../"></div>
+
+  <script src="../assets/katex/katex.min.js"></script>
+  <script src="../assets/rechner.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    const bewegungAus = false;
+    const R = Rechner, z = R.zahl, tz = R.tz, E = R.E, rund = R.rund, F = R.farbe;
+    const GUT = '#2E8B57', WARN = '#F2A541', SCHLECHT = '#C0392B', BLAU = '#3B5BDB', GRAU = '#6B7785';
+    const T = function (cx, s, x, y, a, g, f, c) { R.Z.text(cx, s, x, y, a || 'left', g || 11, !!f, c); };
+    const u = function (w, n, e) { return tz(w, n) + '\\,\\text{' + String(e).replace(/²/g, '}^2\\text{').replace(/³/g, '}^3\\text{').replace(/°/g, '}°\\text{').replace(/Ω/g, '}\\Omega\\text{').replace(/%/g, '\\%') + '}'; };
+    const ampel = function (ok, fast) { return ok ? GUT : fast ? WARN : SCHLECHT; };
+    // Stundenprofil des Haushalts (Anteil je Stunde, Summe 1) und Tagessimulation über ein Jahr
+    const PROFIL = [0.022, 0.018, 0.016, 0.016, 0.018, 0.026, 0.042, 0.052, 0.048, 0.042, 0.04, 0.044, 0.052, 0.046, 0.04, 0.038, 0.042, 0.054, 0.066, 0.07, 0.064, 0.054, 0.04, 0.03];
+    function zufall(i) { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); }
+    function jahr(e, kap) {
+      // PV: Tagesenergie mit Jahresgang und Wetter, Stundenverlauf als Sinusbogen über die Tageslänge
+      let sum = 0; const tage = [];
+      for (let d = 0; d < 365; d++) { const saison = 1 + 0.78 * Math.cos(2 * Math.PI * (d - 172) / 365), wetter = 0.25 + 1.5 * Math.pow(zufall(d), 0.8); tage.push(saison * wetter); sum += saison * wetter; }
+      const eJahr = e.kwp * e.ertrag, wirk = Math.sqrt(e.eta / 100), pMax = kap * e.crate;
+      let soc = 0, direkt = 0, ausSpeicher = 0, einspeisung = 0, bezug = 0, geladen = 0;
+      const monate = []; for (let m = 0; m < 12; m++) monate.push({ pv: 0, last: 0, eigen: 0, bezug: 0 });
+      const beispiele = { sommer: [], winter: [] };
+      for (let d = 0; d < 365; d++) {
+        const ePV = eJahr * tage[d] / sum, lang = 12 + 4.3 * Math.cos(2 * Math.PI * (d - 172) / 365), auf = 12 - lang / 2;
+        const eLast = e.verbrauch / 365 * (1 + 0.15 * Math.cos(2 * Math.PI * (d - 15) / 365)), m = Math.min(11, Math.floor(d / 30.42));
+        for (let h = 0; h < 24; h++) {
+          const x = (h + 0.5 - auf) / lang, pv = x > 0 && x < 1 ? ePV * Math.PI / (2 * lang) * Math.sin(Math.PI * x) : 0, last = eLast * PROFIL[h];
+          const dir = Math.min(pv, last); let ueber = pv - dir, rest = last - dir, lade = 0, entl = 0;
+          if (ueber > 0 && kap > 0) { lade = Math.min(ueber, pMax, (kap - soc) / wirk); soc += lade * wirk; ueber -= lade; }
+          if (rest > 0 && kap > 0) { entl = Math.min(rest, pMax, soc * wirk); soc -= entl / wirk; rest -= entl; }
+          direkt += dir; ausSpeicher += entl; einspeisung += ueber; bezug += rest; geladen += lade;
+          monate[m].pv += pv; monate[m].last += last; monate[m].eigen += dir + entl; monate[m].bezug += rest;
+          if (d === 172 || d === 173) beispiele.sommer.push([pv, last, soc, ueber, rest]); if (d === 355 || d === 356) beispiele.winter.push([pv, last, soc, ueber, rest]);
+        }
+      }
+      return { pv: eJahr, direkt: direkt, speicher: ausSpeicher, einspeisung: einspeisung, bezug: bezug, geladen: geladen, autarkie: (direkt + ausSpeicher) / e.verbrauch, eigen: (direkt + geladen) / eJahr, zyklen: kap > 0 ? ausSpeicher / kap : 0, monate: monate, tage: beispiele };
+    }
+    R.seite({
+      titel: 'Batteriespeicher auslegen',
+      einleitung: 'Wie groß soll der Speicher zur Photovoltaik sein? Stundengenaue Jahresrechnung mit Haushaltsprofil und Wetter: Eigenverbrauch, Autarkie, Vollzyklen, Ersparnis gegenüber der Einspeisung, Speicherkosten je gespeicherter Kilowattstunde und Amortisation – mit Simulation eines Sommer- und Wintertags.',
+      hilfe: 'Nutzbare Kapazität: der Teil, den der Speicher wirklich abgibt (meist 90–95 % der Nennkapazität). Das Lastprofil ist ein typischer Haushalt ohne Wärmepumpe und E-Auto.',
+      gruppen: [
+        { titel: 'Haus und Photovoltaik', farbe: '#F2A541', felder: [
+          { k: 'verbrauch', tex: 'W_\\text{V}', name: 'Stromverbrauch im Jahr', e: 'kWh', min: 500, max: 50000 },
+          { k: 'kwp', tex: 'P_\\text{PV}', name: 'PV-Leistung', e: 'kWp', min: 0.3, max: 100 },
+          { k: 'ertrag', name: 'Jahresertrag je kWp', e: 'kWh', min: 400, max: 1400, hilfe: 'Deutschland: 850–1 050 kWh je kWp, Süddach etwa 950.' }
+        ] },
+        { titel: 'Speicher', farbe: '#2E8B57', felder: [
+          { k: 'kap', tex: 'C', name: 'nutzbare Kapazität', e: 'kWh', min: 0, max: 100 },
+          { k: 'eta', tex: '\\eta', name: 'Wirkungsgrad Laden und Entladen zusammen', e: '%', min: 50, max: 100 },
+          { k: 'crate', name: 'Leistung je kWh Kapazität', e: 'kW', min: 0.1, max: 2, hilfe: '0,5 bedeutet: Ein 10-kWh-Speicher lädt und entlädt mit höchstens 5 kW.' },
+          { k: 'zyklenMax', name: 'Lebensdauer in Vollzyklen', e: '', min: 500, max: 15000 }, { k: 'jahreMax', name: 'kalendarische Lebensdauer', e: 'Jahre', min: 5, max: 30 }
+        ] },
+        { titel: 'Geld', farbe: '#C2410C', felder: [
+          { k: 'preis', name: 'Strompreis', e: 'ct/kWh', min: 5, max: 100 }, { k: 'verguetung', name: 'Einspeisevergütung', e: 'ct/kWh', min: 0, max: 50 },
+          { k: 'kosten', name: 'Speicherpreis je kWh', e: '€', min: 100, max: 2000 }
+        ] }
+      ],
+      beispiel: { verbrauch: 4500, kwp: 8, ertrag: 950, kap: 8, eta: 90, crate: 0.5, zyklenMax: 6000, jahreMax: 15, preis: 35, verguetung: 8, kosten: 600 },
+      rechne: function (e) {
+        const r = jahr(e, e.kap); r.ohne = jahr(e, 0);
+        r.mehr = (r.direkt + r.speicher) - r.ohne.direkt;                     // zusätzlich selbst verbrauchte kWh
+        r.wenigerEin = r.ohne.einspeisung - r.einspeisung;
+        r.ersparnis = r.mehr * e.preis / 100 - r.wenigerEin * e.verguetung / 100;
+        r.invest = e.kap * e.kosten; r.amort = r.ersparnis > 0 ? r.invest / r.ersparnis : Infinity;
+        r.leben = Math.min(e.jahreMax, r.zyklen > 0 ? e.zyklenMax / r.zyklen : e.jahreMax);
+        r.kwhPreis = r.speicher > 0 ? r.invest / (r.speicher * r.leben) * 100 : Infinity;        // ct je kWh aus dem Speicher
+        r.gewinn = r.ersparnis * r.leben - r.invest;
+        r.vergleich = [0, 2.5, 5, 7.5, 10, 15, 20].map(function (k) { const q = jahr(e, k); const mehr = (q.direkt + q.speicher) - r.ohne.direkt, ers = mehr * e.preis / 100 - (r.ohne.einspeisung - q.einspeisung) * e.verguetung / 100; return [k, q.autarkie, q.eigen, q.zyklen, ers, k > 0 && ers > 0 ? k * e.kosten / ers : Infinity]; });
+        r.regel = Math.min(e.kwp * 1.5, e.verbrauch / 1000 * 1.5);
+        return r;
+      },
+      ergebnis: function (r, e, H) {
+        if (e.kap > r.regel * 1.4) H.meldung('Der Speicher ist für diese Anlage groß: Mehr als etwa ' + z(r.regel, 0) + ' kWh (1 bis 1,5 kWh je kWp und je 1 000 kWh Verbrauch) wird im Winter nicht voll und im Sommer nicht leer. Die letzten Kilowattstunden bringen kaum noch etwas.');
+        if (isFinite(r.amort) && r.amort > r.leben) H.meldung('Die Amortisation dauert mit ' + z(r.amort, 0) + ' Jahren länger als die erwartete Lebensdauer von ' + z(r.leben, 0) + ' Jahren. Rein wirtschaftlich lohnt sich der Speicher so nicht – eine Kilowattstunde aus dem Speicher kostet ' + z(r.kwhPreis, 0) + ' ct.', true);
+        else if (isFinite(r.amort)) H.meldung('Über ' + z(r.leben, 0) + ' Jahre bleibt ein Überschuss von etwa ' + z(r.gewinn, 0) + ' € (ohne Zinsen, Strompreisänderung und Wartung).');
+        if (r.zyklen < 150 && e.kap > 0) H.meldung('Nur ' + z(r.zyklen, 0) + ' Vollzyklen im Jahr: Der Speicher wird wenig genutzt. Üblich sind 200 bis 300.');
+        H.meldung('Autarkie ohne Speicher ' + z(r.ohne.autarkie * 100, 0) + ' %, mit Speicher ' + z(r.autarkie * 100, 0) + ' %. Volle Autarkie im Winter schafft kein Batteriespeicher – dafür fehlt im Dezember und Januar schlicht die Sonne.');
+        H.urteil(isFinite(r.amort) ? r.amort <= r.leben : null, z(r.autarkie * 100, 0) + ' % autark');
+        H.kacheln([
+          [z(r.autarkie * 100, 0) + ' %', 'Autarkie (ohne Speicher ' + z(r.ohne.autarkie * 100, 0) + ' %)', GUT],
+          [z(r.eigen * 100, 0) + ' %', 'Eigenverbrauch des PV-Stroms (ohne Speicher ' + z(r.ohne.eigen * 100, 0) + ' %)', '#F2A541'],
+          [z(r.zyklen, 0), 'Vollzyklen im Jahr, ' + z(r.speicher, 0) + ' kWh aus dem Speicher', BLAU],
+          [z(r.ersparnis, 0) + ' €', 'Ersparnis im Jahr durch den Speicher', '#0E6B6A'],
+          [isFinite(r.amort) ? z(r.amort, 1) + ' Jahre' : '–', 'Amortisation bei ' + z(r.invest, 0) + ' € (Lebensdauer ' + z(r.leben, 0) + ' Jahre)', ampel(r.amort <= r.leben, r.amort <= r.leben * 1.3)],
+          [isFinite(r.kwhPreis) ? z(r.kwhPreis, 0) + ' ct' : '–', 'Kosten je kWh aus dem Speicher', ampel(r.kwhPreis <= e.preis - e.verguetung)]
+        ]);
+        H.tabelle('Speichergrößen im Vergleich', ['Kapazität', 'Autarkie', 'Eigenverbrauch', 'Zyklen/Jahr', 'Ersparnis/Jahr', 'Amortisation'], r.vergleich.map(function (q) { return [z(q[0], 1) + ' kWh', z(q[1] * 100, 0) + ' %', z(q[2] * 100, 0) + ' %', q[0] ? z(q[3], 0) : '–', q[0] ? z(q[4], 0) + ' €' : '–', isFinite(q[5]) ? z(q[5], 0) + ' Jahre' : '–']; }), { zahl: [1, 2, 3, 4, 5] });
+        const MN = ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'];
+        H.tabelle('Monate', ['Monat', 'PV-Ertrag', 'Verbrauch', 'selbst gedeckt', 'Netzbezug', 'Autarkie'], r.monate.map(function (m, i) { return [MN[i], z(m.pv, 0) + ' kWh', z(m.last, 0) + ' kWh', z(m.eigen, 0) + ' kWh', z(m.bezug, 0) + ' kWh', z(m.eigen / m.last * 100, 0) + ' %']; }), { zahl: [1, 2, 3, 4, 5] });
+      },
+      weg: function (r, e) {
+        return [
+          ['PV-Ertrag', 'W_\\text{PV} = ' + tz(e.kwp, 1) + '\\,\\text{kWp} \\cdot ' + tz(e.ertrag, 0) + ' = ' + E(u(r.pv, 0, 'kWh'))],
+          ['Autarkie', 'a = \\frac{W_\\text{direkt} + W_\\text{Speicher}}{W_\\text{V}} = \\frac{' + tz(r.direkt, 0) + ' + ' + tz(r.speicher, 0) + '}{' + tz(e.verbrauch, 0) + '} = ' + E(u(r.autarkie * 100, 0, '%'))],
+          ['Eigenverbrauch', 'e = \\frac{W_\\text{direkt} + W_\\text{geladen}}{W_\\text{PV}} = \\frac{' + tz(r.direkt, 0) + ' + ' + tz(r.geladen, 0) + '}{' + tz(r.pv, 0) + '} = ' + E(u(r.eigen * 100, 0, '%'))],
+          ['Vollzyklen', 'n = \\frac{W_\\text{Speicher}}{C} = \\frac{' + tz(r.speicher, 0) + '}{' + tz(e.kap, 1) + '} = ' + E(tz(r.zyklen, 0))],
+          ['Ersparnis', 'K = ' + tz(r.mehr, 0) + '\\,\\text{kWh} \\cdot ' + tz(e.preis / 100, 2) + ' - ' + tz(r.wenigerEin, 0) + '\\,\\text{kWh} \\cdot ' + tz(e.verguetung / 100, 2) + ' = ' + E(tz(r.ersparnis, 0) + '\\,\\text{Euro}')],
+          ['Amortisation', 't = \\frac{' + tz(r.invest, 0) + '}{' + tz(r.ersparnis, 0) + '} = ' + E(isFinite(r.amort) ? u(r.amort, 1, 'Jahre') : '\\infty')]
+        ];
+      },
+      loeser: {
+        titel: 'Kapazität, Zyklen, Kosten – in jede Richtung', hilfe: 'Zum Beispiel: Was kostet eine Kilowattstunde aus einem Speicher für 5 000 €, der 6 000 Zyklen mit 8 kWh schafft? Wie viele Amperestunden sind 5 kWh bei 51,2 V?',
+        felder: [
+          { k: 'C', tex: 'C', name: 'Kapazität', e: 'kWh', min: 0.01, max: 1e5 }, { k: 'U', tex: 'U', name: 'Batteriespannung', e: 'V', min: 1, max: 1500 }, { k: 'Ah', tex: 'Q', name: 'Ladung', e: 'Ah', min: 0.1, max: 1e6 },
+          { k: 'n', tex: 'n', name: 'Vollzyklen über die Lebensdauer', e: '', min: 1, max: 1e5 }, { k: 'K', tex: 'K', name: 'Preis des Speichers', e: '€', min: 1, max: 1e7 }, { k: 'k', tex: 'k', name: 'Kosten je gespeicherter kWh', e: 'ct', min: 0.1, max: 1000 }
+        ],
+        beispiel: { C: 8, U: 51.2, n: 6000, K: 5000 },
+        gleichungen: [
+          { name: 'Energie und Ladung', v: ['C', 'U', 'Ah'], f: function (q) { return [q.C * 1000, q.U * q.Ah]; }, loese: { C: function (q) { return q.U * q.Ah / 1000; }, Ah: function (q) { return q.C * 1000 / q.U; }, U: function (q) { return q.C * 1000 / q.Ah; } },
+            weg: function (k, q) { return k === 'Ah' ? 'Q = \\frac{C}{U} = \\frac{' + tz(q.C * 1000, 0) + '\\,\\text{Wh}}{' + tz(q.U, 1) + '\\,\\text{V}} = ' + E(u(q.Ah, 0, 'Ah')) : k === 'C' ? 'C = U \\cdot Q = ' + E(u(q.C, 2, 'kWh')) : ''; } },
+          { name: 'Speicherkosten', v: ['k', 'K', 'C', 'n'], f: function (q) { return [q.k * q.C * q.n, q.K * 100]; }, loese: { k: function (q) { return q.K * 100 / (q.C * q.n); }, K: function (q) { return q.k * q.C * q.n / 100; }, n: function (q) { return q.K * 100 / (q.k * q.C); }, C: function (q) { return q.K * 100 / (q.k * q.n); } },
+            weg: function (k, q) { return k === 'k' ? 'k = \\frac{K}{C \\cdot n} = \\frac{' + tz(q.K, 0) + '}{' + tz(q.C, 1) + ' \\cdot ' + tz(q.n, 0) + '} = ' + E(u(q.k, 1, 'ct/kWh')) : ''; } }
+        ]
+      },
+      sammlung: [
+        ['Autarkiegrad', 'a = \\frac{W_\\text{direkt} + W_\\text{aus Speicher}}{W_\\text{Verbrauch}}', 'Anteil des Verbrauchs, den die eigene Anlage deckt'],
+        ['Eigenverbrauchsanteil', 'e = \\frac{W_\\text{direkt} + W_\\text{in Speicher}}{W_\\text{PV}}', 'Anteil des PV-Stroms, der im Haus bleibt'],
+        ['Faustregel', 'C \\approx 1 \\ldots 1{,}5\\,\\text{kWh} \\text{ je kWp und je 1 000 kWh Jahresverbrauch}', 'der kleinere Wert zählt'],
+        ['Vollzyklen', 'n = \\frac{W_\\text{aus Speicher}}{C}', 'im Einfamilienhaus 200 bis 300 je Jahr'],
+        ['Kosten je kWh', 'k = \\frac{K}{W_\\text{aus Speicher} \\cdot t_\\text{Leben}}', 'lohnt sich, wenn k kleiner ist als Strompreis minus Einspeisevergütung'],
+        ['Energie und Ladung', 'C = U \\cdot Q', '100 Ah bei 51,2 V sind 5,12 kWh']
+      ],
+      quellen: 'Stundengenaue Bilanz über 365 Tage mit einem typischen Haushaltslastgang (angelehnt an das Standardlastprofil H0), sinusförmigem PV-Tagesgang mit Jahresgang und festem, wiederholbarem Wetterverlauf. Faustregeln nach HTW Berlin (Unabhängigkeitsrechner, Stromspeicher-Inspektion). Ohne Wärmepumpe, E-Auto, Notstrom und Alterung; Ergebnisse streuen je nach Verhalten um einige Prozentpunkte.',
+      bild: { titel: 'Simulation: Sommer- und Wintertag', label: 'Energiefluss zwischen Photovoltaik, Haus, Speicher und Netz über zwei Tage', animiert: !bewegungAus, hoehe: function (B) { return B < 520 ? 440 : 340; },
+        hinweis: function () { return 'Abwechselnd zwei Tage um den 21. Juni und um den 21. Dezember. Gelb PV, blau Verbrauch, grün Speicherstand.'; },
+        zeichne: function (cx, B, H, t, r, e) {
+          const sommer = Math.floor(t / 12000) % 2 === 0, D = r.tage[sommer ? 'sommer' : 'winter'], an = (t % 12000) / 12000, i = Math.min(47, Math.floor(an * 48)), q = D[i] || [0, 0, 0, 0, 0];
+          const breit = B >= 520, fw = breit ? B * 0.42 : B, fh = breit ? H - 10 : 200;
+          const P = { pv: [fw * 0.5, 34], haus: [fw * 0.5, fh * 0.55], sp: [fw * 0.16, fh - 30], netz: [fw * 0.84, fh - 30] };
+          const kasten = function (p, text, farbe, w2) { cx.fillStyle = farbe; cx.fillRect(p[0] - 34, p[1] - 14, 68, 28); T(cx, text, p[0], p[1], 'center', 11, true, '#FFFFFF'); if (w2) T(cx, w2, p[0], p[1] + 24, 'center', 10, true, F('--leise')); };
+          const fluss = function (a, b, kw, farbe) { if (kw < 0.02) return; cx.strokeStyle = farbe; cx.globalAlpha = 0.35; cx.lineWidth = Math.min(10, 2 + kw * 2); cx.beginPath(); cx.moveTo(a[0], a[1]); cx.lineTo(b[0], b[1]); cx.stroke(); cx.globalAlpha = 1; for (let k = 0; k < 3; k++) { const u2 = ((t / 900 + k / 3) % 1); cx.fillStyle = farbe; cx.beginPath(); cx.arc(a[0] + (b[0] - a[0]) * u2, a[1] + (b[1] - a[1]) * u2, 3, 0, 2 * Math.PI); cx.fill(); } };
+          const pv = q[0], last = q[1], vor = D[Math.max(0, i - 1)] ? D[Math.max(0, i - 1)][2] : 0, dSoc = q[2] - (i ? vor : q[2]);
+          fluss(P.pv, P.haus, Math.min(pv, last), '#F2A541'); if (dSoc > 0.01) fluss(P.pv, P.sp, dSoc, GUT); if (dSoc < -0.01) fluss(P.sp, P.haus, -dSoc, GUT);
+          fluss(P.pv, P.netz, q[3], '#9AA3AD'); fluss(P.netz, P.haus, q[4], SCHLECHT);
+          kasten(P.pv, 'PV', '#D4A017', z(pv, 2) + ' kW'); kasten(P.haus, 'Haus', BLAU, z(last, 2) + ' kW'); kasten(P.sp, 'Speicher', GUT, e.kap > 0 ? z(q[2] / e.kap * 100, 0) + ' %' : 'keiner'); kasten(P.netz, 'Netz', GRAU, q[4] > 0.02 ? 'Bezug ' + z(q[4], 2) : q[3] > 0.02 ? 'Einsp. ' + z(q[3], 2) : '');
+          T(cx, (sommer ? 'Juni' : 'Dezember') + ', Tag ' + (i < 24 ? 1 : 2) + ', ' + (i % 24 < 10 ? '0' : '') + (i % 24) + ':00', 8, 12, 'left', 11, true);
+          const gx = breit ? fw + 40 : 40, gy = breit ? 22 : fh + 30, gw = breit ? B - gx - 14 : B - 56, gh = breit ? H - 64 : H - gy - 36;
+          const pM = Math.max(1, e.kwp * 0.75, 1.2 * Math.max.apply(null, D.map(function (x) { return x[1]; }))), ach = R.Z.achsen(cx, gx, gy, gw, gh, 0, 48, 0, pM, { xSchritt: 12, xStellen: 0, ySchritt: pM > 6 ? 2 : pM > 2.5 ? 1 : 0.5, xName: 'Stunden', yName: 'kW' });
+          const kurve = function (k, farbe, skala) { cx.strokeStyle = farbe; cx.lineWidth = 2; cx.beginPath(); D.forEach(function (x, j) { const X = ach.X(j + 0.5), Y = ach.Y(Math.min(pM, x[k] * skala)); if (j) cx.lineTo(X, Y); else cx.moveTo(X, Y); }); cx.stroke(); };
+          kurve(0, '#D4A017', 1); kurve(1, BLAU, 1); if (e.kap > 0) kurve(2, GUT, pM / e.kap);
+          cx.fillStyle = F('--text'); cx.fillRect(ach.X(i + 0.5) - 1, gy, 2, gh);
+        } }
+    });
+  })();
+  </script>
+</body>
+</html>

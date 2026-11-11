@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Erdung und Potentialtrichter – Formeln &amp; Rechner</title>
+  <meta name="description" content="Erdungsanlage berechnen: Ausbreitungswiderstand von Tiefen-, Band- und Fundamenterder je Bodenart, Bedingung im TT-System, Erderspannung im Fehlerfall, Potentialtrichter und Schrittspannung – mit Simulation des Stromflusses im Erdreich.">
+  <!-- seo -->
+  <link rel="canonical" href="https://tools.pr1m3.de/elektro/erdung.html">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Formeln &amp; Rechner">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:title" content="Erdung und Potentialtrichter">
+  <meta property="og:description" content="Erdungsanlage berechnen: Ausbreitungswiderstand von Tiefen-, Band- und Fundamenterder je Bodenart, Bedingung im TT-System, Erderspannung im Fehlerfall, Potentialtrichter und Schrittspannung – mit Simulation des Stromflusses im Erdreich.">
+  <meta property="og:url" content="https://tools.pr1m3.de/elektro/erdung.html">
+  <meta property="og:image" content="https://tools.pr1m3.de/assets/symbol-512.png">
+  <meta property="og:image:alt" content="Formeln &amp; Rechner">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Erdung und Potentialtrichter">
+  <meta name="twitter:description" content="Erdungsanlage berechnen: Ausbreitungswiderstand von Tiefen-, Band- und Fundamenterder je Bodenart, Bedingung im TT-System, Erderspannung im Fehlerfall, Potentialtrichter und Schrittspannung – mit Simulation des Stromflusses im Erdreich.">
+  <meta name="twitter:image" content="https://tools.pr1m3.de/assets/symbol-512.png">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://tools.pr1m3.de/elektro/erdung.html#seite","name":"Erdung und Potentialtrichter","url":"https://tools.pr1m3.de/elektro/erdung.html","inLanguage":"de","description":"Erdungsanlage berechnen: Ausbreitungswiderstand von Tiefen-, Band- und Fundamenterder je Bodenart, Bedingung im TT-System, Erderspannung im Fehlerfall, Potentialtrichter und Schrittspannung – mit Simulation des Stromflusses im Erdreich.","isPartOf":{"@type":"WebSite","@id":"https://tools.pr1m3.de/#website","name":"Formeln & Rechner","url":"https://tools.pr1m3.de/"},"breadcrumb":{"@id":"https://tools.pr1m3.de/elektro/erdung.html#pfad"},"dateModified":"2026-11-11"},{"@type":"BreadcrumbList","@id":"https://tools.pr1m3.de/elektro/erdung.html#pfad","itemListElement":[{"@type":"ListItem","position":1,"name":"Formeln & Rechner","item":"https://tools.pr1m3.de/"},{"@type":"ListItem","position":2,"name":"Erdung und Potentialtrichter","item":"https://tools.pr1m3.de/elektro/erdung.html"}]},{"@type":"FAQPage","@id":"https://tools.pr1m3.de/elektro/erdung.html#fragen","mainEntity":[{"@type":"Question","name":"Wie groß darf der Erdungswiderstand sein?","acceptedAnswer":{"@type":"Answer","text":"Im TT-System so groß, dass am Erder höchstens 50 V entstehen, bevor der Fehlerstrom-Schutzschalter auslöst: R ≤ 50 V / IΔn. Bei 30 mA wären das 1 666 Ω, bei 300 mA 166 Ω. Für den Blitzschutz werden höchstens 10 Ω empfohlen, in der Praxis strebt man wenige Ohm an."}},{"@type":"Question","name":"Wie lang muss ein Tiefenerder sein?","acceptedAnswer":{"@type":"Answer","text":"Als Faustformel ist der Widerstand etwa der spezifische Erdwiderstand geteilt durch die Länge. In Lehmboden mit 100 Ω·m bringt ein 6 m langer Stab also rund 17 bis 20 Ω, 9 m etwa 12 Ω. In Sand oder Kies braucht man ein Mehrfaches oder mehrere Erder."}},{"@type":"Question","name":"Was ist die Schrittspannung?","acceptedAnswer":{"@type":"Answer","text":"Fließt Strom über einen Erder ins Erdreich, fällt das Potential mit dem Abstand ab. Zwischen zwei Füßen im Abstand von einem Meter liegt dann eine Spannung. Nahe am Erder ist sie am größten. Bei Blitzeinschlägen werden deshalb oft Tiere getötet, die mit großem Schritt in der Nähe stehen."}},{"@type":"Question","name":"Warum ist ein Fundamenterder besser als ein Stab?","acceptedAnswer":{"@type":"Answer","text":"Er liegt als geschlossener Ring um oder unter dem ganzen Gebäude, hat durch die große Fläche einen niedrigen Widerstand und macht das Potential im Haus gleichmäßig. Zusammen mit dem Schutzpotentialausgleich gibt es im Gebäude praktisch keine Berührungsspannung zwischen leitfähigen Teilen."}},{"@type":"Question","name":"Wovon hängt der spezifische Erdwiderstand ab?","acceptedAnswer":{"@type":"Answer","text":"Vor allem vom Wassergehalt und der Bodenart: Moor und Lehm leiten gut, trockener Sand, Kies und Fels schlecht. Bei Frost und in trockenen Sommern steigt der Wert in den oberen Schichten stark an. Deshalb reichen Tiefenerder bis in dauerhaft feuchte Schichten."}}],"isPartOf":{"@id":"https://tools.pr1m3.de/elektro/erdung.html#seite"}}]}</script>
+  <!-- /seo -->
+  <meta name="theme-color" content="#F1F3F2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111214" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="icon" href="../favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="../assets/symbol-apple.png">
+  <link rel="stylesheet" href="../assets/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/stil.css">
+  <link rel="stylesheet" href="../assets/rechner.css">
+  <script src="../assets/basis.js"></script>
+</head>
+
+<body>
+  <div id="seitenkopf" data-wurzel="../"></div>
+
+  <main class="seite" data-rechner data-merken>
+    <section class="tafel abstand seo-info" aria-labelledby="h-faq">
+      <h2 id="h-faq">Häufige Fragen</h2>
+      <div class="faq">
+        <details><summary>Wie groß darf der Erdungswiderstand sein?</summary><p>Im TT-System so groß, dass am Erder höchstens 50 V entstehen, bevor der Fehlerstrom-Schutzschalter auslöst: R ≤ 50 V / IΔn. Bei 30 mA wären das 1 666 Ω, bei 300 mA 166 Ω. Für den Blitzschutz werden höchstens 10 Ω empfohlen, in der Praxis strebt man wenige Ohm an.</p></details>
+        <details><summary>Wie lang muss ein Tiefenerder sein?</summary><p>Als Faustformel ist der Widerstand etwa der spezifische Erdwiderstand geteilt durch die Länge. In Lehmboden mit 100 Ω·m bringt ein 6 m langer Stab also rund 17 bis 20 Ω, 9 m etwa 12 Ω. In Sand oder Kies braucht man ein Mehrfaches oder mehrere Erder.</p></details>
+        <details><summary>Was ist die Schrittspannung?</summary><p>Fließt Strom über einen Erder ins Erdreich, fällt das Potential mit dem Abstand ab. Zwischen zwei Füßen im Abstand von einem Meter liegt dann eine Spannung. Nahe am Erder ist sie am größten. Bei Blitzeinschlägen werden deshalb oft Tiere getötet, die mit großem Schritt in der Nähe stehen.</p></details>
+        <details><summary>Warum ist ein Fundamenterder besser als ein Stab?</summary><p>Er liegt als geschlossener Ring um oder unter dem ganzen Gebäude, hat durch die große Fläche einen niedrigen Widerstand und macht das Potential im Haus gleichmäßig. Zusammen mit dem Schutzpotentialausgleich gibt es im Gebäude praktisch keine Berührungsspannung zwischen leitfähigen Teilen.</p></details>
+        <details><summary>Wovon hängt der spezifische Erdwiderstand ab?</summary><p>Vor allem vom Wassergehalt und der Bodenart: Moor und Lehm leiten gut, trockener Sand, Kies und Fels schlecht. Bei Frost und in trockenen Sommern steigt der Wert in den oberen Schichten stark an. Deshalb reichen Tiefenerder bis in dauerhaft feuchte Schichten.</p></details>
+      </div>
+    </section>
+  </main>
+
+  <div id="seitenfuss" data-wurzel="../"></div>
+
+  <script src="../assets/katex/katex.min.js"></script>
+  <script src="../assets/rechner.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    const bewegungAus = false;
+    const R = Rechner, z = R.zahl, tz = R.tz, E = R.E, rund = R.rund, F = R.farbe;
+    const GUT = '#2E8B57', WARN = '#F2A541', SCHLECHT = '#C0392B', BLAU = '#3B5BDB', GRAU = '#6B7785';
+    const T = function (cx, s, x, y, a, g, f, c) { R.Z.text(cx, s, x, y, a || 'left', g || 11, !!f, c); };
+    const u = function (w, n, e) { return tz(w, n) + '\\,\\text{' + String(e).replace(/²/g, '}^2\\text{').replace(/³/g, '}^3\\text{').replace(/°/g, '}°\\text{').replace(/Ω/g, '}\\Omega\\text{').replace(/%/g, '\\%') + '}'; };
+    const ampel = function (ok, fast) { return ok ? GUT : fast ? WARN : SCHLECHT; };
+    const BODEN = { 30: 'Moor, Sumpf (30 Ω·m)', 100: 'Lehm, Ton, Ackerboden (100 Ω·m)', 200: 'feuchter Sand (200 Ω·m)', 500: 'feuchter Kies, trockener Sand (500 Ω·m)', 1000: 'trockener Kies (1 000 Ω·m)', 3000: 'steiniger Boden, Fels (3 000 Ω·m)' };
+    const ART = { tief: 'Tiefenerder (Stab)', band: 'Banderder (waagrecht)', ring: 'Ring- oder Fundamenterder' };
+    const ZIEL = { tt30: ['TT-System mit Fehlerstrom-Schutzschalter 30 mA', 50 / 0.03], tt300: ['TT-System mit Fehlerstrom-Schutzschalter 300 mA', 50 / 0.3], blitz: ['Blitzschutz (Empfehlung 10 Ω)', 10], tn: ['Betriebserder im TN-Netz (2 Ω gesamt)', 2] };
+    function widerstand(e) {
+      if (e.art === 'tief') return e.rho / (2 * Math.PI * e.laenge) * Math.log(4 * e.laenge / (e.durchm / 1000));
+      if (e.art === 'band') return e.rho / (Math.PI * e.laenge) * Math.log(2 * e.laenge / (e.durchm / 1000));
+      const D = 1.13 * Math.sqrt(e.flaeche); return 2 * e.rho / (3 * D);
+    }
+    R.seite({
+      titel: 'Erdung und Potentialtrichter',
+      einleitung: 'Wie gut ist der Erder? Ausbreitungswiderstand von Tiefen-, Band- und Fundamenterder je Bodenart, mehrere Erder parallel, Bedingung im TT-System, Erderspannung bei einem Fehler, Potentialtrichter und Schrittspannung in der Umgebung – mit Simulation des Stromflusses im Erdreich.',
+      hilfe: 'Spezifischer Erdwiderstand: stark vom Wassergehalt abhängig, im Sommer und bei Frost deutlich höher. Messen ist besser als schätzen.',
+      gruppen: [
+        { titel: 'Erder', farbe: '#8A6D3B', felder: [
+          { k: 'rho', name: 'Boden', wahl: Object.keys(BODEN).sort(function (a, b) { return a - b; }).map(function (k) { return [k, BODEN[k]]; }) },
+          { k: 'art', name: 'Art des Erders', wahl: Object.keys(ART).map(function (k) { return [k, ART[k]]; }) },
+          { k: 'laenge', tex: 'l', name: 'Länge des Erders', e: 'm', min: 0.5, max: 200, wenn: function (e) { return e.art !== 'ring'; } },
+          { k: 'durchm', tex: 'd', name: 'Durchmesser (Band: halbe Breite)', e: 'mm', min: 5, max: 100, wenn: function (e) { return e.art !== 'ring'; } },
+          { k: 'flaeche', tex: 'A', name: 'umschlossene Fläche', e: 'm²', min: 4, max: 20000, wenn: function (e) { return e.art === 'ring'; } },
+          { k: 'anzahl', tex: 'n', name: 'gleiche Erder parallel', e: '', min: 1, max: 20, ganz: true, hilfe: 'Abstand mindestens die doppelte Erderlänge; die Seite rechnet mit 10 % Zuschlag für gegenseitige Beeinflussung.' },
+          { k: 'ziel', name: 'Anforderung', wahl: Object.keys(ZIEL).map(function (k) { return [k, ZIEL[k][0]]; }) }
+        ] },
+        { titel: 'Fehlerfall', farbe: '#C0392B', felder: [
+          { k: 'ifehler', tex: 'I_\\text{F}', name: 'Strom, der über den Erder abfließt', e: 'A', min: 0.001, max: 100000, hilfe: 'TT-Netz mit Körperschluss: einige Ampere. Blitzteilstrom: mehrere tausend Ampere.' },
+          { k: 'abstand', tex: 'x', name: 'Standort: Abstand vom Erder', e: 'm', min: 0.3, max: 200 },
+          { k: 'schritt', tex: 's', name: 'Schrittweite', e: 'm', min: 0.3, max: 1.5 }
+        ] }
+      ],
+      beispiel: { rho: 100, art: 'tief', laenge: 6, durchm: 20, flaeche: 100, anzahl: 1, ziel: 'tt30', ifehler: 5, abstand: 2, schritt: 1 },
+      rechne: function (e) {
+        const r = {};
+        r.R1 = widerstand(e); r.R = e.anzahl > 1 ? r.R1 / e.anzahl * 1.1 : r.R1;
+        r.ziel = ZIEL[e.ziel][1]; r.ok = r.R <= r.ziel;
+        r.UE = e.ifehler * r.R;
+        // Potential an der Oberfläche wie bei einer Halbkugel gleichen Widerstands: φ(x) = I ρ / (2 π x), begrenzt auf U_E
+        r.rAeq = e.rho / (2 * Math.PI * r.R);
+        r.phi = function (x) { return Math.min(r.UE, e.ifehler * e.rho / (2 * Math.PI * Math.max(x, 0.01))); };
+        r.US = r.phi(e.abstand) - r.phi(e.abstand + e.schritt);
+        r.UB = r.UE - r.phi(Math.max(1, r.rAeq));       // Berührung: Hand am Erder, Füße 1 m entfernt
+        r.xSicher = (function () { for (let x = 0.3; x < 500; x += 0.1) if (r.phi(x) - r.phi(x + e.schritt) <= 50) return x; return Infinity; })();
+        r.lNoetig = e.art === 'ring' ? NaN : (function () { for (let l = 0.5; l <= 200; l += 0.5) if (widerstand(Object.assign({}, e, { laenge: l })) / e.anzahl * (e.anzahl > 1 ? 1.1 : 1) <= r.ziel) return l; return Infinity; })();
+        r.iMaxTT = 50 / r.R;
+        return r;
+      },
+      ergebnis: function (r, e, H) {
+        if (!r.ok) H.meldung('Der Erdungswiderstand ist mit ' + z(r.R, 1) + ' Ω zu hoch (gefordert höchstens ' + z(r.ziel, r.ziel < 20 ? 1 : 0) + ' Ω). ' + (isFinite(r.lNoetig) ? 'Erder auf etwa ' + z(r.lNoetig, 1) + ' m verlängern' : 'Mehrere Erder parallel oder Ringerder') + ' – oder Boden verbessern.', true);
+        if (r.UE > 50) H.meldung('Erderspannung ' + z(r.UE, 0) + ' V: Der Erder und alles daran Angeschlossene steht gegenüber ferner Erde unter dieser Spannung. Im TT-Netz muss der Fehlerstrom-Schutzschalter abschalten, bevor 50 V überschritten werden (R ≤ 50 V / IΔn).', r.UE > 120);
+        if (r.US > 50) H.meldung('Schrittspannung ' + z(r.US, 0) + ' V bei ' + z(e.abstand, 1) + ' m Abstand – gefährlich ab etwa 50 V. Sicher wird es erst ab ' + (isFinite(r.xSicher) ? z(r.xSicher, 1) + ' m' : 'sehr großem Abstand') + '. Bei Gewitter Füße zusammen, nicht hinlegen; Weidetiere mit großem Schritt sind besonders gefährdet.', true);
+        H.meldung('Ringerder und Fundamenterder mit Potentialausgleich machen den Trichter flach: Innerhalb des Rings gibt es kaum Schritt- und Berührungsspannung. Deshalb ist der Fundamenterder nach DIN 18014 in jedem Neubau Pflicht.');
+        H.urteil(r.ok, z(r.R, 1) + ' Ω');
+        H.kacheln([
+          [z(r.R, r.R < 10 ? 2 : 1) + ' Ω', 'Ausbreitungswiderstand' + (e.anzahl > 1 ? ' (' + e.anzahl + ' Erder, einzeln ' + z(r.R1, 1) + ' Ω)' : ''), ampel(r.ok)],
+          [z(r.ziel, r.ziel < 20 ? 1 : 0) + ' Ω', 'gefordert: ' + ZIEL[e.ziel][0], BLAU],
+          [z(r.UE, 0) + ' V', 'Erderspannung bei ' + z(e.ifehler, 1) + ' A', ampel(r.UE <= 50, r.UE <= 120)],
+          [z(r.US, 1) + ' V', 'Schrittspannung in ' + z(e.abstand, 1) + ' m Abstand', ampel(r.US <= 50)],
+          [z(r.iMaxTT * 1000, 0) + ' mA', 'größter IΔn, damit 50 V eingehalten werden', '#6E6FA6'],
+          [isFinite(r.lNoetig) ? z(r.lNoetig, 1) + ' m' : '–', 'nötige Erderlänge für die Anforderung', '#8A6D3B']
+        ]);
+        H.nachweise([[r.ok, 'Erdungswiderstand', z(r.R, 1) + ' Ω ' + (r.ok ? '≤' : '>') + ' ' + z(r.ziel, 1) + ' Ω'], [r.UE <= 50, 'Erderspannung höchstens 50 V', z(r.UE, 0) + ' V'], [r.US <= 50, 'Schrittspannung höchstens 50 V', z(r.US, 1) + ' V']]);
+        H.tabelle('Derselbe Erder in anderen Böden', ['Boden', 'ρ', 'Widerstand', 'Anforderung'], Object.keys(BODEN).sort(function (a, b) { return a - b; }).map(function (k) {
+          const R2 = widerstand(Object.assign({}, e, { rho: Number(k) })) / e.anzahl * (e.anzahl > 1 ? 1.1 : 1);
+          return [BODEN[k].split(' (')[0], z(Number(k), 0) + ' Ω·m', z(R2, 1) + ' Ω', R2 <= r.ziel ? 'erfüllt' : 'nicht erfüllt'];
+        }), { zahl: [1, 2] });
+        H.tabelle('Potentialtrichter bei ' + z(e.ifehler, 1) + ' A', ['Abstand', 'Potential', 'Schrittspannung'], [0.5, 1, 2, 5, 10, 20, 50].map(function (x) { return [z(x, 1) + ' m', z(r.phi(x), 1) + ' V', z(r.phi(x) - r.phi(x + e.schritt), 1) + ' V']; }), { zahl: [1, 2] });
+      },
+      weg: function (r, e) {
+        const f = e.art === 'tief' ? 'R = \\frac{\\rho}{2\\pi l} \\ln\\frac{4 l}{d} = \\frac{' + tz(e.rho, 0) + '}{2\\pi \\cdot ' + tz(e.laenge, 1) + '} \\ln\\frac{4 \\cdot ' + tz(e.laenge, 1) + '}{' + tz(e.durchm / 1000, 3) + '}' : e.art === 'band' ? 'R = \\frac{\\rho}{\\pi l} \\ln\\frac{2 l}{d} = \\frac{' + tz(e.rho, 0) + '}{\\pi \\cdot ' + tz(e.laenge, 1) + '} \\ln\\frac{2 \\cdot ' + tz(e.laenge, 1) + '}{' + tz(e.durchm / 1000, 3) + '}' : 'R = \\frac{2 \\rho}{3 D}, \; D = 1{,}13 \\sqrt{A} = ' + tz(1.13 * Math.sqrt(e.flaeche), 1) + '\\,\\text{m}';
+        return [
+          ['Ausbreitungswiderstand eines Erders', f + ' = ' + E(u(r.R1, 2, 'Ω'))],
+          ['Mehrere Erder', e.anzahl > 1 ? 'R = 1{,}1 \\cdot \\frac{' + tz(r.R1, 2) + '}{' + e.anzahl + '} = ' + E(u(r.R, 2, 'Ω')) : 'R = ' + E(u(r.R, 2, 'Ω'))],
+          ['Erderspannung', 'U_\\text{E} = I_\\text{F} \\cdot R = ' + tz(e.ifehler, 2) + ' \\cdot ' + tz(r.R, 2) + ' = ' + E(u(r.UE, 1, 'V'))],
+          ['Potential im Abstand x', '\\varphi(x) = \\frac{I_\\text{F}\\, \\rho}{2\\pi x} = \\frac{' + tz(e.ifehler, 2) + ' \\cdot ' + tz(e.rho, 0) + '}{2\\pi \\cdot ' + tz(e.abstand, 1) + '} = ' + E(u(r.phi(e.abstand), 1, 'V'))],
+          ['Schrittspannung', 'U_\\text{S} = \\varphi(x) - \\varphi(x + s) = ' + tz(r.phi(e.abstand), 1) + ' - ' + tz(r.phi(e.abstand + e.schritt), 1) + ' = ' + E(u(r.US, 1, 'V'))],
+          ['Bedingung TT-System', 'R_\\text{A} \\le \\frac{50\\,\\text{V}}{I_{\\Delta n}} \\Rightarrow I_{\\Delta n} \\le \\frac{50}{' + tz(r.R, 1) + '} = ' + E(u(r.iMaxTT * 1000, 0, 'mA'))]
+        ];
+      },
+      loeser: {
+        titel: 'Erder und Spannungen – in jede Richtung', hilfe: 'Tiefenerder als Faustformel R ≈ ρ / l. Zum Beispiel: Wie lang muss ein Stab in Lehm für 10 Ω sein? Welcher Fehlerstrom-Schutzschalter passt zu 400 Ω?',
+        felder: [
+          { k: 'rho', tex: '\\rho', name: 'spezifischer Erdwiderstand', e: 'Ω·m', min: 1, max: 1e5 }, { k: 'l', tex: 'l', name: 'Länge des Tiefenerders', e: 'm', min: 0.1, max: 1000 }, { k: 'R', tex: 'R_\\text{A}', name: 'Erdungswiderstand', e: 'Ω', min: 0.01, max: 1e5 },
+          { k: 'I', tex: 'I', name: 'Strom über den Erder', e: 'A', min: 0.0001, max: 1e6 }, { k: 'U', tex: 'U_\\text{E}', name: 'Erderspannung', e: 'V', min: 0.001, max: 1e7 }
+        ],
+        beispiel: { rho: 100, R: 10, U: 50 },
+        gleichungen: [
+          { name: 'Faustformel Tiefenerder', v: ['R', 'rho', 'l'], f: function (q) { return [q.R * q.l, q.rho]; }, loese: { R: function (q) { return q.rho / q.l; }, l: function (q) { return q.rho / q.R; }, rho: function (q) { return q.R * q.l; } },
+            weg: function (k, q) { return k === 'l' ? 'l \\approx \\frac{\\rho}{R_\\text{A}} = \\frac{' + tz(q.rho, 0) + '}{' + tz(q.R, 1) + '} = ' + E(u(q.l, 1, 'm')) : k === 'R' ? 'R_\\text{A} \\approx \\frac{\\rho}{l} = ' + E(u(q.R, 1, 'Ω')) : ''; } },
+          { name: 'Erderspannung', v: ['U', 'I', 'R'], f: function (q) { return [q.U, q.I * q.R]; }, loese: { U: function (q) { return q.I * q.R; }, I: function (q) { return q.U / q.R; }, R: function (q) { return q.U / q.I; } },
+            weg: function (k, q) { return k === 'I' ? 'I = \\frac{U_\\text{E}}{R_\\text{A}} = \\frac{' + tz(q.U, 0) + '}{' + tz(q.R, 1) + '} = ' + E(u(q.I, 3, 'A')) : k === 'U' ? 'U_\\text{E} = I \\cdot R_\\text{A} = ' + E(u(q.U, 1, 'V')) : ''; } }
+        ]
+      },
+      sammlung: [
+        ['Tiefenerder', 'R = \\frac{\\rho}{2\\pi l} \\ln\\frac{4 l}{d} \\approx \\frac{\\rho}{l}', 'Stab der Länge l, Durchmesser d; Faustformel für übliche Maße'],
+        ['Banderder', 'R = \\frac{\\rho}{\\pi l} \\ln\\frac{2 l}{d} \\approx \\frac{2 \\rho}{l}', 'waagrecht in 0,5–1 m Tiefe'],
+        ['Ring- und Fundamenterder', 'R \\approx \\frac{2 \\rho}{3 D}, \\quad D = 1{,}13 \\sqrt{A}', 'D: Durchmesser eines flächengleichen Kreises'],
+        ['Potentialtrichter', '\\varphi(x) = \\frac{I\\, \\rho}{2\\pi x}', 'Halbkugelmodell: das Potential fällt mit dem Abstand'],
+        ['Schrittspannung', 'U_\\text{S} = \\frac{I\\, \\rho}{2\\pi} \\left(\\frac{1}{x} - \\frac{1}{x + s}\\right)', 's Schrittweite, meist 1 m'],
+        ['TT-System', 'R_\\text{A} \\le \\frac{50\\,\\text{V}}{I_{\\Delta n}}', '30 mA: 1 666 Ω, 300 mA: 166 Ω; in der Praxis deutlich niedriger anstreben']
+      ],
+      quellen: 'DIN VDE 0100-540 (Erdungsanlagen und Schutzleiter), DIN VDE 0100-410 (Bedingung im TT-System), DIN 18014 (Fundamenterder), DIN EN 62305-3 (Blitzschutz, Erdungsanlage), DIN EN 50522 (Erdung von Starkstromanlagen über 1 kV: Schritt- und Berührungsspannung). Formeln für homogenen Boden; geschichteter Boden und Frost verändern die Werte stark. Der Erdungswiderstand wird gemessen, nicht nur gerechnet.',
+      bild: { titel: 'Simulation', label: 'Schnitt durch das Erdreich mit Erder, Strombahnen, Potentialtrichter und Schrittspannung', animiert: !bewegungAus, hoehe: function (B) { return B < 520 ? 380 : 340; },
+        hinweis: function () { return 'Oben der Potentialtrichter an der Oberfläche, unten die Strombahnen im Boden. Die Person geht auf den Erder zu und wieder weg.'; },
+        zeichne: function (cx, B, H, t, r, e) {
+          const x0 = B * 0.5, yb = H * 0.52, xMax = Math.max(6, e.abstand * 1.6, 8), s = (B / 2 - 24) / xMax;
+          cx.fillStyle = 'rgba(138,109,59,0.22)'; cx.fillRect(0, yb, B, H - yb); cx.fillStyle = F('--linie'); cx.fillRect(0, yb - 2, B, 3);
+          // Äquipotentiallinien als Halbkreise, pulsierend
+          for (let k = 1; k <= 7; k++) { const rr = (xMax * k / 7) * s, ph = ((t / 2500 + k / 7) % 1); cx.strokeStyle = 'rgba(192,57,43,' + (0.5 * (1 - k / 8)) + ')'; cx.lineWidth = 1.5; cx.beginPath(); cx.arc(x0, yb, rr, 0, Math.PI); cx.stroke(); }
+          for (let k = 0; k < 9; k++) { const a = Math.PI * (k + 0.5) / 9, ph = ((t / 1800 + k * 0.13) % 1), rr = 12 + ph * (H - yb) * 1.2; cx.fillStyle = '#FFD25A'; cx.globalAlpha = 1 - ph; cx.beginPath(); cx.arc(x0 + Math.cos(a) * rr, yb + Math.sin(a) * rr, 2.5, 0, 2 * Math.PI); cx.fill(); cx.globalAlpha = 1; }
+          cx.strokeStyle = '#8A6D3B'; cx.lineWidth = 5;
+          if (e.art === 'tief') { cx.beginPath(); cx.moveTo(x0, yb - 8); cx.lineTo(x0, Math.min(H - 8, yb + e.laenge * s)); cx.stroke(); }
+          else { const hw = e.art === 'ring' ? 1.13 * Math.sqrt(e.flaeche) / 2 * s : e.laenge / 2 * s; cx.beginPath(); cx.moveTo(x0 - Math.min(hw, B / 2 - 20), yb + 14); cx.lineTo(x0 + Math.min(hw, B / 2 - 20), yb + 14); cx.stroke(); cx.lineWidth = 3; cx.beginPath(); cx.moveTo(x0, yb + 14); cx.lineTo(x0, yb - 8); cx.stroke(); }
+          // Potentialverlauf oben
+          const ph0 = Math.max(1, r.UE), Yp = function (v) { return yb - 14 - (yb - 50) * Math.min(1, v / ph0); };
+          cx.strokeStyle = SCHLECHT; cx.lineWidth = 2; cx.beginPath(); for (let px = 10; px <= B - 10; px += 3) { const x = Math.abs(px - x0) / s, y = Yp(r.phi(x)); if (px === 10) cx.moveTo(px, y); else cx.lineTo(px, y); } cx.stroke();
+          T(cx, 'Erderspannung ' + z(r.UE, 0) + ' V', x0 + 8, 30, 'left', 12, true, SCHLECHT);
+          // Person geht hin und her
+          const weg = 0.5 + (xMax - 1.5) * (0.5 + 0.5 * Math.sin(t / 2600)), xp = x0 + weg * s, us = r.phi(weg) - r.phi(weg + e.schritt), sp = e.schritt * s * Math.abs(Math.sin(t / 300));
+          cx.strokeStyle = ampel(us <= 50); cx.lineWidth = 4; cx.lineCap = 'round'; cx.beginPath(); cx.moveTo(xp, yb - 34); cx.lineTo(xp - sp / 2, yb - 3); cx.moveTo(xp, yb - 34); cx.lineTo(xp + sp / 2, yb - 3); cx.moveTo(xp, yb - 34); cx.lineTo(xp, yb - 56); cx.stroke();
+          cx.fillStyle = ampel(us <= 50); cx.beginPath(); cx.arc(xp, yb - 62, 6, 0, 2 * Math.PI); cx.fill();
+          T(cx, z(us, 1) + ' V', xp, yb - 78, 'center', 11, true, ampel(us <= 50)); T(cx, z(weg, 1) + ' m', xp, yb + 16, 'center', 10, false, F('--leise'));
+          T(cx, 'R = ' + z(r.R, 1) + ' Ω · ' + z(e.ifehler, 1) + ' A · ρ = ' + z(e.rho, 0) + ' Ω·m', 10, H - 10, 'left', 10, true, F('--leise'));
+        } }
+    });
+  })();
+  </script>
+</body>
+</html>
