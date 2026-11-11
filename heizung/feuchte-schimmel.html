@@ -87,7 +87,7 @@
           { k: 'n', tex: 'n', name: 'Luftwechsel', e: '1/h', min: 0, max: 10 }
         ] }
       ],
-      beispiel: { ti: 20, rf: 55, ta: -5, rfa: 80, uwert: 1.4, u: 1.4, rsi: 0.25, volumen: 200, last: 450, n: 0.3 },
+      beispiel: { ti: 20, rf: 50, ta: -5, rfa: 80, uwert: 1, u: 1.0, rsi: 0.25, volumen: 200, last: 450, n: 0.5 },
       rechne: function (e) {
         const r = {};
         r.td = taupunkt(e.ti, e.rf); r.abs = absolut(e.ti, e.rf); r.absA = absolut(e.ta, e.rfa);

@@ -55,7 +55,7 @@
   }
   function farbe(n) { return Thema.farbe(n); }
   // gleichmäßige Werte für Wahlfelder: Zahlenwerte als Zahl speichern
-  function wahlWert(v) { return /^-?\d+(\.\d+)?$/.test(v) ? Number(v) : v; }
+  function wahlWert(v) { return /^-?\d+(\.\d+)?(e-?\d+)?$/i.test(v) ? Number(v) : v; }   // auch 1e-7
 
   let zaehler = 0;
 

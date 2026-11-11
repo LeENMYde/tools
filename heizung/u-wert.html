@@ -92,9 +92,12 @@
         r.tsi = r.temp[0];
         // Glaser: Dampfdruck linear über s_d, Vergleich mit Sättigungsdruck an jeder Grenze (innerhalb der Schichten fein unterteilt)
         const pi = e.rfi / 100 * ps(e.ti), pe = e.rfa / 100 * ps(e.ta), sdSum = r.sd.reduce(function (a, b) { return a + b; }, 0) || 1e-9;
-        r.pi = pi; r.pe = pe; r.sdSum = sdSum; r.profil = []; let sdBis = 0, tauMax = 0, tauOrt = -1;
-        e.schichten.forEach(function (s, i) { for (let k = 0; k <= 10; k++) { const an = k / 10, tt = r.temp[i] + (r.temp[i + 1] - r.temp[i]) * an, sdx = sdBis + r.sd[i] * an, p = pi + (pe - pi) * sdx / sdSum, sat = ps(tt); r.profil.push({ i: i, an: an, t: tt, p: p, sat: sat }); if (p - sat > tauMax) { tauMax = p - sat; tauOrt = i; } } sdBis += r.sd[i]; });
+        r.pi = pi; r.pe = pe; r.sdSum = sdSum; r.profil = []; let sdBis = 0, tauMax = 0, tauOrt = -1, tauSd = 0, tauSat = 0;
+        e.schichten.forEach(function (s, i) { for (let k = 0; k <= 10; k++) { const an = k / 10, tt = r.temp[i] + (r.temp[i + 1] - r.temp[i]) * an, sdx = sdBis + r.sd[i] * an, p = pi + (pe - pi) * sdx / sdSum, sat = ps(tt); r.profil.push({ i: i, an: an, t: tt, p: p, sat: sat }); if (p - sat > tauMax) { tauMax = p - sat; tauOrt = i; tauSd = sdx; tauSat = sat; } } sdBis += r.sd[i]; });
         r.tau = tauMax > 1; r.tauOrt = tauOrt;
+        // Tauwassermenge nach Glaser in der ungünstigsten Ebene über 90 Tage (Tauperiode der DIN 4108-3), δ0 = 2·10⁻¹⁰ kg/(m·s·Pa)
+        r.tauMenge = r.tau ? Math.max(0, 2e-10 * ((pi - tauSat) / Math.max(0.01, tauSd) - (tauSat - pe) / Math.max(0.01, sdSum - tauSd)) * 90 * 86400) : 0;
+        r.tauViel = r.tauMenge > 1; r.tauWarn = r.tau && !r.tauViel;
         r.zielOk = r.U <= e.ziel;
         r.kwh = r.U * e.gt * 24 / 1000; r.euro = r.kwh * e.preis / 100;
         // nötige Zusatzdämmung λ 0,035
@@ -106,17 +109,18 @@
       },
       ergebnis: function (r, e, H) {
         if (!r.zielOk) H.meldung('U = ' + z(r.U, 2) + ' W/(m²K) erfüllt die Anforderung ' + z(e.ziel, 2) + ' nicht. Es fehlen etwa ' + z(Math.ceil(r.dZusatz), 0) + ' cm Dämmung mit λ = 0,035.', true);
-        if (r.tau) H.meldung('Tauwasser im Bauteil: In der Schicht „' + e.schichten[r.tauOrt].name + '“ übersteigt der Dampfdruck den Sättigungsdruck. Dampfbremse auf der warmen Seite einbauen oder diffusionsoffener nach außen bauen (innen dicht, außen offen).', true);
+        if (r.tauWarn) H.meldung('Etwas Tauwasser im Winter: in der Schicht „' + e.schichten[r.tauOrt].name + '“ fallen über 90 Tage rund ' + z(r.tauMenge * 1000, 0) + ' g/m² aus. Bis 1 000 g/m² (500 g/m² an nicht saugenden Schichten) gilt das nach DIN 4108-3 als unschädlich, wenn es im Sommer wieder austrocknet.');
+        if (r.tauViel) H.meldung('Zu viel Tauwasser im Bauteil: In der Schicht „' + e.schichten[r.tauOrt].name + '“ fallen über 90 Tage rund ' + z(r.tauMenge, 1) + ' kg/m² aus (unschädlich wären höchstens 1 kg/m²). Dampfbremse auf der warmen Seite einbauen oder diffusionsoffener nach außen bauen (innen dicht, außen offen).', true);
         if (r.innenDaemm) H.meldung('Dämmung auf der Innenseite: Die Wand dahinter wird kalt, Tauwasser und Wärmebrücken an einbindenden Decken und Wänden sind kritisch. Nur mit Dampfbremse oder kapillaraktiven Systemen und sorgfältiger Planung.');
         if (r.frsi < 0.7) H.meldung('Mindestwärmeschutz nicht erfüllt: f_Rsi = ' + z(r.frsi, 2) + ' < 0,70 – Schimmelgefahr an der Innenoberfläche (siehe Feuchte, Taupunkt und Schimmel).', true);
-        H.urteil(r.zielOk && !r.tau, 'U = ' + z(r.U, 2));
+        H.urteil(r.zielOk && !r.tauViel, 'U = ' + z(r.U, 2));
         H.kacheln([
           [z(r.U, 3) + ' W/(m²K)', 'U-Wert (Anforderung ' + z(e.ziel, 2) + ')', ampel(r.zielOk)],
           [z(r.RT, 2) + ' m²K/W', 'Wärmedurchgangswiderstand, Dicke ' + z(r.dicke, 1) + ' cm', '#8A6D3B'],
           [z(r.tsi, 1) + ' °C', 'Oberfläche innen bei ' + z(e.ta, 0) + ' °C außen', ampel(r.frsi >= 0.7)],
           [z(r.q, 1) + ' W/m²', 'Wärmestrom jetzt', '#E4572E'],
           [z(r.kwh, 0) + ' kWh', 'Wärmeverlust je m² und Jahr = ' + z(r.euro, 2) + ' €', '#C2410C'],
-          [r.tau ? 'Tauwasser' : 'kein Tauwasser', 'Glaser-Prüfung für dieses Klima', ampel(!r.tau)]
+          [r.tau ? z(r.tauMenge * 1000, 0) + ' g/m²' : 'kein Tauwasser', r.tau ? 'Tauwasser in 90 Tagen bei diesem Klima (Glaser)' : 'Glaser-Prüfung für dieses Klima', ampel(!r.tau, !r.tauViel)]
         ]);
         let sum = 0;
         H.tabelle('Schichten', ['Schicht', 'Dicke', 'λ', 'R', 'Anteil', 's_d', 'Temperatur außen'], e.schichten.map(function (s, i) { return [s.name, z(s.d, 1) + ' cm', z(s.l, 3), z(r.R[i], 3), z(r.R[i] / r.RT * 100, 0) + ' %', z(r.sd[i], 2) + ' m', z(r.temp[i + 1], 1) + ' °C']; }).concat([['Übergänge innen + außen', '', '', z(r.Rsi + r.Rse, 2), z((r.Rsi + r.Rse) / r.RT * 100, 0) + ' %', '', '']]), { zahl: [1, 2, 3, 4, 5, 6] });
@@ -124,7 +128,7 @@
       },
       weg: function (r, e) {
         return [
-          ['Widerstände der Schichten', 'R = \\frac{d}{\\lambda}: \\quad ' + e.schichten.slice(0, 5).map(function (s, i) { return '\\frac{' + tz(s.d / 100, 3) + '}{' + tz(s.l, 3) + '} = ' + tz(r.R[i], 3); }).join(', \; ')],
+          ['Widerstände der Schichten', 'R = \\frac{d}{\\lambda}: \\quad ' + e.schichten.slice(0, 5).map(function (s, i) { return '\\frac{' + tz(s.d / 100, 3) + '}{' + tz(s.l, 3) + '} = ' + tz(r.R[i], 3); }).join(', \\; ')],
           ['Gesamtwiderstand', 'R_\\text{T} = R_\\text{si} + \\sum R + R_\\text{se} = 0{,}13 + ' + tz(r.Rsum, 3) + ' + 0{,}04 = ' + E(u(r.RT, 3, 'm²K/W'))],
           ['U-Wert', 'U = \\frac{1}{R_\\text{T}} = ' + E(u(r.U, 3, 'W/(m²K)'))],
           ['Wärmestrom', 'q = U\\,(\\vartheta_\\text{i} - \\vartheta_\\text{e}) = ' + tz(r.U, 3) + ' \\cdot ' + tz(e.ti - e.ta, 1) + ' = ' + E(u(r.q, 1, 'W/m²'))],

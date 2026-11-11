@@ -338,6 +338,8 @@
     });
   }
   function schluessel(el, i) { return el.id ? '#' + el.id : el.name ? '@' + el.name : i; }
+  // gegeben ist ein Feld auch, wenn es im Löser als Widerspruch markiert ist (dort werden nur eingetragene Werte so markiert)
+  function istGegeben(feld) { return feld.classList.contains('gegeben') || (feld.classList.contains('widerspruch') && !!feld.closest('.loeser')); }
   function zustandLesen(haupt) {
     const z = { modi: [], werte: {} };
     haupt.querySelectorAll('button[aria-pressed="true"]').forEach(function (k) {
@@ -348,7 +350,7 @@
       const feld = el.closest('.feld');
       let w;
       if (el.type === 'checkbox' || el.type === 'radio') w = el.checked;
-      else if (feld && el.tagName === 'INPUT' && el.type !== 'range') w = feld.classList.contains('gegeben') ? el.value : '';
+      else if (feld && el.tagName === 'INPUT' && el.type !== 'range') w = istGegeben(feld) ? el.value : '';
       else w = el.value;
       z.werte[schluessel(el, i)] = w;
     });
@@ -374,7 +376,7 @@
           el.checked = !!w;
         } else {
           const feld = el.closest('.feld');
-          const jetzt = feld && el.tagName === 'INPUT' && el.type !== 'range' ? (feld.classList.contains('gegeben') ? el.value : '') : el.value;
+          const jetzt = feld && el.tagName === 'INPUT' && el.type !== 'range' ? (istGegeben(feld) ? el.value : '') : el.value;
           if (jetzt === w) return;
           el.value = w;
           el.dispatchEvent(new Event('input', { bubbles: true }));

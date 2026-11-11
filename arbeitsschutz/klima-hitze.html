@@ -263,7 +263,7 @@
       H.tabelle('Bei anderer Lufttemperatur (Strahlung und Feuchte gleich weit darüber)', ['Luft', 'PMV', 'unzufrieden', 'WBGT', 'Arbeit je Stunde', 'Schweiß'], temps.map(function (t) {
         const e2 = Object.assign({}, e, { ta: t, tr: t + (e.tr - e.ta) }), q = rechne(e2);
         return [t + ' °C', (q.pmv > 0 ? '+' : '') + z(Math.max(-3, Math.min(3, q.pmv)), 1), z(q.ppd, 0) + ' %', z(q.wbgtEff, 1) + ' °C', z(q.anteil * 60, 0) + ' min', z(q.schweiss, 2) + ' l/h'];
-      }), { zahl: [1, 2, 3, 4, 5], klasse: function (j) { const t = temps[j]; return Math.abs(t - e.ta) < 1 ? 'aktiv' : ''; } });
+      }), { zahl: [1, 2, 3, 4, 5], klasse: function (j) { const t = temps[j]; return Math.abs(t - e.ta) < 1 ? 'gewaehlt' : ''; } });
       H.tabelle('ASR A3.5: Mindesttemperaturen am Arbeitsplatz', ['Haltung', 'leichte Arbeit', 'mittelschwere Arbeit', 'schwere Arbeit'], [['überwiegend sitzend', '20 °C', '19 °C', '–'], ['überwiegend stehend oder gehend', '19 °C', '17 °C', '12 °C']], {});
     }
 

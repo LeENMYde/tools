@@ -92,9 +92,9 @@
       ],
       beispiel: { d: 10, fk: '8.8', mu: 0.12, nu: 90, anzahl: 4, FZ: 20, FQ: 8, muT: 0.15, last: 60, a: 30, h: 20, oben: 2, gesamt: 4, Nzul: 0.6, Vzul: 0.8, stoss: 1 },
       rechne: function (e) {
-        const r = {}, P = GROESSE.filter(function (g) { return g[0] === e.d; })[0][1], f = FK[e.fk];
+        const r = {}, fk = String(e.fk), P = GROESSE.filter(function (g) { return g[0] === e.d; })[0][1], f = FK[fk];   // die Auswahl liefert 8.8 als Zahl
         r.P = P; r.Rp = f[0]; r.Rm = f[1]; const v = vorspann(e.d, P, f[0], e.mu, e.nu / 100); r.FM = v.FM; r.MA = v.MA; r.g = v.g; r.sig = v.sig;
-        r.FtRd = 0.9 * f[1] * v.g.As / 1.25; r.alphaV = e.fk === '10.9' || e.fk === '12.9' || e.fk.charAt(0) === 'A' ? 0.5 : 0.6; r.FvRd = r.alphaV * f[1] * v.g.As / 1.25;
+        r.FtRd = 0.9 * f[1] * v.g.As / 1.25; r.fk = fk; r.alphaV = fk === '10.9' || fk === '12.9' || fk.charAt(0) === 'A' ? 0.5 : 0.6; r.FvRd = r.alphaV * f[1] * v.g.As / 1.25;
         r.zugJe = e.FZ * 1000 / e.anzahl; r.querJe = e.FQ * 1000 / e.anzahl;
         r.zugAus = r.zugJe / r.FtRd * 100; r.querAus = r.querJe / r.FvRd * 100; r.kombi = r.querJe / r.FvRd + r.zugJe / (1.4 * r.FtRd);
         r.klemm = r.FM - r.zugJe; r.reib = Math.max(0, r.klemm) * e.muT; r.gleitOk = r.reib >= r.querJe; r.klafft = r.zugJe > r.FM;
@@ -112,12 +112,12 @@
         if (r.klafft) H.meldung('Die Zugkraft je Schraube (' + z(r.zugJe / 1000, 1) + ' kN) ist größer als die Vorspannkraft – die Fuge klafft, die Schraube trägt alles allein und ermüdet.', true);
         if (r.zugAus > 100 || r.querAus > 100 || r.kombi > 1) H.meldung('Schraube überlastet: Zug ' + z(r.zugAus, 0) + ' %, Abscheren ' + z(r.querAus, 0) + ' %, kombiniert ' + z(r.kombi * 100, 0) + ' %. Größere Schraube, höhere Festigkeit oder mehr Schrauben.', true);
         if (e.FQ > 0 && !r.gleitOk && !(r.querAus > 100)) H.meldung('Die Reibung in der Fuge hält die Querkraft nicht (' + z(r.reib / 1000, 1) + ' kN je Schraube gegen ' + z(r.querJe / 1000, 1) + ' kN). Die Verbindung rutscht, bis die Schrauben am Lochrand anliegen und auf Abscheren tragen. Gleitfest wären ' + r.nReib + ' Schrauben nötig.');
-        if (e.fk.charAt(0) === 'A') H.meldung('Edelstahlschrauben neigen zum Fressen. Gewinde schmieren und nicht mit dem Schlagschrauber anziehen.');
+        if (r.fk.charAt(0) === 'A') H.meldung('Edelstahlschrauben neigen zum Fressen. Gewinde schmieren und nicht mit dem Schlagschrauber anziehen.');
         if (!r.duebelOk) H.meldung('Dübel überlastet: Zug ' + z(r.nAus, 0) + ' %, quer ' + z(r.vAus, 0) + ' %, zusammen ' + z(r.inter * 100, 0) + ' % (zulässig 120 %). Höchstens ' + z(Math.max(0, r.lastMax), 0) + ' kg, mehr oder stärkere Dübel, oder die Konsole höher bauen (größerer Hebelarm).', true);
         if (r.hebel > 2) H.meldung('Die Ausladung ist ' + z(r.hebel, 1) + '-mal so groß wie der Hebelarm – jedes Kilogramm zieht ' + z(r.hebel / e.oben * 9.81, 1) + ' N an jedem oberen Dübel.');
         H.urteil(r.duebelOk && !(r.zugAus > 100 || r.querAus > 100 || r.kombi > 1 || r.klafft), z(r.MA, r.MA < 10 ? 1 : 0) + ' Nm');
         H.kacheln([
-          [z(r.MA, r.MA < 10 ? 1 : 0) + ' Nm', 'Anziehdrehmoment M' + e.d + ' ' + e.fk, '#6E6FA6'],
+          [z(r.MA, r.MA < 10 ? 1 : 0) + ' Nm', 'Anziehdrehmoment M' + e.d + ' ' + r.fk, '#6E6FA6'],
           [z(r.FM / 1000, 1) + ' kN', 'Vorspannkraft = ' + z(r.FM / 9.81, 0) + ' kg je Schraube', BLAU],
           [z(r.FtRd / 1000, 1) + ' kN', 'Tragfähigkeit auf Zug, Auslastung ' + z(r.zugAus, 0) + ' %', ampel(r.zugAus <= 100, false)],
           [z(r.FvRd / 1000, 1) + ' kN', 'Tragfähigkeit auf Abscheren, Auslastung ' + z(r.querAus, 0) + ' %', ampel(r.querAus <= 100, false)],
@@ -125,7 +125,7 @@
           [z(Math.max(0, r.lastMax), 0) + ' kg', 'höchste Last auf dieser Konsole', '#A0785A']
         ]);
         H.nachweise([[r.zugAus <= 100, 'Schraube auf Zug', z(r.zugJe / 1000, 2) + ' kN ≤ ' + z(r.FtRd / 1000, 1) + ' kN'], [r.querAus <= 100, 'Schraube auf Abscheren', z(r.querJe / 1000, 2) + ' kN ≤ ' + z(r.FvRd / 1000, 1) + ' kN'], [e.FQ > 0 ? r.gleitOk : null, 'Gleitfest durch Vorspannung', z(r.reib / 1000, 2) + ' kN Reibung je Schraube'], [r.nAus <= 100, 'Dübel auf Zug', z(r.N, 2) + ' kN ≤ ' + z(e.Nzul, 2) + ' kN'], [r.vAus <= 100, 'Dübel auf Querlast', z(r.V, 2) + ' kN ≤ ' + z(e.Vzul, 2) + ' kN'], [r.inter <= 1.2, 'Dübel: Zug und Querlast zusammen', z(r.inter, 2) + ' ≤ 1,2']]);
-        H.tabelle('Anziehdrehmomente für ' + e.fk + ' bei μ = ' + z(e.mu, 2), ['Gewinde', 'Spannungsquerschnitt', 'Vorspannkraft', 'Anziehdrehmoment'], r.tabelle.map(function (q) { return ['M' + q[0] + (q[0] === e.d ? ' ◄' : ''), z(q[3], 1) + ' mm²', z(q[1] / 1000, 1) + ' kN', z(q[2], q[2] < 10 ? 1 : 0) + ' Nm']; }), { zahl: [1, 2, 3], fuss: 'Gerechnet nach VDI 2230 mit ' + z(e.nu, 0) + ' % der Streckgrenze, Regelgewinde. Angaben des Herstellers haben Vorrang.' });
+        H.tabelle('Anziehdrehmomente für ' + r.fk + ' bei μ = ' + z(e.mu, 2), ['Gewinde', 'Spannungsquerschnitt', 'Vorspannkraft', 'Anziehdrehmoment'], r.tabelle.map(function (q) { return ['M' + q[0] + (q[0] === e.d ? ' ◄' : ''), z(q[3], 1) + ' mm²', z(q[1] / 1000, 1) + ' kN', z(q[2], q[2] < 10 ? 1 : 0) + ' Nm']; }), { zahl: [1, 2, 3], fuss: 'Gerechnet nach VDI 2230 mit ' + z(e.nu, 0) + ' % der Streckgrenze, Regelgewinde. Angaben des Herstellers haben Vorrang.' });
       },
       weg: function (r, e) {
         return [
@@ -170,7 +170,7 @@
           const w = an * 2.2 - 0.6; cx.strokeStyle = F('--text'); cx.lineWidth = 6; cx.lineCap = 'round'; cx.beginPath(); cx.moveTo(sx, sy + 7); cx.lineTo(sx + Math.cos(w) * 62, sy + 7 - 24 + Math.sin(w) * 10); cx.stroke(); cx.lineCap = 'butt';
           cx.strokeStyle = cx.fillStyle = BLAU; cx.lineWidth = 2.5; const pl = 8 + 24 * an; R.Z.pfeil(cx, sx - 34, sy + 14 - pl, sx - 34, sy + 14, 6); R.Z.pfeil(cx, sx + 34, sy + 68 + pl, sx + 34, sy + 68, 6);
           const bx = 16, bw = teil - 32, by = sy + 116; cx.strokeStyle = F('--leise'); cx.lineWidth = 1; cx.strokeRect(bx, by, bw, 12); cx.fillStyle = BLAU; cx.fillRect(bx, by, bw * an * e.nu / 100, 12); cx.strokeStyle = SCHLECHT; cx.beginPath(); cx.moveTo(bx + bw, by - 3); cx.lineTo(bx + bw, by + 15); cx.stroke();
-          T(cx, z(r.MA * an, r.MA < 10 ? 1 : 0) + ' Nm → ' + z(r.FM * an / 1000, 1) + ' kN', sx, by + 30, 'center', 12, true, BLAU); T(cx, 'Anteil der Streckgrenze', sx, by + 46, 'center', 10, false, F('--leise')); T(cx, 'M' + e.d + ' ' + e.fk, sx, sy - 14, 'center', 12, true, F('--text'));
+          T(cx, z(r.MA * an, r.MA < 10 ? 1 : 0) + ' Nm → ' + z(r.FM * an / 1000, 1) + ' kN', sx, by + 30, 'center', 12, true, BLAU); T(cx, 'Anteil der Streckgrenze', sx, by + 46, 'center', 10, false, F('--leise')); T(cx, 'M' + e.d + ' ' + r.fk, sx, sy - 14, 'center', 12, true, F('--text'));
           // Konsole
           const wx = teil + 26, oy = 50, kh = Math.min(130, Math.max(50, e.h * 2.2)), ka = Math.min(B - wx - 46, Math.max(50, e.a * 2.2)), schw = Math.sin(t / 500) * (e.stoss > 1 ? 3 : 0.6);
           cx.fillStyle = 'rgba(160,120,90,0.35)'; cx.fillRect(wx - 22, 20, 22, H - 70); cx.strokeStyle = F('--text'); cx.lineWidth = 2; cx.beginPath(); cx.moveTo(wx, 20); cx.lineTo(wx, H - 50); cx.stroke();

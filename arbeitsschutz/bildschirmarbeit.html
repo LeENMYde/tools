@@ -86,7 +86,7 @@
           { k: 'istLux', tex: 'E', name: 'gemessene Beleuchtungsstärke', e: 'lx', min: 0, max: 100000 }
         ] }
       ],
-      beispiel: { diag: 27, aufl: '2560x1440', abstand: 65, zeichen: 3, skala: 100, groesse: 178, visus: 1, lux: 500, istLux: 400 },
+      beispiel: { diag: 27, aufl: '2560x1440', abstand: 65, zeichen: 4, skala: 100, groesse: 178, visus: 1, lux: 500, istLux: 500 },
       rechne: function (e) {
         const a = e.aufl.split('x').map(Number), r = { px: a[0], py: a[1] };
         const dPx = Math.sqrt(a[0] * a[0] + a[1] * a[1]);
@@ -109,7 +109,7 @@
       },
       ergebnis: function (r, e, H) {
         const lesbar = r.winkel >= 16, gut = r.winkel >= 20;
-        if (!lesbar) H.meldung('Die Zeichen sind zu klein: ' + z(r.winkel, 0) + ' Bogenminuten, nötig sind mindestens 16, besser 20 bis 22. Schrift auf etwa ' + z(r.hSoll, 1) + ' mm Höhe vergrößern (Skalierung ' + z(e.skala * r.hSoll / e.zeichen / 25, 0) * 25 + ' %) oder näher heran.', true);
+        if (!lesbar) H.meldung('Die Zeichen sind zu klein: ' + z(r.winkel, 0) + ' Bogenminuten, nötig sind mindestens 16, besser 20 bis 22. Schrift auf etwa ' + z(r.hSoll, 1) + ' mm Höhe vergrößern (Skalierung ' + z(Math.ceil(e.skala * r.hSoll / e.zeichen / 25) * 25, 0) + ' %) oder näher heran.', true);
         else if (!gut) H.meldung('Lesbar, aber anstrengend: Für entspanntes Lesen sollten Großbuchstaben 20 bis 22 Bogenminuten haben, hier also ' + z(r.hSoll, 1) + ' mm.');
         if (e.abstand < 50) H.meldung('Unter 50 cm Sehabstand müssen die Augenmuskeln dauernd stark arbeiten. Bildschirm weiter weg und Schrift größer stellen.', true);
         if (r.sichtfeld > 60) H.meldung('Der Bildschirm füllt ' + z(r.sichtfeld, 0) + '° des Blickfelds – man muss den Kopf drehen. Für die Breite sind ' + z(r.dOpt[0], 0) + ' bis ' + z(r.dOpt[1], 0) + ' cm Abstand angenehm.');

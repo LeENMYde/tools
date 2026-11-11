@@ -158,7 +158,7 @@
           { k: 'sf', tex: 'f', name: 'wirksamer Schutzfaktor', e: '', min: 1, max: 100 }, { k: 't', tex: 't', name: 'Zeit bis zum Sonnenbrand', e: 'min', min: 0.1, max: 10000 },
           { k: 'h', tex: 'h', name: 'Sonnenhöhe', e: '°', min: 1, max: 90 }, { k: 'k', tex: 'k', name: 'Körpergröße', e: 'cm', min: 10, max: 300 }, { k: 's', tex: 's', name: 'Schattenlänge', e: 'cm', min: 0.1, max: 20000 }
         ],
-        beispiel: { uvi: 8, med: 250, t: 240, k: 178, s: 178 },
+        beispiel: { uvi: 8, med: 250, t: 240, k: 178 },
         gleichungen: [
           { name: 'Zeit bis zum Sonnenbrand', v: ['t', 'med', 'sf', 'uvi'], f: function (q) { return [q.t * q.uvi * 0.025 * 60, q.med * q.sf]; }, loese: { t: function (q) { return q.med * q.sf / (q.uvi * 0.025 * 60); }, sf: function (q) { return q.t * q.uvi * 1.5 / q.med; }, uvi: function (q) { return q.med * q.sf / (q.t * 1.5); }, med: function (q) { return q.t * q.uvi * 1.5 / q.sf; } },
             weg: function (k, q) { return k === 'sf' ? 'f = \\frac{t \\cdot \\text{UVI} \\cdot 0{,}025}{\\text{MED}} = \\frac{' + tz(q.t * 60, 0) + '\\,\\text{s} \\cdot ' + tz(q.uvi, 1) + ' \\cdot 0{,}025}{' + tz(q.med, 0) + '} = ' + E(tz(q.sf, 1)) : k === 't' ? 't = \\frac{\\text{MED} \\cdot f}{\\text{UVI} \\cdot 0{,}025} = ' + E(u(q.t, 0, 'min')) : ''; } },
