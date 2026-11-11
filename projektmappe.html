@@ -48,12 +48,26 @@
     @media (max-width: 560px) { .liste-seiten li { grid-template-columns: 6px minmax(0, 1fr); } .liste-seiten .knoepfe { grid-column: 2; grid-row: auto; justify-content: flex-start; } }
     .leer { color: var(--leise); margin-top: 10px; }
     .meldung { color: var(--ergebnis); font-size: .9rem; min-height: 1.3em; }
+    .druck-link, .eintrag-qr, .nur-druck { display: none; }
     @media print {
-      .leiste, .knoepfe, .formular input[type=file], #h-speicher-tafel { display: none !important; }
-      .liste-seiten li { break-inside: avoid; background: none; border-bottom: 1px solid #ccc; border-radius: 0; }
-      .druck-link { display: block !important; font-size: 7pt; word-break: break-all; color: #333; }
+      .leiste, .knoepfe, .formular input[type=file], #h-speicher-tafel, .held > p, #h-projekt, #h-projekt + .hilfe, .formular label:not(.breit) { display: none !important; }
+      #h-projekt-tafel { border: none !important; padding: 0 !important; margin-top: 0 !important; }
+      .formular { display: block; margin-top: 4px; }
+      .formular label.breit { font-size: 9pt; }
+      .formular label.breit .druck-ersatz-text { border: 1px solid #C8D0D5; border-radius: 4px; padding: 4px 6px; color: #000; }
+      .zwischen { margin-top: 10px; }
+      /* zwei Spalten mit je einem QR-Code pro Rechner */
+      .liste-seiten { grid-template-columns: 1fr 1fr; gap: 3mm 4mm; }
+      .liste-seiten li { grid-template-columns: 4px minmax(0, 1fr) auto; grid-template-rows: auto auto 1fr; gap: 1mm 3mm; align-items: start; padding: 2.5mm 3mm; break-inside: avoid; background: none; border: 1px solid #C8D0D5; border-radius: 4px; }
+      .liste-seiten .farbe { grid-row: 1 / span 3; }
+      .liste-seiten .titel { grid-column: 2; font-size: 10.5pt; }
+      .liste-seiten .info { grid-column: 2; font-size: 8pt; }
+      .druck-link { display: block !important; grid-column: 2; font-size: 7pt; overflow-wrap: anywhere; color: #444; }
+      .eintrag-qr { display: block !important; grid-column: 3; grid-row: 1 / span 3; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 6pt; line-height: 1.2; color: #444; }
+      .eintrag-qr svg { display: block; margin: 0 auto 0.6mm; }
+      .eintrag-qr.zu-lang { width: 30mm; text-align: left; font-size: 7pt; }
+      .nur-druck { display: block !important; margin-top: 4mm; font-size: 8pt; color: #444; }
     }
-    .druck-link { display: none; }
   </style>
 </head>
 
@@ -66,7 +80,7 @@
       <p>Alle Rechner merken sich deine Eingaben in diesem Browser. Hier fasst du sie zu einem Projekt zusammen: Bauvorhaben benennen, mehrere Projekte speichern und wechseln, als Datei sichern oder an Kollegen weitergeben und eine Übersicht mit Links drucken.</p>
     </section>
 
-    <section class="tafel abstand" aria-labelledby="h-projekt">
+    <section class="tafel abstand" aria-labelledby="h-projekt" id="h-projekt-tafel">
       <h2 id="h-projekt">Aktuelles Projekt</h2>
       <p class="hilfe">Bauvorhaben, Bearbeiter und Firma stehen auch im Kopf jedes PDFs.</p>
       <div class="formular">
@@ -78,6 +92,7 @@
       <h3 class="zwischen">Rechner mit Eingaben</h3>
       <ul class="liste-seiten" id="seiten"></ul>
       <p class="leer" id="leer" hidden>Noch keine Eingaben gemerkt. Öffne einen Rechner und trage Werte ein; sie erscheinen dann hier.</p>
+      <p class="nur-druck" id="qrHinweis">QR-Code mit dem Handy scannen: Der Rechner öffnet sich mit genau diesen Eingaben. Die Werte stehen im Link selbst und werden nirgends hochgeladen.</p>
       <div class="leiste">
         <button type="button" class="knopf-haupt" id="drucken">PDF der Übersicht</button>
         <button type="button" class="knopf" id="alleLeeren">Alle Eingaben zurücksetzen</button>
@@ -196,6 +211,7 @@
     function seitenZeigen() {
       const ul = document.getElementById('seiten'); ul.innerHTML = '';
       const d = stand(); let n = 0;
+      eintraege = [];
       SEITEN.forEach(function (s) {
         const v = d[s[0]], eigen = s[3] ? d['#' + s[3]] : null;
         if (!v && !eigen) return;
@@ -213,11 +229,41 @@
         const weg = document.createElement('button'); weg.type = 'button'; weg.className = 'knopf-leise'; weg.textContent = 'zurücksetzen';
         weg.addEventListener('click', function () { schreiben(schluessel(s[0]), null); if (s[3]) schreiben(s[3], null); seitenZeigen(); melden('meldung1', s[1] + ' zurückgesetzt.'); });
         kn.append(a, weg);
-        const dl = document.createElement('span'); dl.className = 'druck-link info'; dl.textContent = new URL(a.getAttribute('href'), location.href).href;
-        li.append(f, t, kn, info, dl);
+        // im Druck nur die Adresse der Seite (der lange Datenteil steckt im QR-Code)
+        const dl = document.createElement('span'); dl.className = 'druck-link info'; dl.textContent = new URL(s[0], location.href).href.replace(/^https?:\/\//, '');
+        const qr = document.createElement('span'); qr.className = 'eintrag-qr'; qr.setAttribute('aria-hidden', 'true');
+        li.append(f, t, kn, info, dl, qr);
         ul.append(li);
+        eintraege.push({ seite: s, a: a, qr: qr, name: v ? 'werte' : eigen && LINKNAME[s[3]] ? LINKNAME[s[3]] : '', text: v || eigen });
       });
       document.getElementById('leer').hidden = n > 0;
+      document.getElementById('qrHinweis').hidden = n === 0;
+      qrVorbereitet = qrVorbereiten();
+    }
+
+    // ---------- QR-Codes für den Druck (komprimierte Links; vorab, weil der Druck nicht wartet) ----------
+    let eintraege = [], qrRunde = 0, qrVorbereitet = Promise.resolve();
+    function qrVorbereiten() {
+      const runde = ++qrRunde, liste = eintraege.slice();
+      return Promise.all(liste.map(function (e) {
+        const p = e.name ? Teilen.urlFuer(e.seite[0], e.name, e.text) : Promise.resolve(new URL(e.seite[0], location.href).href);
+        return p.then(function (url) {
+          if (runde !== qrRunde) return;
+          if (e.name) e.a.href = url;                     // kürzerer Link auch zum Öffnen
+          const q = window.QRCode.svg(url, { maxMm: 38, minMm: 20, grossMm: 52 });
+          e.qr.innerHTML = '';
+          if (!q) {
+            e.qr.className = 'eintrag-qr zu-lang';
+            e.qr.textContent = 'Zu viele Daten für einen QR-Code – Projekt als Datei weitergeben.';
+            return;
+          }
+          e.qr.className = 'eintrag-qr';
+          e.qr.innerHTML = q.svg;                           // svg nur aus eigenen Zahlen gebaut
+          const z = document.createElement('span');
+          z.textContent = e.name ? 'mit Eingaben' : 'Seite öffnen';
+          e.qr.append(z);
+        }).catch(function () { /* ohne Code */ });
+      }));
     }
 
     // ---------- Projekte ----------
@@ -299,8 +345,22 @@
       SEITEN.forEach(function (s) { schreiben(schluessel(s[0]), null); if (s[3]) schreiben(s[3], null); });
       seitenZeigen(); melden('meldung1', 'Alle Eingaben zurückgesetzt.');
     });
-    document.getElementById('drucken').addEventListener('click', function () { window.print(); });
-    window.addEventListener('beforeprint', function () { const p = json(ANGABEN, {}).projekt; if (p) document.title = 'Projektmappe – ' + p; });
+    document.getElementById('drucken').addEventListener('click', function () { qrVorbereitet.then(function () { window.print(); }); });
+    // Kopf für den Druck wie bei den Rechnern: Titel, Datum, Bauvorhaben, Bearbeiter, Firma
+    const kopf = document.createElement('div'); kopf.className = 'druckkopf'; kopf.setAttribute('aria-hidden', 'true');
+    document.querySelector('main').insertBefore(kopf, document.querySelector('main').firstChild);
+    function kopfFuellen() {
+      const a = json(ANGABEN, {}), d = new Date();
+      kopf.innerHTML = '';
+      const t = document.createElement('div'); t.className = 'druckkopf-titel'; t.textContent = 'Projektmappe' + (a.projekt ? ' – ' + String(a.projekt).slice(0, 120) : ''); kopf.append(t);
+      [['Datum:', d.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' })], ['Bauvorhaben:', a.projekt], ['Bearbeiter:', a.bearbeiter], ['Firma:', a.firma]].forEach(function (z) {
+        if (z[0] === 'Firma:' && !z[1]) return;
+        const e = document.createElement('div'), b = document.createElement('b');
+        b.textContent = z[0]; e.append(b, document.createTextNode(' ' + (z[1] ? String(z[1]).slice(0, 120) : '—'))); kopf.append(e);
+      });
+      const q = document.createElement('div'); q.className = 'druckkopf-quelle'; q.textContent = 'Formeln & Rechner · ' + location.host + basis; kopf.append(q);
+    }
+    window.addEventListener('beforeprint', function () { kopfFuellen(); const p = json(ANGABEN, {}).projekt; document.title = 'Projektmappe' + (p ? ' – ' + p : ''); });
     window.addEventListener('afterprint', function () { document.title = 'Projektmappe'; });
     window.addEventListener('storage', function () { seitenZeigen(); projekteZeigen(); });
 

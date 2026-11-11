@@ -300,6 +300,11 @@
     },
     // nur der Teil hinter „#“ ohne Komprimierung (für viele Links auf einmal, z. B. Projektmappe)
     urlSofort: function (pfad, name, text) { return pfad + '#' + name + '=' + textZuB64(text); },
+    // Promise mit vollständiger, komprimierter Adresse für eine andere Seite (für QR-Codes, z. B. Projektmappe)
+    urlFuer: function (pfad, name, text) {
+      const ziel = new URL(pfad, location.href).href.split('#')[0].split('?')[0];
+      return packen(text).then(function (k) { return ziel + '#' + name + '=' + k; });
+    },
     kopieren: kopieren,
     entschaerfen: function (w) { return entschaerfen(w, 0); },
     // bisherigen Stand unter schluessel sichern, bevor ein Link ihn ersetzt; true, wenn gesichert
@@ -576,7 +581,41 @@
     maskieren(beste); format(beste);
     return { matrix: m, rand: 4, info: 'QR-Code Version ' + v + ' (' + g + ' × ' + g + '), Fehlerkorrektur ' + stufe };
   }
-    return { matrix: function (text, stufe) { return qr(text, stufe); } };
+  // Fertiges SVG für den Druck. Größe in mm so, dass ein Modul möglichst ≥ 0,5 mm ist (gut lesbar auch
+  // mit schwachem Drucker und Handykamera); dafür lieber kleinere Fehlerkorrektur als winzige Module.
+  // Sehr viele Daten: Module nicht unter 0,33 mm, dafür darf der Code bis grossMm wachsen.
+  // opt: { maxMm, minMm, grossMm }. Ergebnis: { svg, mm, modulMm, info } oder null, wenn der Text zu lang ist.
+  const MODUL_GUT = 0.5, MODUL_MIN = 0.33;
+  function alsSvg(text, opt) {
+    opt = opt || {};
+    const maxMm = opt.maxMm || 40, minMm = opt.minMm || 18, grossMm = Math.max(maxMm, opt.grossMm || 62);
+    let wahl = null;
+    ['Q', 'M', 'L'].some(function (s) {
+      const q = qr(text, s);
+      if (!q) return false;
+      const n = q.matrix.length + 2 * q.rand;
+      if (n * MODUL_GUT <= maxMm) { wahl = { q: q, n: n, modul: Math.max(MODUL_GUT, minMm / n) }; return true; }
+      if (!wahl || n < wahl.n) wahl = { q: q, n: n, modul: Math.max(MODUL_MIN, maxMm / n) };
+      return false;
+    });
+    if (!wahl || wahl.n * wahl.modul > grossMm + 0.01) return null;
+    const q = wahl.q, g = q.matrix.length, r = q.rand, n = wahl.n, mm = n * wahl.modul;
+    let d = '';
+    for (let y = 0; y < g; y++) {
+      let x = 0;
+      while (x < g) {
+        if (!q.matrix[y][x]) { x++; continue; }
+        let l = 1; while (x + l < g && q.matrix[y][x + l]) l++;
+        d += 'M' + (x + r) + ' ' + (y + r) + 'h' + l + 'v1h-' + l + 'z';
+        x += l;
+      }
+    }
+    return {
+      svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + n + ' ' + n + '" shape-rendering="crispEdges" style="width:' + mm.toFixed(1) + 'mm;height:' + mm.toFixed(1) + 'mm"><rect width="' + n + '" height="' + n + '" fill="#fff"/><path fill="#000" d="' + d + '"/></svg>',
+      mm: mm, modulMm: wahl.modul, info: q.info
+    };
+  }
+    return { matrix: function (text, stufe) { return qr(text, stufe); }, svg: alsSvg };
   })();
   window.QRCode = QRCode;
 
@@ -584,7 +623,7 @@
   // Quelle: Seiten mit data-merken automatisch, Planer melden sich mit Teilen.druckLink(function () { return Teilen.url(…); }).
   // Der Code wird nach Änderungen vorbereitet, weil der Druck nicht auf Promises wartet.
   let druckLinkQuelle = null, druckQr = null, druckQrUhr = null, druckQrStand = '';
-  const QR_MODUL_MM = 0.33, QR_MIN_MM = 22;
+  const QR_MAX_MM = 38, QR_MIN_MM = 22;
   Teilen.druckLink = function (quelle) { druckLinkQuelle = quelle; druckQrPlanen(); };
   function druckQrElement() {
     if (druckQr) return druckQr;
@@ -607,28 +646,17 @@
       druckQrStand = url;
       const el = druckQrElement();
       el.innerHTML = '';
-      let q = QRCode.matrix(url, 'M');
-      if (!q || q.matrix.length > 97) q = QRCode.matrix(url, 'L');          // ab Version 21 lieber mehr Platz für Daten
+      const q = QRCode.svg(url, { maxMm: QR_MAX_MM, minMm: QR_MIN_MM });
       if (!q) {
         el.className = 'druck-qr zu-lang' + (el.parentNode.tagName === 'MAIN' ? ' am-ende' : '');
         el.textContent = 'Stand zu groß für einen QR-Code (' + url.length.toLocaleString('de-DE') + ' Zeichen) – Link kopieren oder als Datei speichern.';
         document.body.style.setProperty('--qr-breite', '42mm');
         return;
       }
-      const g = q.matrix.length, r = 4, n = g + 2 * r, mm = Math.max(QR_MIN_MM, n * QR_MODUL_MM);
-      let d = '';
-      for (let y = 0; y < g; y++) {
-        let x = 0;
-        while (x < g) {
-          if (!q.matrix[y][x]) { x++; continue; }
-          let l = 1; while (x + l < g && q.matrix[y][x + l]) l++;
-          d += 'M' + (x + r) + ' ' + (y + r) + 'h' + l + 'v1h-' + l + 'z';
-          x += l;
-        }
-      }
       el.className = 'druck-qr' + (el.parentNode.tagName === 'MAIN' ? ' am-ende' : '');
-      el.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + n + ' ' + n + '" shape-rendering="crispEdges" style="width:' + mm.toFixed(1) + 'mm;height:' + mm.toFixed(1) + 'mm"><rect width="' + n + '" height="' + n + '" fill="#fff"/><path fill="#000" d="' + d + '"/></svg><span>Scannen öffnet diesen Stand</span>';
-      document.body.style.setProperty('--qr-breite', mm.toFixed(1) + 'mm');
+      el.innerHTML = q.svg + '<span>Scannen öffnet<br>diesen Stand</span>';   // svg nur aus eigenen Zahlen gebaut
+      el.title = q.info;
+      document.body.style.setProperty('--qr-breite', q.mm.toFixed(1) + 'mm');
     }).catch(function () { /* ohne Link kein Code */ });
   }
   window.addEventListener('load', druckQrPlanen);
@@ -676,7 +704,7 @@
       '<label class="pdf-haken"><input type="checkbox" data-h="weg"> Rechenweg mitdrucken</label>' +
       '<label class="pdf-haken"><input type="checkbox" data-h="sammlung"> Formelsammlung mitdrucken</label>' +
       '<button type="button" class="knopf-haupt">Als PDF speichern</button>' +
-      '<span class="pdf-hinweis">Im Druckdialog „Als PDF speichern“ wählen. Ohne Bedienknöpfe, mit Kopf und Seitenzahlen.</span>';
+      '<span class="pdf-hinweis">Im Druckdialog „Als PDF speichern“ wählen. Ohne Bedienknöpfe, mit Kopf, Seitenzahlen und QR-Code zu diesem Stand.</span>';
     leiste.after(form);
     const a0 = pdfAngaben();
     const haken = function () { const a = pdfAngaben(); document.body.classList.toggle('druck-ohne-weg', a.weg === false); document.body.classList.toggle('druck-ohne-sammlung', a.sammlung !== true); };
@@ -711,11 +739,42 @@
     kopfFuellen();
   }
 
+  // ---------- Auswahllisten und Textfelder im Druck vollständig zeigen ----------
+  // Ein <select> zeigt im Druck nur so viel Text, wie hineinpasst, ein <textarea> nur die sichtbaren Zeilen.
+  // Vor dem Druck kommt daneben ein Textabschnitt mit dem ganzen Inhalt (per textContent), danach wieder weg.
+  const NICHT_DRUCKEN = '.teilen-leiste, .pdf-form, .steuerung, .werkzeug, .zoom, .palette, .neu-flaeche, .nur-bildschirm, .leiste, .knoepfe, .seitenkopf, .seitenfuss';
+  let druckErsatz = [];
+  function druckErsatzBauen() {
+    druckErsatzWeg();
+    const haupt = document.querySelector('main');
+    if (!haupt) return;
+    haupt.querySelectorAll('select, textarea').forEach(function (el) {
+      if (el.closest(NICHT_DRUCKEN) || !el.getClientRects().length) return;
+      let t = '';
+      if (el.tagName === 'SELECT') {
+        t = Array.prototype.filter.call(el.options, function (o) { return o.selected; }).map(function (o) { return o.textContent.trim(); }).join(', ');
+      } else t = el.value;
+      const s = document.createElement('span');
+      s.className = 'druck-ersatz' + (el.tagName === 'TEXTAREA' ? ' druck-ersatz-text' : '');
+      s.textContent = t || (el.tagName === 'TEXTAREA' ? '—' : '');
+      el.classList.add('druck-ersetzt');
+      el.after(s);
+      druckErsatz.push([el, s]);
+    });
+  }
+  function druckErsatzWeg() {
+    druckErsatz.forEach(function (p) { p[0].classList.remove('druck-ersetzt'); p[1].remove(); });
+    druckErsatz = [];
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     kopfBauen();
     fussBauen();
     Formel.alle();
     merkenEinrichten();
     pdfEinrichten();
+    // nach pdfEinrichten, damit eingeklappte Bereiche schon offen sind
+    window.addEventListener('beforeprint', druckErsatzBauen);
+    window.addEventListener('afterprint', druckErsatzWeg);
   });
 })();
