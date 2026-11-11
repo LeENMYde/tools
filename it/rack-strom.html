@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Strom- und Kühlkosten im Rack – Formeln &amp; Rechner</title>
+  <meta name="description" content="Strom und Kühlung eines Serverschranks: Leistung aus der Geräteliste, Strom je Phase und Auslastung der Steckdosenleiste mit 80-Prozent-Regel, A/B-Versorgung, Jahresverbrauch mit PUE, Kosten, CO₂, Abwärme und Kühlluft – mit Simulation des Luftstroms.">
+  <!-- seo -->
+  <link rel="canonical" href="https://tools.pr1m3.de/it/rack-strom.html">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Formeln &amp; Rechner">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:title" content="Strom- und Kühlkosten im Rack">
+  <meta property="og:description" content="Strom und Kühlung eines Serverschranks: Leistung aus der Geräteliste, Strom je Phase und Auslastung der Steckdosenleiste mit 80-Prozent-Regel, A/B-Versorgung, Jahresverbrauch mit PUE, Kosten, CO₂, Abwärme und Kühlluft – mit Simulation des Luftstroms.">
+  <meta property="og:url" content="https://tools.pr1m3.de/it/rack-strom.html">
+  <meta property="og:image" content="https://tools.pr1m3.de/assets/symbol-512.png">
+  <meta property="og:image:alt" content="Formeln &amp; Rechner">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Strom- und Kühlkosten im Rack">
+  <meta name="twitter:description" content="Strom und Kühlung eines Serverschranks: Leistung aus der Geräteliste, Strom je Phase und Auslastung der Steckdosenleiste mit 80-Prozent-Regel, A/B-Versorgung, Jahresverbrauch mit PUE, Kosten, CO₂, Abwärme und Kühlluft – mit Simulation des Luftstroms.">
+  <meta name="twitter:image" content="https://tools.pr1m3.de/assets/symbol-512.png">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://tools.pr1m3.de/it/rack-strom.html#seite","name":"Strom- und Kühlkosten im Rack","url":"https://tools.pr1m3.de/it/rack-strom.html","inLanguage":"de","description":"Strom und Kühlung eines Serverschranks: Leistung aus der Geräteliste, Strom je Phase und Auslastung der Steckdosenleiste mit 80-Prozent-Regel, A/B-Versorgung, Jahresverbrauch mit PUE, Kosten, CO₂, Abwärme und Kühlluft – mit Simulation des Luftstroms.","isPartOf":{"@type":"WebSite","@id":"https://tools.pr1m3.de/#website","name":"Formeln & Rechner","url":"https://tools.pr1m3.de/"},"breadcrumb":{"@id":"https://tools.pr1m3.de/it/rack-strom.html#pfad"},"dateModified":"2026-11-11"},{"@type":"BreadcrumbList","@id":"https://tools.pr1m3.de/it/rack-strom.html#pfad","itemListElement":[{"@type":"ListItem","position":1,"name":"Formeln & Rechner","item":"https://tools.pr1m3.de/"},{"@type":"ListItem","position":2,"name":"Strom- und Kühlkosten im Rack","item":"https://tools.pr1m3.de/it/rack-strom.html"}]},{"@type":"FAQPage","@id":"https://tools.pr1m3.de/it/rack-strom.html#fragen","mainEntity":[{"@type":"Question","name":"Was kostet ein Server im Jahr an Strom?","acceptedAnswer":{"@type":"Answer","text":"Ein Watt Dauerleistung verbraucht 8,76 kWh im Jahr. Ein Server mit 250 W im Mittel braucht also 2 190 kWh; bei 30 ct/kWh sind das 657 €. Mit Kühlung und USV-Verlusten (PUE 1,6) werden daraus rund 1 050 €."}},{"@type":"Question","name":"Wie viel Leistung darf an eine Steckdosenleiste mit 16 A?","acceptedAnswer":{"@type":"Answer","text":"Rechnerisch 3 680 VA. Dauerhaft sollte man nur 80 % nutzen, also 12,8 A oder etwa 2,8 kW. Bei A/B-Versorgung muss jede Leiste die ganze Last allein tragen können – im Normalbetrieb ist jede nur zur Hälfte belastet."}},{"@type":"Question","name":"Was ist der PUE-Wert?","acceptedAnswer":{"@type":"Answer","text":"Power Usage Effectiveness: der gesamte Stromverbrauch eines Rechenzentrums geteilt durch den Verbrauch der IT. Ein PUE von 1,6 heißt, dass auf jede Kilowattstunde für Server weitere 0,6 kWh für Kühlung, USV und Licht kommen. Gute Rechenzentren erreichen 1,2 bis 1,3."}},{"@type":"Question","name":"Wie viel Kühlung braucht ein Serverschrank?","acceptedAnswer":{"@type":"Answer","text":"Genau so viel, wie er Strom aufnimmt – die gesamte elektrische Leistung wird zu Wärme. 3 kW IT-Last brauchen 3 kW Kälteleistung (rund 10 200 BTU/h) und bei 12 K Erwärmung etwa 735 m³ Luft je Stunde."}},{"@type":"Question","name":"Was ist eine Höheneinheit?","acceptedAnswer":{"@type":"Answer","text":"Eine Höheneinheit (HE oder U) ist 44,45 mm hoch. Ein üblicher 19-Zoll-Schrank hat 42 HE, also knapp 1,87 m nutzbare Höhe. Freie Plätze sollten mit Blindplatten verschlossen werden, damit keine warme Luft nach vorn zurückströmt."}}],"isPartOf":{"@id":"https://tools.pr1m3.de/it/rack-strom.html#seite"}}]}</script>
+  <!-- /seo -->
+  <meta name="theme-color" content="#F1F3F2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111214" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="icon" href="../favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="../assets/symbol-apple.png">
+  <link rel="stylesheet" href="../assets/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/stil.css">
+  <link rel="stylesheet" href="../assets/rechner.css">
+  <script src="../assets/basis.js"></script>
+</head>
+
+<body>
+  <div id="seitenkopf" data-wurzel="../"></div>
+
+  <main class="seite" data-rechner data-merken>
+    <section class="tafel abstand seo-info" aria-labelledby="h-faq">
+      <h2 id="h-faq">Häufige Fragen</h2>
+      <div class="faq">
+        <details><summary>Was kostet ein Server im Jahr an Strom?</summary><p>Ein Watt Dauerleistung verbraucht 8,76 kWh im Jahr. Ein Server mit 250 W im Mittel braucht also 2 190 kWh; bei 30 ct/kWh sind das 657 €. Mit Kühlung und USV-Verlusten (PUE 1,6) werden daraus rund 1 050 €.</p></details>
+        <details><summary>Wie viel Leistung darf an eine Steckdosenleiste mit 16 A?</summary><p>Rechnerisch 3 680 VA. Dauerhaft sollte man nur 80 % nutzen, also 12,8 A oder etwa 2,8 kW. Bei A/B-Versorgung muss jede Leiste die ganze Last allein tragen können – im Normalbetrieb ist jede nur zur Hälfte belastet.</p></details>
+        <details><summary>Was ist der PUE-Wert?</summary><p>Power Usage Effectiveness: der gesamte Stromverbrauch eines Rechenzentrums geteilt durch den Verbrauch der IT. Ein PUE von 1,6 heißt, dass auf jede Kilowattstunde für Server weitere 0,6 kWh für Kühlung, USV und Licht kommen. Gute Rechenzentren erreichen 1,2 bis 1,3.</p></details>
+        <details><summary>Wie viel Kühlung braucht ein Serverschrank?</summary><p>Genau so viel, wie er Strom aufnimmt – die gesamte elektrische Leistung wird zu Wärme. 3 kW IT-Last brauchen 3 kW Kälteleistung (rund 10 200 BTU/h) und bei 12 K Erwärmung etwa 735 m³ Luft je Stunde.</p></details>
+        <details><summary>Was ist eine Höheneinheit?</summary><p>Eine Höheneinheit (HE oder U) ist 44,45 mm hoch. Ein üblicher 19-Zoll-Schrank hat 42 HE, also knapp 1,87 m nutzbare Höhe. Freie Plätze sollten mit Blindplatten verschlossen werden, damit keine warme Luft nach vorn zurückströmt.</p></details>
+      </div>
+    </section>
+  </main>
+
+  <div id="seitenfuss" data-wurzel="../"></div>
+
+  <script src="../assets/katex/katex.min.js"></script>
+  <script src="../assets/rechner.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    const bewegungAus = false;
+    const R = Rechner, z = R.zahl, tz = R.tz, E = R.E, rund = R.rund, F = R.farbe;
+    const GUT = '#2E8B57', WARN = '#F2A541', SCHLECHT = '#C0392B', BLAU = '#3B5BDB', GRAU = '#6B7785';
+    const T = function (cx, s, x, y, a, g, f, c) { R.Z.text(cx, s, x, y, a || 'left', g || 11, !!f, c); };
+    const u = function (w, n, e) { return tz(w, n) + '\\,\\text{' + String(e).replace(/²/g, '}^2\\text{').replace(/³/g, '}^3\\text{').replace(/°/g, '}°\\text{').replace(/Ω/g, '}\\Omega\\text{').replace(/%/g, '\\%') + '}'; };
+    const ampel = function (ok, fast) { return ok ? GUT : fast ? WARN : SCHLECHT; };
+    const ANSCHLUSS = { '1x16': ['230 V, 1 × 16 A', 230, 16, 1], '1x32': ['230 V, 1 × 32 A', 230, 32, 1], '3x16': ['400 V, 3 × 16 A', 400, 16, 3], '3x32': ['400 V, 3 × 32 A', 400, 32, 3] };
+    function kva(k) { const a = ANSCHLUSS[k]; return (a[3] === 1 ? a[1] * a[2] : Math.sqrt(3) * a[1] * a[2]) / 1000; }
+    R.seite({
+      titel: 'Strom- und Kühlkosten im Rack',
+      einleitung: 'Was kostet der Schrank im Jahr – und reicht der Anschluss? Leistung aus der Geräteliste, Strom je Phase und Auslastung der Steckdosenleiste mit 80-Prozent-Regel, A/B-Versorgung, Jahresverbrauch mit PUE, Stromkosten und CO₂, Abwärme und nötige Kühlluft, belegte Höheneinheiten und Leistungsdichte – mit Simulation von Luftstrom und Wärme im Schrank.',
+      hilfe: 'Leistung je Gerät: am besten gemessen. Das Typenschild nennt die höchste Netzteilleistung – im Betrieb sind 30 bis 60 % davon üblich.',
+      gruppen: [
+        { titel: 'Geräte im Schrank', farbe: BLAU, liste: { k: 'geraete', name: 'Geräte', zeile: 'Gerät', max: 16, min: 1, spalten: [
+          { k: 'name', name: 'Gerät', text: true, breit: true }, { k: 'anzahl', name: 'Anzahl', e: '', min: 1, max: 60, ganz: true }, { k: 'watt', name: 'Leistung je Gerät', e: 'W', min: 1, max: 20000 }, { k: 'he', name: 'Höhe', e: 'HE', min: 0, max: 20, ganz: true }
+        ], neu: function () { return { name: 'Server', anzahl: 1, watt: 300, he: 1 }; } } },
+        { titel: 'Anschluss', farbe: '#2B7BB9', felder: [
+          { k: 'anschluss', name: 'Steckdosenleiste (PDU)', wahl: Object.keys(ANSCHLUSS).map(function (k) { return [k, ANSCHLUSS[k][0] + ' – ' + String(Math.round(kva(k) * 10) / 10).replace('.', ',') + ' kVA']; }) },
+          { k: 'ab', name: 'Versorgung', wahl: [[1, 'eine Leiste'], [2, 'A/B: zwei Leisten, jede kann alles tragen']] },
+          { k: 'cos', tex: '\\cos\\varphi', name: 'Leistungsfaktor der Netzteile', e: '', min: 0.6, max: 1 },
+          { k: 'last', name: 'mittlere Auslastung übers Jahr', e: '%', min: 5, max: 100, hilfe: 'Anteil der eingetragenen Leistung, der im Jahresmittel wirklich fließt. 100, wenn die Leistungen gemessene Mittelwerte sind.' },
+          { k: 'rack', name: 'Höhe des Schranks', e: 'HE', min: 4, max: 52, ganz: true }
+        ] },
+        { titel: 'Kühlung und Kosten', farbe: '#C2410C', felder: [
+          { k: 'pue', tex: 'PUE', name: 'PUE des Raums', e: '', min: 1, max: 3, hilfe: 'Gesamtstrom geteilt durch IT-Strom. Kleiner Serverraum mit Splitgerät 1,6–2,0, gutes Rechenzentrum 1,2–1,4, freie Kühlung 1,1.' },
+          { k: 'dT', tex: '\\Delta\\vartheta', name: 'Erwärmung der Luft im Gerät', e: 'K', min: 3, max: 30, hilfe: 'Unterschied zwischen kalter Zuluft vorn und warmer Abluft hinten, üblich 10–15 K.' },
+          { k: 'preis', name: 'Strompreis', e: 'ct/kWh', min: 1, max: 100 }, { k: 'co2', name: 'CO₂ je kWh', e: 'g', min: 0, max: 1200, hilfe: 'Deutscher Strommix etwa 350–400 g/kWh, Ökostrom rechnerisch 0–40.' }
+        ] }
+      ],
+      beispiel: { geraete: [{ name: 'Server 1 HE', anzahl: 4, watt: 350, he: 1 }, { name: 'Speichersystem', anzahl: 1, watt: 450, he: 4 }, { name: 'Switch 48 Ports PoE', anzahl: 2, watt: 180, he: 1 }, { name: 'Firewall', anzahl: 1, watt: 60, he: 1 }, { name: 'USV', anzahl: 1, watt: 120, he: 3 }], anschluss: '1x16', ab: 2, cos: 0.95, last: 70, rack: 42, pue: 1.6, dT: 12, preis: 30, co2: 380 },
+      rechne: function (e) {
+        const r = {}, a = ANSCHLUSS[e.anschluss];
+        r.P = e.geraete.reduce(function (s, g) { return s + g.anzahl * g.watt; }, 0); r.he = e.geraete.reduce(function (s, g) { return s + g.anzahl * g.he; }, 0);
+        r.S = r.P / e.cos; r.I = a[3] === 1 ? r.S / a[1] : r.S / (Math.sqrt(3) * a[1]); r.In = a[2]; r.Izul = 0.8 * a[2];
+        r.aus = r.I / r.Izul * 100; r.ausNenn = r.I / a[2] * 100; r.normal = e.ab === 2 ? r.I / 2 : r.I; r.ok = r.I <= r.Izul + 1e-9; r.reserve = Math.max(0, (r.Izul - r.I) * (a[3] === 1 ? a[1] : Math.sqrt(3) * a[1]) * e.cos);
+        r.Pm = r.P * e.last / 100; r.kwh = r.Pm * 8760 / 1000; r.kwhGes = r.kwh * e.pue; r.euro = r.kwhGes * e.preis / 100; r.euroIT = r.kwh * e.preis / 100; r.co2 = r.kwhGes * e.co2 / 1000;
+        r.btu = r.P * 3.412; r.luft = r.P / (0.34 * e.dT); r.kuehlKW = r.P / 1000;
+        r.dichte = r.P / 1000; r.heOk = r.he <= e.rack; r.heFrei = e.rack - r.he;
+        r.jeWatt = 8760 / 1000 * e.pue * e.preis / 100 * e.last / 100;
+        r.anteile = e.geraete.map(function (g) { return g.anzahl * g.watt; });
+        return r;
+      },
+      ergebnis: function (r, e, H) {
+        const a = ANSCHLUSS[e.anschluss];
+        if (!r.ok) H.meldung('Anschluss überlastet: ' + z(r.I, 1) + ' A je Phase' + (e.ab === 2 ? ' beim Ausfall einer Seite' : '') + ', zulässig sind dauerhaft ' + z(r.Izul, 1) + ' A (80 % von ' + a[2] + ' A). Größere Leiste, Drehstrom oder Geräte auf einen zweiten Schrank verteilen.', true);
+        else if (e.ab === 2) H.meldung('A/B-Versorgung: Im Normalbetrieb trägt jede Leiste ' + z(r.normal, 1) + ' A. Fällt eine Seite aus, übernimmt die andere ' + z(r.I, 1) + ' A – das bleibt unter ' + z(r.Izul, 1) + ' A.');
+        if (a[3] === 3) H.meldung('Drehstrom: Die Rechnung setzt gleichmäßig verteilte Geräte voraus. Jede Phase einzeln messen – einseitige Belegung überlastet eine Phase, obwohl die Summe passt.');
+        if (!r.heOk) H.meldung('Die Geräte brauchen ' + r.he + ' Höheneinheiten, der Schrank hat ' + e.rack + '.', true);
+        if (r.dichte > 5) H.meldung(z(r.dichte, 1) + ' kW in einem Schrank: Über etwa 5 kW reicht Raumkühlung ohne Trennung von Kalt- und Warmgang meist nicht mehr; über 10–15 kW sind Reihen- oder Türkühler üblich.');
+        if (r.heFrei > 0 && r.heOk) H.meldung('Freie Höheneinheiten mit Blindplatten schließen – sonst strömt warme Abluft nach vorn zurück und die Geräte saugen sie wieder an.');
+        H.urteil(r.ok && r.heOk, z(r.P / 1000, 2) + ' kW');
+        H.kacheln([
+          [z(r.P / 1000, 2) + ' kW', 'Anschlussleistung der Geräte (' + z(r.S / 1000, 2) + ' kVA)', BLAU],
+          [z(r.I, 1) + ' A', 'je Phase = ' + z(r.aus, 0) + ' % der zulässigen ' + z(r.Izul, 1) + ' A', ampel(r.ok, r.I <= a[2])],
+          [z(r.kwhGes, 0) + ' kWh', 'im Jahr mit Kühlung (IT allein ' + z(r.kwh, 0) + ' kWh)', '#6E6FA6'],
+          [z(r.euro, 0) + ' €', 'Stromkosten im Jahr = ' + z(r.euro / 12, 0) + ' € im Monat', '#C2410C'],
+          [z(r.luft, 0) + ' m³/h', 'Kühlluft bei ' + z(e.dT, 0) + ' K, Abwärme ' + z(r.btu, 0) + ' BTU/h', '#0E6B6A'],
+          [r.he + ' von ' + e.rack + ' HE', 'belegt · ' + z(r.co2, 0) + ' kg CO₂ im Jahr', ampel(r.heOk)]
+        ]);
+        H.tabelle('Geräte', ['Gerät', 'Anzahl', 'Leistung', 'Anteil', 'kWh im Jahr', 'Kosten im Jahr'], e.geraete.map(function (g, i) { const p = r.anteile[i]; return [g.name, String(g.anzahl), z(p, 0) + ' W', z(r.P ? p / r.P * 100 : 0, 0) + ' %', z(p * e.last / 100 * 8.76 * e.pue, 0), z(p * r.jeWatt, 0) + ' €']; }), { zahl: [1, 2, 3, 4, 5], fuss: 'Ein Watt Dauerleistung kostet hier ' + z(r.jeWatt, 2) + ' € im Jahr (mit PUE ' + z(e.pue, 2) + ' und ' + z(e.last, 0) + ' % Auslastung).' });
+        H.tabelle('Anschlüsse im Vergleich', ['Steckdosenleiste', 'Nennleistung', 'dauerhaft nutzbar (80 %)', 'Auslastung'], Object.keys(ANSCHLUSS).map(function (k) { const q = ANSCHLUSS[k], nutz = kva(k) * 0.8 * e.cos; return [q[0] + (k === e.anschluss ? ' ◄' : ''), z(kva(k), 1) + ' kVA', z(nutz, 1) + ' kW', z(r.P / 1000 / nutz * 100, 0) + ' %' + (r.P / 1000 > nutz ? ' ✕' : '')]; }), { zahl: [1, 2, 3] });
+      },
+      weg: function (r, e) {
+        const a = ANSCHLUSS[e.anschluss];
+        return [
+          ['Leistung', 'P = \\sum n \\cdot P_\\text{Gerät} = ' + E(u(r.P, 0, 'W'))],
+          ['Scheinleistung', 'S = \\frac{P}{\\cos\\varphi} = \\frac{' + tz(r.P, 0) + '}{' + tz(e.cos, 2) + '} = ' + E(u(r.S, 0, 'VA'))],
+          ['Strom je Phase', a[3] === 1 ? 'I = \\frac{S}{U} = \\frac{' + tz(r.S, 0) + '}{230} = ' + E(u(r.I, 1, 'A')) : 'I = \\frac{S}{\\sqrt{3}\\, U} = \\frac{' + tz(r.S, 0) + '}{\\sqrt{3} \\cdot 400} = ' + E(u(r.I, 1, 'A'))],
+          ['Dauerlast', 'I \\le 0{,}8 \\cdot I_\\text{n} = 0{,}8 \\cdot ' + a[2] + ' = ' + tz(r.Izul, 1) + '\\,\\text{A} \\Rightarrow ' + tz(r.aus, 0) + '\\,\\%'],
+          ['Jahresverbrauch', 'W = P \\cdot a \\cdot 8760\\,\\text{h} \\cdot PUE = ' + tz(r.P / 1000, 2) + ' \\cdot ' + tz(e.last / 100, 2) + ' \\cdot 8760 \\cdot ' + tz(e.pue, 2) + ' = ' + E(u(r.kwhGes, 0, 'kWh'))],
+          ['Kosten', 'K = W \\cdot k = ' + tz(r.kwhGes, 0) + ' \\cdot ' + tz(e.preis / 100, 2) + ' = ' + E(u(r.euro, 0, 'Euro'))],
+          ['Kühlluft', '\\dot V = \\frac{P}{0{,}34 \\cdot \\Delta\\vartheta} = \\frac{' + tz(r.P, 0) + '}{0{,}34 \\cdot ' + tz(e.dT, 0) + '} = ' + E(u(r.luft, 0, 'm³/h'))]
+        ];
+      },
+      loeser: {
+        titel: 'Leistung, Strom, Kosten, Luft – in jede Richtung', hilfe: 'Zum Beispiel: Wie viel Leistung darf dauerhaft an 16 A? Was kostet ein Gerät mit 80 W im Jahr?',
+        felder: [{ k: 'P', tex: 'P', name: 'Leistung', e: 'W', min: 0.1, max: 1e6 }, { k: 'U', tex: 'U', name: 'Spannung', e: 'V', min: 12, max: 1000 }, { k: 'I', tex: 'I', name: 'Strom', e: 'A', min: 0.001, max: 5000 }, { k: 'cos', tex: '\\cos\\varphi', name: 'Leistungsfaktor', e: '', min: 0.3, max: 1 },
+          { k: 'k', tex: 'k', name: 'Strompreis', e: 'ct/kWh', min: 0.1, max: 200 }, { k: 'K', tex: 'K', name: 'Kosten im Jahr (Dauerbetrieb)', e: '€', min: 0.01, max: 1e7 }, { k: 'dT', tex: '\\Delta\\vartheta', name: 'Erwärmung der Luft', e: 'K', min: 1, max: 40 }, { k: 'V', tex: '\\dot V', name: 'Kühlluft', e: 'm³/h', min: 0.1, max: 1e6 }],
+        beispiel: { U: 230, I: 12.8, cos: 0.95, k: 30, dT: 12 },
+        gleichungen: [
+          { name: 'Leistung', v: ['P', 'U', 'I', 'cos'], f: function (q) { return [q.P, q.U * q.I * q.cos]; }, loese: { P: function (q) { return q.U * q.I * q.cos; }, I: function (q) { return q.P / q.U / q.cos; }, U: function (q) { return q.P / q.I / q.cos; }, cos: function (q) { return q.P / q.U / q.I; } },
+            weg: function (k, q) { return k === 'P' ? 'P = U \\cdot I \\cdot \\cos\\varphi = ' + tz(q.U, 0) + ' \\cdot ' + tz(q.I, 1) + ' \\cdot ' + tz(q.cos, 2) + ' = ' + E(u(q.P, 0, 'W')) : k === 'I' ? 'I = \\frac{P}{U \\cos\\varphi} = ' + E(u(q.I, 2, 'A')) : ''; } },
+          { name: 'Kosten', v: ['K', 'P', 'k'], f: function (q) { return [q.K, q.P * 8.76 * q.k / 100]; }, loese: { K: function (q) { return q.P * 8.76 * q.k / 100; }, P: function (q) { return q.K / 8.76 / q.k * 100; }, k: function (q) { return q.K / q.P / 8.76 * 100; } },
+            weg: function (k, q) { return k === 'K' ? 'K = P \\cdot 8760\\,\\text{h} \\cdot k = ' + tz(q.P / 1000, 3) + ' \\cdot 8760 \\cdot ' + tz(q.k / 100, 2) + ' = ' + E(u(q.K, 0, 'Euro')) : ''; } },
+          { name: 'Kühlluft', v: ['V', 'P', 'dT'], f: function (q) { return [q.V * 0.34 * q.dT, q.P]; }, loese: { V: function (q) { return q.P / 0.34 / q.dT; }, P: function (q) { return q.V * 0.34 * q.dT; }, dT: function (q) { return q.P / 0.34 / q.V; } },
+            weg: function (k, q) { return k === 'V' ? '\\dot V = \\frac{P}{0{,}34\\, \\Delta\\vartheta} = \\frac{' + tz(q.P, 0) + '}{0{,}34 \\cdot ' + tz(q.dT, 0) + '} = ' + E(u(q.V, 0, 'm³/h')) : ''; } }
+        ]
+      },
+      sammlung: [
+        ['Strom einphasig', 'I = \\frac{P}{U \\cdot \\cos\\varphi}', 'U = 230 V'],
+        ['Strom bei Drehstrom', 'I = \\frac{P}{\\sqrt{3} \\cdot U \\cdot \\cos\\varphi}', 'U = 400 V, gleichmäßig verteilte Last'],
+        ['Dauerlast', 'I \\le 0{,}8 \\cdot I_\\text{n}', 'Steckdosenleisten und Sicherungen dauerhaft nur zu 80 % belasten'],
+        ['PUE', 'PUE = \\frac{W_\\text{gesamt}}{W_\\text{IT}}', 'Kühlung, USV-Verluste und Licht kommen zum IT-Strom dazu'],
+        ['Jahreskosten', 'K = P \\cdot 8760\\,\\text{h} \\cdot PUE \\cdot k', '1 W Dauerlast = 8,76 kWh im Jahr'],
+        ['Abwärme und Kühlluft', '\\dot Q = P \\qquad \\dot V = \\frac{P}{0{,}34\\,\\tfrac{\\text{Wh}}{\\text{m}^3\\text{K}} \\cdot \\Delta\\vartheta}', 'der gesamte Strom wird zu Wärme; 1 W = 3,412 BTU/h']
+      ],
+      quellen: 'DIN EN 50600-2-2 und -2-3 (Rechenzentren: Stromversorgung, Klimatisierung), DIN EN 50600-4-2 (PUE), DIN VDE 0100-430 und Herstellerangaben der Steckdosenleisten (Dauerbelastung), DIN EN IEC 60297 (19-Zoll-Bauweise, 1 HE = 44,45 mm), ASHRAE TC 9.9 (Zulufttemperaturen). Die 80-Prozent-Regel ist eine verbreitete Planungsregel; Einschaltströme und ungleiche Phasenbelegung sind nicht erfasst.',
+      bild: { titel: 'Simulation', label: 'Schrank von vorn mit den Geräten nach Leistung eingefärbt und von der Seite mit kalter Zuluft und warmer Abluft', animiert: !bewegungAus, hoehe: function (B) { return B < 520 ? 360 : 340; },
+        hinweis: function () { return 'Links: je wärmer die Farbe, desto mehr Watt je Höheneinheit. Rechts: Die Luft strömt von vorn nach hinten durch die Geräte – je mehr Leistung, desto mehr Luft.'; },
+        zeichne: function (cx, B, H, t, r, e) {
+          const rx = 16, rw = Math.min(150, B * 0.36), ry = 22, rh = H - 74, he = rh / e.rack;
+          cx.strokeStyle = F('--text'); cx.lineWidth = 2.5; cx.strokeRect(rx, ry, rw, rh);
+          let y = ry + rh, maxD = 1; e.geraete.forEach(function (g) { if (g.he > 0) maxD = Math.max(maxD, g.watt / g.he); });
+          e.geraete.forEach(function (g) { for (let k = 0; k < g.anzahl; k++) { const hh = g.he * he; if (g.he <= 0 || y - hh < ry - 0.5) return; y -= hh; cx.fillStyle = R.Z.waerme(Math.min(1, g.watt / g.he / Math.max(400, maxD))); cx.fillRect(rx + 3, y + 0.5, rw - 6, Math.max(1, hh - 1)); if (hh >= 11) { cx.save(); cx.beginPath(); cx.rect(rx + 3, y, rw - 6, hh); cx.clip(); T(cx, g.name, rx + 7, y + hh / 2 + 4, 'left', 9, false, '#111'); cx.restore(); }
+            if (hh >= 5) { cx.fillStyle = (Math.sin(t / 300 + k * 3 + y) > 0.2) ? '#7CFC8A' : '#1E5E2A'; cx.fillRect(rx + rw - 9, y + hh / 2 - 1, 3, 2); } } });
+          T(cx, r.he + ' / ' + e.rack + ' HE', rx + rw / 2, ry - 7, 'center', 10, true, ampel(r.heOk));
+          // Seitenansicht mit Luftstrom
+          const sx = rx + rw + 46, sw = B - sx - 46, sy = ry + 10, sh = rh - 20;
+          if (sw > 40) { cx.strokeStyle = F('--text'); cx.lineWidth = 2.5; cx.strokeRect(sx, sy, sw, sh); cx.fillStyle = 'rgba(59,91,219,0.12)'; cx.fillRect(sx - 40, sy, 40, sh); cx.fillStyle = 'rgba(192,57,43,0.14)'; cx.fillRect(sx + sw, sy, 40, sh);
+            const n = Math.max(6, Math.min(60, Math.round(r.luft / 25))), tempo = 0.5 + Math.min(2, r.luft / 600);
+            for (let k = 0; k < n; k++) { const ph = ((t / 4000 * tempo + k / n * 7.3) % 1), px = sx - 40 + (sw + 80) * ph, py = sy + 6 + ((k * 37) % Math.max(1, Math.round(sh - 12))), w = Math.max(0, Math.min(1, (px - sx) / sw)); cx.fillStyle = R.Z.waerme(0.1 + 0.8 * w); cx.beginPath(); cx.arc(px, py + Math.sin(t / 400 + k) * 1.5, 2.4, 0, 2 * Math.PI); cx.fill(); }
+            T(cx, 'kalt', sx - 20, sy - 6, 'center', 10, true, BLAU); T(cx, 'warm +' + z(e.dT, 0) + ' K', B - 4, sy - 6, 'right', 10, true, SCHLECHT); T(cx, 'Seitenansicht', sx + sw / 2, sy + 14, 'center', 10, false, F('--leise'));
+            T(cx, z(r.luft, 0) + ' m³/h', sx + sw / 2, sy + sh / 2, 'center', 13, true, F('--text')); T(cx, z(r.P / 1000, 2) + ' kW Wärme', sx + sw / 2, sy + sh / 2 + 18, 'center', 11, false, F('--text')); }
+          // Strombalken
+          const bx = 16, bw = B - 32, by = H - 40; cx.strokeStyle = F('--leise'); cx.lineWidth = 1; cx.strokeRect(bx, by, bw, 10); cx.fillStyle = ampel(r.ok, r.ausNenn <= 100); cx.fillRect(bx, by, bw * Math.min(1, r.ausNenn / 100), 10); cx.strokeStyle = SCHLECHT; cx.lineWidth = 2; cx.beginPath(); cx.moveTo(bx + bw * 0.8, by - 3); cx.lineTo(bx + bw * 0.8, by + 13); cx.stroke();
+          T(cx, z(r.I, 1) + ' von ' + r.In + ' A · Grenze 80 % · ' + z(r.euro, 0) + ' € im Jahr', B / 2, H - 12, 'center', 11, true, ampel(r.ok, r.ausNenn <= 100));
+        } }
+    });
+  })();
+  </script>
+</body>
+</html>

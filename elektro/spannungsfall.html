@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spannungsfall und Leitungsverluste – Formeln &amp; Rechner</title>
+  <meta name="description" content="Spannungsfall auf Leitungen für Gleich-, Wechsel- und Drehstrom: Kupfer oder Aluminium, Leitertemperatur und Leistungsfaktor, kleinster Querschnitt, größte Länge, Verlustleistung und Kosten im Jahr – mit Simulation des Spannungsverlaufs.">
+  <!-- seo -->
+  <link rel="canonical" href="https://tools.pr1m3.de/elektro/spannungsfall.html">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Formeln &amp; Rechner">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:title" content="Spannungsfall und Leitungsverluste">
+  <meta property="og:description" content="Spannungsfall auf Leitungen für Gleich-, Wechsel- und Drehstrom: Kupfer oder Aluminium, Leitertemperatur und Leistungsfaktor, kleinster Querschnitt, größte Länge, Verlustleistung und Kosten im Jahr – mit Simulation des Spannungsverlaufs.">
+  <meta property="og:url" content="https://tools.pr1m3.de/elektro/spannungsfall.html">
+  <meta property="og:image" content="https://tools.pr1m3.de/assets/symbol-512.png">
+  <meta property="og:image:alt" content="Formeln &amp; Rechner">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Spannungsfall und Leitungsverluste">
+  <meta name="twitter:description" content="Spannungsfall auf Leitungen für Gleich-, Wechsel- und Drehstrom: Kupfer oder Aluminium, Leitertemperatur und Leistungsfaktor, kleinster Querschnitt, größte Länge, Verlustleistung und Kosten im Jahr – mit Simulation des Spannungsverlaufs.">
+  <meta name="twitter:image" content="https://tools.pr1m3.de/assets/symbol-512.png">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://tools.pr1m3.de/elektro/spannungsfall.html#seite","name":"Spannungsfall und Leitungsverluste","url":"https://tools.pr1m3.de/elektro/spannungsfall.html","inLanguage":"de","description":"Spannungsfall auf Leitungen für Gleich-, Wechsel- und Drehstrom: Kupfer oder Aluminium, Leitertemperatur und Leistungsfaktor, kleinster Querschnitt, größte Länge, Verlustleistung und Kosten im Jahr – mit Simulation des Spannungsverlaufs.","isPartOf":{"@type":"WebSite","@id":"https://tools.pr1m3.de/#website","name":"Formeln & Rechner","url":"https://tools.pr1m3.de/"},"breadcrumb":{"@id":"https://tools.pr1m3.de/elektro/spannungsfall.html#pfad"},"dateModified":"2026-11-11"},{"@type":"BreadcrumbList","@id":"https://tools.pr1m3.de/elektro/spannungsfall.html#pfad","itemListElement":[{"@type":"ListItem","position":1,"name":"Formeln & Rechner","item":"https://tools.pr1m3.de/"},{"@type":"ListItem","position":2,"name":"Spannungsfall und Leitungsverluste","item":"https://tools.pr1m3.de/elektro/spannungsfall.html"}]},{"@type":"FAQPage","@id":"https://tools.pr1m3.de/elektro/spannungsfall.html#fragen","mainEntity":[{"@type":"Question","name":"Wie viel Spannungsfall ist erlaubt?","acceptedAnswer":{"@type":"Answer","text":"Zwischen Zähler und Verbraucher höchstens 3 % nach DIN 18015-1, in der Verbraucheranlage nach DIN VDE 0100-520 als Empfehlung 4 %. Für die Hauptleitung vor dem Zähler verlangen die Netzbetreiber 0,5 % bis 1,5 %, je nach Leistung."}},{"@type":"Question","name":"Wie berechnet man den Spannungsfall?","acceptedAnswer":{"@type":"Answer","text":"Bei Wechselstrom: zweimal Länge mal Strom mal cos φ, geteilt durch Leitfähigkeit mal Querschnitt. Für Kupfer ist die Leitfähigkeit 56 m/(Ω·mm²). Bei Drehstrom steht statt der 2 die Wurzel aus 3. Beispiel: 35 m, 16 A, 2,5 mm² ergeben rund 8 V oder 3,5 %."}},{"@type":"Question","name":"Warum rechnet man mit einer höheren Leitertemperatur?","acceptedAnswer":{"@type":"Answer","text":"Der Widerstand von Kupfer steigt je Kelvin um etwa 0,4 %. Eine voll belastete Leitung wird 60 bis 70 °C warm, ihr Widerstand ist dann rund 20 % höher als bei 20 °C. Wer mit 20 °C rechnet, unterschätzt den Spannungsfall."}},{"@type":"Question","name":"Lohnt sich ein größerer Querschnitt?","acceptedAnswer":{"@type":"Answer","text":"Bei langen Laufzeiten oft ja. Die Verlustleistung wächst mit dem Quadrat des Stroms und sinkt im gleichen Maß wie der Querschnitt wächst. Bei einer Wallbox oder einer Wärmepumpe können die Verluste über die Jahre mehr kosten als der dickere Leiter."}},{"@type":"Question","name":"Was ist bei Aluminium anders?","acceptedAnswer":{"@type":"Answer","text":"Aluminium leitet schlechter: Für denselben Spannungsfall braucht man etwa das 1,6-Fache des Kupferquerschnitts. Dafür ist es leichter und günstiger. Es braucht geeignete Klemmen und wird in Gebäuden erst ab 16 mm² eingesetzt."}}],"isPartOf":{"@id":"https://tools.pr1m3.de/elektro/spannungsfall.html#seite"}}]}</script>
+  <!-- /seo -->
+  <meta name="theme-color" content="#F1F3F2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111214" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="icon" href="../favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="../assets/symbol-apple.png">
+  <link rel="stylesheet" href="../assets/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/stil.css">
+  <link rel="stylesheet" href="../assets/rechner.css">
+  <script src="../assets/basis.js"></script>
+</head>
+
+<body>
+  <div id="seitenkopf" data-wurzel="../"></div>
+
+  <main class="seite" data-rechner data-merken>
+    <section class="tafel abstand seo-info" aria-labelledby="h-faq">
+      <h2 id="h-faq">Häufige Fragen</h2>
+      <div class="faq">
+        <details><summary>Wie viel Spannungsfall ist erlaubt?</summary><p>Zwischen Zähler und Verbraucher höchstens 3 % nach DIN 18015-1, in der Verbraucheranlage nach DIN VDE 0100-520 als Empfehlung 4 %. Für die Hauptleitung vor dem Zähler verlangen die Netzbetreiber 0,5 % bis 1,5 %, je nach Leistung.</p></details>
+        <details><summary>Wie berechnet man den Spannungsfall?</summary><p>Bei Wechselstrom: zweimal Länge mal Strom mal cos φ, geteilt durch Leitfähigkeit mal Querschnitt. Für Kupfer ist die Leitfähigkeit 56 m/(Ω·mm²). Bei Drehstrom steht statt der 2 die Wurzel aus 3. Beispiel: 35 m, 16 A, 2,5 mm² ergeben rund 8 V oder 3,5 %.</p></details>
+        <details><summary>Warum rechnet man mit einer höheren Leitertemperatur?</summary><p>Der Widerstand von Kupfer steigt je Kelvin um etwa 0,4 %. Eine voll belastete Leitung wird 60 bis 70 °C warm, ihr Widerstand ist dann rund 20 % höher als bei 20 °C. Wer mit 20 °C rechnet, unterschätzt den Spannungsfall.</p></details>
+        <details><summary>Lohnt sich ein größerer Querschnitt?</summary><p>Bei langen Laufzeiten oft ja. Die Verlustleistung wächst mit dem Quadrat des Stroms und sinkt im gleichen Maß wie der Querschnitt wächst. Bei einer Wallbox oder einer Wärmepumpe können die Verluste über die Jahre mehr kosten als der dickere Leiter.</p></details>
+        <details><summary>Was ist bei Aluminium anders?</summary><p>Aluminium leitet schlechter: Für denselben Spannungsfall braucht man etwa das 1,6-Fache des Kupferquerschnitts. Dafür ist es leichter und günstiger. Es braucht geeignete Klemmen und wird in Gebäuden erst ab 16 mm² eingesetzt.</p></details>
+      </div>
+    </section>
+  </main>
+
+  <div id="seitenfuss" data-wurzel="../"></div>
+
+  <script src="../assets/katex/katex.min.js"></script>
+  <script src="../assets/rechner.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    const bewegungAus = false;
+    const R = Rechner, z = R.zahl, tz = R.tz, E = R.E, rund = R.rund, F = R.farbe;
+    const GUT = '#2E8B57', WARN = '#F2A541', SCHLECHT = '#C0392B', BLAU = '#3B5BDB', GRAU = '#6B7785';
+    const T = function (cx, s, x, y, a, g, f, c) { R.Z.text(cx, s, x, y, a || 'left', g || 11, !!f, c); };
+    const u = function (w, n, e) { return tz(w, n) + '\\,\\text{' + String(e).replace(/²/g, '}^2\\text{').replace(/³/g, '}^3\\text{').replace(/°/g, '}°\\text{').replace(/Ω/g, '}\\Omega\\text{').replace(/%/g, '\\%') + '}'; };
+    const ampel = function (ok, fast) { return ok ? GUT : fast ? WARN : SCHLECHT; };
+    // Leiterwerkstoffe: spezifischer Widerstand bei 20 °C in Ω·mm²/m, Temperaturbeiwert 1/K
+    const WERK = { cu: ['Kupfer', 0.0178, 0.00393], al: ['Aluminium', 0.0286, 0.00403] };
+    const NETZ = { ac1: ['Wechselstrom 230 V', 230, 2, 'ac'], ac3: ['Drehstrom 400 V', 400, Math.sqrt(3), 'ac'], dc: ['Gleichstrom', 0, 2, 'dc'] };
+    const QUER = [0.75, 1, 1.5, 2.5, 4, 6, 10, 16, 25, 35, 50, 70, 95, 120, 150, 185, 240];
+    const GRENZE = { 0.5: '0,5 % – Hauptleitung vor dem Zähler (TAB)', 1: '1 % – PV-Gleichstromseite (Empfehlung)', 3: '3 % – Zähler bis Verbraucher (DIN 18015-1)', 4: '4 % – Verbraucheranlage (DIN VDE 0100-520)', 5: '5 % – Motoren im Anlauf, Kleinspannung' };
+    const XL = 0.00008;   // Blindwiderstand je Meter und Leiter, Ω/m (Kabel, Mantelleitung)
+    function fall(e, A) {
+      const N = NETZ[e.netz], W = WERK[e.werk], U = N[3] === 'dc' ? e.udc : N[1];
+      const rho = W[1] * (1 + W[2] * (e.temp - 20)), Rl = rho * e.laenge / A;         // Ω je Leiter
+      const cos = N[3] === 'dc' ? 1 : e.cos, sin = Math.sqrt(1 - cos * cos), Xl = N[3] === 'dc' ? 0 : XL * e.laenge;
+      const dU = N[2] * e.strom * (Rl * cos + Xl * sin);
+      const leiter = e.netz === 'ac3' ? 3 : 2;
+      return { U: U, rho: rho, Rl: Rl, Xl: Xl, dU: dU, proz: dU / U * 100, Pv: leiter * e.strom * e.strom * Rl, cos: cos, sin: sin, k: N[2], P: (e.netz === 'ac3' ? Math.sqrt(3) : 1) * U * e.strom * cos };
+    }
+    R.seite({
+      titel: 'Spannungsfall und Leitungsverluste',
+      einleitung: 'Wie viel Spannung bleibt am Ende der Leitung? Spannungsfall für Gleich-, Wechsel- und Drehstrom mit Kupfer oder Aluminium, Leitertemperatur und Leistungsfaktor, kleinster passender Querschnitt, größte Länge, Verlustleistung und was die Verluste im Jahr kosten – mit Simulation des Spannungsverlaufs.',
+      hilfe: 'Länge: einfache Leitungslänge vom Verteiler zum Verbraucher. Hin- und Rückleiter rechnet die Seite selbst.',
+      gruppen: [
+        { titel: 'Netz und Last', farbe: BLAU, felder: [
+          { k: 'netz', name: 'Stromart', wahl: Object.keys(NETZ).map(function (k) { return [k, NETZ[k][0]]; }) },
+          { k: 'udc', tex: 'U', name: 'Gleichspannung', e: 'V', min: 1, max: 1500, wenn: function (e) { return e.netz === 'dc'; } },
+          { k: 'strom', tex: 'I', name: 'Strom', e: 'A', min: 0.01, max: 2000 },
+          { k: 'cos', tex: '\\cos\\varphi', name: 'Leistungsfaktor', e: '', min: 0.3, max: 1, wenn: function (e) { return e.netz !== 'dc'; } }
+        ] },
+        { titel: 'Leitung', farbe: '#B9874B', felder: [
+          { k: 'laenge', tex: 'l', name: 'einfache Länge', e: 'm', min: 0.1, max: 5000 },
+          { k: 'quer', name: 'Querschnitt', wahl: QUER.map(function (q) { return [q, z(q, q < 1 ? 2 : q < 10 && q % 1 ? 1 : 0) + ' mm²']; }) },
+          { k: 'werk', name: 'Leiterwerkstoff', wahl: Object.keys(WERK).map(function (k) { return [k, WERK[k][0]]; }) },
+          { k: 'temp', tex: '\\vartheta', name: 'Leitertemperatur im Betrieb', e: '°C', min: -20, max: 90, hilfe: 'Unbelastet 20–30 °C, voll belastet bis 70 °C (PVC) oder 90 °C (VPE).' },
+          { k: 'grenze', name: 'Zulässiger Spannungsfall', wahl: Object.keys(GRENZE).sort(function (a, b) { return a - b; }).map(function (k) { return [k, GRENZE[k]]; }) }
+        ] },
+        { titel: 'Kosten der Verluste', farbe: '#C2410C', felder: [
+          { k: 'stunden', name: 'Volllaststunden im Jahr', e: 'h', min: 0, max: 8760 }, { k: 'preis', name: 'Strompreis', e: 'ct/kWh', min: 0, max: 200 }
+        ] }
+      ],
+      beispiel: { netz: 'ac1', udc: 48, strom: 16, cos: 0.95, laenge: 35, quer: 2.5, werk: 'cu', temp: 50, grenze: 3, stunden: 1000, preis: 35 },
+      rechne: function (e) {
+        const r = fall(e, e.quer);
+        r.ok = r.proz <= e.grenze; r.Uende = r.U - r.dU;
+        r.qMin = QUER.filter(function (q) { return fall(e, q).proz <= e.grenze; })[0] || null;
+        r.lMax = e.laenge * e.grenze / r.proz;
+        r.iMax = e.strom * e.grenze / r.proz;
+        r.kwh = r.Pv * e.stunden / 1000; r.euro = r.kwh * e.preis / 100; r.verlustProz = r.P > 0 ? r.Pv / r.P * 100 : 0;
+        r.dichte = e.strom / e.quer;
+        return r;
+      },
+      ergebnis: function (r, e, H) {
+        if (!r.ok) H.meldung('Der Spannungsfall ist mit ' + z(r.proz, 2) + ' % zu hoch (erlaubt ' + z(e.grenze, 1) + ' %). ' + (r.qMin ? 'Mindestens ' + z(r.qMin, 1) + ' mm² nehmen' : 'Kein üblicher Querschnitt reicht – Spannung erhöhen oder Leitung teilen') + ', oder die Leitung auf höchstens ' + z(r.lMax, 1) + ' m kürzen.', true);
+        if (r.dichte > 10) H.meldung('Stromdichte ' + z(r.dichte, 1) + ' A/mm²: Der Querschnitt muss auch die Strombelastbarkeit nach DIN VDE 0298-4 erfüllen – das ist eine eigene Prüfung (siehe Leitungsdimensionierung).', r.dichte > 16);
+        if (e.werk === 'al' && e.quer < 16) H.meldung('Aluminiumleiter sind in der Hausinstallation erst ab 16 mm² üblich und brauchen passende Klemmen.');
+        if (r.verlustProz > 3) H.meldung(z(r.verlustProz, 1) + ' % der Leistung bleiben in der Leitung. Bei langer Laufzeit rechnet sich oft der nächstgrößere Querschnitt.');
+        H.urteil(r.ok, z(r.proz, 2) + ' %');
+        H.kacheln([
+          [z(r.dU, 2) + ' V', 'Spannungsfall = ' + z(r.proz, 2) + ' % (erlaubt ' + z(e.grenze, 1) + ' %)', ampel(r.ok)],
+          [z(r.Uende, 1) + ' V', 'am Verbraucher von ' + z(r.U, 0) + ' V', BLAU],
+          [r.qMin ? z(r.qMin, 1) + ' mm²' : '–', 'kleinster Querschnitt für ' + z(e.grenze, 1) + ' %', '#B9874B'],
+          [z(r.lMax, 1) + ' m', 'größte Länge mit ' + z(e.quer, 1) + ' mm² (oder ' + z(r.iMax, 1) + ' A bei ' + z(e.laenge, 0) + ' m)', '#6E6FA6'],
+          [z(r.Pv, r.Pv < 10 ? 1 : 0) + ' W', 'Verlust in der Leitung (' + z(r.verlustProz, 1) + ' % der Leistung)', '#E4572E'],
+          [z(r.euro, 2) + ' €', z(r.kwh, 0) + ' kWh Verlust im Jahr', '#C2410C']
+        ]);
+        H.nachweise([[r.ok, 'Spannungsfall', z(r.proz, 2) + ' % ' + (r.ok ? '≤' : '>') + ' ' + z(e.grenze, 1) + ' %'], [r.dichte <= 10 ? true : r.dichte <= 16 ? null : false, 'Stromdichte (Anhalt)', z(r.dichte, 1) + ' A/mm²']]);
+        H.tabelle('Alle Querschnitte im Vergleich', ['Querschnitt', 'Spannungsfall', 'in %', 'Verlust', 'Kosten je Jahr', 'größte Länge'], QUER.filter(function (q) { return q >= e.quer / 4 && q <= e.quer * 10; }).slice(0, 9).map(function (q) {
+          const f = fall(e, q);
+          return [z(q, q % 1 ? 1 : 0) + ' mm²', z(f.dU, 2) + ' V', z(f.proz, 2) + (f.proz > e.grenze ? ' ✕' : ''), z(f.Pv, 0) + ' W', z(f.Pv * e.stunden / 1000 * e.preis / 100, 2) + ' €', z(e.laenge * e.grenze / f.proz, 0) + ' m'];
+        }), { zahl: [1, 2, 3, 4, 5], klasse: function (j) { return ''; }, fuss: '✕ über dem zulässigen Spannungsfall.' });
+      },
+      weg: function (r, e) {
+        const dc = e.netz === 'dc';
+        return [
+          ['Widerstand eines Leiters', 'R = \\rho_{' + tz(e.temp, 0) + '}\\,\\frac{l}{A} = ' + tz(r.rho, 4) + ' \\cdot \\frac{' + tz(e.laenge, 1) + '}{' + tz(e.quer, 2) + '} = ' + E(u(r.Rl, 4, 'Ω')) + ' \\quad (\\rho_{20} = ' + tz(WERK[e.werk][1], 4) + ')'],
+          ['Spannungsfall', dc ? '\\Delta U = 2\\, I\\, R = 2 \\cdot ' + tz(e.strom, 1) + ' \\cdot ' + tz(r.Rl, 4) + ' = ' + E(u(r.dU, 2, 'V')) : '\\Delta U = ' + (e.netz === 'ac3' ? '\\sqrt{3}' : '2') + '\\, I\\,(R \\cos\\varphi + X \\sin\\varphi) = ' + tz(r.k, 3) + ' \\cdot ' + tz(e.strom, 1) + ' \\cdot (' + tz(r.Rl, 4) + ' \\cdot ' + tz(r.cos, 2) + ' + ' + tz(r.Xl, 4) + ' \\cdot ' + tz(r.sin, 2) + ') = ' + E(u(r.dU, 2, 'V'))],
+          ['In Prozent', '\\Delta u = \\frac{' + tz(r.dU, 2) + '}{' + tz(r.U, 0) + '} = ' + E(u(r.proz, 2, '%'))],
+          ['Verlustleistung', 'P_\\text{V} = ' + (e.netz === 'ac3' ? '3' : '2') + '\\, I^2 R = ' + (e.netz === 'ac3' ? '3' : '2') + ' \\cdot ' + tz(e.strom, 1) + '^2 \\cdot ' + tz(r.Rl, 4) + ' = ' + E(u(r.Pv, 1, 'W'))],
+          ['Kosten im Jahr', 'K = ' + tz(r.Pv / 1000, 3) + '\\,\\text{kW} \\cdot ' + tz(e.stunden, 0) + '\\,\\text{h} \\cdot ' + tz(e.preis / 100, 2) + ' = ' + E(tz(r.euro, 2) + '\\,\\text{Euro}')]
+        ];
+      },
+      loeser: {
+        titel: 'Spannungsfall – in jede Richtung', hilfe: 'Für Gleichstrom und Wechselstrom mit cos φ = 1 (Faktor 2) oder Drehstrom (Faktor 1,732). Zum Beispiel: Welcher Querschnitt für 40 m, 20 A und höchstens 6,9 V?',
+        felder: [
+          { k: 'dU', tex: '\\Delta U', name: 'Spannungsfall', e: 'V', min: 0.0001, max: 5000 }, { k: 'U', tex: 'U', name: 'Nennspannung', e: 'V', min: 1, max: 100000 }, { k: 'du', tex: '\\Delta u', name: 'Spannungsfall', e: '%', min: 0.0001, max: 100 },
+          { k: 'k', tex: 'k', name: 'Faktor (2 oder 1,732)', e: '', min: 1, max: 2 }, { k: 'I', tex: 'I', name: 'Strom', e: 'A', min: 0.001, max: 1e5 }, { k: 'l', tex: 'l', name: 'einfache Länge', e: 'm', min: 0.01, max: 1e6 },
+          { k: 'rho', tex: '\\rho', name: 'spezifischer Widerstand', e: 'Ω·mm²/m', min: 0.001, max: 1 }, { k: 'A', tex: 'A', name: 'Querschnitt', e: 'mm²', min: 0.01, max: 5000 }
+        ],
+        beispiel: { U: 230, du: 3, k: 2, I: 20, l: 40, rho: 0.0178 },
+        gleichungen: [
+          { name: 'Spannungsfall', v: ['dU', 'k', 'I', 'l', 'rho', 'A'], f: function (q) { return [q.dU * q.A, q.k * q.I * q.l * q.rho]; },
+            loese: { dU: function (q) { return q.k * q.I * q.l * q.rho / q.A; }, A: function (q) { return q.k * q.I * q.l * q.rho / q.dU; }, l: function (q) { return q.dU * q.A / (q.k * q.I * q.rho); }, I: function (q) { return q.dU * q.A / (q.k * q.l * q.rho); }, rho: function (q) { return q.dU * q.A / (q.k * q.I * q.l); }, k: function (q) { return q.dU * q.A / (q.I * q.l * q.rho); } },
+            weg: function (k, q) { return k === 'A' ? 'A = \\frac{k\\, I\\, l\\, \\rho}{\\Delta U} = \\frac{' + tz(q.k, 3) + ' \\cdot ' + tz(q.I, 1) + ' \\cdot ' + tz(q.l, 1) + ' \\cdot ' + tz(q.rho, 4) + '}{' + tz(q.dU, 2) + '} = ' + E(u(q.A, 2, 'mm²')) : k === 'dU' ? '\\Delta U = \\frac{k\\, I\\, l\\, \\rho}{A} = ' + E(u(q.dU, 2, 'V')) : k === 'l' ? 'l = \\frac{\\Delta U\\, A}{k\\, I\\, \\rho} = ' + E(u(q.l, 1, 'm')) : ''; } },
+          { name: 'Prozent', v: ['du', 'dU', 'U'], f: function (q) { return [q.du * q.U, q.dU * 100]; }, loese: { du: function (q) { return q.dU / q.U * 100; }, dU: function (q) { return q.du * q.U / 100; }, U: function (q) { return q.dU * 100 / q.du; } },
+            weg: function (k, q) { return k === 'dU' ? '\\Delta U = \\Delta u \\cdot U = ' + tz(q.du, 2) + '\\,\\% \\cdot ' + tz(q.U, 0) + ' = ' + E(u(q.dU, 2, 'V')) : k === 'du' ? '\\Delta u = \\frac{\\Delta U}{U} = ' + E(u(q.du, 2, '%')) : ''; } }
+        ]
+      },
+      sammlung: [
+        ['Gleichstrom und Wechselstrom', '\\Delta U = \\frac{2\\, l\\, I \\cos\\varphi}{\\kappa\\, A}', 'Hin- und Rückleiter; κ = 1/ρ: Kupfer 56, Aluminium 35 m/(Ω·mm²) bei 20 °C'],
+        ['Drehstrom', '\\Delta U = \\frac{\\sqrt{3}\\, l\\, I \\cos\\varphi}{\\kappa\\, A}', 'symmetrische Last, bezogen auf die Außenleiterspannung 400 V'],
+        ['Mit Blindwiderstand', '\\Delta U = k\\, I\\,(R \\cos\\varphi + X \\sin\\varphi)', 'X ≈ 0,08 mΩ/m je Leiter; spürbar erst ab etwa 35 mm²'],
+        ['Temperatur', '\\rho_\\vartheta = \\rho_{20}\\,(1 + \\alpha\\,(\\vartheta - 20\\,°\\text{C}))', 'α ≈ 0,004 je K: bei 70 °C ist der Widerstand 20 % höher'],
+        ['Verlustleistung', 'P_\\text{V} = n\\, I^2 R', 'n = 2 Leiter (3 bei Drehstrom); doppelter Strom, vierfacher Verlust'],
+        ['Mindestquerschnitt', 'A = \\frac{k\\, l\\, I\\, \\rho \\cos\\varphi}{\\Delta U_\\text{zul}}', 'danach den nächstgrößeren Normquerschnitt wählen']
+      ],
+      quellen: 'DIN VDE 0100-520 (Spannungsfall in Verbraucheranlagen, Anhang G: 3 % Beleuchtung, 5 % andere bzw. national 4 %), DIN 18015-1 (3 % ab Zähler), TAB / VDE-AR-N 4100 (0,5 % bis 1,5 % für Hauptleitungen je nach Leistung), DIN VDE 0298-4 (Strombelastbarkeit). Der Querschnitt muss außerdem Belastbarkeit, Abschaltbedingung und Kurzschlussfestigkeit erfüllen.',
+      bild: { titel: 'Simulation', label: 'Leitung von der Quelle zum Verbraucher mit Spannungsverlauf, Erwärmung und Helligkeit der Lampe', animiert: !bewegungAus, hoehe: function (B) { return B < 520 ? 360 : 320; },
+        hinweis: function (r) { return 'Die Spannung sinkt gleichmäßig über die Länge; die Leitung leuchtet umso röter, je mehr Wärme entsteht.'; },
+        zeichne: function (cx, B, H, t, r, e) {
+          const x1 = 54, x2 = B - 60, yl = 60, hell = Math.max(0.15, Math.min(1, Math.pow(r.Uende / r.U, 3.4)));
+          cx.fillStyle = BLAU; cx.fillRect(x1 - 40, yl - 26, 34, 62); T(cx, z(r.U, 0) + ' V', x1 - 23, yl + 52, 'center', 11, true, BLAU);
+          const warm = Math.min(1, r.Pv / e.laenge / 8);
+          [yl - 12, yl + 22].forEach(function (y, k) {
+            cx.strokeStyle = e.werk === 'cu' ? '#B9874B' : '#9AA3AD'; cx.lineWidth = Math.max(3, Math.min(12, Math.sqrt(e.quer) * 2.2)); cx.beginPath(); cx.moveTo(x1, y); cx.lineTo(x2, y); cx.stroke();
+            cx.strokeStyle = 'rgba(228,87,46,' + (0.75 * warm * (0.7 + 0.3 * Math.sin(t / 400))) + ')'; cx.lineWidth += 4; cx.beginPath(); cx.moveTo(x1, y); cx.lineTo(x2, y); cx.stroke();
+            const ab = Math.max(8, 30 - e.strom), v = t / 20 * (k ? -1 : 1) * (e.netz === 'dc' ? 1 : 0) + (e.netz === 'dc' ? 0 : Math.sin(t / 160) * 6 * (k ? -1 : 1));
+            for (let x = x1 + (((v % ab) + ab) % ab); x < x2; x += ab) { cx.fillStyle = '#FFE08A'; cx.beginPath(); cx.arc(x, y, 2, 0, 2 * Math.PI); cx.fill(); }
+          });
+          cx.fillStyle = 'rgba(255,214,90,' + hell + ')'; cx.beginPath(); cx.arc(x2 + 26, yl + 5, 20, 0, 2 * Math.PI); cx.fill(); cx.strokeStyle = F('--leise'); cx.lineWidth = 2; cx.stroke();
+          T(cx, z(r.Uende, 1) + ' V', x2 + 26, yl + 52, 'center', 11, true, ampel(r.ok));
+          T(cx, z(e.laenge, 0) + ' m · ' + z(e.quer, 1) + ' mm² ' + WERK[e.werk][0] + ' · ' + z(e.strom, 1) + ' A', (x1 + x2) / 2, yl - 34, 'center', 11, true, F('--leise'));
+          const gy = 140, gh = H - gy - 40, min = Math.min(r.Uende, r.U * (1 - e.grenze / 100)) - r.U * 0.01, ach = R.Z.achsen(cx, x1, gy, x2 - x1, gh, 0, e.laenge, Math.max(0, min), r.U * 1.005, { xSchritt: e.laenge / 5, xStellen: e.laenge < 10 ? 1 : 0, ySchritt: Math.max(0.5, Math.round((r.U * 1.005 - Math.max(0, min)) / 4 * 2) / 2), yStellen: 1, xName: 'Länge in m', yName: 'V' });
+          const yg = ach.Y(r.U * (1 - e.grenze / 100)); cx.strokeStyle = SCHLECHT; cx.setLineDash([4, 3]); cx.lineWidth = 1.5; cx.beginPath(); cx.moveTo(x1, yg); cx.lineTo(x2, yg); cx.stroke(); cx.setLineDash([]); T(cx, 'Grenze ' + z(e.grenze, 1) + ' %', x2 - 2, yg - 7, 'right', 10, true, SCHLECHT);
+          cx.strokeStyle = ampel(r.ok); cx.lineWidth = 2.5; cx.beginPath(); cx.moveTo(ach.X(0), ach.Y(r.U)); cx.lineTo(ach.X(e.laenge), ach.Y(Math.max(min, r.Uende))); cx.stroke();
+          const p = (t % 4000) / 4000; cx.fillStyle = F('--text'); cx.beginPath(); cx.arc(ach.X(p * e.laenge), ach.Y(r.U - r.dU * p), 5, 0, 2 * Math.PI); cx.fill();
+          T(cx, z(r.U - r.dU * p, 1) + ' V', ach.X(p * e.laenge) + 8, ach.Y(r.U - r.dU * p) - 10, p > 0.8 ? 'right' : 'left', 11, true);
+        } }
+    });
+  })();
+  </script>
+</body>
+</html>
