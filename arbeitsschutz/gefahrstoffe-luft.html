@@ -66,7 +66,7 @@
     const STOFF = {
       aceton: ['Aceton', 1200, 58.08, 0.79, 2.5], ethanol: ['Ethanol (Spiritus)', 380, 46.07, 0.79, 3.1], ipa: ['2-Propanol (Isopropanol)', 500, 60.1, 0.785, 2.0],
       toluol: ['Toluol', 190, 92.14, 0.87, 1.1], xylol: ['Xylol', 220, 106.17, 0.86, 1.0], ethylacetat: ['Ethylacetat', 730, 88.11, 0.9, 2.0], styrol: ['Styrol', 86, 104.15, 0.906, 0.9],
-      co: ['Kohlenmonoxid', 35, 28.01, 0, 10.9], astaub: ['A-Staub (alveolengängig)', 1.25, 0, 0, 0], estaub: ['E-Staub (einatembar)', 10, 0, 0, 0], holz: ['Holzstaub', 2, 0, 0, 0], quarz: ['Quarzfeinstaub', 0.05, 0, 0, 0]
+      co: ['Kohlenmonoxid', 23, 28.01, 0, 10.9], astaub: ['A-Staub (alveolengängig)', 1.25, 0, 0, 0], estaub: ['E-Staub (einatembar)', 10, 0, 0, 0], holz: ['Holzstaub', 2, 0, 0, 0], quarz: ['Quarzfeinstaub', 0.05, 0, 0, 0]
     };
     const VM = 24.1;   // Molvolumen in l/mol bei 20 °C
     const MISCH = { 1: 'ideal durchmischt (Faktor 1)', 2: 'gute Raumlüftung (Faktor 2)', 4: 'mäßig, Quelle nah am Menschen (Faktor 4)', 10: 'schlecht, tote Ecken (Faktor 10)' };
@@ -178,7 +178,7 @@
         ['Bewertungsindex', 'I = \\frac{C_\\text{Schicht}}{\\text{AGW}} \\le 1', 'bei mehreren Stoffen mit gleicher Wirkung die Indizes addieren (TRGS 402)'],
         ['Explosionsgrenze', 'C \\le 0{,}1 \\cdot \\text{UEG}', 'darüber Zündquellen ausschließen, Explosionsschutz nach TRGS 720 ff.']
       ],
-      quellen: 'TRGS 900 (Arbeitsplatzgrenzwerte; Werte hier als Richtwerte, den aktuellen Stand in der TRGS oder im Sicherheitsdatenblatt prüfen), TRGS 402 (Ermitteln und Beurteilen der Exposition), TRGS 559 und 553 (Quarz- und Holzstaub), TRGS 720 (Explosionsschutz), Gefahrstoffverordnung. Rechenmodell: ein gut durchmischter Raum mit Zuschlagfaktor – nahe an der Quelle ist die Konzentration höher. Eine Messung ersetzt das nicht.',
+      quellen: 'TRGS 900 (Arbeitsplatzgrenzwerte, abgeglichen mit der Fassung vom Juni 2026; den aktuellen Stand in der TRGS oder im Sicherheitsdatenblatt prüfen), TRGS 402 (Ermitteln und Beurteilen der Exposition), TRGS 559 und 553 (Quarz- und Holzstaub), TRGS 720 (Explosionsschutz), Gefahrstoffverordnung. Rechenmodell: ein gut durchmischter Raum mit Zuschlagfaktor – nahe an der Quelle ist die Konzentration höher. Eine Messung ersetzt das nicht.',
       bild: { titel: 'Simulation', label: 'Raum mit Quelle, Teilchen, Lüftung und Verlauf der Konzentration', animiert: !bewegungAus, hoehe: function (B) { return B < 520 ? 440 : 340; },
         hinweis: function (r, e) { return 'Ein Durchlauf zeigt ' + z(e.schicht, 1) + ' h. Die gestrichelte Linie ist der Grenzwert.'; },
         zeichne: function (cx, B, H, t, r, e) {
