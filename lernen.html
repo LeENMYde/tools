@@ -92,7 +92,7 @@
   <main class="seite" id="inhalt">
     <section class="held">
       <h1><span class="unterstrichen">Lernen</span></h1>
-      <p>Alle Formeln der Sammlung zum Üben: Aufgaben mit zufälligen Werten, Formelkarten zum Abfragen und die ganze Formelsammlung. Bereiche und Themen frei wählen – der Rechner hilft hier nicht, erst nach dem Prüfen gibt es den Lösungsweg.</p>
+      <p>Alle Formeln der Sammlung zum Üben: Aufgaben mit zufälligen Werten, Formelkarten zum Abfragen und die ganze Formelsammlung. Bereiche und Themen frei wählen – die Rechner helfen hier nicht, erst nach dem Prüfen gibt es den Lösungsweg. Für Zwischenschritte gibt es unten rechts einen Taschenrechner.</p>
     </section>
 
     <section class="tafel abstand" id="themen-tafel" aria-labelledby="h-themen">
@@ -142,6 +142,7 @@
 
   <div id="seitenfuss" data-wurzel=""></div>
 
+  <script src="assets/taschenrechner.js"></script>
   <script src="assets/katex/katex.min.js"></script>
   <script>
   (function () {
@@ -384,7 +385,7 @@
       ges.append(document.createTextNode('Gesucht: ' + (zf.name || a.ziel) + ' '), sym);
       k.append(ges);
       const form = el('form', 'antwort'); form.setAttribute('autocomplete', 'off');
-      const inp = el('input'); inp.type = 'text'; inp.inputMode = 'decimal'; inp.setAttribute('aria-label', 'Lösung: ' + (zf.name || a.ziel)); inp.setAttribute('data-nicht-merken', ''); inp.placeholder = 'Ergebnis';
+      const inp = el('input'); inp.type = 'text'; inp.inputMode = 'decimal'; inp.setAttribute('aria-label', 'Lösung: ' + (zf.name || a.ziel)); inp.setAttribute('data-nicht-merken', ''); inp.setAttribute('data-rechner-ziel', ''); inp.placeholder = 'Ergebnis';
       const pruef = el('button', 'knopf-haupt', 'Prüfen'); pruef.type = 'submit';
       const zeig = el('button', 'knopf', 'Lösung zeigen'); zeig.type = 'button';
       const neu = el('button', 'knopf', 'Neue Aufgabe'); neu.type = 'button';

@@ -135,7 +135,8 @@ button b, button strong, .karte h3 { hyphens: auto; -webkit-hyphens: auto; }
   font-size: .95rem;
 }
 
-.seitenkopf nav { display: flex; align-items: center; gap: 4px; }
+.seitenkopf nav { display: flex; align-items: center; gap: 4px; margin-left: auto; }
+.kopf-knoepfe { display: flex; align-items: center; gap: 4px; margin-left: 4px; }
 .seitenkopf nav a {
   text-decoration: none;
   color: var(--leise);
@@ -168,7 +169,20 @@ button b, button strong, .karte h3 { hyphens: auto; -webkit-hyphens: auto; }
 .favorit-schalter[aria-pressed="true"], .stern[aria-pressed="true"] { color: #D98A0B; border-color: #D98A0B; }
 .favorit-schalter[aria-pressed="true"] svg, .stern[aria-pressed="true"] svg { fill: #F2A541; stroke: #D98A0B; }
 
-@media (max-width: 560px) { .seitenkopf nav a.optional { display: none; } }
+@media (max-width: 560px) {
+  /* Handy: Logo und Knöpfe oben, alle Reiter als eigene Zeile darunter */
+  .seitenkopf { flex-wrap: wrap; row-gap: 8px; }
+  .kopf-knoepfe { margin-left: auto; }
+  .seitenkopf nav.reiter { order: 3; flex: 1 1 100%; margin-left: 0; gap: 2px; overflow-x: auto; scrollbar-width: none; justify-content: space-between; }
+  .seitenkopf nav.reiter::-webkit-scrollbar { display: none; }
+  .seitenkopf nav.reiter a { padding: 6px 4px; font-size: .9rem; white-space: nowrap; background: var(--flaeche); flex: 1 1 0; min-width: 0; text-align: center; }
+  .seitenkopf nav.reiter a[aria-current="page"] { background: var(--text); color: var(--grund); }
+}
+@media (max-width: 360px) {
+  .seitenkopf .marke { font-size: .95rem; gap: 8px; }
+  .seitenkopf .kopf-knoepfe { gap: 2px; }
+  .seitenkopf nav.reiter a { font-size: .84rem; padding: 6px 2px; }
+}
 
 /* ---------- Großer Einstieg ---------- */
 .held { padding: 26px 0 10px; }

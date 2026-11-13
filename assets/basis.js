@@ -164,15 +164,17 @@
       '<a class="sprung" href="#' + (haupt ? haupt.id : 'inhalt') + '">Zum Inhalt</a>' +
       '<header class="seitenkopf">' +
         '<a class="marke" href="' + wurzel + 'index.html"><span class="marke-zeichen" aria-hidden="true">∑</span>Formeln &amp; Rechner</a>' +
-        '<nav aria-label="Hauptnavigation">' +
-          '<a class="optional" href="' + wurzel + 'index.html"' + (hier === 'start' ? ' aria-current="page"' : '') + '>Übersicht</a>' +
+        '<nav class="reiter" aria-label="Hauptnavigation">' +
+          '<a href="' + wurzel + 'index.html"' + (hier === 'start' ? ' aria-current="page"' : '') + '>Übersicht</a>' +
           '<a href="' + wurzel + 'lernen.html"' + (/lernen\.html$/.test(location.pathname) ? ' aria-current="page"' : '') + '>Lernen</a>' +
-          '<a class="optional" href="' + wurzel + 'index.html#bereiche">Bereiche</a>' +
-          '<a class="optional" href="' + wurzel + 'projektmappe.html"' + (/projektmappe\.html$/.test(location.pathname) ? ' aria-current="page"' : '') + '>Projekte</a>' +
+          '<a href="' + wurzel + 'index.html#bereiche">Bereiche</a>' +
+          '<a href="' + wurzel + 'projektmappe.html"' + (/projektmappe\.html$/.test(location.pathname) ? ' aria-current="page"' : '') + '>Projekte</a>' +
+        '</nav>' +
+        '<div class="kopf-knoepfe">' +
           '<button type="button" class="installieren" hidden>App installieren</button>' +
           (hier !== 'start' && favPfadHier() ? '<button type="button" class="favorit-schalter" aria-pressed="false">' + STERN + '</button>' : '') +
           '<button type="button" class="themenschalter"></button>' +
-        '</nav>' +
+        '</div>' +
       '</header>';
     ziel.querySelector('.themenschalter').addEventListener('click', function () {
       themaSetzen(aktuellesThema() === 'dunkel' ? 'hell' : 'dunkel', true);
