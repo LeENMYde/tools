@@ -172,6 +172,7 @@
         '</nav>' +
         '<div class="kopf-knoepfe">' +
           '<button type="button" class="installieren" hidden>App installieren</button>' +
+          (hier === 'start' ? '<span class="netz netz-kopf" role="status"></span>' : '') +
           (hier !== 'start' && favPfadHier() ? '<button type="button" class="favorit-schalter" aria-pressed="false">' + STERN + '</button>' : '') +
           '<button type="button" class="themenschalter"></button>' +
         '</div>' +
@@ -180,6 +181,7 @@
       themaSetzen(aktuellesThema() === 'dunkel' ? 'hell' : 'dunkel', true);
     });
     schalterAktualisieren();
+    netzZeigen();
     const fav = ziel.querySelector('.favorit-schalter');
     if (fav) {
       fav.addEventListener('click', function () { const p = favPfadHier(); if (p) window.Favoriten.umschalten(p); });
@@ -209,6 +211,24 @@
     });
   }
 
+  // ---------- Anzeige online / offline (Startseite oben, Fuß auf allen Seiten) ----------
+  let offlineBereit = false;
+  function netzZeigen() {
+    const an = navigator.onLine !== false;
+    document.querySelectorAll('.netz').forEach(function (n) {
+      n.classList.toggle('netz-aus', !an);
+      const kurz = n.classList.contains('netz-kopf');
+      n.textContent = an ? (kurz ? 'Online' : 'Online' + (offlineBereit ? ' · auch offline nutzbar' : '')) : (kurz ? 'Offline' : 'Offline · Seiten aus dem Speicher auf diesem Gerät');
+      n.title = an ? (offlineBereit ? 'Mit dem Internet verbunden. Die Sammlung ist auf diesem Gerät gespeichert und läuft auch ohne Netz.' : 'Mit dem Internet verbunden.')
+        : 'Keine Internetverbindung. Alles läuft weiter aus dem Speicher auf diesem Gerät.';
+    });
+  }
+  window.addEventListener('online', netzZeigen);
+  window.addEventListener('offline', netzZeigen);
+  if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
+    navigator.serviceWorker.ready.then(function () { offlineBereit = true; netzZeigen(); }).catch(function () { /* egal */ });
+  }
+
   function fussBauen() {
     const ziel = document.getElementById('seitenfuss');
     if (!ziel) return;
@@ -218,9 +238,11 @@
         '<p class="haftung"><strong>Ohne Gewähr.</strong> Formeln, Tabellenwerte und Ergebnisse sind sorgfältig erstellt, können aber Fehler enthalten. ' +
         'Ergebnisse vor der Ausführung prüfen; maßgeblich sind die gültigen Normen, Herstellerangaben und die Fachplanung. ' +
         'Etwas passt nicht? Bitte melden an <a href="mailto:support@pr1m3.de?subject=' + encodeURIComponent('Hinweis zu: ' + document.title) + '">support@pr1m3.de</a>.</p>' +
+        '<span class="netz" role="status"></span>' +
         '<span>Läuft komplett offline, ohne externe Dateien' + (/^https?:$/.test(location.protocol) && 'serviceWorker' in navigator ? ', einmal geladen auch ohne Netz' : '') + '.</span>' +
         '<span>Formelsatz mit KaTeX (MIT-Lizenz), lokal in assets/katex.</span>' +
       '</footer>';
+    netzZeigen();
   }
 
   // ---------- Links zum Teilen: ein Muster für alle Seiten ----------

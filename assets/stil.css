@@ -408,6 +408,14 @@ ol.weg li::before {
 }
 .seitenfuss .haftung { flex: 1 1 100%; margin: 0 0 6px; padding: 10px 14px; border-radius: var(--rund); background: var(--flaeche); max-width: none; line-height: 1.45; }
 .seitenfuss .haftung a { color: var(--text); font-weight: 600; }
+.netz { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.netz::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--ergebnis); box-shadow: 0 0 0 3px var(--ergebnis-flaeche); flex: none; }
+.netz.netz-aus::before { background: var(--fehler); box-shadow: 0 0 0 3px var(--fehler-flaeche); }
+.netz-kopf { font-size: .8rem; font-weight: 600; color: var(--leise); padding: 5px 10px 5px 9px; border: 1px solid var(--linie); border-radius: 999px; background: var(--flaeche); }
+.netz-kopf.netz-aus { color: var(--fehler); border-color: var(--fehler); }
+.seitenfuss .netz { flex: 1 1 100%; color: var(--text); white-space: normal; }
+.seitenfuss .netz.netz-aus { color: var(--fehler); font-weight: 600; }
+@media (max-width: 400px) { .netz-kopf { font-size: 0; gap: 0; padding: 0; width: 36px; height: 36px; justify-content: center; } }
 
 /* ---------- Infoteil unter Werkzeugen (So funktioniert's, Grundlagen, häufige Fragen) ---------- */
 .seo-info { margin-top: 22px; line-height: 1.55; }
