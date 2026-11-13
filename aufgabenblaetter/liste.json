@@ -1,0 +1,22 @@
+{
+ "blaetter": [
+  {
+   "datei": "aufgabenblaetter/elektro/ohmsches-gesetz/01-grundlagen.md",
+   "thema": "elektro/ohmsches-gesetz.html",
+   "titel": "Ohmsches Gesetz und Kirchhoff – Grundlagen",
+   "stufe": "leicht",
+   "aufgaben": 5,
+   "loesungen": 5,
+   "beschreibung": "Strom, Spannung und Widerstand, Reihen- und Parallelschaltung, Knotenregel und Spannungsfall auf der Leitung."
+  },
+  {
+   "datei": "aufgabenblaetter/geld/mehrwertsteuer-skonto/01-brutto-netto-skonto.md",
+   "thema": "geld/mehrwertsteuer-skonto.html",
+   "titel": "Brutto, Netto, Rabatt und Skonto",
+   "stufe": "mittel",
+   "aufgaben": 5,
+   "loesungen": 5,
+   "beschreibung": "Mehrwertsteuer herausrechnen und aufschlagen, Skonto als Jahreszins, Rabatt und Skonto hintereinander."
+  }
+ ]
+}

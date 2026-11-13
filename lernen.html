@@ -83,7 +83,53 @@
     .warte { color: var(--leise); padding: 20px 0; }
     #lade-rahmen { position: absolute; left: -10000px; top: 0; width: 1000px; height: 800px; overflow: hidden; visibility: hidden; }
     #lade-rahmen iframe { width: 1000px; height: 800px; border: 0; }
-    @media print { .modi, .leiste, #themen-tafel, .antwort, .stand { display: none !important; } }
+    .blatt-liste { display: grid; gap: 8px; }
+    .blatt-gruppe h3 { margin: 14px 0 6px; font-size: 1rem; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+    .blatt-gruppe h3 a { font-weight: 400; font-size: .82rem; color: var(--leise); }
+    .blatt-eintrag { display: flex; gap: 12px; align-items: center; width: 100%; text-align: left; padding: 10px 12px; border: 1px solid var(--linie); border-left: 4px solid var(--leise); border-radius: var(--rund-klein); background: var(--flaeche); color: var(--text); font: inherit; cursor: pointer; }
+    .blatt-eintrag:hover { border-color: var(--leise); }
+    .blatt-eintrag b { display: block; }
+    .blatt-eintrag small { color: var(--leise); display: block; font-size: .84rem; margin-top: 2px; }
+    .blatt-eintrag .blatt-stufe { margin-left: auto; flex: none; font-size: .78rem; padding: 2px 8px; border-radius: 999px; background: var(--flaeche2); color: var(--leise); }
+    .blatt-kopf { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 8px; }
+    .blatt-kopf .platz { flex: 1; }
+    .blatt { background: var(--flaeche); border: 1px solid var(--linie); border-radius: var(--rund); padding: 18px 20px; overflow-wrap: anywhere; }
+    .blatt .blatt-thema { color: var(--leise); font-size: .85rem; margin: 0 0 4px; }
+    .blatt .blatt-thema a { color: inherit; }
+    .blatt h2 { margin: 0 0 10px; font-size: 1.45rem; }
+    .blatt h3 { margin: 22px 0 6px; font-size: 1.12rem; padding-top: 12px; border-top: 1px solid var(--linie); }
+    .blatt h4, .blatt h5 { margin: 14px 0 4px; font-size: 1rem; }
+    .blatt p, .blatt li { line-height: 1.6; }
+    .blatt img { max-width: 100%; height: auto; border-radius: 6px; }
+    .blatt code { font-family: var(--technik); background: var(--flaeche2); padding: 1px 5px; border-radius: 4px; font-size: .92em; }
+    .blatt pre { background: var(--flaeche2); padding: 10px 12px; border-radius: var(--rund-klein); overflow-x: auto; }
+    .blatt pre code { background: none; padding: 0; }
+    .blatt blockquote { margin: 10px 0; padding: 4px 14px; border-left: 4px solid var(--linie); color: var(--leise); }
+    .blatt hr { border: none; border-top: 1px solid var(--linie); margin: 18px 0; }
+    .blatt-tabelle { overflow-x: auto; margin: 8px 0; }
+    .blatt table { border-collapse: collapse; min-width: 50%; }
+    .blatt th, .blatt td { border: 1px solid var(--linie); padding: 5px 10px; text-align: left; }
+    .blatt th { background: var(--flaeche2); }
+    .blatt-formel-block { display: block; margin: 8px 0; overflow-x: auto; overflow-y: hidden; }
+    .blatt-luecke { display: inline-block; min-width: 7em; border-bottom: 1.5px solid var(--text); margin: 0 4px; height: 1.1em; vertical-align: -3px; }
+    .blatt details { margin: 10px 0; border-radius: var(--rund-klein); border: 1px solid var(--linie); }
+    .blatt details > summary { cursor: pointer; padding: 7px 12px; font-weight: 600; font-size: .92rem; list-style-position: inside; }
+    .blatt .blatt-loesung > summary { color: var(--ergebnis); }
+    .blatt .blatt-loesung[open] { background: var(--ergebnis-flaeche); border-color: transparent; }
+    .blatt .blatt-tipp > summary { color: var(--leise); }
+    .blatt .blatt-tipp[open] { background: var(--achtung-flaeche); border-color: transparent; }
+    .blatt .blatt-innen { padding: 0 14px 8px; }
+    @media (max-width: 560px) { .blatt { padding: 14px 12px; } .blatt h2 { font-size: 1.25rem; } }
+    @media print {
+      .modi, .leiste, #themen-tafel, .antwort, .stand { display: none !important; }
+      body.blatt-druck .seite > *:not(.ueben-tafel), body.blatt-druck .ueben-tafel > *:not(#p-blaetter), body.blatt-druck .blatt-kopf, body.blatt-druck #seitenfuss { display: none !important; }
+      body.blatt-druck .ueben-tafel { border: none; padding: 0; box-shadow: none; background: none; }
+      .blatt { border: none; padding: 0; background: none; }
+      .blatt h3 { break-after: avoid; }
+      .blatt details { break-inside: avoid; }
+      body.ohne-loesung .blatt .blatt-loesung, body.ohne-loesung .blatt .blatt-tipp { display: none !important; }
+      .blatt-luecke { min-width: 10em; }
+    }
   </style>
 </head>
 <body>
@@ -92,7 +138,7 @@
   <main class="seite" id="inhalt">
     <section class="held">
       <h1><span class="unterstrichen">Lernen</span></h1>
-      <p>Alle Formeln der Sammlung zum Üben: Aufgaben mit zufälligen Werten, Formelkarten zum Abfragen und die ganze Formelsammlung. Bereiche und Themen frei wählen – die Rechner helfen hier nicht, erst nach dem Prüfen gibt es den Lösungsweg. Für Zwischenschritte gibt es unten rechts einen Taschenrechner.</p>
+      <p>Alle Formeln der Sammlung zum Üben: Aufgaben mit zufälligen Werten, Formelkarten zum Abfragen, die ganze Formelsammlung und Aufgabenblätter zum Ausdrucken. Bereiche und Themen frei wählen – die Rechner helfen hier nicht, erst nach dem Prüfen gibt es den Lösungsweg. Für Zwischenschritte gibt es unten rechts einen Taschenrechner.</p>
     </section>
 
     <section class="tafel abstand" id="themen-tafel" aria-labelledby="h-themen">
@@ -108,12 +154,13 @@
       <div class="themen" id="themen" aria-label="Themen"></div>
     </section>
 
-    <section class="tafel abstand" aria-labelledby="h-ueben">
+    <section class="tafel abstand ueben-tafel" aria-labelledby="h-ueben">
       <h2 id="h-ueben">Üben</h2>
       <div class="modi" role="group" aria-label="Art des Übens">
         <button type="button" class="knopf" data-modus="aufgaben" aria-pressed="true">Aufgaben</button>
         <button type="button" class="knopf" data-modus="karten" aria-pressed="false">Formelkarten</button>
         <button type="button" class="knopf" data-modus="sammlung" aria-pressed="false">Formelsammlung</button>
+        <button type="button" class="knopf" data-modus="blaetter" aria-pressed="false" hidden>Aufgabenblätter</button>
       </div>
 
       <div id="p-aufgaben">
@@ -136,6 +183,20 @@
         <div class="balken" id="sammlung-balken" hidden><i></i></div>
         <div id="sammlung"></div>
       </div>
+
+      <div id="p-blaetter" hidden>
+        <div id="blatt-uebersicht"></div>
+        <div id="blatt-ansicht" hidden>
+          <div class="blatt-kopf">
+            <button type="button" class="knopf" id="blatt-zurueck">← Alle Blätter</button>
+            <span class="platz"></span>
+            <button type="button" class="knopf" id="blatt-loesungen" aria-pressed="false">Lösungen zeigen</button>
+            <button type="button" class="knopf" id="blatt-drucken">Drucken</button>
+            <button type="button" class="knopf" id="blatt-drucken-l">Mit Lösungen drucken</button>
+          </div>
+          <article class="blatt" id="blatt" aria-live="polite"></article>
+        </div>
+      </div>
     </section>
     <div id="lade-rahmen" aria-hidden="true"></div>
   </main>
@@ -144,6 +205,7 @@
 
   <script src="assets/taschenrechner.js"></script>
   <script src="assets/katex/katex.min.js"></script>
+  <script src="assets/blatt.js"></script>
   <script>
   (function () {
     'use strict';
@@ -216,7 +278,7 @@
       });
       document.getElementById('zahl-gewaehlt').textContent = gewaehlt.length + ' von ' + themen.length + ' Themen gewählt';
     }
-    function wahlGeaendert() { schreib(S_WAHL, gewaehlt); auswahlZeigen(); kartenStapel = null; if (modus === 'aufgaben' && !aktuelle) neueAufgabe(); if (modus === 'karten') naechsteKarte(); if (modus === 'sammlung') sammlungZeigen(); }
+    function wahlGeaendert() { schreib(S_WAHL, gewaehlt); auswahlZeigen(); kartenStapel = null; if (modus === 'aufgaben' && !aktuelle) neueAufgabe(); if (modus === 'karten') naechsteKarte(); if (modus === 'sammlung') sammlungZeigen(); blaetterKnopf(); if (modus === 'blaetter' && document.getElementById('blatt-ansicht').hidden) blaetterZeigen(); }
 
     // ---------- Seiten im Hintergrund laden und Formeln und Löser auslesen ----------
     let formelCache = { stand: '', seiten: {} };
@@ -507,16 +569,95 @@
       if (!anzahl) box.append(el('p', 'warte', such ? 'Keine Formel passt zur Suche.' : 'Keine Formeln gefunden.'));
     }
 
+    // ---------- Aufgabenblätter (Markdown unter aufgabenblaetter/, Liste in aufgabenblaetter/liste.json) ----------
+    let blaetter = [], alleBlaetter = false, blattOffen = null;
+    const STUFEN = { leicht: 'leicht', mittel: 'mittel', schwer: 'schwer' };
+    function blaetterLaden() {
+      return fetch('aufgabenblaetter/liste.json', { cache: 'no-cache' }).then(function (a) { if (!a.ok) throw new Error('keine Liste'); return a.json(); }).then(function (d) {
+        const roh = d && Array.isArray(d.blaetter) ? d.blaetter : [];
+        blaetter = roh.filter(function (b) { return b && typeof b.datei === 'string' && /^aufgabenblaetter\/[a-z0-9-]+\/[a-z0-9-]+\/[a-z0-9._-]+\.md$/i.test(b.datei) && b.datei.indexOf('..') < 0 && typeof b.thema === 'string' && thema(b.thema); })
+          .slice(0, 2000).map(function (b) { return { datei: b.datei, thema: b.thema, titel: String(b.titel || b.datei.split('/').pop()).slice(0, 120), stufe: STUFEN[b.stufe] || '', beschreibung: String(b.beschreibung || '').slice(0, 300), aufgaben: Math.max(0, Math.min(999, parseInt(b.aufgaben, 10) || 0)) }; });
+      }).catch(function () { blaetter = []; });
+    }
+    function blaetterKnopf() {
+      const k = document.querySelector('.modi [data-modus="blaetter"]'), n = blaetter.filter(function (b) { return gewaehlt.indexOf(b.thema) >= 0; }).length;
+      k.hidden = !blaetter.length; k.textContent = 'Aufgabenblätter' + (blaetter.length ? ' (' + n + ')' : '');
+    }
+    function blaetterZeigen() {
+      document.getElementById('blatt-ansicht').hidden = true; blattOffen = null;
+      const box = document.getElementById('blatt-uebersicht'); box.hidden = false; box.innerHTML = '';
+      const sichtbar = blaetter.filter(function (b) { return alleBlaetter || gewaehlt.indexOf(b.thema) >= 0; });
+      const versteckt = blaetter.length - sichtbar.length;
+      if (!sichtbar.length) box.append(el('p', 'warte', 'Zu den gewählten Themen gibt es noch keine Aufgabenblätter.'));
+      const gruppen = [];
+      sichtbar.forEach(function (b) { if (gruppen.indexOf(b.thema) < 0) gruppen.push(b.thema); });
+      gruppen.sort(function (a, c) { const ta = thema(a), tc = thema(c); return (ta.bereich + ta.titel).localeCompare(tc.bereich + tc.titel, 'de'); });
+      gruppen.forEach(function (p) {
+        const t = thema(p), g = el('div', 'blatt-gruppe'), h = el('h3', '', t.titel), a = el('a', '', 'zum Rechner'); a.href = p; h.append(a); g.append(h);
+        const l = el('div', 'blatt-liste');
+        sichtbar.filter(function (b) { return b.thema === p; }).forEach(function (b) {
+          const k = el('button', 'blatt-eintrag'); k.type = 'button'; k.style.borderLeftColor = farbe(t.bereich);
+          const s = el('span'); s.append(el('b', '', b.titel)); const info = [b.aufgaben ? b.aufgaben + (b.aufgaben === 1 ? ' Aufgabe' : ' Aufgaben') : '', b.beschreibung].filter(Boolean).join(' · '); if (info) s.append(el('small', '', info));
+          k.append(s); if (b.stufe) k.append(el('span', 'blatt-stufe', b.stufe));
+          k.addEventListener('click', function () { blattOeffnen(b); });
+          l.append(k);
+        });
+        g.append(l); box.append(g);
+      });
+      if (versteckt > 0 || alleBlaetter) {
+        const k = el('button', 'knopf', alleBlaetter ? 'Nur Blätter der gewählten Themen' : 'Alle ' + blaetter.length + ' Blätter zeigen (' + versteckt + ' in nicht gewählten Themen)'); k.type = 'button'; k.style.marginTop = '14px';
+        k.addEventListener('click', function () { alleBlaetter = !alleBlaetter; blaetterZeigen(); });
+        box.append(k);
+      }
+    }
+    function loesungenSetzen(an) {
+      const k = document.getElementById('blatt-loesungen'); k.setAttribute('aria-pressed', an ? 'true' : 'false'); k.textContent = an ? 'Lösungen verbergen' : 'Lösungen zeigen';
+      Array.prototype.forEach.call(document.querySelectorAll('#blatt details'), function (d) { d.open = an; });
+    }
+    function blattOeffnen(b, ohneSprung) {
+      blattOffen = b;
+      const art = document.getElementById('blatt'); art.innerHTML = ''; art.append(el('p', 'warte', 'Blatt wird geladen …'));
+      document.getElementById('blatt-uebersicht').hidden = true; document.getElementById('blatt-ansicht').hidden = false;
+      fetch(b.datei).then(function (a) { if (!a.ok) throw new Error(a.status); return a.text(); }).then(function (text) {
+        if (blattOffen !== b) return;
+        const t = thema(b.thema); art.innerHTML = '';
+        const kopf = el('p', 'blatt-thema'), a = el('a', '', t.titel); a.href = b.thema; kopf.append(a, document.createTextNode(' · ' + t.bereich + (b.stufe ? ' · ' + b.stufe : ''))); art.append(kopf);
+        art.append(Blatt.baue(text, b.datei.replace(/[^/]*$/, '')));
+        // erste Überschrift als Titel des Blatts
+        const h = art.querySelector('h2'); if (!h) { const n = el('h2', '', b.titel); art.insertBefore(n, kopf.nextSibling); }
+        loesungenSetzen(false);
+        document.getElementById('blatt-loesungen').hidden = !art.querySelector('details');
+        document.getElementById('blatt-drucken-l').hidden = !art.querySelector('.blatt-loesung, .blatt-tipp');
+        try { history.replaceState(null, '', '#blatt=' + encodeURIComponent(b.datei.replace(/^aufgabenblaetter\//, '').replace(/\.md$/, '')).replace(/%2F/g, '/')); } catch (x) { /* egal */ }
+        if (!ohneSprung) document.getElementById('h-ueben').scrollIntoView({ block: 'start' });
+      }).catch(function () { if (blattOffen !== b) return; art.innerHTML = ''; art.append(el('p', 'warte', 'Das Blatt ließ sich nicht laden. Ohne Netz sind nur Blätter da, die schon einmal geöffnet wurden oder im App-Speicher liegen.')); });
+    }
+    document.getElementById('blatt-zurueck').addEventListener('click', function () { try { history.replaceState(null, '', location.pathname + location.search); } catch (x) { /* egal */ } blaetterZeigen(); });
+    document.getElementById('blatt-loesungen').addEventListener('click', function () { loesungenSetzen(this.getAttribute('aria-pressed') !== 'true'); });
+    function blattDrucken(mitLoesung) {
+      const offen = Array.prototype.map.call(document.querySelectorAll('#blatt details'), function (d) { return d.open; });
+      Array.prototype.forEach.call(document.querySelectorAll('#blatt details'), function (d) { d.open = mitLoesung; });
+      document.body.classList.add('blatt-druck'); document.body.classList.toggle('ohne-loesung', !mitLoesung);
+      const zurueck = function () { document.body.classList.remove('blatt-druck', 'ohne-loesung'); Array.prototype.forEach.call(document.querySelectorAll('#blatt details'), function (d, i) { d.open = offen[i]; }); window.removeEventListener('afterprint', zurueck); };
+      window.addEventListener('afterprint', zurueck);
+      window.print();
+      setTimeout(zurueck, 1000);
+    }
+    document.getElementById('blatt-drucken').addEventListener('click', function () { blattDrucken(false); });
+    document.getElementById('blatt-drucken-l').addEventListener('click', function () { blattDrucken(true); });
+    function modusWaehlen(m) { const k = document.querySelector('.modi [data-modus="' + m + '"]'); if (k && !k.hidden) k.click(); }
+
     // ---------- Bedienung ----------
     let modus = 'aufgaben';
     Array.prototype.forEach.call(document.querySelectorAll('.modi .knopf'), function (k) {
       k.addEventListener('click', function () {
         modus = k.getAttribute('data-modus');
         Array.prototype.forEach.call(document.querySelectorAll('.modi .knopf'), function (x) { x.setAttribute('aria-pressed', x === k ? 'true' : 'false'); });
-        ['aufgaben', 'karten', 'sammlung'].forEach(function (m) { document.getElementById('p-' + m).hidden = m !== modus; });
+        ['aufgaben', 'karten', 'sammlung', 'blaetter'].forEach(function (m) { document.getElementById('p-' + m).hidden = m !== modus; });
         if (modus === 'aufgaben' && !aktuelle) neueAufgabe();
         if (modus === 'karten') naechsteKarte();
         if (modus === 'sammlung') sammlungZeigen();
+        if (modus === 'blaetter') blaetterZeigen();
       });
     });
     Array.prototype.forEach.call(document.querySelectorAll('.stufen .knopf'), function (k) {
@@ -530,7 +671,7 @@
 
     // ---------- Start ----------
     const standSw = fetch('sw.js').then(function (a) { return a.text(); }).then(function (t) { const m = /STAND\s*=\s*'([^']+)'/.exec(t); return m ? m[1] : ''; }).catch(function () { return ''; });
-    Promise.all([themenLaden(), standSw]).then(function (x) {
+    Promise.all([themenLaden(), standSw]).then(function (x) { return blaetterLaden().then(function () { return x; }); }).then(function (x) {
       const c = lies(S_CACHE, null);
       if (c && c.stand === x[1] && x[1] && c.seiten && typeof c.seiten === 'object') {
         Object.keys(c.seiten).forEach(function (p) { const s = c.seiten[p]; if (thema(p) && s && Array.isArray(s.formeln)) formelCache.seiten[p] = { formeln: s.formeln.filter(function (f) { return Array.isArray(f) && typeof f[1] === 'string'; }).slice(0, 60).map(function (f) { return [String(f[0] || '').slice(0, 200), String(f[1]).slice(0, 2000), String(f[2] || '').slice(0, 400), f[3] ? 1 : 0]; }), aufgaben: !!s.aufgaben }; });
@@ -538,7 +679,9 @@
       formelCache.stand = x[1];
       if (!Array.isArray(gewaehlt)) gewaehlt = themen.map(function (t) { return t.pfad; });
       gewaehlt = gewaehlt.filter(function (p) { return typeof p === 'string' && thema(p); });
-      auswahlZeigen(); standZeigen(); neueAufgabe();
+      auswahlZeigen(); standZeigen(); blaetterKnopf();
+      const sprung = /[#&]blatt=([^&]+)/.exec(location.hash), ziel = sprung && blaetter.filter(function (b) { let n = ''; try { n = decodeURIComponent(sprung[1]); } catch (e) { /* kaputt */ } return b.datei === 'aufgabenblaetter/' + n + '.md'; })[0];
+      if (ziel) { modusWaehlen('blaetter'); blattOeffnen(ziel, true); } else neueAufgabe();
     }).catch(function () {
       document.getElementById('aufgabe').innerHTML = '';
       document.getElementById('aufgabe').append(el('p', 'warte', location.protocol === 'file:' ? 'Der Lernbereich liest die Formeln aus den Rechnerseiten. Das geht nur, wenn die Sammlung über das Netz geöffnet wird (oder offline aus dem App-Speicher), nicht als lokale Datei.' : 'Die Themenliste ließ sich nicht laden. Bitte die Seite neu laden.'));
