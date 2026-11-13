@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blindleistungskompensation – Formeln &amp; Rechner</title>
+  <meta name="description" content="Blindleistungskompensation berechnen: Kondensatorleistung in kvar vom cos φ zum Ziel, Einzel-, Gruppen- oder Zentralkompensation, Verbraucherliste, Kapazität in Stern oder Dreieck, Verdrosselung – mit Strom, Verlusten, Blindarbeitskosten, Amortisation und Resonanz.">
+  <!-- seo -->
+  <link rel="canonical" href="https://tools.pr1m3.de/elektro/kompensation.html">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Formeln &amp; Rechner">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:title" content="Blindleistungskompensation">
+  <meta property="og:description" content="Blindleistungskompensation berechnen: Kondensatorleistung in kvar vom cos φ zum Ziel, Einzel-, Gruppen- oder Zentralkompensation, Verbraucherliste, Kapazität in Stern oder Dreieck, Verdrosselung – mit Strom, Verlusten, Blindarbeitskosten, Amortisation und Resonanz.">
+  <meta property="og:url" content="https://tools.pr1m3.de/elektro/kompensation.html">
+  <meta property="og:image" content="https://tools.pr1m3.de/assets/symbol-512.png">
+  <meta property="og:image:alt" content="Formeln &amp; Rechner">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Blindleistungskompensation">
+  <meta name="twitter:description" content="Blindleistungskompensation berechnen: Kondensatorleistung in kvar vom cos φ zum Ziel, Einzel-, Gruppen- oder Zentralkompensation, Verbraucherliste, Kapazität in Stern oder Dreieck, Verdrosselung – mit Strom, Verlusten, Blindarbeitskosten, Amortisation und Resonanz.">
+  <meta name="twitter:image" content="https://tools.pr1m3.de/assets/symbol-512.png">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://tools.pr1m3.de/elektro/kompensation.html#seite","name":"Blindleistungskompensation","url":"https://tools.pr1m3.de/elektro/kompensation.html","inLanguage":"de","description":"Blindleistungskompensation berechnen: Kondensatorleistung in kvar vom cos φ zum Ziel, Einzel-, Gruppen- oder Zentralkompensation, Verbraucherliste, Kapazität in Stern oder Dreieck, Verdrosselung – mit Strom, Verlusten, Blindarbeitskosten, Amortisation und Resonanz.","isPartOf":{"@type":"WebSite","@id":"https://tools.pr1m3.de/#website","name":"Formeln & Rechner","url":"https://tools.pr1m3.de/"},"breadcrumb":{"@id":"https://tools.pr1m3.de/elektro/kompensation.html#pfad"},"dateModified":"2026-11-13"},{"@type":"BreadcrumbList","@id":"https://tools.pr1m3.de/elektro/kompensation.html#pfad","itemListElement":[{"@type":"ListItem","position":1,"name":"Formeln & Rechner","item":"https://tools.pr1m3.de/"},{"@type":"ListItem","position":2,"name":"Blindleistungskompensation","item":"https://tools.pr1m3.de/elektro/kompensation.html"}]},{"@type":"FAQPage","@id":"https://tools.pr1m3.de/elektro/kompensation.html#fragen","mainEntity":[{"@type":"Question","name":"Wie berechnet man die nötige Kompensationsleistung?","acceptedAnswer":{"@type":"Answer","text":"Wirkleistung mal Differenz der Tangens-Werte: Q_C = P · (tan φ₁ − tan φ₂). Für 120 kW von cos φ = 0,75 auf 0,95 sind das 120 · (0,882 − 0,329) = 66 kvar. Die Tabelle auf der Seite zeigt den Faktor für übliche Werte."}},{"@type":"Question","name":"Ab welchem cos φ kostet Blindarbeit Geld?","acceptedAnswer":{"@type":"Answer","text":"Viele Netzbetreiber berechnen Blindarbeit, sobald sie die Hälfte der Wirkarbeit übersteigt – das entspricht einem Leistungsfaktor unter etwa 0,9. Die genaue Regel steht im Netznutzungsvertrag; Haushalte zahlen keine Blindarbeit."}},{"@type":"Question","name":"Wann muss eine Kompensationsanlage verdrosselt sein?","acceptedAnswer":{"@type":"Answer","text":"Sobald Oberschwingungen im Netz sind – durch Umrichter, Wechselrichter, LED-Treiber, Netzteile. Ohne Drossel bilden Kondensatoren und Transformator einen Schwingkreis, der bei einer Oberschwingung in Resonanz geraten kann. Die Drossel legt die Resonanz unter die 5. Oberschwingung, meist mit 7 % auf 189 Hz."}},{"@type":"Question","name":"Einzel-, Gruppen- oder Zentralkompensation – was ist besser?","acceptedAnswer":{"@type":"Answer","text":"Zentral an der Hauptverteilung ist je kvar am günstigsten und passt sich mit einer Regelanlage der Last an, entlastet aber nur Trafo und Hauptzuleitung. Einzelkompensation direkt am Verbraucher entlastet alle Leitungen und lohnt sich bei großen Motoren, die lange laufen. Gruppenkompensation an der Unterverteilung liegt dazwischen. In der Praxis werden große Dauerläufer oft einzeln und der Rest zentral kompensiert."}},{"@type":"Question","name":"Wie groß darf der Kondensator bei Einzelkompensation eines Motors sein?","acceptedAnswer":{"@type":"Answer","text":"Höchstens 90 % der Leerlaufblindleistung des Motors: Q_C ≤ 0,9 · √3 · U · I₀. Ist der Kondensator größer, erregt er den auslaufenden Motor nach dem Abschalten selbst – der Motor arbeitet als Generator, es entstehen gefährliche Überspannungen."}},{"@type":"Question","name":"Was ist der Unterschied zwischen Stern- und Dreieckschaltung der Kondensatoren?","acceptedAnswer":{"@type":"Answer","text":"Im Dreieck liegt jeder Kondensator an der vollen Außenleiterspannung von 400 V, im Stern nur an 230 V. Für dieselbe Blindleistung braucht der Stern deshalb die dreifache Kapazität. Kompensationskondensatoren werden fast immer im Dreieck geschaltet."}}],"isPartOf":{"@id":"https://tools.pr1m3.de/elektro/kompensation.html#seite"}}]}</script>
+  <!-- /seo -->
+  <meta name="theme-color" content="#F1F3F2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111214" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="icon" href="../favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="../assets/symbol-apple.png">
+  <link rel="stylesheet" href="../assets/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/stil.css">
+  <link rel="stylesheet" href="../assets/rechner.css">
+  <script src="../assets/basis.js"></script>
+</head>
+
+<body>
+  <div id="seitenkopf" data-wurzel="../"></div>
+
+  <main class="seite" data-rechner data-merken>
+    <section class="tafel abstand seo-info" aria-labelledby="h-faq">
+      <h2 id="h-faq">Häufige Fragen</h2>
+      <div class="faq">
+        <details><summary>Wie berechnet man die nötige Kompensationsleistung?</summary><p>Wirkleistung mal Differenz der Tangens-Werte: Q_C = P · (tan φ₁ − tan φ₂). Für 120 kW von cos φ = 0,75 auf 0,95 sind das 120 · (0,882 − 0,329) = 66 kvar. Die Tabelle auf der Seite zeigt den Faktor für übliche Werte.</p></details>
+        <details><summary>Ab welchem cos φ kostet Blindarbeit Geld?</summary><p>Viele Netzbetreiber berechnen Blindarbeit, sobald sie die Hälfte der Wirkarbeit übersteigt – das entspricht einem Leistungsfaktor unter etwa 0,9. Die genaue Regel steht im Netznutzungsvertrag; Haushalte zahlen keine Blindarbeit.</p></details>
+        <details><summary>Wann muss eine Kompensationsanlage verdrosselt sein?</summary><p>Sobald Oberschwingungen im Netz sind – durch Umrichter, Wechselrichter, LED-Treiber, Netzteile. Ohne Drossel bilden Kondensatoren und Transformator einen Schwingkreis, der bei einer Oberschwingung in Resonanz geraten kann. Die Drossel legt die Resonanz unter die 5. Oberschwingung, meist mit 7 % auf 189 Hz.</p></details>
+        <details><summary>Einzel-, Gruppen- oder Zentralkompensation – was ist besser?</summary><p>Zentral an der Hauptverteilung ist je kvar am günstigsten und passt sich mit einer Regelanlage der Last an, entlastet aber nur Trafo und Hauptzuleitung. Einzelkompensation direkt am Verbraucher entlastet alle Leitungen und lohnt sich bei großen Motoren, die lange laufen. Gruppenkompensation an der Unterverteilung liegt dazwischen. In der Praxis werden große Dauerläufer oft einzeln und der Rest zentral kompensiert.</p></details>
+        <details><summary>Wie groß darf der Kondensator bei Einzelkompensation eines Motors sein?</summary><p>Höchstens 90 % der Leerlaufblindleistung des Motors: Q_C ≤ 0,9 · √3 · U · I₀. Ist der Kondensator größer, erregt er den auslaufenden Motor nach dem Abschalten selbst – der Motor arbeitet als Generator, es entstehen gefährliche Überspannungen.</p></details>
+        <details><summary>Was ist der Unterschied zwischen Stern- und Dreieckschaltung der Kondensatoren?</summary><p>Im Dreieck liegt jeder Kondensator an der vollen Außenleiterspannung von 400 V, im Stern nur an 230 V. Für dieselbe Blindleistung braucht der Stern deshalb die dreifache Kapazität. Kompensationskondensatoren werden fast immer im Dreieck geschaltet.</p></details>
+      </div>
+    </section>
+  </main>
+
+  <div id="seitenfuss" data-wurzel="../"></div>
+
+  <script src="../assets/katex/katex.min.js"></script>
+  <script src="../assets/rechner.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    const bewegungAus = false;
+    const R = Rechner, z = R.zahl, tz = R.tz, E = R.E, rund = R.rund, F = R.farbe;
+    const GUT = '#2E8B57', WARN = '#F2A541', SCHLECHT = '#C0392B', BLAU = '#3B5BDB', GRAU = '#6B7785';
+    const T = function (cx, s, x, y, a, g, f, c) { R.Z.text(cx, s, x, y, a || 'left', g || 11, !!f, c); };
+    const u = function (w, n, e) { return tz(w, n) + '\\,\\text{' + String(e).replace(/²/g, '}^2\\text{').replace(/³/g, '}^3\\text{').replace(/°/g, '}°\\text{').replace(/Ω/g, '}\\Omega\\text{').replace(/%/g, '\\%') + '}'; };
+    const ampel = function (ok, fast) { return ok ? GUT : fast ? WARN : SCHLECHT; };
+    const GOLD = '#A16207';
+    const eu = function (w, n) { return tz(w, n === undefined ? 2 : n) + '\\,\\text{Euro}'; };
+    const nett = function (m) { const p = Math.pow(10, Math.floor(Math.log(Math.max(m, 1e-9) / 4) / Math.LN10)), q = m / 4 / p; return (q < 1.5 ? 1 : q < 3.5 ? 2 : q < 7.5 ? 5 : 10) * p; };
+    const kurve = function (cx, ach, pts, f, b, strich) { cx.strokeStyle = f; cx.lineWidth = b || 2.5; cx.setLineDash(strich || []); cx.beginPath(); pts.forEach(function (p, i) { if (i) cx.lineTo(ach.X(p[0]), ach.Y(p[1])); else cx.moveTo(ach.X(p[0]), ach.Y(p[1])); }); cx.stroke(); cx.setLineDash([]); };
+    const stapel = function (cx, x, y, b, h, teile, einheit, st) {
+      const sum = teile.reduce(function (s, q) { return s + Math.max(0, q[0]); }, 0) || 1; let px = x;
+      teile.forEach(function (q) { const w = Math.max(0, q[0]) / sum * b; cx.fillStyle = q[1]; cx.fillRect(px, y, w, h); px += w; });
+      cx.strokeStyle = F('--text'); cx.lineWidth = 1; cx.strokeRect(x, y, b, h);
+      let lx = x, ly = y + h + 14;
+      teile.forEach(function (q) { const t = q[2] + ' ' + z(q[0], st || 0) + (einheit || ''); cx.font = '600 10px ' + (F('--technik') || 'sans-serif'); const w = cx.measureText(t).width + 16; if (lx + w > x + b + 2 && lx > x) { lx = x; ly += 15; } cx.fillStyle = q[1]; cx.fillRect(lx, ly - 5, 9, 9); T(cx, t, lx + 13, ly, 'left', 10, true, F('--text')); lx += w + 8; });
+      return ly + 12;
+    };
+    const TG = function (c) { return Math.sqrt(Math.max(0, 1 - c * c)) / c; };
+    const COS = function (t) { return Math.cos(Math.atan(t)); };
+    const KAPA = '#0E6B6A';
+    function zustand(e, c) {   // Werte bei Leistungsfaktor c
+      const o = {}; o.c = c; o.q = e.p * TG(c); o.s = Math.sqrt(e.p * e.p + o.q * o.q);
+      o.i = e.netz === 3 ? o.s * 1000 / (Math.sqrt(3) * e.u) : o.s * 1000 / e.u;
+      const rl = e.laenge / (56 * e.quer);   // Widerstand eines Leiters in Ohm
+      o.pv = (e.netz === 3 ? 3 : 2) * o.i * o.i * rl / 1000;   // kW
+      o.wq = o.q * e.h; o.w = e.p * e.h; o.wqBez = Math.max(0, o.wq - e.frei / 100 * o.w); o.kostenQ = o.wqBez * e.bpreis / 100;
+      o.kostenV = o.pv * e.h * e.strom / 100;
+      return o;
+    }
+    function wegKern(r, e) {
+        if (!r.noetig) return [['Keine Kompensation', '\\cos\\varphi_1 \\ge \\cos\\varphi_2']];
+        const w = 2 * Math.PI * e.f, p = e.drossel / 100, n = r.n;
+        return [
+          ['Blindleistung vorher', 'Q_1 = P \\cdot \\tan\\varphi_1 = ' + tz(e.p, 1) + ' \\cdot ' + tz(TG(e.c1), 3) + ' = ' + E(u(r.a.q, 1, 'kvar'))],
+          ['Kompensationsleistung', 'Q_\\text{C} = P\\,(\\tan\\varphi_1 - \\tan\\varphi_2) = ' + tz(e.p, 1) + ' \\cdot (' + tz(TG(e.c1), 3) + ' - ' + tz(TG(e.c2), 3) + ') = ' + E(u(r.qc, 1, 'kvar'))],
+          ['Kapazität', 'C = \\frac{Q_\\text{C}' + (p ? ' (1 - p)' : '') + '}{' + (n === 3 ? '3 \\cdot ' : '') + 'U_\\text{Str}^2 \\cdot 2\\pi f} = \\frac{' + tz(r.qc * 1000, 0) + (p ? ' \\cdot ' + tz(1 - p, 4) : '') + '}{' + (n === 3 ? '3 \\cdot ' : '') + tz(r.uStrang, 0) + '^2 \\cdot ' + tz(w, 1) + '} = ' + E(u(r.cuF, 1, '\\mu F'))],
+          ['Strom nachher', 'I_2 = \\frac{P}{' + (e.netz === 3 ? '\\sqrt{3} \\cdot ' : '') + 'U \\cdot \\cos\\varphi_2} = \\frac{' + tz(e.p * 1000, 0) + '}{' + (e.netz === 3 ? '1{,}732 \\cdot ' : '') + tz(e.u, 0) + ' \\cdot ' + tz(r.b.c, 3) + '} = ' + E(u(r.b.i, 1, 'A'))],
+          ['Verluste', '\\frac{P_\\text{v,2}}{P_\\text{v,1}} = \\left(\\frac{\\cos\\varphi_1}{\\cos\\varphi_2}\\right)^2 = \\left(\\frac{' + tz(e.c1, 3) + '}{' + tz(r.b.c, 3) + '}\\right)^2 = ' + E(tz(Math.pow(e.c1 / r.b.c, 2), 3))],
+          p ? ['Resonanz der Drossel', 'f_\\text{r} = \\frac{f}{\\sqrt{p}} = \\frac{' + tz(e.f, 0) + '}{\\sqrt{' + tz(p, 4) + '}} = ' + E(u(r.fr, 0, 'Hz'))]
+            : isFinite(r.nres) ? ['Resonanz mit dem Transformator', 'n_\\text{r} = \\sqrt{\\frac{S_\\text{T}}{u_\\text{k} \\cdot Q_\\text{C}}} = \\sqrt{\\frac{' + tz(e.st, 0) + '}{' + tz(e.uk / 100, 3) + ' \\cdot ' + tz(r.qc, 1) + '}} = ' + (r.harm ? R.F : E)(tz(r.nres, 2))] : ['Resonanz', '\\text{ohne Transformator nicht berechnet}']
+        ];
+      }
+    R.seite({
+      titel: 'Blindleistungskompensation',
+      einleitung: 'Wie viel Kondensatorleistung braucht die Anlage? Vom Leistungsfaktor vorher und nachher zur Kompensationsleistung in kvar, Kapazität je Strang in Stern oder Dreieck, verdrosselt oder unverdrosselt – mit kleinerem Strom, freier Trafoleistung, gesparten Leitungsverlusten und Blindarbeitskosten, Amortisation und der Resonanzstelle mit dem Transformator.',
+      hilfe: 'Leistungsfaktor vorher: vom Zähler (Wirk- und Blindarbeit), vom Netzanalysator oder aus der Stromrechnung: cos φ = W / √(W² + W_Q²).',
+      gruppen: [
+        { titel: 'Anlage', farbe: BLAU, felder: [
+          { k: 'netz', name: 'Netz', wahl: [[3, 'Drehstrom'], [1, 'Wechselstrom']] },
+          { k: 'u', tex: 'U', name: 'Spannung (bei Drehstrom zwischen den Außenleitern)', e: 'V', min: 12, max: 36000 },
+          { k: 'f', tex: 'f', name: 'Netzfrequenz', wahl: [[50, '50 Hz'], [60, '60 Hz']] },
+          { k: 'quelle', name: 'Last', wahl: [['direkt', 'Wirkleistung und cos φ direkt eintragen'], ['liste', 'aus einer Liste der Verbraucher']] },
+          { k: 'p', tex: 'P', name: 'Wirkleistung', e: 'kW', min: 0.01, max: 100000, wenn: function (e) { return e.quelle !== 'liste'; } },
+          { k: 'c1', tex: '\\cos\\varphi_1', name: 'Leistungsfaktor vorher', e: '', min: 0.1, max: 1, wenn: function (e) { return e.quelle !== 'liste'; } },
+          { k: 'g', tex: 'g', name: 'Gleichzeitigkeitsfaktor', e: '', min: 0.05, max: 1, wenn: function (e) { return e.quelle === 'liste'; }, hilfe: 'Anteil der Verbraucher, die gleichzeitig laufen. Werkstatt oft 0,5 bis 0,7, Produktion 0,7 bis 0,9.' },
+          { k: 'c2', tex: '\\cos\\varphi_2', name: 'Leistungsfaktor angestrebt', e: '', min: 0.1, max: 1, hilfe: 'Üblich ist 0,95 bis 0,98 induktiv. Ganz auf 1 zu kompensieren lohnt sich selten: Bei Teillast wird die Anlage sonst kapazitiv.' }
+        ] },
+        { titel: 'Verbraucher', farbe: '#C2410C', wenn: function (e) { return e.quelle === 'liste'; }, liste: { k: 'ver', name: 'Verbraucher', zeile: 'Verbraucher', max: 30, min: 1, spalten: [
+          { k: 'name', name: 'Bezeichnung', text: true, breit: true }, { k: 'anz', name: 'Anzahl', e: '', min: 1, max: 1000, ganz: true },
+          { k: 'p', name: 'Wirkleistung je Stück', e: 'kW', min: 0, max: 100000 }, { k: 'cos', name: 'cos φ', e: '', min: 0.1, max: 1 },
+          { k: 'i0', name: 'Leerlaufstrom (Motor, sonst 0)', e: 'A', min: 0, max: 10000 }
+        ], neu: function () { return { name: 'Motor', anz: 1, p: 5.5, cos: 0.8, i0: 5 }; } } },
+        { titel: 'Kompensationsanlage', farbe: KAPA, felder: [
+          { k: 'art', name: 'Art der Kompensation', wahl: [['zentral', 'Zentralkompensation – Regelanlage an der Hauptverteilung'], ['gruppe', 'Gruppenkompensation – an einer Unterverteilung'], ['einzel', 'Einzelkompensation – direkt am Verbraucher']] },
+          { k: 'i0m', tex: 'I_0', name: 'Leerlaufstrom des Motors', e: 'A', min: 0, max: 10000, wenn: function (e) { return e.art === 'einzel' && e.quelle !== 'liste'; }, hilfe: 'Vom Datenblatt oder gemessen im Leerlauf; meist 30 bis 50 % des Nennstroms. 0, wenn unbekannt.' },
+          { k: 'schalt', name: 'Schaltung der Kondensatoren', wahl: [['dreieck', 'Dreieck'], ['stern', 'Stern']], wenn: function (e) { return e.netz === 3; } },
+          { k: 'drossel', tex: 'p', name: 'Verdrosselung', wahl: [[0, 'unverdrosselt'], [5.67, '5,67 % – Resonanz 210 Hz'], [7, '7 % – Resonanz 189 Hz'], [14, '14 % – Resonanz 134 Hz']], hilfe: 'Verdrosselte Anlagen sind nötig, sobald Umrichter, Netzteile oder LED-Treiber Oberschwingungen erzeugen – heute fast überall. Der Netzbetreiber schreibt wegen der Rundsteuerfrequenz oft einen bestimmten Wert vor.' },
+          { k: 'st', tex: 'S_\\text{T}', name: 'Bemessungsleistung des Transformators', e: 'kVA', min: 0, max: 100000, hilfe: '0, wenn die Anlage direkt am öffentlichen Niederspannungsnetz hängt – dann entfällt die Resonanzrechnung.' },
+          { k: 'uk', tex: 'u_\\text{k}', name: 'Kurzschlussspannung des Transformators', e: '%', min: 1, max: 20, wenn: function (e) { return e.st > 0; } },
+          { k: 'kvar', name: 'Preis der Anlage', e: '€ je kvar', min: 0, max: 1000 }
+        ] },
+        { titel: 'Betrieb und Kosten', farbe: GOLD, felder: [
+          { k: 'h', name: 'Betriebsstunden im Jahr', e: 'h', min: 1, max: 8760 },
+          { k: 'frei', name: 'Blindarbeit frei bis', e: '% der Wirkarbeit', min: 0, max: 200, hilfe: 'Viele Netzbetreiber berechnen Blindarbeit erst, wenn sie die Hälfte der Wirkarbeit übersteigt (entspricht cos φ < 0,894). Steht im Netznutzungsvertrag.' },
+          { k: 'bpreis', name: 'Preis der Blindarbeit', e: 'ct/kvarh', min: 0, max: 100 },
+          { k: 'strom', name: 'Strompreis', e: 'ct/kWh', min: 0, max: 200 },
+          { k: 'laenge', name: 'entlastete Leitung bis zur Kompensation', e: 'm', min: 0, max: 5000, hilfe: 'Zentral: nur die Zuleitung vom Transformator zur Hauptverteilung. Gruppe: zusätzlich bis zur Unterverteilung. Einzel: die ganze Leitung bis zum Verbraucher.' },
+          { k: 'quer', name: 'Querschnitt Kupfer', e: 'mm²', min: 1.5, max: 1000 }
+        ] }
+      ],
+      beispiel: { netz: 3, u: 400, f: 50, quelle: 'direkt', p: 120, c1: 0.75, g: 0.8, ver: [{ name: 'Kompressor', anz: 1, p: 30, cos: 0.84, i0: 22 }, { name: 'Lüftungsmotoren', anz: 4, p: 7.5, cos: 0.8, i0: 6.5 }, { name: 'Werkstattmaschinen', anz: 6, p: 4, cos: 0.74, i0: 4.5 }, { name: 'Beleuchtung', anz: 1, p: 8, cos: 0.95, i0: 0 }], art: 'zentral', i0m: 0, c2: 0.95, schalt: 'dreieck', drossel: 7, st: 630, uk: 6, kvar: 45, h: 3000, frei: 50, bpreis: 1.2, strom: 25, laenge: 40, quer: 95 },
+      rechne: function (e) {
+        const r = {}, w = 2 * Math.PI * e.f, p = e.drossel / 100, wurzel = e.netz === 3 ? Math.sqrt(3) : 1;
+        r.liste = e.quelle === 'liste';
+        if (r.liste) {
+          let ps = 0, qs = 0; e.ver.forEach(function (v) { ps += v.anz * v.p; qs += v.anz * v.p * TG(v.cos); });
+          r.pInst = ps; r.qInst = qs; r.leer = ps <= 0;
+          const pe = r.leer ? 0.001 : ps * e.g, ce = r.leer ? 1 : ps / Math.sqrt(ps * ps + qs * qs);
+          e = Object.assign({}, e, { p: pe, c1: ce });
+          r.einzel = e.ver.map(function (v) {
+            const o = {}; o.je = Math.max(0, v.p * (TG(v.cos) - TG(e.c2)));
+            o.max = v.i0 > 0 ? 0.9 * wurzel * e.u * v.i0 / 1000 : NaN; o.empf = isFinite(o.max) ? Math.min(o.je, o.max) : o.je;
+            o.zuviel = isFinite(o.max) && o.je > o.max + 1e-9; o.summe = o.empf * v.anz; return o;
+          });
+          r.sumEinzel = r.einzel.reduce(function (s, o) { return s + o.summe; }, 0);
+        }
+        r.e = e;
+        r.a = zustand(e, e.c1); r.b = zustand(e, Math.max(e.c1, e.c2));
+        r.k = TG(e.c1) - TG(e.c2); r.qc = e.p * r.k; r.noetig = r.qc > 0.0005;
+        r.qcNorm = r.qc <= 0 ? 0 : r.qc < 10 ? Math.ceil(r.qc * 2) / 2 : Math.ceil(r.qc / 5) * 5;
+        // Kapazität: wirksame Blindleistung der Reihenschaltung L–C ist U² ω C / (1 − p)
+        const uStrang = e.netz === 3 && e.schalt === 'stern' ? e.u / Math.sqrt(3) : e.u, n = e.netz === 3 ? 3 : 1;
+        r.uStrang = uStrang; r.n = n;
+        r.cF = r.qc * 1000 * (1 - p) / (n * uStrang * uStrang * w); r.cuF = r.cF * 1e6;
+        r.uC = uStrang / (1 - p); r.uCLL = e.u / (1 - p); r.qcBem = p > 0 ? r.qc / (1 - p) : r.qc;
+        r.ic = r.qc * 1000 / (e.netz === 3 ? Math.sqrt(3) * e.u : e.u);
+        r.fr = p > 0 ? e.f / Math.sqrt(p) : NaN;
+        r.sk = e.st > 0 ? e.st / (e.uk / 100) : 0;
+        r.nres = e.st > 0 && r.qc > 0 && p === 0 ? Math.sqrt(r.sk / r.qc) : NaN;
+        r.harm = [5, 7, 11, 13].filter(function (h) { return Math.abs(r.nres - h) < 1; })[0];
+        r.sFrei = r.a.s - r.b.s; r.iProz = (1 - r.b.i / r.a.i) * 100; r.vProz = (1 - Math.pow(r.b.i / r.a.i, 2)) * 100;
+        r.sparQ = r.a.kostenQ - r.b.kostenQ; r.sparV = r.a.kostenV - r.b.kostenV; r.spar = r.sparQ + r.sparV;
+        r.invest = r.qcNorm * e.kvar; r.amort = r.spar > 0 ? r.invest / r.spar : NaN;
+        r.trafoA = e.st > 0 ? r.a.s / e.st * 100 : NaN; r.trafoB = e.st > 0 ? r.b.s / e.st * 100 : NaN;
+        r.cGrenz = COS(e.frei / 100);
+        r.qmax = !r.liste && e.art === 'einzel' && e.i0m > 0 ? 0.9 * wurzel * e.u * e.i0m / 1000 : NaN;
+        r.iMotor = r.b.i;
+        return r;
+      },
+      ergebnis: function (r, e, H) {
+        e = r.e;
+        if (r.liste && r.leer) { H.meldung('Die Liste enthält keine Wirkleistung – Verbraucher mit Leistung eintragen.', true); H.urteil(false, 'keine Last'); return; }
+        if (r.liste) H.meldung('Aus der Liste: ' + z(r.pInst, 1) + ' kW installiert, mit Gleichzeitigkeit ' + z(e.g, 2) + ' also ' + z(e.p, 1) + ' kW bei cos φ = ' + z(e.c1, 3) + '.');
+        if (!r.noetig) { H.meldung('Der Leistungsfaktor ist schon ' + z(e.c1, 2) + ' – mindestens so hoch wie das Ziel. Eine Kompensation ist nicht nötig.'); H.urteil(true, 'nicht nötig'); return; }
+        if (e.c2 > 0.98) H.meldung('Ein Ziel über 0,98 ist knapp: Fällt die Last weg, während die Kondensatoren eingeschaltet bleiben, wird die Anlage kapazitiv. Das verlangen die Netzbetreiber zu vermeiden, und die Spannung steigt. Regelanlagen mit Stufen schalten deshalb mit der Last.', false);
+        if (e.netz === 3 && e.u > 1000) H.meldung('Mittelspannung: Kompensation und Schutz plant hier ein Fachplaner nach den Vorgaben des Netzbetreibers.');
+        if (e.drossel === 0) {
+          if (e.st > 0 && r.harm) H.meldung('Gefährlich: Kondensatoren und Transformator bilden einen Schwingkreis mit Resonanz bei der ' + z(r.nres, 1) + '-fachen Netzfrequenz (' + z(r.nres * e.f, 0) + ' Hz) – genau neben der ' + r.harm + '. Oberschwingung. Ströme und Spannungen schaukeln sich auf, Kondensatoren fallen aus. Unbedingt verdrosselt ausführen.', true);
+          else H.meldung('Unverdrosselt geht nur ohne nennenswerte Oberschwingungen. Umrichter, Wechselrichter, LED-Treiber und Netzteile erzeugen sie fast überall – im Zweifel verdrosselt planen und vorher messen.' + (e.st > 0 ? ' Resonanz mit dem Transformator hier bei ' + z(r.nres * e.f, 0) + ' Hz.' : ''), false);
+        } else H.meldung('Die Drossel legt die Resonanz auf ' + z(r.fr, 0) + ' Hz, unter die 5. Oberschwingung (' + z(5 * e.f, 0) + ' Hz). Die Kondensatoren sehen dabei ' + z(r.uCLL, 0) + ' V statt ' + z(e.u, 0) + ' V und müssen für mindestens diese Spannung bemessen sein (meist 440 V oder 480 V).');
+        if (e.c1 < r.cGrenz && e.bpreis > 0) H.meldung('Vorher wird Blindarbeit bezahlt: Unter cos φ = ' + z(r.cGrenz, 3) + ' übersteigt sie ' + z(e.frei, 0) + ' % der Wirkarbeit. Das kostet ' + z(r.a.kostenQ, 0) + ' € im Jahr' + (r.b.kostenQ > 0.5 ? ', nachher noch ' + z(r.b.kostenQ, 0) + ' €.' : ' – nachher nichts mehr.'));
+        if (isFinite(r.trafoA) && r.trafoA > 100) H.meldung('Der Transformator ist vorher mit ' + z(r.trafoA, 0) + ' % überlastet' + (r.trafoB <= 100 ? ', nach der Kompensation reicht er (' + z(r.trafoB, 0) + ' %).' : ' und bleibt es auch nachher (' + z(r.trafoB, 0) + ' %).'), r.trafoB > 100);
+        if (e.art === 'zentral') H.meldung('Zentralkompensation: Eine Regelanlage an der Hauptverteilung schaltet ihre Stufen nach dem gemessenen cos φ zu und ab. Sie nutzt die Gleichzeitigkeit und ist je kvar am günstigsten, entlastet aber nur Transformator und Hauptzuleitung – die Abgänge zu den Verbrauchern führen weiter den vollen Blindstrom.');
+        else if (e.art === 'gruppe') H.meldung('Gruppenkompensation: Die Kondensatoren sitzen an der Unterverteilung einer Verbrauchergruppe, fest mit der Gruppe geschaltet oder als kleine Regelanlage. Entlastet wird zusätzlich die Leitung bis zur Unterverteilung. Passt gut zu Gruppen, die gemeinsam laufen, etwa einer Lüftungszentrale oder einer Fertigungslinie.');
+        else {
+          H.meldung('Einzelkompensation: Der Kondensator hängt direkt am Verbraucher und wird mit ihm geschaltet. Er entlastet alle Leitungen, läuft aber nur, wenn der Verbraucher läuft – bei vielen kleinen, selten laufenden Motoren wird das teuer. Nicht hinter Frequenzumrichter oder Sanftanlauf schalten; bei Stern-Dreieck-Anlauf an das Netzschütz oder über ein eigenes Schütz.');
+          if (!r.liste) {
+            if (isFinite(r.qmax) && r.qc > r.qmax) H.meldung('Zu groß für Einzelkompensation: Höchstens 90 % der Leerlaufblindleistung, hier ' + z(r.qmax, 1) + ' kvar. Mehr Kondensator regt den auslaufenden Motor selbst zur Spannungserzeugung an – gefährliche Überspannung und Schäden. Den Rest zentral kompensieren.', true);
+            else if (!isFinite(r.qmax)) H.meldung('Für Motoren den Leerlaufstrom eintragen: Der Kondensator darf höchstens 90 % der Leerlaufblindleistung haben, sonst erregt sich der auslaufende Motor selbst.');
+            H.meldung('Liegt der Kondensator zwischen Motorschutz und Motor, misst der Schutz nur noch den kleineren Strom: Motorschutz auf etwa ' + z(r.iMotor, 1) + ' A statt ' + z(r.a.i, 1) + ' A einstellen. Hängt der Kondensator vor dem Motorschutz, bleibt die Einstellung.');
+          }
+        }
+        if (r.liste) {
+          const zu = r.einzel.filter(function (o) { return o.zuviel; }).length;
+          H.meldung('Einzeln an jedem Verbraucher kompensiert wären es zusammen ' + z(r.sumEinzel, 1) + ' kvar, zentral genügen ' + z(r.qc, 1) + ' kvar' + (r.sumEinzel > r.qc + 0.05 ? ', weil nicht alles gleichzeitig läuft' : '') + '.' + (zu ? ' Bei ' + zu + (zu === 1 ? ' Verbraucher' : ' Verbrauchern') + ' begrenzt der Leerlaufstrom die Einzelkompensation.' : ''));
+        }
+        H.urteil(e.drossel === 0 && r.harm ? false : null, z(r.qc, 1) + ' kvar');
+        H.kacheln([
+          [z(r.qc, 1) + ' kvar', 'Kompensationsleistung, gewählt ' + z(r.qcNorm, 1) + ' kvar', KAPA],
+          [z(r.cuF, r.cuF < 100 ? 1 : 0) + ' µF', e.netz === 3 ? 'je Strang in ' + (e.schalt === 'stern' ? 'Stern' : 'Dreieck') + (e.drossel ? ', verdrosselt' : '') : 'Kapazität' + (e.drossel ? ', verdrosselt' : ''), BLAU],
+          [z(r.a.i, 0) + ' → ' + z(r.b.i, 0) + ' A', 'Strom je Leiter, ' + z(r.iProz, 0) + ' % weniger', GUT],
+          [z(r.sFrei, 0) + ' kVA', 'weniger Scheinleistung (' + z(r.a.s, 0) + ' → ' + z(r.b.s, 0) + ' kVA)', '#6E6FA6'],
+          [z(r.spar, 0) + ' €', 'Ersparnis im Jahr (Blindarbeit ' + z(r.sparQ, 0) + ' €, Verluste ' + z(r.sparV, 0) + ' €)', GOLD],
+          [isFinite(r.amort) ? z(r.amort, 1) + ' Jahre' : '–', 'Amortisation von ' + z(r.invest, 0) + ' €', ampel(r.amort < 5, r.amort < 10)]
+        ]);
+        H.tabelle('Vorher und nachher', ['', 'vorher', 'nachher'], [
+          ['Leistungsfaktor cos φ', z(e.c1, 3), z(r.b.c, 3)], ['Phasenwinkel φ', z(Math.acos(e.c1) * 180 / Math.PI, 1) + '°', z(Math.acos(r.b.c) * 180 / Math.PI, 1) + '°'],
+          ['Blindleistung', z(r.a.q, 1) + ' kvar', z(r.b.q, 1) + ' kvar'], ['Scheinleistung', z(r.a.s, 1) + ' kVA', z(r.b.s, 1) + ' kVA'],
+          ['Strom je Leiter', z(r.a.i, 1) + ' A', z(r.b.i, 1) + ' A'],
+          ['Leitungsverluste (' + z(e.laenge, 0) + ' m, ' + z(e.quer, 0) + ' mm²)', z(r.a.pv, 2) + ' kW', z(r.b.pv, 2) + ' kW'],
+          ['Auslastung Transformator', isFinite(r.trafoA) ? z(r.trafoA, 0) + ' %' : '–', isFinite(r.trafoB) ? z(r.trafoB, 0) + ' %' : '–'],
+          ['Blindarbeit im Jahr', z(r.a.wq, 0) + ' kvarh', z(r.b.wq, 0) + ' kvarh'], ['davon bezahlt', z(r.a.wqBez, 0) + ' kvarh', z(r.b.wqBez, 0) + ' kvarh'],
+          ['Kosten Blindarbeit und Verluste', z(r.a.kostenQ + r.a.kostenV, 0) + ' €', z(r.b.kostenQ + r.b.kostenV, 0) + ' €']
+        ], { zahl: [1, 2], fuss: 'Verluste nur für die eingetragene Leitung; im Transformator sinken die Kupferverluste im selben Verhältnis (' + z(r.vProz, 0) + ' % weniger).' });
+        H.tabelle('Kondensatoren', ['', 'Wert'], [
+          ['Schaltung', e.netz === 3 ? (e.schalt === 'stern' ? 'Stern, je Strang ' + z(r.uStrang, 0) + ' V' : 'Dreieck, je Strang ' + z(e.u, 0) + ' V') : 'einphasig, ' + z(e.u, 0) + ' V'],
+          ['Kapazität', z(r.cuF, 1) + ' µF' + (e.netz === 3 ? ' je Strang, zusammen ' + z(r.cuF * 3, 0) + ' µF' : '')],
+          ['Spannung am Kondensator', z(r.uC, 0) + ' V' + (e.drossel ? ' (durch die Drossel um ' + z(1 / (1 - e.drossel / 100) * 100 - 100, 1) + ' % erhöht)' : '')],
+          ['Bemessungsleistung der Kondensatoren', z(r.qcBem, 1) + ' kvar bei ' + z(r.uC * (e.netz === 3 && e.schalt === 'stern' ? Math.sqrt(3) : 1), 0) + ' V'],
+          ['Kondensatorstrom je Leiter', z(r.ic, 1) + ' A'],
+          ['Resonanzfrequenz', e.drossel ? z(r.fr, 0) + ' Hz (Drossel)' : isFinite(r.nres) ? z(r.nres * e.f, 0) + ' Hz mit dem Transformator' : '–'],
+          ['Stufen einer Regelanlage', r.qcNorm >= 20 ? z(r.qcNorm / 6, 1) + ' kvar kleinste Stufe bei 6 Stufen 1:1 oder ' + z(r.qcNorm / 7, 1) + ' kvar bei 1:2:2:2' : 'feste Kompensation genügt meist']
+        ], { fuss: 'Kondensatoren nach DIN EN 60831-1 müssen sich nach dem Abschalten in höchstens 3 Minuten auf 75 V entladen.' });
+        if (r.liste) H.tabelle('Kompensation je Verbraucher', ['Verbraucher', 'Anzahl', 'cos φ', 'nötig je Stück', 'Grenze Leerlauf', 'Kondensator je Stück', 'zusammen'], e.ver.map(function (v, i) { const o = r.einzel[i]; return [v.name, String(v.anz), z(v.cos, 2), z(o.je, 2) + ' kvar', isFinite(o.max) ? z(o.max, 2) + ' kvar' : '–', z(o.empf, 2) + ' kvar' + (o.zuviel ? ' ▼' : ''), z(o.summe, 1) + ' kvar']; }).concat([['Einzel zusammen', '', '', '', '', '', z(r.sumEinzel, 1) + ' kvar'], ['zentral mit Gleichzeitigkeit', '', '', '', '', '', z(r.qc, 1) + ' kvar']]), { zahl: [1, 2, 3, 4, 5, 6], breit: true, fuss: 'Grenze: 0,9 · √3 · U · I₀ (90 % der Leerlaufblindleistung). ▼ auf die Grenze verkleinert, den Rest zentral oder in der Gruppe ausgleichen.' });
+        H.tabelle('Kompensationsarten im Vergleich', ['Art', 'Ort', 'entlastet', 'Vorteile', 'Nachteile'], [
+          ['Einzel' + (e.art === 'einzel' ? ' ◄' : ''), 'am Verbraucher, mit ihm geschaltet', 'alle Leitungen und den Trafo', 'keine Regelung nötig, größte Verlustersparnis', 'teuer bei vielen Verbrauchern, Kondensator ungenutzt im Stillstand, Grenze durch Leerlaufstrom'],
+          ['Gruppe' + (e.art === 'gruppe' ? ' ◄' : ''), 'an der Unterverteilung', 'Leitung bis zur Unterverteilung und den Trafo', 'günstiger als Einzel, Gleichzeitigkeit der Gruppe nutzbar', 'Abgänge zu den Verbrauchern nicht entlastet'],
+          ['Zentral' + (e.art === 'zentral' ? ' ◄' : ''), 'an der Hauptverteilung, geregelt', 'Trafo und Hauptzuleitung', 'kleinste Leistung, günstigste kvar, passt sich der Last an', 'Unterverteilungen und Abgänge nicht entlastet, Regler und Schütze nötig'],
+          ['Gemischt', 'große Motoren einzeln, Rest zentral', 'je nach Aufteilung', 'große Dauerläufer entlastet, Rest geregelt', 'mehr Planung']
+        ]);
+        H.tabelle('Faktor k = tan φ₁ − tan φ₂ (kvar je kW)', ['cos φ₁', 'auf 0,90', 'auf 0,95', 'auf 0,98', 'auf 1,00'], [0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9].map(function (c) { return [z(c, 2) + (Math.abs(c - e.c1) < 0.025 ? ' ◄' : ''), z(Math.max(0, TG(c) - TG(0.9)), 2), z(TG(c) - TG(0.95), 2), z(TG(c) - TG(0.98), 2), z(TG(c), 2)]; }), { zahl: [1, 2, 3, 4], fuss: 'Kompensationsleistung = Wirkleistung mal Faktor. Beispiel: 100 kW von 0,75 auf 0,95: 100 · 0,55 = 55 kvar.' });
+      },
+      weg: function (r, e) {
+        e = r.e;
+        const vor = r.liste && !r.leer ? [['Summe der Verbraucher', 'P = g \\cdot \\sum P_i = ' + tz(e.g, 2) + ' \\cdot ' + tz(r.pInst, 1) + ' = ' + E(u(e.p, 1, 'kW')) + ' \\qquad \\cos\\varphi_1 = \\frac{\\sum P_i}{\\sqrt{(\\sum P_i)^2 + (\\sum Q_i)^2}} = ' + E(tz(e.c1, 3))]] : [];
+        const nach = isFinite(r.qmax) ? [['Grenze der Einzelkompensation', 'Q_\\text{C,max} = 0{,}9 \\cdot ' + (e.netz === 3 ? '\\sqrt{3} \\cdot ' : '') + 'U \\cdot I_0 = 0{,}9 \\cdot ' + (e.netz === 3 ? '1{,}732 \\cdot ' : '') + tz(e.u, 0) + ' \\cdot ' + tz(e.i0m, 1) + ' = ' + (r.qc > r.qmax ? R.F : E)(u(r.qmax, 1, 'kvar'))]] : [];
+        return vor.concat(wegKern(r, e)).concat(nach);
+      },
+      loeser: {
+        titel: 'Kompensation – in jede Richtung', hilfe: 'Zum Beispiel: Welchen Leistungsfaktor erreicht eine vorhandene 50-kvar-Anlage bei 120 kW? Welche Kapazität hat ein Kondensator mit 25 kvar bei 400 V?',
+        felder: [
+          { k: 'P', tex: 'P', name: 'Wirkleistung', e: 'kW', min: 0.001, max: 1e6, n: 1 }, { k: 'c1', tex: '\\cos\\varphi_1', name: 'Leistungsfaktor vorher', e: '', min: 0.05, max: 1, n: 3 },
+          { k: 'c2', tex: '\\cos\\varphi_2', name: 'Leistungsfaktor nachher', e: '', min: 0.05, max: 1, n: 3 }, { k: 'Qc', tex: 'Q_\\text{C}', name: 'Kompensationsleistung', e: 'kvar', min: 0, max: 1e6, n: 1 },
+          { k: 'U', tex: 'U', name: 'Spannung am Strang', e: 'V', min: 1, max: 1e5, n: 0 }, { k: 'f', tex: 'f', name: 'Frequenz', e: 'Hz', min: 1, max: 1000, n: 0 }, { k: 'C', tex: 'C', name: 'Kapazität je Strang (Dreieck)', e: 'µF', min: 0.001, max: 1e7, n: 1 }
+        ],
+        beispiel: { P: 120, c1: 0.75, Qc: 50, U: 400, f: 50 },
+        gleichungen: [
+          { name: 'Kompensationsleistung', v: ['Qc', 'P', 'c1', 'c2'], f: function (q) { return [q.Qc, q.P * (TG(q.c1) - TG(q.c2))]; },
+            loese: { Qc: function (q) { return q.P * (TG(q.c1) - TG(q.c2)); }, P: function (q) { return q.Qc / (TG(q.c1) - TG(q.c2)); }, c2: function (q) { const t = TG(q.c1) - q.Qc / q.P; return t >= 0 ? COS(t) : NaN; }, c1: function (q) { return COS(TG(q.c2) + q.Qc / q.P); } },
+            weg: function (k, q) { return k === 'c2' ? '\\tan\\varphi_2 = \\tan\\varphi_1 - \\frac{Q_\\text{C}}{P} = ' + tz(TG(q.c1), 3) + ' - \\frac{' + tz(q.Qc, 1) + '}{' + tz(q.P, 1) + '} = ' + tz(TG(q.c2), 3) + ' \\Rightarrow \\cos\\varphi_2 = ' + E(tz(q.c2, 3)) : k === 'c1' ? '\\tan\\varphi_1 = \\tan\\varphi_2 + \\frac{Q_\\text{C}}{P} \\Rightarrow \\cos\\varphi_1 = ' + E(tz(q.c1, 3)) : k === 'P' ? 'P = \\frac{Q_\\text{C}}{\\tan\\varphi_1 - \\tan\\varphi_2} = ' + E(u(q.P, 1, 'kW')) : 'Q_\\text{C} = P\\,(\\tan\\varphi_1 - \\tan\\varphi_2) = ' + tz(q.P, 1) + ' \\cdot (' + tz(TG(q.c1), 3) + ' - ' + tz(TG(q.c2), 3) + ') = ' + E(u(q.Qc, 1, 'kvar')); } },
+          { name: 'Kapazität', v: ['C', 'Qc', 'U', 'f'], f: function (q) { return [q.C * 3 * q.U * q.U * 2 * Math.PI * q.f, q.Qc * 1e9]; },
+            loese: { C: function (q) { return q.Qc * 1e9 / (3 * q.U * q.U * 2 * Math.PI * q.f); }, Qc: function (q) { return q.C * 3 * q.U * q.U * 2 * Math.PI * q.f / 1e9; }, U: function (q) { return Math.sqrt(q.Qc * 1e9 / (3 * q.C * 2 * Math.PI * q.f)); }, f: function (q) { return q.Qc * 1e9 / (3 * q.C * q.U * q.U * 2 * Math.PI); } },
+            weg: function (k, q) { return k === 'C' ? 'C = \\frac{Q_\\text{C}}{3 \\cdot U^2 \\cdot 2\\pi f} = \\frac{' + tz(q.Qc * 1000, 0) + '}{3 \\cdot ' + tz(q.U, 0) + '^2 \\cdot ' + tz(2 * Math.PI * q.f, 1) + '} = ' + E(u(q.C, 1, '\\mu F')) : k === 'Qc' ? 'Q_\\text{C} = 3 \\cdot U^2 \\cdot 2\\pi f \\cdot C = ' + E(u(q.Qc, 2, 'kvar')) : k === 'U' ? 'U = \\sqrt{\\frac{Q_\\text{C}}{3 \\cdot 2\\pi f \\cdot C}} = ' + E(u(q.U, 0, 'V')) : 'f = ' + E(u(q.f, 1, 'Hz')); } }
+        ]
+      },
+      sammlung: [
+        ['Leistungsdreieck', 'S = \\sqrt{P^2 + Q^2} \\qquad \\cos\\varphi = \\frac{P}{S}', 'Wirk-, Blind- und Scheinleistung'],
+        ['Kompensationsleistung', 'Q_\\text{C} = P\\,(\\tan\\varphi_1 - \\tan\\varphi_2)', 'P in kW ergibt Q in kvar'],
+        ['Kapazität im Dreieck', 'C_\\text{Str} = \\frac{Q_\\text{C}}{3\\,U^2\\,\\omega}', 'U = Außenleiterspannung, ω = 2πf'],
+        ['Kapazität im Stern', 'C_\\text{Str} = \\frac{Q_\\text{C}}{U^2\\,\\omega}', 'dreifache Kapazität gegenüber Dreieck für dieselbe Leistung'],
+        ['Verdrosselung', 'f_\\text{r} = \\frac{f}{\\sqrt{p}} \\qquad U_\\text{C} = \\frac{U}{1 - p}', 'Resonanz unterhalb der 5. Oberschwingung; höhere Spannung am Kondensator'],
+        ['Resonanz mit dem Trafo', 'n_\\text{r} = \\sqrt{\\frac{S_\\text{k}}{Q_\\text{C}}} \\approx \\sqrt{\\frac{S_\\text{T}}{u_\\text{k}\\,Q_\\text{C}}}', 'liegt n nahe 5, 7, 11 oder 13, droht Parallelresonanz'],
+        ['Grenze bei Motoren', 'Q_\\text{C} \\le 0{,}9 \\cdot \\sqrt{3} \\cdot U \\cdot I_0', 'höchstens 90 % der Leerlaufblindleistung, sonst Selbsterregung beim Auslaufen'],
+        ['Gruppe oder Anlage', 'P = g \\cdot \\sum P_i \\qquad \\cos\\varphi = \\frac{\\sum P_i}{\\sqrt{(\\sum P_i)^2 + (\\sum P_i \\tan\\varphi_i)^2}}', 'Blindleistungen der Verbraucher addieren, nicht die cos φ mitteln'],
+        ['Verluste', 'P_\\text{v} \\sim I^2 \\sim \\frac{1}{\\cos^2\\varphi}', 'von 0,75 auf 0,95 sinken die Leitungsverluste um 38 %']
+      ],
+      quellen: 'Grundlagen der Wechselstromtechnik. Leistungskondensatoren nach DIN EN 60831-1 (selbstheilend, Niederspannung; Entladung auf 75 V in 3 Minuten), Kompensationsanlagen nach DIN EN 61921; Oberschwingungen und Verträglichkeit nach DIN EN 61000-2-2 und 61000-2-4; Hinweise zu Verdrosselung und Tonfrequenz-Rundsteuerung nach den ZVEI-Merkblättern zur Blindleistungskompensation. Der geforderte Leistungsfaktor, die Abrechnung der Blindarbeit und die Vorgaben zur Verdrosselung stehen in den Technischen Anschlussbedingungen und im Netznutzungsvertrag des Netzbetreibers. Die Rechnung nimmt eine gleichmäßige Last an; für die Auslegung einer Regelanlage Lastgang und Oberschwingungen messen. Leitungswiderstand mit 56 m/(Ω·mm²) bei 20 °C.',
+      bild: { titel: 'Simulation', label: 'Leistungsdreieck vor und nach der Kompensation und Verlauf von Spannung und Strom', animiert: !bewegungAus, hoehe: function (B) { return B < 520 ? 440 : 280; },
+        hinweis: function () { return 'Links das Leistungsdreieck: Die Kondensatoren ziehen die Blindleistung nach unten, die Scheinleistung wird kürzer. Rechts eilt der Strom der Spannung nach – vorher gestrichelt, nachher durchgezogen.'; },
+        zeichne: function (cx, B, H, t, r, e) {
+          e = r.e;
+          const schmal = B < 520, tb = schmal ? B - 28 : B * 0.44, th = schmal ? 210 : H - 50, tx = 14, ty = 20;
+          const m = Math.max(e.p, r.a.q) || 1, sk = Math.min((tb - 125) / e.p, (th - 30) / Math.max(r.a.q, 0.01 * m)), x0 = tx + 8, yb = ty + th - 10;
+          const xp = x0 + e.p * sk, y1 = yb - r.a.q * sk, y2 = yb - r.b.q * sk;
+          const anteil = r.noetig ? Math.min(1, ((t % 6000) / 6000) * 1.6) : 0, yz = y1 + (y2 - y1) * anteil;
+          cx.lineWidth = 3;
+          cx.strokeStyle = BLAU; R.Z.pfeil(cx, x0, yb, xp, yb);
+          cx.strokeStyle = SCHLECHT; cx.setLineDash([6, 4]); cx.beginPath(); cx.moveTo(x0, yb); cx.lineTo(xp, y1); cx.stroke(); cx.setLineDash([]);
+          cx.strokeStyle = '#C2410C'; R.Z.pfeil(cx, xp, yb, xp, y1);
+          if (r.noetig) { cx.strokeStyle = KAPA; cx.lineWidth = 4; R.Z.pfeil(cx, xp + 10, y1, xp + 10, yz); }
+          cx.strokeStyle = GUT; cx.lineWidth = 3; R.Z.pfeil(cx, x0, yb, xp, yz);
+          T(cx, 'P = ' + z(e.p, 1) + ' kW', (x0 + xp) / 2, yb + 13, 'center', 11, true, BLAU);
+          T(cx, 'Q₁ = ' + z(r.a.q, 1) + ' kvar', xp - 6, yb - 12, 'right', 11, true, '#C2410C');
+          if (r.noetig) T(cx, 'Qc = ' + z(r.qc, 1) + ' kvar', xp + 16, (y1 + y2) / 2, 'left', 11, true, KAPA);
+          T(cx, 'S₁ = ' + z(r.a.s, 0) + ' kVA', x0 + 4, y1 + 6, 'left', 10, true, SCHLECHT);
+          T(cx, 'S₂ = ' + z(r.b.s, 0) + ' kVA', x0 + 4, y1 + 20, 'left', 10, true, GUT);
+          // Zeitverlauf
+          const wx = schmal ? 14 : B * 0.5 + 6, wy = schmal ? ty + th + 30 : 30, wb = schmal ? B - 28 : B * 0.5 - 20, wh = schmal ? H - wy - 30 : H - 70, mid = wy + wh / 2, amp = wh / 2 - 6;
+          cx.strokeStyle = F('--leise'); cx.lineWidth = 1; cx.beginPath(); cx.moveTo(wx, mid); cx.lineTo(wx + wb, mid); cx.stroke();
+          const ph = t / 1000 * 2 * Math.PI * 0.5, f1 = Math.acos(e.c1), f2 = Math.acos(r.b.c), k2 = r.b.i / r.a.i;
+          const welle = function (a, phi, farbe, strich, breite) { cx.strokeStyle = farbe; cx.lineWidth = breite; cx.setLineDash(strich); cx.beginPath(); for (let i = 0; i <= 120; i++) { const x = wx + wb * i / 120, w = i / 120 * 3 * Math.PI - ph; const y = mid - amp * a * Math.sin(w - phi); if (i) cx.lineTo(x, y); else cx.moveTo(x, y); } cx.stroke(); cx.setLineDash([]); };
+          welle(0.95, 0, F('--text'), [], 1.8); welle(0.8, f1, SCHLECHT, [5, 4], 2); welle(0.8 * k2, f2, GUT, [], 2.5);
+          T(cx, 'u', wx + 2, wy + 6, 'left', 11, true, F('--text')); T(cx, 'i vorher φ = ' + z(f1 * 180 / Math.PI, 0) + '°', wx + 16, wy + 6, 'left', 10, true, SCHLECHT);
+          T(cx, 'i nachher φ = ' + z(f2 * 180 / Math.PI, 0) + '°', wx + wb, wy + wh + 10, 'right', 10, true, GUT);
+        } }
+    });
+  })();
+  </script>
+</body>
+</html>
