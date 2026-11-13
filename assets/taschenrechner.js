@@ -113,12 +113,16 @@
     '.tr-klein[aria-pressed="true"]{background:var(--text);color:var(--grund);border-color:var(--text)}' +
     '.tr-zu{width:32px;height:32px;border-radius:50%;border:none;background:none;color:var(--leise);font-size:1.3rem;cursor:pointer;line-height:1}' +
     '.tr-zu:hover{background:var(--flaeche2);color:var(--text)}' +
-    '.tr-anzeige{background:var(--flaeche2);border-radius:12px;padding:8px 10px;display:flex;flex-direction:column;gap:2px;min-width:0}' +
-    '.tr-ausdruck{width:100%;border:none;background:none;color:var(--text);font:600 1.15rem var(--technik);text-align:right;padding:0;outline:none;min-width:0}' +
-    '.tr-ergebnis{font:600 1.6rem var(--technik);text-align:right;color:var(--ergebnis);min-height:1.9rem;overflow-x:auto;white-space:nowrap}' +
-    '.tr-ergebnis.tr-fehler{color:var(--fehler);font-size:1rem}' +
-    '.tr-tasten{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}' +
-    '.tr-tasten button{min-height:42px;border:1px solid var(--linie);border-radius:10px;background:var(--flaeche);color:var(--text);font:600 1.02rem var(--technik);cursor:pointer;padding:0;touch-action:manipulation}' +
+    '.tr-anzeige{background:var(--flaeche2);border-radius:12px;padding:6px 10px;display:flex;flex-direction:column;gap:2px;min-width:0}' +
+    '.tr-ausdruck{width:100%;height:1.6rem;border:none;background:none;color:var(--text);font:600 1.1rem/1.6rem var(--technik);text-align:right;padding:0;outline:none;min-width:0}' +
+    '.tr-zeile{display:flex;align-items:center;gap:8px;height:2.1rem;min-width:0}' +
+    '.tr-ergebnis{flex:1;min-width:0;font:600 1.5rem/2.1rem var(--technik);height:2.1rem;text-align:right;color:var(--ergebnis);overflow:hidden;white-space:nowrap;text-overflow:ellipsis}' +
+    '.tr-ergebnis.tr-fehler{color:var(--fehler);font-size:.95rem}' +
+    '.tr-uebernehmen{flex:none;border:1px solid var(--linie);background:var(--flaeche);color:var(--text);border-radius:999px;padding:3px 10px;font-size:.8rem;cursor:pointer;white-space:nowrap}' +
+    '.tr-uebernehmen:disabled{visibility:hidden}' +
+    '.tr-flaeche{position:relative}' +
+    '.tr-tasten{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));grid-auto-rows:42px;gap:6px}' +
+    '.tr-tasten button{height:100%;min-width:0;overflow:hidden;white-space:nowrap;border:1px solid var(--linie);border-radius:10px;background:var(--flaeche);color:var(--text);font:600 1.02rem var(--technik);cursor:pointer;padding:0;touch-action:manipulation}' +
     '.tr-tasten button:hover{border-color:var(--leise)}' +
     '.tr-tasten button:active{transform:scale(.96)}' +
     '.tr-tasten .tr-z{background:var(--flaeche2)}' +
@@ -127,13 +131,15 @@
     '.tr-tasten .tr-gleich{background:var(--text);color:var(--grund);border-color:var(--text)}' +
     '.tr-tasten .tr-weg{color:var(--fehler)}' +
     '.tr-tasten button[aria-pressed="true"]{background:var(--text);color:var(--grund)}' +
-    '.tr-fuss{display:flex;gap:6px;flex-wrap:wrap;align-items:center}' +
-    '.tr-fuss .tr-uebernehmen{flex:1 1 auto}' +
-    '.tr-verlauf{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px;max-height:110px;overflow:auto;font-size:.85rem}' +
-    '.tr-verlauf button{width:100%;text-align:right;border:none;background:none;color:var(--leise);cursor:pointer;padding:3px 4px;border-radius:6px;font:inherit}' +
+    '.tr-verlauf{position:absolute;inset:0;list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px;overflow:auto;font-size:.9rem;background:var(--flaeche)}' +
+    '.tr-verlauf[hidden]{display:none}' +
+    '.tr-verlauf .tr-leer{color:var(--leise);text-align:center;padding:24px 8px}' +
+    '.tr-verlauf button{width:100%;text-align:right;border:none;border-bottom:1px solid var(--linie);background:none;color:var(--leise);cursor:pointer;padding:8px 6px;font:inherit;overflow-wrap:anywhere}' +
+    '.tr-verlauf .tr-loeschen{border:none;text-align:center;color:var(--fehler);margin-top:auto}' +
     '.tr-verlauf button:hover{background:var(--flaeche2);color:var(--text)}' +
     '.tr-verlauf b{color:var(--text);font-family:var(--technik)}' +
-    '@media (max-width:560px){.tr-fenster{left:0;right:0;bottom:0;width:auto;max-width:none;border-radius:18px 18px 0 0;border-bottom:none;padding:10px 12px calc(12px + env(safe-area-inset-bottom))}.tr-tasten button{min-height:48px;font-size:1.08rem}.tr-tasten .tr-f{font-size:.92rem}.tr-knopf{right:12px;bottom:12px}}' +
+    '@media (max-width:560px){.tr-fenster{left:0;right:0;bottom:0;width:auto;max-width:none;border-radius:18px 18px 0 0;border-bottom:none;padding:6px 10px calc(8px + env(safe-area-inset-bottom));gap:6px;max-height:none;overflow:visible}.tr-kopf b{font-size:.92rem}.tr-tasten{grid-auto-rows:40px;gap:5px}.tr-tasten button{font-size:1.05rem}.tr-tasten .tr-f{font-size:.9rem}.tr-knopf{right:12px;bottom:12px}}' +
+    '@media (max-width:560px) and (max-height:680px){.tr-tasten{grid-auto-rows:36px;gap:4px}.tr-ausdruck{height:1.4rem;line-height:1.4rem;font-size:1rem}.tr-zeile,.tr-ergebnis{height:1.8rem;line-height:1.8rem}.tr-ergebnis{font-size:1.3rem}}' +
     '@media print{.tr-knopf,.tr-fenster{display:none!important}}';
 
   const SYMBOL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2.5"/><rect x="8" y="5.5" width="8" height="3.5" rx=".8"/><path d="M8.5 13h.01M12 13h.01M15.5 13h.01M8.5 16.5h.01M12 16.5h.01M15.5 16.5h.01"/></svg>';
@@ -161,14 +167,12 @@
     const knopf = document.createElement('button'); knopf.type = 'button'; knopf.className = 'tr-knopf'; knopf.innerHTML = SYMBOL;
     knopf.setAttribute('aria-label', 'Taschenrechner öffnen'); knopf.setAttribute('aria-expanded', 'false'); knopf.setAttribute('aria-controls', 'tr-fenster'); knopf.title = 'Taschenrechner';
     const f = document.createElement('div'); f.className = 'tr-fenster'; f.id = 'tr-fenster'; f.hidden = true; f.setAttribute('role', 'dialog'); f.setAttribute('aria-label', 'Taschenrechner');
-    f.innerHTML = '<div class="tr-kopf"><b>Taschenrechner</b><button type="button" class="tr-klein tr-winkel" aria-pressed="false" title="Winkel in Grad oder Bogenmaß">DEG</button><button type="button" class="tr-zu" aria-label="Taschenrechner schließen">×</button></div>' +
-      '<div class="tr-anzeige"><input class="tr-ausdruck" type="text" aria-label="Rechnung" autocomplete="off" spellcheck="false" data-nicht-merken placeholder="0"><output class="tr-ergebnis" aria-live="polite"></output></div>' +
-      '<div class="tr-tasten"></div>' +
-      '<div class="tr-fuss"><button type="button" class="knopf tr-uebernehmen" hidden>Ergebnis übernehmen</button></div>' +
-      '<ul class="tr-verlauf" aria-label="Verlauf"></ul>';
+    f.innerHTML = '<div class="tr-kopf"><b>Taschenrechner</b><button type="button" class="tr-klein tr-verlauf-schalter" aria-pressed="false" aria-controls="tr-verlauf">Verlauf</button><button type="button" class="tr-klein tr-winkel" aria-pressed="false" title="Winkel in Grad oder Bogenmaß">DEG</button><button type="button" class="tr-zu" aria-label="Taschenrechner schließen">×</button></div>' +
+      '<div class="tr-anzeige"><input class="tr-ausdruck" type="text" aria-label="Rechnung" autocomplete="off" spellcheck="false" data-nicht-merken placeholder="0"><div class="tr-zeile"><button type="button" class="tr-uebernehmen" disabled title="Ergebnis in das Lösungsfeld eintragen">Übernehmen</button><output class="tr-ergebnis" aria-live="polite"></output></div></div>' +
+      '<div class="tr-flaeche"><div class="tr-tasten"></div><ul class="tr-verlauf" id="tr-verlauf" aria-label="Verlauf" hidden></ul></div>';
     document.body.append(knopf, f);
 
-    const aus = f.querySelector('.tr-ausdruck'), erg = f.querySelector('.tr-ergebnis'), tasten = f.querySelector('.tr-tasten'), verlaufEl = f.querySelector('.tr-verlauf'), winkel = f.querySelector('.tr-winkel'), ueber = f.querySelector('.tr-uebernehmen');
+    const aus = f.querySelector('.tr-ausdruck'), erg = f.querySelector('.tr-ergebnis'), tasten = f.querySelector('.tr-tasten'), verlaufEl = f.querySelector('.tr-verlauf'), winkel = f.querySelector('.tr-winkel'), ueber = f.querySelector('.tr-uebernehmen'), vSchalter = f.querySelector('.tr-verlauf-schalter');
     const beruehrung = window.matchMedia && matchMedia('(pointer: coarse)').matches;
     if (beruehrung) aus.setAttribute('inputmode', 'none');   // eigene Tasten statt Bildschirmtastatur
     let grad = lies('rechner-grad', true) !== false, ans = 0, zweit = false, fertig = false, letztes = NaN;
@@ -193,7 +197,7 @@
       catch (x) { letztes = NaN; erg.textContent = ''; }
       ueberZeigen();
     }
-    function ueberZeigen() { ueber.hidden = !(zielFeld() && isFinite(letztes)); }
+    function ueberZeigen() { ueber.disabled = !(zielFeld() && isFinite(letztes)); }
     function einfuegen(s) {
       if (fertig) { fertig = false; if (/^[0-9,πe(√∛]|^Ans|^sin|^cos|^tan|^log|^ln|^a/.test(s)) aus.value = ''; else if (isFinite(letztes)) aus.value = 'Ans'; }
       const a = aus.selectionStart === null ? aus.value.length : aus.selectionStart, b = aus.selectionEnd === null ? a : aus.selectionEnd;
@@ -226,15 +230,23 @@
       verlauf.forEach(function (x) {
         const li = document.createElement('li'), b = document.createElement('button'); b.type = 'button'; b.title = 'Ergebnis einsetzen';
         b.append(document.createTextNode(x.a + ' = ')); const st = document.createElement('b'); st.textContent = zahlText(x.v, true); b.append(st);
-        b.addEventListener('click', function () { einfuegen(feldText(x.v)); });
+        b.addEventListener('click', function () { einfuegen(feldText(x.v)); verlaufAn(false); });
         li.append(b); verlaufEl.append(li);
       });
-      verlaufEl.hidden = !verlauf.length;
+      if (!verlauf.length) { const li = document.createElement('li'); li.className = 'tr-leer'; li.textContent = 'Noch keine Rechnungen.'; verlaufEl.append(li); return; }
+      const li = document.createElement('li'), weg = document.createElement('button'); weg.type = 'button'; weg.className = 'tr-loeschen'; weg.textContent = 'Verlauf löschen';
+      weg.addEventListener('click', function () { verlauf = []; schreib('rechner-verlauf', verlauf); verlaufZeigen(); });
+      li.append(weg); verlaufEl.append(li);
     }
+    function verlaufAn(an) { verlaufEl.hidden = !an; vSchalter.setAttribute('aria-pressed', an ? 'true' : 'false'); }
+    vSchalter.addEventListener('click', function () { verlaufAn(verlaufEl.hidden); });
     verlaufZeigen();
 
-    function oeffnen() { f.hidden = false; knopf.setAttribute('aria-expanded', 'true'); ueberZeigen(); if (!beruehrung) aus.focus(); else f.querySelector('.tr-zu').focus(); }
-    function schliessen() { f.hidden = true; knopf.setAttribute('aria-expanded', 'false'); knopf.focus(); }
+    const platz = document.createElement('div'); platz.className = 'tr-platz'; platz.setAttribute('aria-hidden', 'true'); document.body.append(platz);
+    function platzSetzen() { platz.style.height = (!f.hidden && innerWidth <= 560) ? f.offsetHeight + 'px' : '0'; }
+    window.addEventListener('resize', platzSetzen);
+    function oeffnen() { f.hidden = false; verlaufAn(false); platzSetzen(); knopf.setAttribute('aria-expanded', 'true'); ueberZeigen(); if (!beruehrung) aus.focus(); else f.querySelector('.tr-zu').focus(); }
+    function schliessen() { f.hidden = true; platzSetzen(); knopf.setAttribute('aria-expanded', 'false'); knopf.focus(); }
     knopf.addEventListener('click', oeffnen);
     f.querySelector('.tr-zu').addEventListener('click', schliessen);
     winkel.addEventListener('click', function () { grad = !grad; schreib('rechner-grad', grad); winkelZeigen(); vorschau(); });
