@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lernen – Formeln &amp; Rechner</title>
+  <meta name="description" content="Formeln lernen und üben: Aufgaben mit zufälligen Werten aus allen Rechnern, Formelkarten zum Abfragen und die gesamte Formelsammlung – nach Bereichen und Themen auswählbar, mit Lösungsweg, Punktestand und offline nutzbar.">
+  <!-- seo -->
+  <link rel="canonical" href="https://tools.pr1m3.de/lernen.html">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Formeln &amp; Rechner">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:title" content="Lernen">
+  <meta property="og:description" content="Formeln lernen und üben: Aufgaben mit zufälligen Werten aus allen Rechnern, Formelkarten zum Abfragen und die gesamte Formelsammlung – nach Bereichen und Themen auswählbar, mit Lösungsweg, Punktestand und offline nutzbar.">
+  <meta property="og:url" content="https://tools.pr1m3.de/lernen.html">
+  <meta property="og:image" content="https://tools.pr1m3.de/assets/symbol-512.png">
+  <meta property="og:image:alt" content="Formeln &amp; Rechner">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Lernen">
+  <meta name="twitter:description" content="Formeln lernen und üben: Aufgaben mit zufälligen Werten aus allen Rechnern, Formelkarten zum Abfragen und die gesamte Formelsammlung – nach Bereichen und Themen auswählbar, mit Lösungsweg, Punktestand und offline nutzbar.">
+  <meta name="twitter:image" content="https://tools.pr1m3.de/assets/symbol-512.png">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://tools.pr1m3.de/lernen.html#seite","name":"Lernen","url":"https://tools.pr1m3.de/lernen.html","inLanguage":"de","description":"Formeln lernen und üben: Aufgaben mit zufälligen Werten aus allen Rechnern, Formelkarten zum Abfragen und die gesamte Formelsammlung – nach Bereichen und Themen auswählbar, mit Lösungsweg, Punktestand und offline nutzbar.","isPartOf":{"@type":"WebSite","@id":"https://tools.pr1m3.de/#website","name":"Formeln & Rechner","url":"https://tools.pr1m3.de/"},"breadcrumb":{"@id":"https://tools.pr1m3.de/lernen.html#pfad"},"dateModified":"2026-11-13"},{"@type":"BreadcrumbList","@id":"https://tools.pr1m3.de/lernen.html#pfad","itemListElement":[{"@type":"ListItem","position":1,"name":"Formeln & Rechner","item":"https://tools.pr1m3.de/"},{"@type":"ListItem","position":2,"name":"Lernen","item":"https://tools.pr1m3.de/lernen.html"}]}]}</script>
+  <!-- /seo -->
+  <meta name="theme-color" content="#F1F3F2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111214" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/symbol-apple.png">
+  <link rel="stylesheet" href="assets/katex/katex.min.css">
+  <link rel="stylesheet" href="assets/stil.css">
+  <link rel="stylesheet" href="assets/rechner.css">
+  <script src="assets/basis.js"></script>
+  <style>
+    .leiste { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    .modi { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 14px; }
+    .modi .knopf[aria-pressed="true"], .stufen .knopf[aria-pressed="true"] { background: var(--text); color: var(--grund); border-color: var(--text); }
+    .bereichwahl { margin: 4px 0 10px; gap: 6px; }
+    .bereichwahl .chip { padding: 4px 10px; font-size: .85rem; }
+    .bereichwahl .chip::before { content: none; }
+    .bereichwahl .chip .punkt { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; vertical-align: 0; }
+    .themen { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 2px 14px; max-height: 300px; overflow: auto; padding: 6px 2px; border-top: 1px solid var(--linie); border-bottom: 1px solid var(--linie); }
+    .themen label { display: flex; gap: 8px; align-items: flex-start; font-size: .9rem; padding: 4px 2px; cursor: pointer; min-width: 0; }
+    .themen label span { min-width: 0; overflow-wrap: anywhere; }
+    .themen label small { color: var(--leise); display: block; font-size: .78rem; }
+    .themen input { margin-top: 3px; accent-color: var(--text); }
+    .zahl-gewaehlt { color: var(--leise); font-size: .9rem; }
+    .suche { padding: 7px 10px; border: 1.5px solid var(--linie); border-radius: var(--rund-klein); background: var(--flaeche); color: var(--text); font: inherit; min-width: 0; flex: 1 1 200px; }
+    .karte { border-left: 5px solid var(--leise); background: var(--flaeche2); border-radius: var(--rund-klein); padding: 14px 16px; margin-top: 4px; }
+    .karte .thema { font-size: .85rem; color: var(--leise); display: flex; flex-wrap: wrap; gap: 4px 12px; justify-content: space-between; }
+    .karte .thema a { color: inherit; }
+    .karte h3 { margin: 6px 0 10px; font-size: 1.15rem; }
+    .gegeben { list-style: none; margin: 0 0 12px; padding: 0; display: grid; gap: 6px; }
+    .gegeben li { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; }
+    .gegeben .gname { color: var(--leise); font-size: .88rem; }
+    .gegeben .gwert { font-weight: 600; font-family: var(--technik); font-size: 1.05rem; }
+    .gesucht { font-weight: 600; margin: 4px 0 8px; }
+    .antwort { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    .antwort input { width: 160px; max-width: 100%; padding: 9px 10px; border: 1.5px solid var(--text); border-radius: var(--rund-klein); background: var(--flaeche); color: var(--text); font: 600 1.05rem var(--technik); }
+    .antwort .einheit { color: var(--leise); }
+    .rueck { margin-top: 12px; padding: 10px 12px; border-radius: var(--rund-klein); font-weight: 600; }
+    .rueck.gut { background: var(--ergebnis-flaeche); color: var(--ergebnis); }
+    .rueck.schlecht { background: var(--fehler-flaeche); color: var(--fehler); }
+    .rueck.info { background: var(--achtung-flaeche); color: var(--text); }
+    .rueck small { display: block; font-weight: 400; color: var(--text); margin-top: 3px; }
+    .loesung { margin-top: 12px; }
+    .loesung[hidden] { display: none; }
+    .stand { display: flex; flex-wrap: wrap; gap: 8px 18px; color: var(--leise); font-size: .9rem; margin-top: 14px; }
+    .stand b { color: var(--text); font-family: var(--technik); font-size: 1.05rem; }
+    .balken { height: 6px; background: var(--linie); border-radius: 3px; overflow: hidden; margin-top: 8px; }
+    .balken i { display: block; height: 100%; background: var(--ergebnis); width: 0; transition: width .3s; }
+    .formelkarte { min-height: 170px; display: flex; flex-direction: column; justify-content: space-between; }
+    .formelkarte .rueckseite { margin: 10px 0; }
+    .formelkarte .rueckseite[hidden] { display: none; }
+    .sammlung-thema { margin-top: 18px; }
+    .sammlung-thema h3 { margin: 0 0 4px; font-size: 1.05rem; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+    .sammlung-thema h3 small { font-weight: 400; color: var(--leise); font-size: .82rem; }
+    .sammlung-thema .eintrag { padding: 6px 0; border-bottom: 1px solid var(--linie); }
+    .sammlung-thema .eintrag .ename { font-size: .9rem; font-weight: 600; }
+    .sammlung-thema .eintrag p { margin: 2px 0 0; color: var(--leise); font-size: .85rem; }
+    .hinweis-klein { color: var(--leise); font-size: .88rem; }
+    .formel-text { font-family: var(--technik); font-size: 1rem; line-height: 1.5; }
+    .warte { color: var(--leise); padding: 20px 0; }
+    #lade-rahmen { position: absolute; left: -10000px; top: 0; width: 1000px; height: 800px; overflow: hidden; visibility: hidden; }
+    #lade-rahmen iframe { width: 1000px; height: 800px; border: 0; }
+    @media print { .modi, .leiste, #themen-tafel, .antwort, .stand { display: none !important; } }
+  </style>
+</head>
+<body>
+  <div id="seitenkopf" data-wurzel=""></div>
+
+  <main class="seite" id="inhalt">
+    <section class="held">
+      <h1><span class="unterstrichen">Lernen</span></h1>
+      <p>Alle Formeln der Sammlung zum Üben: Aufgaben mit zufälligen Werten, Formelkarten zum Abfragen und die ganze Formelsammlung. Bereiche und Themen frei wählen – der Rechner hilft hier nicht, erst nach dem Prüfen gibt es den Lösungsweg.</p>
+    </section>
+
+    <section class="tafel abstand" id="themen-tafel" aria-labelledby="h-themen">
+      <h2 id="h-themen">Themen</h2>
+      <p class="hilfe">Bereiche antippen und einzelne Themen an- oder abwählen. Die Auswahl wird auf diesem Gerät gemerkt.</p>
+      <div class="chips bereichwahl" id="bereiche" role="group" aria-label="Bereiche"></div>
+      <div class="leiste">
+        <input type="search" class="suche" id="themen-suche" placeholder="Thema suchen …" aria-label="Thema suchen" data-nicht-merken>
+        <button type="button" class="knopf" id="alle">Alle</button>
+        <button type="button" class="knopf" id="keine">Keine</button>
+        <span class="zahl-gewaehlt" id="zahl-gewaehlt"></span>
+      </div>
+      <div class="themen" id="themen" aria-label="Themen"></div>
+    </section>
+
+    <section class="tafel abstand" aria-labelledby="h-ueben">
+      <h2 id="h-ueben">Üben</h2>
+      <div class="modi" role="group" aria-label="Art des Übens">
+        <button type="button" class="knopf" data-modus="aufgaben" aria-pressed="true">Aufgaben</button>
+        <button type="button" class="knopf" data-modus="karten" aria-pressed="false">Formelkarten</button>
+        <button type="button" class="knopf" data-modus="sammlung" aria-pressed="false">Formelsammlung</button>
+      </div>
+
+      <div id="p-aufgaben">
+        <div class="leiste stufen" role="group" aria-label="Schwierigkeit">
+          <span class="hinweis-klein">Schwierigkeit:</span>
+          <button type="button" class="knopf" data-stufe="leicht" aria-pressed="false" title="eine Formel, gesucht ist das Ergebnis">Leicht</button>
+          <button type="button" class="knopf" data-stufe="mittel" aria-pressed="true" title="eine Formel, nach jeder Größe umstellen">Mittel</button>
+          <button type="button" class="knopf" data-stufe="schwer" aria-pressed="false" title="mehrere Formeln nacheinander">Schwer</button>
+        </div>
+        <div id="aufgabe" aria-live="polite"><p class="warte">Aufgabe wird vorbereitet …</p></div>
+        <div class="stand" id="stand"></div>
+      </div>
+
+      <div id="p-karten" hidden>
+        <div id="karte" aria-live="polite"><p class="warte">Formeln werden geladen …</p></div>
+      </div>
+
+      <div id="p-sammlung" hidden>
+        <div class="leiste"><input type="search" class="suche" id="sammlung-suche" placeholder="In den Formeln suchen …" aria-label="In den Formeln suchen" data-nicht-merken></div>
+        <div class="balken" id="sammlung-balken" hidden><i></i></div>
+        <div id="sammlung"></div>
+      </div>
+    </section>
+    <div id="lade-rahmen" aria-hidden="true"></div>
+  </main>
+
+  <div id="seitenfuss" data-wurzel=""></div>
+
+  <script src="assets/katex/katex.min.js"></script>
+  <script>
+  (function () {
+    'use strict';
+
+    // ---------- Speicher (immer mit try, die Seite läuft auch ohne) ----------
+    const lies = function (k, standard) { try { const v = JSON.parse(localStorage.getItem(k)); return v === null || v === undefined ? standard : v; } catch (x) { return standard; } };
+    const schreib = function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (x) { /* egal */ } };
+    const S_WAHL = 'lernen-auswahl', S_STAND = 'lernen-stand', S_CACHE = 'lernen-formeln', S_STUFE = 'lernen-stufe';
+
+    // ---------- Hilfen ----------
+    const el = function (tag, klasse, text) { const e = document.createElement(tag); if (klasse) e.className = klasse; if (text !== undefined) e.textContent = text; return e; };
+    const zahl = function (v, stellen) {
+      if (!isFinite(v)) return '–';
+      if (v === 0) return '0';
+      const st = stellen || 4, a = Math.abs(v), mag = Math.floor(Math.log10(a));
+      let dez = Math.max(0, st - 1 - mag); if (dez > 6) dez = 6;
+      let s = (Math.round(v * Math.pow(10, dez)) / Math.pow(10, dez)).toFixed(dez);
+      if (s.indexOf('.') >= 0) s = s.replace(/0+$/, '').replace(/\.$/, '');
+      const teile = s.split('.'); teile[0] = teile[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+      return teile.join(',');
+    };
+    const rundeSig = function (v, st) { if (!isFinite(v) || v === 0) return v; const p = Math.pow(10, st - 1 - Math.floor(Math.log10(Math.abs(v)))); return Math.round(v * p) / p; };
+    const parse = function (t) {
+      let s = String(t).trim().replace(/[\s  ]/g, '').replace(/−/g, '-');
+      if (!s) return NaN;
+      if (s.indexOf(',') >= 0) s = s.replace(/\./g, '').replace(',', '.');
+      if (!/^[-+]?\d*\.?\d+(e[-+]?\d+)?$/i.test(s)) return NaN;
+      return parseFloat(s);
+    };
+    const zufall = function (liste) { return liste[Math.floor(Math.random() * liste.length)]; };
+    const formel = function (ziel, tex, block, text) { if (text) { ziel.textContent = tex; ziel.classList.add('formel-text'); return; } try { Formel.setze(ziel, tex, block); } catch (x) { ziel.textContent = tex; } };
+
+    // ---------- Themenliste aus der Startseite ----------
+    let themen = [], bereichFarbe = {}, gewaehlt = lies(S_WAHL, null);
+    function themenLaden() {
+      return fetch('index.html').then(function (a) { return a.text(); }).then(function (html) {
+        const i = html.indexOf('const eintraege = ['), j = html.indexOf('\n    ];', i), b = html.indexOf('const BEREICHE = {'), c = html.indexOf('};', b);
+        if (i < 0 || j < 0) throw new Error('Liste nicht gefunden');
+        const liste = new Function('return ' + html.slice(i + 'const eintraege = '.length, j + 6))();
+        bereichFarbe = b >= 0 ? new Function('return ' + html.slice(b + 'const BEREICHE = '.length, c + 1))() : {};
+        themen = liste.filter(function (x) { return x && typeof x.pfad === 'string' && /^[a-z0-9-]+\/[a-z0-9-]+\.html$/.test(x.pfad); })
+          .map(function (x) { return { pfad: x.pfad, titel: String(x.titel || x.pfad), bereich: String(x.bereich || ''), gruppe: String(x.gruppe || '') }; });
+      });
+    }
+    const thema = function (pfad) { return themen.filter(function (t) { return t.pfad === pfad; })[0]; };
+    const farbe = function (b) { return /^#[0-9a-f]{6}$/i.test(bereichFarbe[b] || '') ? bereichFarbe[b] : 'var(--leise)'; };
+
+    function auswahlZeigen() {
+      const bereiche = []; themen.forEach(function (t) { if (bereiche.indexOf(t.bereich) < 0) bereiche.push(t.bereich); });
+      const bz = document.getElementById('bereiche'); bz.innerHTML = '';
+      bereiche.forEach(function (b) {
+        const alle = themen.filter(function (t) { return t.bereich === b; }), an = alle.filter(function (t) { return gewaehlt.indexOf(t.pfad) >= 0; }).length;
+        const k = el('button', 'chip'); k.type = 'button'; k.setAttribute('aria-pressed', an === alle.length ? 'true' : 'false');
+        const p = el('span', 'punkt'); p.style.background = farbe(b); k.append(p, document.createTextNode(b + ' ' + an + '/' + alle.length));
+        k.addEventListener('click', function () {
+          const voll = an === alle.length;
+          alle.forEach(function (t) { const i = gewaehlt.indexOf(t.pfad); if (voll && i >= 0) gewaehlt.splice(i, 1); if (!voll && i < 0) gewaehlt.push(t.pfad); });
+          wahlGeaendert();
+        });
+        bz.append(k);
+      });
+      const such = document.getElementById('themen-suche').value.trim().toLowerCase();
+      const tz = document.getElementById('themen'); tz.innerHTML = '';
+      themen.forEach(function (t) {
+        if (such && (t.titel + ' ' + t.bereich + ' ' + t.gruppe).toLowerCase().indexOf(such) < 0) return;
+        const l = el('label'), c = el('input'); c.type = 'checkbox'; c.checked = gewaehlt.indexOf(t.pfad) >= 0; c.setAttribute('data-nicht-merken', '');
+        c.addEventListener('change', function () { const i = gewaehlt.indexOf(t.pfad); if (c.checked && i < 0) gewaehlt.push(t.pfad); if (!c.checked && i >= 0) gewaehlt.splice(i, 1); wahlGeaendert(); });
+        const s = el('span', '', t.titel); const sm = el('small', '', t.bereich + (formelCache.seiten[t.pfad] ? !formelCache.seiten[t.pfad].formeln.length ? ' · keine Formeln' : formelCache.seiten[t.pfad].aufgaben ? ' · Aufgaben' : ' · nur Formeln' : '')); s.append(sm);
+        l.append(c, s); tz.append(l);
+      });
+      document.getElementById('zahl-gewaehlt').textContent = gewaehlt.length + ' von ' + themen.length + ' Themen gewählt';
+    }
+    function wahlGeaendert() { schreib(S_WAHL, gewaehlt); auswahlZeigen(); kartenStapel = null; if (modus === 'aufgaben' && !aktuelle) neueAufgabe(); if (modus === 'karten') naechsteKarte(); if (modus === 'sammlung') sammlungZeigen(); }
+
+    // ---------- Seiten im Hintergrund laden und Formeln und Löser auslesen ----------
+    let formelCache = { stand: '', seiten: {} };
+    const rahmen = {}, wartend = {};
+    function lade(pfad) {
+      if (wartend[pfad]) return wartend[pfad];
+      wartend[pfad] = new Promise(function (ok, fehler) {
+        const f = document.createElement('iframe'); f.title = 'Hintergrund: ' + pfad; f.tabIndex = -1; f.setAttribute('aria-hidden', 'true');
+        let fertig = false;
+        const zeit = setTimeout(function () { if (!fertig) { fertig = true; f.remove(); delete wartend[pfad]; fehler(new Error('Zeitüberschreitung')); } }, 20000);
+        f.addEventListener('load', function () {
+          setTimeout(function () {
+            if (fertig) return; fertig = true; clearTimeout(zeit);
+            let w, d;
+            try { w = f.contentWindow; d = f.contentDocument; if (!d) throw new Error('kein Zugriff'); } catch (x) { f.remove(); delete wartend[pfad]; fehler(x); return; }
+            const k = w.Rechner && w.Rechner.konfig, lo = k && k.loeser && k.loeser.gleichungen && k.loeser.gleichungen.length ? k.loeser : null;
+            let formeln = [];
+            if (k && k.sammlung && k.sammlung.length) formeln = k.sammlung.map(function (x) { return [String(x[0] || ''), String(x[1] || ''), String(x[2] || '')]; });
+            else {
+              const bloecke = d.querySelectorAll('.formelsammlung [data-formel], #formelsammlung [data-formel], #sammlung [data-formel]');
+              const gesehen = [];
+              Array.prototype.forEach.call(bloecke, function (b) {
+                const tex = (b.getAttribute('data-formel') || '').trim(); if (!tex || tex.length < 3 || gesehen.indexOf(tex) >= 0) return; gesehen.push(tex);
+                const sek = b.closest('section, li, .eintrag, details') || b.parentNode, h = sek && sek.querySelector('h3, h4, .titel, strong, summary');
+                let hinweis = ''; const nachbar = b.nextElementSibling; if (nachbar && nachbar.tagName === 'P') hinweis = nachbar.textContent.trim();
+                formeln.push([(b.title || (h ? h.textContent : '') || '').trim(), tex, hinweis]);
+              });
+              if (!formeln.length) Array.prototype.forEach.call(d.querySelectorAll('.formelsammlung section'), function (sek) {
+                const h = sek.querySelector('h3'), p = sek.querySelector('p'); if (h && p && p.textContent.trim()) formeln.push([h.textContent.trim(), p.textContent.trim().replace(/\s+/g, ' '), '', 1]);
+              });
+            }
+            formelCache.seiten[pfad] = { formeln: formeln.slice(0, 60), aufgaben: !!lo };
+            schreib(S_CACHE, formelCache);
+            if (lo) { f.style.display = 'none'; rahmen[pfad] = f; } else f.remove();
+            ok({ loeser: lo, formeln: formelCache.seiten[pfad].formeln });
+          }, 350);
+        });
+        f.src = pfad;
+        document.getElementById('lade-rahmen').append(f);
+      });
+      return wartend[pfad];
+    }
+
+    // ---------- Aufgaben aus dem Löser einer Seite ----------
+    const feld = function (lo, k) { return lo.felder.filter(function (f) { return f.k === k; })[0] || { k: k, tex: k, name: k, e: '' }; };
+    const imBereich = function (f, v) { return isFinite(v) && (!(isFinite(f.min)) || v >= f.min - 1e-9) && (!(isFinite(f.max)) || v <= f.max + 1e-9); };
+    function weiterRechnen(lo, start) {
+      const q = {}, schritte = [], tiefe = {};
+      Object.keys(start).forEach(function (k) { q[k] = start[k]; tiefe[k] = 0; });
+      for (let runde = 0; runde < 15; runde++) {
+        let neu = false;
+        lo.gleichungen.forEach(function (g) {
+          const offen = g.v.filter(function (k) { return !(k in q); });
+          if (offen.length !== 1 || !g.loese || !g.loese[offen[0]]) return;
+          let v; try { v = g.loese[offen[0]](q); } catch (x) { v = NaN; }
+          if (!isFinite(v)) return;
+          const k = offen[0]; q[k] = v; tiefe[k] = 1 + Math.max.apply(null, g.v.filter(function (x) { return x !== k; }).map(function (x) { return tiefe[x] || 0; }));
+          schritte.push({ g: g, k: k }); neu = true;
+        });
+        if (!neu) break;
+      }
+      return { q: q, schritte: schritte, tiefe: tiefe };
+    }
+    function wuerfle(f, v, stufe) {
+      if (!isFinite(v) || v === 0 || f.fest || (/frequenz/i.test(f.name || '') && (v === 50 || v === 60))) return v;
+      const lo = isFinite(f.min) ? f.min : -Infinity, hi = isFinite(f.max) ? f.max : Infinity;
+      let w;
+      if (v > 0 && lo >= 0 && (hi / Math.max(lo, 1e-9) > 40 || !isFinite(hi))) w = v * Math.exp((Math.random() * 2 - 1) * 0.55);
+      else { const span = isFinite(hi - lo) ? hi - lo : Math.abs(v) * 2; w = v + (Math.random() - 0.5) * 0.3 * Math.min(span, Math.abs(v) * 2 || span); }
+      const rand = isFinite(hi - lo) ? Math.min((hi - lo) * 0.02, Math.abs(v) * 0.05) : 0; w = Math.min(hi - rand, Math.max(lo + rand, w));
+      w = rundeSig(w, stufe === 'schwer' ? 3 : 2);
+      if (f.n === 0 || (Math.abs(v) >= 10 && v % 1 === 0 && Math.abs(w) >= 10)) w = Math.round(w);
+      if (!imBereich(f, w)) w = v;
+      return w;
+    }
+    function aufgabeAus(lo, stufe) {
+      const basis = lo.beispiel || {};
+      for (let versuch = 0; versuch < 60; versuch++) {
+        const start = {};
+        Object.keys(basis).forEach(function (k) { start[k] = versuch < 50 ? wuerfle(feld(lo, k), basis[k], stufe) : basis[k]; });
+        const rr = weiterRechnen(lo, start), q = rr.q;
+        let ziel, gegeben = [], weg = [], antwort;
+        if (stufe === 'schwer') {
+          const tief = rr.schritte.filter(function (s) { return rr.tiefe[s.k] >= 2; });
+          if (tief.length) {
+            const s = zufall(tief); ziel = s.k;
+            // Abhängigkeiten zurückverfolgen
+            const noetig = [ziel], blaetter = [], kette = [];
+            for (let i = 0; i < noetig.length; i++) {
+              const k = noetig[i], st = rr.schritte.filter(function (x) { return x.k === k; })[0];
+              if (!st) { if (blaetter.indexOf(k) < 0) blaetter.push(k); continue; }
+              kette.unshift(st); st.g.v.forEach(function (x) { if (x !== k && noetig.indexOf(x) < 0) noetig.push(x); });
+            }
+            const reihe = rr.schritte.filter(function (x) { return kette.indexOf(x) >= 0; });
+            gegeben = blaetter.map(function (k) { return [k, q[k]]; }); antwort = q[ziel];
+            weg = reihe.map(function (x) { return [x.g.name || '', wegTex(x.g, x.k, q)]; });
+            if (gegeben.length && imBereich(feld(lo, ziel), antwort) && Math.abs(antwort) > 1e-12) return { ziel: ziel, gegeben: gegeben, antwort: antwort, weg: weg, gleichung: reihe.map(function (x) { return x.g.name; }).join(' → ') };
+            continue;
+          }
+        }
+        const voll = lo.gleichungen.filter(function (g) { return g.loese && g.v.every(function (k) { return k in q; }); });
+        if (!voll.length) continue;
+        const g = zufall(voll), loesbar = g.v.filter(function (k) { return g.loese[k]; });
+        if (!loesbar.length) continue;
+        const ausgerechnet = loesbar.filter(function (k) { return !(k in basis); });
+        ziel = stufe === 'leicht' && ausgerechnet.length ? zufall(ausgerechnet) : zufall(loesbar);
+        const qg = {};
+        g.v.forEach(function (k) { if (k !== ziel) { const f = feld(lo, k); let w = k in start ? q[k] : rundeSig(q[k], 3); if (f.n === 0 && Math.abs(w) >= 10) w = Math.round(w); qg[k] = w; gegeben.push([k, w]); } });
+        try { antwort = g.loese[ziel](qg); } catch (x) { antwort = NaN; }
+        if (!imBereich(feld(lo, ziel), antwort) || Math.abs(antwort) < 1e-12) continue;
+        if (gegeben.some(function (x) { return !imBereich(feld(lo, x[0]), x[1]); })) continue;
+        qg[ziel] = antwort;
+        return { ziel: ziel, gegeben: gegeben, antwort: antwort, weg: [[g.name || '', wegTex(g, ziel, qg)]], gleichung: g.name || '' };
+      }
+      return null;
+    }
+    function wegTex(g, k, q) {
+      let t = ''; try { t = g.weg ? g.weg(k, q) : ''; } catch (x) { t = ''; }
+      return t || (k + ' = ' + zahl(q[k]).replace(/ /g, '\\,'));
+    }
+
+    // ---------- Aufgaben anzeigen ----------
+    let stufe = lies(S_STUFE, 'mittel'), aktuelle = null, stand = lies(S_STAND, { richtig: 0, gesamt: 0, serie: 0, beste: 0, themen: {} });
+    if (['leicht', 'mittel', 'schwer'].indexOf(stufe) < 0) stufe = 'mittel';
+    if (!stand || typeof stand !== 'object' || !isFinite(stand.gesamt)) stand = { richtig: 0, gesamt: 0, serie: 0, beste: 0, themen: {} };
+    let laufNr = 0;
+    function neueAufgabe() {
+      const nr = ++laufNr, box = document.getElementById('aufgabe');
+      aktuelle = null;
+      if (!gewaehlt.length) { box.innerHTML = ''; box.append(el('p', 'warte', 'Oben mindestens ein Thema wählen.')); return; }
+      box.innerHTML = ''; box.append(el('p', 'warte', 'Aufgabe wird vorbereitet …'));
+      const kandidaten = gewaehlt.filter(function (p) { return !formelCache.seiten[p] || formelCache.seiten[p].aufgaben; });
+      if (!kandidaten.length) { box.innerHTML = ''; box.append(el('p', 'warte', 'Die gewählten Themen haben nur Formeln, aber keine Aufgaben. Die Formelkarten und die Formelsammlung gehen trotzdem.')); return; }
+      let versuche = 0;
+      (function probiere() {
+        if (nr !== laufNr) return;
+        if (++versuche > 8) { box.innerHTML = ''; box.append(el('p', 'warte', 'Gerade ließ sich keine Aufgabe bilden. Bitte andere Themen wählen.')); return; }
+        const pool = kandidaten.filter(function (p) { return !formelCache.seiten[p] || formelCache.seiten[p].aufgaben; }), pfad = zufall(pool.length ? pool : kandidaten);
+        lade(pfad).then(function (d) {
+          if (nr !== laufNr) return;
+          if (!d.loeser) { auswahlZeigen(); probiere(); return; }
+          const a = aufgabeAus(d.loeser, stufe);
+          if (!a) { probiere(); return; }
+          a.pfad = pfad; a.lo = d.loeser; aktuelle = a; aufgabeZeigen();
+        }).catch(function (x) {
+          if (nr !== laufNr) return;
+          if (location.protocol === 'file:') { box.innerHTML = ''; box.append(el('p', 'warte', 'Der Lernbereich liest die Formeln aus den Rechnerseiten. Das geht nur, wenn die Sammlung über das Netz geöffnet wird (oder offline aus dem App-Speicher), nicht als lokale Datei.')); return; }
+          probiere();
+        });
+      })();
+    }
+    function aufgabeZeigen() {
+      const a = aktuelle, lo = a.lo, t = thema(a.pfad) || { titel: a.pfad, bereich: '' }, box = document.getElementById('aufgabe'), zf = feld(lo, a.ziel);
+      box.innerHTML = '';
+      const k = el('div', 'karte'); k.style.borderLeftColor = farbe(t.bereich);
+      const kopf = el('div', 'thema'); const link = el('a', '', t.titel); link.href = a.pfad; kopf.append(link, el('span', '', t.bereich + (a.gleichung ? ' · ' + a.gleichung : '')));
+      k.append(kopf, el('h3', '', 'Gegeben'));
+      const ul = el('ul', 'gegeben');
+      a.gegeben.forEach(function (x) {
+        const f = feld(lo, x[0]), li = el('li'), sym = el('span'); formel(sym, f.tex || x[0], false);
+        li.append(sym, el('span', 'gwert', '= ' + zahl(x[1]) + (f.e ? ' ' + f.e : '')), el('span', 'gname', f.name || ''));
+        ul.append(li);
+      });
+      k.append(ul);
+      const ges = el('p', 'gesucht'), sym = el('span'); formel(sym, zf.tex || a.ziel, false);
+      ges.append(document.createTextNode('Gesucht: ' + (zf.name || a.ziel) + ' '), sym);
+      k.append(ges);
+      const form = el('form', 'antwort'); form.setAttribute('autocomplete', 'off');
+      const inp = el('input'); inp.type = 'text'; inp.inputMode = 'decimal'; inp.setAttribute('aria-label', 'Lösung: ' + (zf.name || a.ziel)); inp.setAttribute('data-nicht-merken', ''); inp.placeholder = 'Ergebnis';
+      const pruef = el('button', 'knopf-haupt', 'Prüfen'); pruef.type = 'submit';
+      const zeig = el('button', 'knopf', 'Lösung zeigen'); zeig.type = 'button';
+      const neu = el('button', 'knopf', 'Neue Aufgabe'); neu.type = 'button';
+      form.append(inp, el('span', 'einheit', zf.e || ''), pruef, zeig, neu);
+      k.append(form);
+      const rueck = el('div'); k.append(rueck);
+      const loes = el('div', 'loesung'); loes.hidden = true;
+      const ol = el('ol', 'weg');
+      a.weg.forEach(function (w) { const li = el('li'); if (w[0]) li.append(el('div', 'titel', w[0])); const r = el('div', 'rechnung'); formel(r, w[1], false); li.append(r); ol.append(li); });
+      loes.append(el('h3', '', 'Lösungsweg'), ol, el('p', 'hinweis-klein', 'Ergebnis: ' + zahl(a.antwort) + (zf.e ? ' ' + zf.e : '') + ' – '));
+      const zumRechner = el('a', '', 'im Rechner nachvollziehen'); zumRechner.href = a.pfad; loes.lastChild.append(zumRechner);
+      k.append(loes);
+      box.append(k);
+      let gewertet = false;
+      form.addEventListener('submit', function (ev) {
+        ev.preventDefault();
+        const u = parse(inp.value); rueck.className = 'rueck'; rueck.innerHTML = '';
+        if (!isFinite(u)) { rueck.classList.add('info'); rueck.textContent = 'Bitte eine Zahl eintragen, zum Beispiel 12,5.'; return; }
+        const soll = a.antwort, fehler = Math.abs(u - soll) / Math.max(Math.abs(soll), 1e-12), grenze = stufe === 'schwer' ? 0.02 : 0.015, ok = fehler <= grenze;
+        if (ok) { rueck.classList.add('gut'); rueck.textContent = 'Richtig! ' + zahl(soll) + (zf.e ? ' ' + zf.e : ''); }
+        else {
+          rueck.classList.add('schlecht'); rueck.textContent = 'Noch nicht richtig.';
+          const verh = u / soll, p10 = Math.round(Math.log10(Math.abs(verh)));
+          let tipp = fehler < 0.1 ? 'Knapp daneben – zu früh gerundet?' : u * soll < 0 ? 'Das Vorzeichen stimmt nicht.' : p10 !== 0 && Math.abs(Math.log10(Math.abs(verh)) - p10) < 0.03 ? 'Um den Faktor ' + zahl(Math.pow(10, Math.abs(p10))) + ' daneben – Einheit prüfen (zum Beispiel W und kW, mm und m).' : u > soll ? 'Zu groß.' : 'Zu klein.';
+          rueck.append(el('small', '', tipp + ' Nochmal versuchen oder den Lösungsweg ansehen.'));
+        }
+        if (!gewertet) {
+          gewertet = true; stand.gesamt++; if (ok) { stand.richtig++; stand.serie++; stand.beste = Math.max(stand.beste, stand.serie); } else stand.serie = 0;
+          const tt = stand.themen[a.pfad] || [0, 0]; tt[1]++; if (ok) tt[0]++; stand.themen[a.pfad] = tt; schreib(S_STAND, stand); standZeigen();
+        }
+        if (ok) { loes.hidden = false; neu.focus(); }
+      });
+      zeig.addEventListener('click', function () { loes.hidden = false; if (!gewertet) { gewertet = true; stand.gesamt++; stand.serie = 0; const tt = stand.themen[a.pfad] || [0, 0]; tt[1]++; stand.themen[a.pfad] = tt; schreib(S_STAND, stand); standZeigen(); } });
+      neu.addEventListener('click', neueAufgabe);
+      if (document.activeElement && document.activeElement.closest && document.activeElement.closest('#p-aufgaben')) inp.focus();
+    }
+    function standZeigen() {
+      const z = document.getElementById('stand'); z.innerHTML = '';
+      const teil = function (t, w) { const s = el('span', '', t + ' '); s.append(el('b', '', w)); z.append(s); };
+      teil('Richtig', stand.richtig + ' von ' + stand.gesamt + (stand.gesamt ? ' (' + Math.round(stand.richtig / stand.gesamt * 100) + ' %)' : ''));
+      teil('Serie', String(stand.serie)); teil('Beste Serie', String(stand.beste));
+      const schwach = Object.keys(stand.themen).filter(function (p) { return stand.themen[p][1] >= 3 && thema(p); }).sort(function (x, y) { return stand.themen[x][0] / stand.themen[x][1] - stand.themen[y][0] / stand.themen[y][1]; })[0];
+      if (schwach && stand.themen[schwach][0] / stand.themen[schwach][1] < 0.7) teil('Üben lohnt bei', thema(schwach).titel);
+      const r = el('button', 'knopf', 'Stand zurücksetzen'); r.type = 'button'; r.addEventListener('click', function () { stand = { richtig: 0, gesamt: 0, serie: 0, beste: 0, themen: {} }; schreib(S_STAND, stand); standZeigen(); }); z.append(r);
+    }
+
+    // ---------- Formelkarten ----------
+    let kartenStapel = null, kartenNr = 0;
+    function alleFormeln(pfade) { const l = []; pfade.forEach(function (p) { const s = formelCache.seiten[p]; if (s) s.formeln.forEach(function (f) { if (f[1]) l.push({ pfad: p, name: f[0], tex: f[1], hinweis: f[2], text: !!f[3] }); }); }); return l; }
+    function vorladen(pfade, fortschritt) {
+      const offen = pfade.filter(function (p) { return !formelCache.seiten[p]; }); let fertig = pfade.length - offen.length;
+      if (fortschritt) fortschritt(fertig, pfade.length);
+      let i = 0;
+      return new Promise(function (ok) {
+        if (!offen.length) { ok(); return; }
+        let aktiv = 0;
+        const weiter = function () {
+          while (aktiv < 3 && i < offen.length) {
+            const p = offen[i++]; aktiv++;
+            lade(p).catch(function () { formelCache.seiten[p] = { formeln: [], aufgaben: false, fehler: true }; }).then(function () { aktiv--; fertig++; if (fortschritt) fortschritt(fertig, pfade.length); if (fertig >= pfade.length) ok(); else weiter(); });
+          }
+        };
+        weiter();
+      });
+    }
+    function naechsteKarte() {
+      const nr = ++kartenNr, box = document.getElementById('karte');
+      if (!gewaehlt.length) { box.innerHTML = ''; box.append(el('p', 'warte', 'Oben mindestens ein Thema wählen.')); return; }
+      if (!kartenStapel) {
+        box.innerHTML = ''; const w = el('p', 'warte', 'Formeln werden geladen …'); box.append(w);
+        vorladen(gewaehlt.slice(), function (a, b) { w.textContent = 'Formeln werden geladen … ' + a + ' von ' + b; }).then(function () {
+          if (nr !== kartenNr) return;
+          kartenStapel = alleFormeln(gewaehlt).sort(function () { return Math.random() - 0.5; });
+          naechsteKarte();
+        });
+        return;
+      }
+      if (!kartenStapel.length) { box.innerHTML = ''; const p = el('p', 'warte', 'Alle Karten gewusst – stark! '); const n = el('button', 'knopf', 'Von vorn'); n.type = 'button'; n.addEventListener('click', function () { kartenStapel = null; naechsteKarte(); }); p.append(n); box.append(p); return; }
+      const c = kartenStapel[0], t = thema(c.pfad) || { titel: c.pfad, bereich: '' };
+      box.innerHTML = '';
+      const k = el('div', 'karte formelkarte'); k.style.borderLeftColor = farbe(t.bereich);
+      const kopf = el('div', 'thema'); const link = el('a', '', t.titel); link.href = c.pfad; kopf.append(link, el('span', '', kartenStapel.length + ' Karten übrig'));
+      const vorn = el('div'); vorn.append(el('h3', '', c.name || 'Formel'));
+      if (c.hinweis) vorn.append(el('p', 'hinweis-klein', c.hinweis));
+      const hinten = el('div', 'rueckseite formelblock'); hinten.hidden = true; formel(hinten, c.tex, true, c.text);
+      const leiste = el('div', 'leiste');
+      const auf = el('button', 'knopf-haupt', 'Aufdecken'); auf.type = 'button';
+      const gut = el('button', 'knopf', 'Gewusst'); gut.type = 'button'; gut.hidden = true;
+      const nochmal = el('button', 'knopf', 'Nochmal'); nochmal.type = 'button'; nochmal.hidden = true;
+      auf.addEventListener('click', function () { hinten.hidden = false; auf.hidden = true; gut.hidden = false; nochmal.hidden = false; gut.focus(); });
+      gut.addEventListener('click', function () { kartenStapel.shift(); naechsteKarte(); });
+      nochmal.addEventListener('click', function () { const x = kartenStapel.shift(); kartenStapel.splice(Math.min(kartenStapel.length, 3 + Math.floor(Math.random() * 4)), 0, x); naechsteKarte(); });
+      leiste.append(auf, gut, nochmal);
+      k.append(kopf, vorn, hinten, leiste); box.append(k);
+    }
+
+    // ---------- Formelsammlung ----------
+    let sammlungNr = 0;
+    function sammlungZeigen() {
+      const nr = ++sammlungNr, box = document.getElementById('sammlung'), balken = document.getElementById('sammlung-balken');
+      if (!gewaehlt.length) { box.innerHTML = ''; box.append(el('p', 'warte', 'Oben mindestens ein Thema wählen.')); return; }
+      balken.hidden = false;
+      vorladen(gewaehlt.slice(), function (a, b) { if (nr === sammlungNr) balken.firstChild.style.width = Math.round(a / b * 100) + '%'; }).then(function () {
+        if (nr !== sammlungNr) return; balken.hidden = true; sammlungFiltern();
+      });
+    }
+    function sammlungFiltern() {
+      const box = document.getElementById('sammlung'), such = document.getElementById('sammlung-suche').value.trim().toLowerCase();
+      box.innerHTML = ''; let anzahl = 0;
+      themen.forEach(function (t) {
+        if (gewaehlt.indexOf(t.pfad) < 0) return;
+        const s = formelCache.seiten[t.pfad]; if (!s || !s.formeln.length) return;
+        const liste = s.formeln.filter(function (f) { return !such || (t.titel + ' ' + f[0] + ' ' + f[2]).toLowerCase().indexOf(such) >= 0; });
+        if (!liste.length) return;
+        const sek = el('section', 'sammlung-thema'), h = el('h3'), a = el('a', '', t.titel); a.href = t.pfad; h.append(a, el('small', '', t.bereich)); h.style.borderLeft = '4px solid ' + farbe(t.bereich); h.style.paddingLeft = '8px'; sek.append(h);
+        liste.forEach(function (f) { const e = el('div', 'eintrag'); if (f[0]) e.append(el('div', 'ename', f[0])); const b = el('div', 'formelblock'); formel(b, f[1], true, f[3]); e.append(b); if (f[2]) e.append(el('p', '', f[2])); sek.append(e); anzahl++; });
+        box.append(sek);
+      });
+      if (!anzahl) box.append(el('p', 'warte', such ? 'Keine Formel passt zur Suche.' : 'Keine Formeln gefunden.'));
+    }
+
+    // ---------- Bedienung ----------
+    let modus = 'aufgaben';
+    Array.prototype.forEach.call(document.querySelectorAll('.modi .knopf'), function (k) {
+      k.addEventListener('click', function () {
+        modus = k.getAttribute('data-modus');
+        Array.prototype.forEach.call(document.querySelectorAll('.modi .knopf'), function (x) { x.setAttribute('aria-pressed', x === k ? 'true' : 'false'); });
+        ['aufgaben', 'karten', 'sammlung'].forEach(function (m) { document.getElementById('p-' + m).hidden = m !== modus; });
+        if (modus === 'aufgaben' && !aktuelle) neueAufgabe();
+        if (modus === 'karten') naechsteKarte();
+        if (modus === 'sammlung') sammlungZeigen();
+      });
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('.stufen .knopf'), function (k) {
+      k.setAttribute('aria-pressed', k.getAttribute('data-stufe') === stufe ? 'true' : 'false');
+      k.addEventListener('click', function () { stufe = k.getAttribute('data-stufe'); schreib(S_STUFE, stufe); Array.prototype.forEach.call(document.querySelectorAll('.stufen .knopf'), function (x) { x.setAttribute('aria-pressed', x === k ? 'true' : 'false'); }); neueAufgabe(); });
+    });
+    document.getElementById('themen-suche').addEventListener('input', auswahlZeigen);
+    document.getElementById('sammlung-suche').addEventListener('input', sammlungFiltern);
+    document.getElementById('alle').addEventListener('click', function () { const such = document.getElementById('themen-suche').value.trim().toLowerCase(); themen.forEach(function (t) { if ((!such || (t.titel + ' ' + t.bereich).toLowerCase().indexOf(such) >= 0) && gewaehlt.indexOf(t.pfad) < 0) gewaehlt.push(t.pfad); }); wahlGeaendert(); });
+    document.getElementById('keine').addEventListener('click', function () { gewaehlt = []; aktuelle = null; wahlGeaendert(); });
+
+    // ---------- Start ----------
+    const standSw = fetch('sw.js').then(function (a) { return a.text(); }).then(function (t) { const m = /STAND\s*=\s*'([^']+)'/.exec(t); return m ? m[1] : ''; }).catch(function () { return ''; });
+    Promise.all([themenLaden(), standSw]).then(function (x) {
+      const c = lies(S_CACHE, null);
+      if (c && c.stand === x[1] && x[1] && c.seiten && typeof c.seiten === 'object') {
+        Object.keys(c.seiten).forEach(function (p) { const s = c.seiten[p]; if (thema(p) && s && Array.isArray(s.formeln)) formelCache.seiten[p] = { formeln: s.formeln.filter(function (f) { return Array.isArray(f) && typeof f[1] === 'string'; }).slice(0, 60).map(function (f) { return [String(f[0] || '').slice(0, 200), String(f[1]).slice(0, 2000), String(f[2] || '').slice(0, 400), f[3] ? 1 : 0]; }), aufgaben: !!s.aufgaben }; });
+      }
+      formelCache.stand = x[1];
+      if (!Array.isArray(gewaehlt)) gewaehlt = themen.map(function (t) { return t.pfad; });
+      gewaehlt = gewaehlt.filter(function (p) { return typeof p === 'string' && thema(p); });
+      auswahlZeigen(); standZeigen(); neueAufgabe();
+    }).catch(function () {
+      document.getElementById('aufgabe').innerHTML = '';
+      document.getElementById('aufgabe').append(el('p', 'warte', location.protocol === 'file:' ? 'Der Lernbereich liest die Formeln aus den Rechnerseiten. Das geht nur, wenn die Sammlung über das Netz geöffnet wird (oder offline aus dem App-Speicher), nicht als lokale Datei.' : 'Die Themenliste ließ sich nicht laden. Bitte die Seite neu laden.'));
+    });
+  })();
+  </script>
+</body>
+</html>
