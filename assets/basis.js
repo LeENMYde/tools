@@ -74,6 +74,8 @@
   window.Formel = {
     setze: function (element, tex, block) {
       if (!window.katex) { element.textContent = tex; return; }
+      element.setAttribute('data-formel', tex);   // Quelle bleibt lesbar (Lernbereich)
+      tex = String(tex).replace(/€/g, 'Euro');   // KaTeX kennt kein Eurozeichen
       try {
         window.katex.render(tex, element, {
           displayMode: !!block, throwOnError: false, strict: 'ignore', output: 'html',
@@ -163,7 +165,8 @@
       '<header class="seitenkopf">' +
         '<a class="marke" href="' + wurzel + 'index.html"><span class="marke-zeichen" aria-hidden="true">∑</span>Formeln &amp; Rechner</a>' +
         '<nav aria-label="Hauptnavigation">' +
-          '<a href="' + wurzel + 'index.html"' + (hier === 'start' ? ' aria-current="page"' : '') + '>Übersicht</a>' +
+          '<a class="optional" href="' + wurzel + 'index.html"' + (hier === 'start' ? ' aria-current="page"' : '') + '>Übersicht</a>' +
+          '<a href="' + wurzel + 'lernen.html"' + (/lernen\.html$/.test(location.pathname) ? ' aria-current="page"' : '') + '>Lernen</a>' +
           '<a class="optional" href="' + wurzel + 'index.html#bereiche">Bereiche</a>' +
           '<a class="optional" href="' + wurzel + 'projektmappe.html"' + (/projektmappe\.html$/.test(location.pathname) ? ' aria-current="page"' : '') + '>Projekte</a>' +
           '<button type="button" class="installieren" hidden>App installieren</button>' +

@@ -60,6 +60,7 @@
   let zaehler = 0;
 
   function seite(K) {
+    window.Rechner.konfig = K;   // für den Lernbereich: Löser und Formelsammlung auslesbar
     const haupt = document.querySelector('main[data-rechner]') || document.querySelector('main');
     haupt.classList.add('seite');
     haupt.setAttribute('data-merken', '');
